@@ -1,4 +1,4 @@
-#SpaceAttack remake in libGDX. 
+# SpaceAttack remake in libGDX. 
 
 Original game made in Processing: https://github.com/zagorskitomasz/SpaceAttack 
 
