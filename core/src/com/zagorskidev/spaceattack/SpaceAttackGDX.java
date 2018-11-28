@@ -15,13 +15,13 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	@Override
 	public void create()
 	{
-		factory = createStageFactory();
+		factory = getStageFactory();
 		stage = factory.getStage(Stages.MAIN_MENU);
 	}
 
-	StageFactory createStageFactory()
+	StageFactory getStageFactory()
 	{
-		return new StageFactory();
+		return StageFactory.INSTANCE;
 	}
 
 	@Override

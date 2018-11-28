@@ -75,7 +75,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         
         testCompile "junit:junit:4.12"
-    	testCompile "org.mockito:mockito-core:2.2.7"
+    	testCompile group: 'org.mockito', name: 'mockito-inline', version: '2.9.0' 
     }
 }
 

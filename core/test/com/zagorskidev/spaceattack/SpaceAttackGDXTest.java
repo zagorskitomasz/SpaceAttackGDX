@@ -53,7 +53,7 @@ public class SpaceAttackGDXTest
 	void spyGame()
 	{
 		game = spy(new SpaceAttackGDX());
-		when(game.createStageFactory()).thenReturn(factory);
+		when(game.getStageFactory()).thenReturn(factory);
 		doNothing().when(game).clearScreen();
 		doReturn(30f).when(game).getDeltaTime();
 	}
