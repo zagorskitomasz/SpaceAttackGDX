@@ -30,4 +30,16 @@ public class StageFactoryTest
 
 		assertEquals(firstInstance, secondInstance);
 	}
+
+	@Test
+	public void factoryIsSettingStageType() throws InstantiationException,IllegalAccessException
+	{
+		StageFactory factory = Mockito.spy(StageFactory.INSTANCE);
+		MainMenuStage stageMock = Mockito.mock(MainMenuStage.class);
+		Mockito.doReturn(stageMock).when(factory).createInstance(ArgumentMatchers.eq(Stages.MAIN_MENU.getStageClass()));
+
+		factory.getStage(Stages.MAIN_MENU);
+
+		Mockito.verify(stageMock).setType(Stages.MAIN_MENU);
+	}
 }

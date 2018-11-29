@@ -27,4 +27,18 @@ public class Mission01Stage extends AbstractStage
 		return null;
 	}
 
+	@Override
+	public void setType(Stages type)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setResult(Stages result)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
 }

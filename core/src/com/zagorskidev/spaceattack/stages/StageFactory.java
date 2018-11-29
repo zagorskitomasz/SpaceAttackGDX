@@ -10,7 +10,9 @@ public enum StageFactory
 		{
 			Class<? extends IStage> stageClass = type.getStageClass();
 
-			return createInstance(stageClass);
+			IStage stage = createInstance(stageClass);
+			stage.setType(type);
+			return stage;
 		}
 		catch (Exception e)
 		{

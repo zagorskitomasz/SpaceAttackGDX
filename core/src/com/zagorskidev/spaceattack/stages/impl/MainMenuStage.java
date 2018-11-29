@@ -1,30 +1,70 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
-import com.zagorskidev.spaceattack.stages.AbstractStage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.zagorskidev.spaceattack.stages.Stages;
+import com.zagorskidev.spaceattack.stages.UIStage;
+import com.zagorskidev.spaceattack.ui.buttons.ContinueGameButton;
+import com.zagorskidev.spaceattack.ui.buttons.ExitGameButton;
+import com.zagorskidev.spaceattack.ui.buttons.NewGameButton;
 
-public class MainMenuStage extends AbstractStage
+public class MainMenuStage extends UIStage
 {
+	private Stages type;
+	private Stages result;
 
-	@Override
-	public Stages getType()
+	public MainMenuStage()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		init();
+	}
+
+	void init()
+	{
+		addActor(createNewGameButton());
+		addActor(createContinueGameButton());
+		addActor(createExitGameButton());
 	}
 
 	@Override
 	public boolean isCompleted()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return result != null;
 	}
 
 	@Override
 	public Stages getResult()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return result;
 	}
 
+	public void setResult(Stages result)
+	{
+		this.result = result;
+	}
+
+	@Override
+	public Stages getType()
+	{
+		return type;
+	}
+
+	@Override
+	public void setType(Stages type)
+	{
+		this.type = type;
+	}
+
+	Button createNewGameButton()
+	{
+		return new NewGameButton(this);
+	}
+
+	Button createContinueGameButton()
+	{
+		return new ContinueGameButton(this);
+	}
+
+	Button createExitGameButton()
+	{
+		return new ExitGameButton(this);
+	}
 }
