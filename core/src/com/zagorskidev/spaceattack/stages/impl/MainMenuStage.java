@@ -36,6 +36,7 @@ public class MainMenuStage extends UIStage
 		return result;
 	}
 
+	@Override
 	public void setResult(Stages result)
 	{
 		this.result = result;
