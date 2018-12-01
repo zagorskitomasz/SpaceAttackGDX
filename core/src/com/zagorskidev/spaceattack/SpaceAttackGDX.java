@@ -5,7 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageFactory;
+import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
+import com.zagorskidev.spaceattack.system.GameLoader;
 
 public class SpaceAttackGDX extends ApplicationAdapter
 {
@@ -16,7 +18,9 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	public void create()
 	{
 		factory = getStageFactory();
-		stage = factory.getStage(Stages.MAIN_MENU);
+		StageResult defaultResult = new StageResult();
+		stage = factory.getStage(defaultResult);
+		stage.loadGame(GameLoader.INSTANCE);
 	}
 
 	StageFactory getStageFactory()
@@ -39,7 +43,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	{
 		if (stage.isCompleted())
 		{
-			Stages result = stage.getResult();
+			StageResult result = stage.getResult();
 			stage = factory.getStage(result);
 		}
 	}

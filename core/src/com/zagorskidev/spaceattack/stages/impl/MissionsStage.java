@@ -1,7 +1,9 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
 import com.zagorskidev.spaceattack.stages.AbstractStage;
+import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
+import com.zagorskidev.spaceattack.system.GameProgress;
 
 public class MissionsStage extends AbstractStage
 {
@@ -21,7 +23,7 @@ public class MissionsStage extends AbstractStage
 	}
 
 	@Override
-	public Stages getResult()
+	public StageResult getResult()
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -35,7 +37,21 @@ public class MissionsStage extends AbstractStage
 	}
 
 	@Override
-	public void setResult(Stages result)
+	public void setResult(StageResult result)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public GameProgress getGameProgress()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setGameProgress(GameProgress gameProgress)
 	{
 		// TODO Auto-generated method stub
 

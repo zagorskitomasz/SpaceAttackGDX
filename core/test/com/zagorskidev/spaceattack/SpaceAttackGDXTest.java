@@ -12,10 +12,12 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
-import com.zagorskidev.spaceattack.stages.AbstractStage;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageFactory;
+import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
 
 public class SpaceAttackGDXTest
@@ -35,25 +37,25 @@ public class SpaceAttackGDXTest
 
 	void mockStages()
 	{
-		mainMenuStage = mock(AbstractStage.class);
+		mainMenuStage = mock(IStage.class);
 		when(mainMenuStage.getType()).thenReturn(Stages.MAIN_MENU);
 		doNothing().when(mainMenuStage).draw();
 		doNothing().when(mainMenuStage).act(any(Float.class));
 
-		missionsStage = mock(AbstractStage.class);
+		missionsStage = mock(IStage.class);
 		when(missionsStage.getType()).thenReturn(Stages.MISSIONS);
 	}
 
 	void mockFactory()
 	{
 		factory = mock(StageFactory.class);
-		when(factory.getStage(Stages.MAIN_MENU)).thenReturn(mainMenuStage);
+		when(factory.getStage(ArgumentMatchers.any(StageResult.class))).thenReturn(mainMenuStage);
 	}
 
 	void spyGame()
 	{
-		game = spy(new SpaceAttackGDX());
-		when(game.getStageFactory()).thenReturn(factory);
+		game = spy(SpaceAttackGDX.class);
+		doReturn(factory).when(game).getStageFactory();
 		doNothing().when(game).clearScreen();
 		doReturn(30f).when(game).getDeltaTime();
 	}
@@ -66,13 +68,23 @@ public class SpaceAttackGDXTest
 	}
 
 	@Test
+	public void gameIsLoadedOnMainMenu()
+	{
+		game.create();
+		Mockito.verify(mainMenuStage).loadGame(ArgumentMatchers.any());
+	}
+
+	@Test
 	public void stageIsSwitchedToTypeReturnedByPreviousStage()
 	{
 		game.create();
 
+		StageResult result = new StageResult();
+		result.setNextStage(Stages.MISSIONS);
+
 		when(mainMenuStage.isCompleted()).thenReturn(true);
-		when(mainMenuStage.getResult()).thenReturn(Stages.MISSIONS);
-		when(factory.getStage(Stages.MISSIONS)).thenReturn(missionsStage);
+		when(mainMenuStage.getResult()).thenReturn(result);
+		when(factory.getStage(result)).thenReturn(missionsStage);
 
 		game.render();
 		assertEquals(Stages.MISSIONS, game.getCurrentStage());

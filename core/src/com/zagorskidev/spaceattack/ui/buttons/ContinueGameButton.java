@@ -15,5 +15,4 @@ public class ContinueGameButton extends TextButton
 		super(UIStrings.CONTINUE, stage.getSkin(), Consts.DEFAULT);
 		this.stage = stage;
 	}
-
 }

@@ -4,14 +4,15 @@ public enum StageFactory
 {
 	INSTANCE;
 
-	public IStage getStage(Stages type)
+	public IStage getStage(StageResult result)
 	{
 		try
 		{
-			Class<? extends IStage> stageClass = type.getStageClass();
+			Class<? extends IStage> stageClass = result.getNextStage().getStageClass();
 
 			IStage stage = createInstance(stageClass);
-			stage.setType(type);
+			stage.setType(result.getNextStage());
+			stage.setGameProgress(result.getGameProgress());
 			return stage;
 		}
 		catch (Exception e)

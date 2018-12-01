@@ -1,5 +1,7 @@
 package com.zagorskidev.spaceattack.ui.buttons;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -7,6 +9,7 @@ import org.mockito.Mockito;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
+import com.zagorskidev.spaceattack.stages.impl.MainMenuStage;
 import com.zagorskidev.spaceattack.ui.buttons.NewGameButton.NewGameListener;
 
 public class NewGameButtonTest
@@ -28,13 +31,15 @@ public class NewGameButtonTest
 	@Test
 	public void listenerIsSettingResultToMissionsStage()
 	{
-		UIStage stage = Mockito.mock(UIStage.class);
+		MainMenuStage stage = Mockito.mock(MainMenuStage.class);
 		NewGameButton button = Mockito.mock(NewGameButton.class);
 
 		NewGameListener listener = Mockito.spy(button.new NewGameListener());
 		Mockito.doReturn(stage).when(listener).getStage();
+		Mockito.doCallRealMethod().when(stage).setResult(ArgumentMatchers.any());
+		Mockito.doCallRealMethod().when(stage).getResult();
 		listener.clicked(null, 0, 0);
 
-		Mockito.verify(stage).setResult(Stages.MISSIONS);
+		assertEquals(Stages.MISSIONS, stage.getResult().getNextStage());
 	}
 }

@@ -17,7 +17,7 @@ public class StageFactoryTest
 		MainMenuStage stageMock = Mockito.mock(MainMenuStage.class);
 		Mockito.doReturn(stageMock).when(factory).createInstance(ArgumentMatchers.eq(Stages.MAIN_MENU.getStageClass()));
 
-		IStage stageReal = factory.getStage(Stages.MAIN_MENU);
+		IStage stageReal = factory.getStage(new StageResult());
 
 		assertEquals(stageMock, stageReal);
 	}
@@ -38,7 +38,7 @@ public class StageFactoryTest
 		MainMenuStage stageMock = Mockito.mock(MainMenuStage.class);
 		Mockito.doReturn(stageMock).when(factory).createInstance(ArgumentMatchers.eq(Stages.MAIN_MENU.getStageClass()));
 
-		factory.getStage(Stages.MAIN_MENU);
+		factory.getStage(new StageResult());
 
 		Mockito.verify(stageMock).setType(Stages.MAIN_MENU);
 	}

@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.zagorskidev.spaceattack.Consts;
 import com.zagorskidev.spaceattack.UIStrings;
 import com.zagorskidev.spaceattack.stages.IStage;
+import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 
@@ -41,7 +42,9 @@ public class NewGameButton extends TextButton
 		@Override
 		public void clicked(InputEvent event,float x,float y)
 		{
-			getStage().setResult(Stages.MISSIONS);
+			StageResult result = new StageResult();
+			result.setNextStage(Stages.MISSIONS);
+			getStage().setResult(result);
 		}
 
 		IStage getStage()
