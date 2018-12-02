@@ -1,20 +1,16 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.zagorskidev.spaceattack.stages.StageResult;
-import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameLoader;
-import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.ui.buttons.ContinueGameButton;
 import com.zagorskidev.spaceattack.ui.buttons.ExitGameButton;
 import com.zagorskidev.spaceattack.ui.buttons.NewGameButton;
 
 public class MainMenuStage extends UIStage
 {
-	private Stages type;
-	private StageResult result;
-	private GameProgress gameProgress;
+	private Button continueGameButton;
 
 	public MainMenuStage()
 	{
@@ -23,59 +19,22 @@ public class MainMenuStage extends UIStage
 
 	void init()
 	{
+		continueGameButton = createContinueGameButton();
+
 		addActor(createNewGameButton());
-		addActor(createContinueGameButton());
+		addActor(continueGameButton);
 		addActor(createExitGameButton());
-	}
-
-	@Override
-	public boolean isCompleted()
-	{
-		return result != null;
-	}
-
-	@Override
-	public StageResult getResult()
-	{
-		return result;
-	}
-
-	@Override
-	public void setResult(StageResult result)
-	{
-		this.result = result;
-		if (result.getGameProgress() == null)
-			result.setGameProgress(gameProgress);
-	}
-
-	@Override
-	public Stages getType()
-	{
-		return type;
-	}
-
-	@Override
-	public void setType(Stages type)
-	{
-		this.type = type;
-	}
-
-	@Override
-	public GameProgress getGameProgress()
-	{
-		return gameProgress;
-	}
-
-	@Override
-	public void setGameProgress(GameProgress gameProgress)
-	{
-		this.gameProgress = gameProgress;
 	}
 
 	@Override
 	public void loadGame(GameLoader loader)
 	{
 		gameProgress = loader.load(this);
+		if (!loader.fileExists())
+		{
+			continueGameButton.setTouchable(Touchable.disabled);
+			continueGameButton.setDisabled(true);
+		}
 	}
 
 	Button createNewGameButton()

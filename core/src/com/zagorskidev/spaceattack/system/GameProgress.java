@@ -42,4 +42,16 @@ public class GameProgress
 	{
 		this.experience = experience;
 	}
+
+	@Override
+	public boolean equals(Object other)
+	{
+		if (other == null || !(other instanceof GameProgress))
+			return false;
+
+		GameProgress otherProgress = (GameProgress) other;
+
+		return otherProgress.experience == experience && otherProgress.level == level
+				&& otherProgress.mission == mission;
+	}
 }

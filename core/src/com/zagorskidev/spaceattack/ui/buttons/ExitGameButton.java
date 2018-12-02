@@ -1,18 +1,83 @@
 package com.zagorskidev.spaceattack.ui.buttons;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.zagorskidev.spaceattack.Consts;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.zagorskidev.spaceattack.UIStrings;
-import com.zagorskidev.spaceattack.stages.IStage;
+import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.stages.UIStage;
 
 public class ExitGameButton extends TextButton
 {
-	private IStage stage;
+	UIStage stage;
 
 	public ExitGameButton(UIStage stage)
 	{
 		super(UIStrings.EXIT, stage.getSkin(), Consts.DEFAULT);
 		this.stage = stage;
+		init();
+	}
+
+	void init()
+	{
+		setPosition(Consts.GAME_WIDTH * 0.2f, 7 * Consts.BUTTON_HEIGHT);
+		setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT);
+		addListener(createListener());
+	}
+
+	ClickListener createListener()
+	{
+		return new ExitGameListener();
+	}
+
+	class ExitGameListener extends ClickListener
+	{
+		@Override
+		public void clicked(InputEvent event,float x,float y)
+		{
+			confirmExit();
+		}
+
+		void confirmExit()
+		{
+			Dialog dialog = new ConfirmExitDialog("Confirm exit", stage.getSkin(), "Dialog", this);
+			dialog.text("Are you sure you want to quit?");
+			dialog.button("Yes", true);
+			dialog.button("No", false);
+			dialog.key(Keys.ENTER, true);
+			dialog.show(stage);
+		}
+
+		void closeApp()
+		{
+			Gdx.app.exit();
+		}
+	}
+
+	class ConfirmExitDialog extends Dialog
+	{
+		private ExitGameListener listener;
+
+		public ConfirmExitDialog(String title,Skin skin,String windowStyleName,ExitGameListener listener)
+		{
+			super(title, skin, windowStyleName);
+			this.listener = listener;
+		}
+
+		void setListener(ExitGameListener listener)
+		{
+			this.listener = listener;
+		}
+
+		@Override
+		public void result(Object object)
+		{
+			if ((boolean) object)
+				listener.closeApp();
+		}
 	}
 }

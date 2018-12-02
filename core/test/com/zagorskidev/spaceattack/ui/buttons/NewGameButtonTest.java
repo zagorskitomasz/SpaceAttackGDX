@@ -1,45 +1,91 @@
 package com.zagorskidev.spaceattack.ui.buttons;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
-import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.stages.impl.MainMenuStage;
+import com.zagorskidev.spaceattack.system.GameProgress;
+import com.zagorskidev.spaceattack.ui.buttons.NewGameButton.ConfirmNewGameDialog;
 import com.zagorskidev.spaceattack.ui.buttons.NewGameButton.NewGameListener;
 
 public class NewGameButtonTest
 {
-	@Test
-	public void afterTouchResultIsSetToMissionsStage()
+	private MainMenuStage stage;
+	private ConfirmNewGameDialog dialog;
+	private NewGameListener listener;
+	private NewGameButton button;
+
+	private StageResult result;
+
+	@Before
+	public void setUp()
 	{
-		UIStage stage = Mockito.mock(UIStage.class);
-		NewGameButton button = Mockito.mock(NewGameButton.class);
-		Mockito.doCallRealMethod().when(button).init();
-		Mockito.doCallRealMethod().when(button).createListener();
+		stage = mock(MainMenuStage.class);
+		button = mock(NewGameButton.class);
+		listener = spy(button.new NewGameListener());
+		dialog = mock(ConfirmNewGameDialog.class);
 
+		doCallRealMethod().when(button).setStage(stage);
 		button.setStage(stage);
-		button.init();
 
-		Mockito.verify(button).addListener(ArgumentMatchers.any(ClickListener.class));
+		doCallRealMethod().when(dialog).setListener(any());
+		doCallRealMethod().when(dialog).result(any());
+		dialog.setListener(listener);
+		doNothing().when(listener).confirm();
+
+		GameProgress progress = new GameProgress();
+		progress.setExperience(0l);
+		progress.setLevel(1);
+		progress.setMission(1);
+
+		result = new StageResult();
+		result.setNextStage(Stages.MISSIONS);
+		result.setGameProgress(progress);
 	}
 
 	@Test
-	public void listenerIsSettingResultToMissionsStage()
+	public void ifThereIsNoSaveFileStartGame()
 	{
-		MainMenuStage stage = Mockito.mock(MainMenuStage.class);
-		NewGameButton button = Mockito.mock(NewGameButton.class);
-
-		NewGameListener listener = Mockito.spy(button.new NewGameListener());
-		Mockito.doReturn(stage).when(listener).getStage();
-		Mockito.doCallRealMethod().when(stage).setResult(ArgumentMatchers.any());
-		Mockito.doCallRealMethod().when(stage).getResult();
+		doReturn(false).when(listener).isSaveFileExists();
 		listener.clicked(null, 0, 0);
 
-		assertEquals(Stages.MISSIONS, stage.getResult().getNextStage());
+		verify(stage).setResult(eq(result), eq(true));
+	}
+
+	@Test
+	public void ifFileExistsDoConfirm()
+	{
+		doReturn(true).when(listener).isSaveFileExists();
+
+		listener.clicked(null, 0, 0);
+
+	}
+
+	@Test
+	public void confirmedIsSettingResult()
+	{
+		dialog.result(true);
+
+		verify(stage).setResult(eq(result), eq(true));
+	}
+
+	@Test
+	public void notConfirmedIsntSettingResult()
+	{
+		dialog.result(false);
+
+		verify(stage, times(0)).setResult(eq(result), eq(true));
 	}
 }

@@ -1,11 +1,13 @@
 package com.zagorskidev.spaceattack.system;
 
 import java.io.InputStream;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.zagorskidev.spaceattack.Consts;
+import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.stages.IStage;
 
 public enum GameLoader
@@ -15,14 +17,30 @@ public enum GameLoader
 	private FileHandle file;
 	private InputStream fileContent;
 
+	private Lock lock;
+
+	private GameLoader()
+	{
+		lock = new ReentrantLock();
+	}
+
 	public GameProgress load(IStage stage)
 	{
-		loadFromFilesystem();
+		try
+		{
+			lock.lock();
 
-		if (isFileExists())
-			return parse();
+			loadFromFilesystem();
 
-		return new GameProgress();
+			if (fileExists())
+				return parse();
+
+			return new GameProgress();
+		}
+		finally
+		{
+			lock.unlock();
+		}
 	}
 
 	private GameProgress parse()
@@ -38,12 +56,21 @@ public enum GameLoader
 		file = Gdx.files.local(Consts.SAVE_FILE);
 	}
 
-	boolean isFileExists()
+	public boolean fileExists()
 	{
-		if (file == null)
-			loadFromFilesystem();
+		try
+		{
+			lock.lock();
 
-		return file.exists();
+			if (file == null)
+				loadFromFilesystem();
+
+			return file.exists();
+		}
+		finally
+		{
+			lock.unlock();
+		}
 	}
 
 	InputStream readData()

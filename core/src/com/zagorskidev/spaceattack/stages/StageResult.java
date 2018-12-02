@@ -31,4 +31,15 @@ public class StageResult
 	{
 		this.gameProgress = gameProgress;
 	}
+
+	@Override
+	public boolean equals(Object other)
+	{
+		if (other == null || !(other instanceof StageResult))
+			return false;
+
+		StageResult otherResult = (StageResult) other;
+
+		return otherResult.nextStage == nextStage && otherResult.gameProgress.equals(gameProgress);
+	}
 }

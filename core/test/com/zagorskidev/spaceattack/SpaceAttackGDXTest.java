@@ -12,8 +12,6 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageFactory;
@@ -49,7 +47,7 @@ public class SpaceAttackGDXTest
 	void mockFactory()
 	{
 		factory = mock(StageFactory.class);
-		when(factory.getStage(ArgumentMatchers.any(StageResult.class))).thenReturn(mainMenuStage);
+		when(factory.getStage(any(StageResult.class))).thenReturn(mainMenuStage);
 	}
 
 	void spyGame()
@@ -57,6 +55,7 @@ public class SpaceAttackGDXTest
 		game = spy(SpaceAttackGDX.class);
 		doReturn(factory).when(game).getStageFactory();
 		doNothing().when(game).clearScreen();
+		doNothing().when(game).setStageAsInputProcessor();
 		doReturn(30f).when(game).getDeltaTime();
 	}
 
@@ -71,7 +70,7 @@ public class SpaceAttackGDXTest
 	public void gameIsLoadedOnMainMenu()
 	{
 		game.create();
-		Mockito.verify(mainMenuStage).loadGame(ArgumentMatchers.any());
+		verify(mainMenuStage).loadGame(any());
 	}
 
 	@Test

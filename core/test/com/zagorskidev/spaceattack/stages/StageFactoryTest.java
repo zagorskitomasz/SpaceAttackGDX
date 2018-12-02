@@ -1,10 +1,13 @@
 package com.zagorskidev.spaceattack.stages;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
 import com.zagorskidev.spaceattack.stages.impl.MainMenuStage;
 
@@ -13,9 +16,9 @@ public class StageFactoryTest
 	@Test
 	public void factoryIsReturningProperStageInstance() throws InstantiationException,IllegalAccessException
 	{
-		StageFactory factory = Mockito.spy(StageFactory.INSTANCE);
-		MainMenuStage stageMock = Mockito.mock(MainMenuStage.class);
-		Mockito.doReturn(stageMock).when(factory).createInstance(ArgumentMatchers.eq(Stages.MAIN_MENU.getStageClass()));
+		StageFactory factory = spy(StageFactory.INSTANCE);
+		MainMenuStage stageMock = mock(MainMenuStage.class);
+		doReturn(stageMock).when(factory).createInstance(eq(Stages.MAIN_MENU.getStageClass()));
 
 		IStage stageReal = factory.getStage(new StageResult());
 
@@ -34,12 +37,12 @@ public class StageFactoryTest
 	@Test
 	public void factoryIsSettingStageType() throws InstantiationException,IllegalAccessException
 	{
-		StageFactory factory = Mockito.spy(StageFactory.INSTANCE);
-		MainMenuStage stageMock = Mockito.mock(MainMenuStage.class);
-		Mockito.doReturn(stageMock).when(factory).createInstance(ArgumentMatchers.eq(Stages.MAIN_MENU.getStageClass()));
+		StageFactory factory = spy(StageFactory.INSTANCE);
+		MainMenuStage stageMock = mock(MainMenuStage.class);
+		doReturn(stageMock).when(factory).createInstance(eq(Stages.MAIN_MENU.getStageClass()));
 
 		factory.getStage(new StageResult());
 
-		Mockito.verify(stageMock).setType(Stages.MAIN_MENU);
+		verify(stageMock).setType(Stages.MAIN_MENU);
 	}
 }
