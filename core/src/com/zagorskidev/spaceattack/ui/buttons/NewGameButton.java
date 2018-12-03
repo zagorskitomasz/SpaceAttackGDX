@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.zagorskidev.spaceattack.UIStrings;
 import com.zagorskidev.spaceattack.consts.Consts;
+import com.zagorskidev.spaceattack.consts.UIStrings;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
@@ -29,7 +29,7 @@ public class NewGameButton extends TextButton
 
 	void init()
 	{
-		setPosition(Consts.GAME_WIDTH * 0.2f, 12 * Consts.BUTTON_HEIGHT);
+		setPosition(Consts.GAME_WIDTH * 0.2f, 9 * Consts.BUTTON_HEIGHT);
 		setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT);
 		addListener(createListener());
 	}

@@ -1,4 +1,4 @@
-package com.zagorskidev.spaceattack;
+package com.zagorskidev.spaceattack.consts;
 
 public class UIStrings
 {

@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.zagorskidev.spaceattack.consts.Consts;
+import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.stages.IStage;
 
 public enum GameLoader
@@ -53,7 +53,7 @@ public enum GameLoader
 
 	void loadFromFilesystem()
 	{
-		file = Gdx.files.local(Consts.SAVE_FILE);
+		file = Gdx.files.local(Paths.SAVE);
 	}
 
 	public boolean fileExists()

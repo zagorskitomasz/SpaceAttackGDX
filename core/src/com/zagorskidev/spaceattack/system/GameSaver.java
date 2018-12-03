@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.zagorskidev.spaceattack.consts.Consts;
+import com.zagorskidev.spaceattack.consts.Paths;
 
 public enum GameSaver
 {
@@ -30,7 +30,7 @@ public enum GameSaver
 			loadFromFilesystem();
 
 			Json json = new Json();
-			String content = json.toJson(progress);
+			String content = json.toJson(progress, GameProgress.class);
 			writeToFile(content);
 		}
 		finally
@@ -41,7 +41,7 @@ public enum GameSaver
 
 	void loadFromFilesystem()
 	{
-		file = Gdx.files.local(Consts.SAVE_FILE);
+		file = Gdx.files.local(Paths.SAVE);
 	}
 
 	public void writeToFile(String fileContent)
