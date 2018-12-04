@@ -24,7 +24,7 @@ public class ExitGameButton extends TextButton
 
 	void init()
 	{
-		setPosition(Consts.GAME_WIDTH * 0.2f, 2 * Consts.BUTTON_HEIGHT);
+		setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.1f);
 		setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT);
 		addListener(createListener());
 	}
@@ -44,8 +44,8 @@ public class ExitGameButton extends TextButton
 
 		void confirmExit()
 		{
-			Dialog dialog = new ConfirmExitDialog("Confirm exit", stage.getSkin(), "Dialog", this);
-			dialog.text("Are you sure you want to quit?");
+			Dialog dialog = new ConfirmExitDialog("Exit", stage.getSkin(), "Dialog", this);
+			dialog.text("\nExit game?\n");
 			dialog.button("Yes", true);
 			dialog.button("No", false);
 			dialog.key(Keys.ENTER, true);

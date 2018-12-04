@@ -29,7 +29,7 @@ public class NewGameButton extends TextButton
 
 	void init()
 	{
-		setPosition(Consts.GAME_WIDTH * 0.2f, 9 * Consts.BUTTON_HEIGHT);
+		setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.5f);
 		setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT);
 		addListener(createListener());
 	}
@@ -76,8 +76,8 @@ public class NewGameButton extends TextButton
 
 		void confirm()
 		{
-			Dialog dialog = new ConfirmNewGameDialog("Override progress?", stage.getSkin(), "Dialog", this);
-			dialog.text("New game will override your progress.\nContinue?");
+			Dialog dialog = new ConfirmNewGameDialog("New game", stage.getSkin(), "Dialog", this);
+			dialog.text("\nOverride progress?\n");
 			dialog.button("Yes", true);
 			dialog.button("No", false);
 			dialog.key(Keys.ENTER, true);

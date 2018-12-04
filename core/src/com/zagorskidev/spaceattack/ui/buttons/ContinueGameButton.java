@@ -25,7 +25,7 @@ public class ContinueGameButton extends TextButton
 
 	void init()
 	{
-		setPosition(Consts.GAME_WIDTH * 0.2f, 7 * Consts.BUTTON_HEIGHT);
+		setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.38f);
 		setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT);
 		addListener(createListener());
 	}
