@@ -1,18 +1,16 @@
 buildscript {
-    
 
     repositories {
-        mavenLocal()
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
         google()
+        mavenLocal()
     }
+    
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
-        
-
     }
 }
 
@@ -34,6 +32,7 @@ allprojects {
         mavenLocal()
         mavenCentral()
         google()
+        jcenter()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
@@ -70,11 +69,13 @@ project(":android") {
 
 project(":core") {
     apply plugin: "java"
-
+	sourceSets.test.java.srcDirs = ["test/"]
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         
+        testCompile "junit:junit:4.12"
+    	testCompile group: 'org.mockito', name: 'mockito-inline', version: '2.9.0' 
     }
 }
 
