@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.zagorskidev.spaceattack.consts.Paths;
-import com.zagorskidev.spaceattack.graphics.StaticImage;
+import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameLoader;
 import com.zagorskidev.spaceattack.ui.buttons.ContinueGameButton;
@@ -59,6 +59,6 @@ public class MainMenuStage extends UIStage
 
 	Actor createImage(String path,float x,float y)
 	{
-		return new StaticImage(path, x, y);
+		return StaticImageFactory.INSTANCE.create(path, x, y);
 	}
 }
