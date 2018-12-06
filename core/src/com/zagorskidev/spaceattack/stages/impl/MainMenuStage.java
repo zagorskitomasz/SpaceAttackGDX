@@ -25,10 +25,10 @@ public class MainMenuStage extends UIStage
 		continueGameButton = createContinueGameButton();
 
 		addActor(createImage(Paths.MENU_BACKGROUND, 0, 0));
+		addActor(createImage(Paths.LOGO, 0, 30));
 		addActor(createNewGameButton());
 		addActor(continueGameButton);
 		addActor(createExitGameButton());
-		addActor(createImage(Paths.LOGO, 0, 30));
 	}
 
 	@Override
