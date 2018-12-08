@@ -33,12 +33,14 @@ public class NewGameButtonTest
 	public void setUp()
 	{
 		stage = mock(MainMenuStage.class);
-		button = mock(NewGameButton.class);
-		listener = spy(button.new NewGameListener());
-		dialog = mock(ConfirmNewGameDialog.class);
+		doCallRealMethod().when(stage).getGameProgress();
 
+		button = mock(NewGameButton.class);
 		doCallRealMethod().when(button).setStage(stage);
 		button.setStage(stage);
+
+		listener = spy(button.new NewGameListener());
+		dialog = mock(ConfirmNewGameDialog.class);
 
 		doCallRealMethod().when(dialog).setListener(any());
 		doCallRealMethod().when(dialog).result(any());

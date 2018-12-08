@@ -13,12 +13,11 @@ import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.impl.MainMenuStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
-import com.zagorskidev.spaceattack.ui.buttons.ContinueGameButton.ContinueGameListener;
 
 public class ContinueGameButtonTest
 {
 	private MainMenuStage stage;
-	private ContinueGameListener listener;
+	private ChangeStageButtonListener listener;
 	private ContinueGameButton button;
 
 	private StageResult result;
@@ -28,9 +27,10 @@ public class ContinueGameButtonTest
 	{
 		stage = mock(MainMenuStage.class);
 		button = mock(ContinueGameButton.class);
-		listener = spy(button.new ContinueGameListener());
+		listener = spy(new ChangeStageButtonListener(stage, Stages.MISSIONS));
 
 		doCallRealMethod().when(button).setStage(stage);
+		doCallRealMethod().when(stage).getGameProgress();
 		button.setStage(stage);
 
 		GameProgress progress = new GameProgress();

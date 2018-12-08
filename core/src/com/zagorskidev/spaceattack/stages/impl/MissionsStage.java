@@ -7,13 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.consts.Paths;
+import com.zagorskidev.spaceattack.consts.UIStrings;
 import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
-import com.zagorskidev.spaceattack.stages.AbstractStage;
+import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
+import com.zagorskidev.spaceattack.ui.buttons.BackButton;
 import com.zagorskidev.spaceattack.ui.buttons.ChangeActButton;
 import com.zagorskidev.spaceattack.ui.buttons.MissionButton;
 
-public class MissionsStage extends AbstractStage
+public class MissionsStage extends UIStage
 {
 	private int actNumber;
 	private Actor actLogo;
@@ -50,6 +52,8 @@ public class MissionsStage extends AbstractStage
 
 		previousActButton = new ChangeActButton(this, ChangeActButton.Variant.PREV);
 		addActor(previousActButton);
+
+		addActor(new BackButton(this));
 	}
 
 	Actor createImage(String path,float x,float y)
@@ -92,7 +96,7 @@ public class MissionsStage extends AbstractStage
 		for (int i = 0; i < missionsButtons.size(); i++)
 		{
 			TextButton button = missionsButtons.get(i);
-			button.setText("Mission " + calculateMission(i));
+			button.setText(UIStrings.MISSION + calculateMission(i));
 			button.setDisabled(disableMission(i));
 		}
 		nextActButton.setVisible(showNextAct());
