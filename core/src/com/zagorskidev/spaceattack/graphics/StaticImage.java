@@ -12,11 +12,6 @@ public class StaticImage extends Actor
 	private float y;
 	private Texture texture;
 
-	public StaticImage(String path,float x,float y)
-	{
-		init(path, x, y);
-	}
-
 	void init(String path,float x,float y)
 	{
 		texture = createTexture(path);

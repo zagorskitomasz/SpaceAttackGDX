@@ -1,7 +1,7 @@
 package com.zagorskidev.spaceattack.ui.buttons;
 
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -11,40 +11,35 @@ import org.junit.Test;
 
 import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
-import com.zagorskidev.spaceattack.stages.impl.MainMenuStage;
+import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
-import com.zagorskidev.spaceattack.ui.buttons.ContinueGameButton.ContinueGameListener;
 
-public class ContinueGameButtonTest
+public class ChangeStageButtonListenerTest
 {
-	private MainMenuStage stage;
-	private ContinueGameListener listener;
-	private ContinueGameButton button;
-
+	private UIStage stage;
+	private ChangeStageButtonListener listener;
 	private StageResult result;
 
 	@Before
 	public void setUp()
 	{
-		stage = mock(MainMenuStage.class);
-		button = mock(ContinueGameButton.class);
-		listener = spy(button.new ContinueGameListener());
-
-		doCallRealMethod().when(button).setStage(stage);
-		button.setStage(stage);
+		stage = mock(UIStage.class);
+		listener = spy(new ChangeStageButtonListener(stage, Stages.MISSIONS));
 
 		GameProgress progress = new GameProgress();
-		progress.setExperience(0l);
-		progress.setLevel(1);
-		progress.setMission(1);
+		progress.setExperience(100l);
+		progress.setLevel(2);
+		progress.setMission(3);
 
 		result = new StageResult();
 		result.setNextStage(Stages.MISSIONS);
 		result.setGameProgress(progress);
+
+		doReturn(progress).when(stage).getGameProgress();
 	}
 
 	@Test
-	public void StartGame()
+	public void listenerIsChangingStage()
 	{
 		listener.clicked(null, 0, 0);
 

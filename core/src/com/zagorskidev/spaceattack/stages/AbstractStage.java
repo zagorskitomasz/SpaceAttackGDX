@@ -45,6 +45,9 @@ public abstract class AbstractStage extends Stage implements IStage
 	@Override
 	public GameProgress getGameProgress()
 	{
+		if (gameProgress == null)
+			gameProgress = new GameProgress();
+
 		return gameProgress;
 	}
 

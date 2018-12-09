@@ -1,11 +1,8 @@
 package com.zagorskidev.spaceattack.graphics;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyFloat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
@@ -18,11 +15,10 @@ public class StaticImageTest
 	@Test
 	public void drawsTextureOnBatchWithCoords()
 	{
+		StaticImage image = spy(StaticImage.class);
+
 		Batch batch = mock(Batch.class);
 		Texture texture = mock(Texture.class);
-		StaticImage image = mock(StaticImage.class);
-		doCallRealMethod().when(image).draw(any(Batch.class), anyFloat());
-		doCallRealMethod().when(image).init(anyString(), anyFloat(), anyFloat());
 		doReturn(texture).when(image).createTexture("path");
 		doReturn(700f).when(image).gameHeight();
 		doReturn(200).when(texture).getHeight();
