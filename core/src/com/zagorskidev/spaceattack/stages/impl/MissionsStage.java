@@ -1,9 +1,12 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.zagorskidev.spaceattack.consts.Consts;
@@ -13,6 +16,7 @@ import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
+import com.zagorskidev.spaceattack.system.NumbersUtils;
 import com.zagorskidev.spaceattack.ui.buttons.ActChangeListener;
 import com.zagorskidev.spaceattack.ui.buttons.ChangeStageButtonListener;
 import com.zagorskidev.spaceattack.ui.buttons.TextButtonsBuilder;
@@ -22,9 +26,10 @@ public class MissionsStage extends UIStage
 	private int actNumber;
 	private Actor actLogo;
 
-	private List<TextButton> missionsButtons;
-	private Button nextActButton;
-	private Button previousActButton;
+	private List<Entry<TextButton, ChangeStageButtonListener>> missionsButtons;
+
+	private TextButton nextActButton;
+	private TextButton previousActButton;
 
 	public MissionsStage()
 	{
@@ -34,7 +39,7 @@ public class MissionsStage extends UIStage
 	void init()
 	{
 		addActor(createImage(Paths.MENU_BACKGROUND, 0, 0));
-		addActor(createImage(Paths.LOGO, 0, 30));
+		addActor(createImage(Paths.LOGO, 0, 0));
 		initButtons();
 	}
 
@@ -44,8 +49,12 @@ public class MissionsStage extends UIStage
 
 		for (int i = 0; i < Consts.MISSIONS_IN_ACT; i++)
 		{
-			TextButton button = createMissionButton(i);
-			missionsButtons.add(button);
+			ChangeStageButtonListener listener = new ChangeStageButtonListener(this,
+					Stages.getMissionStage(calculateMission(i + 1)));
+			TextButton button = createMissionButton(i + 1, listener);
+
+			missionsButtons.add(new SimpleEntry<>(button, listener));
+
 			addActor(button);
 		}
 		nextActButton = createNextActButton();
@@ -57,44 +66,44 @@ public class MissionsStage extends UIStage
 		addActor(createBackButton());
 	}
 
-	private Button createNextActButton()
+	private TextButton createNextActButton()
 	{
 		//@formatter:off
 		return TextButtonsBuilder
 				.INSTANCE
 				.getBuilder(this)
-				.init(UIStrings.NEXT_ACT)
-				.setPosition(Consts.GAME_WIDTH * 0.6f, Consts.GAME_HEIGHT * 0.6f)
+				.init(UIStrings.NEXT_ACT.replaceAll("#", NumbersUtils.toRoman(actNumber + 1)),Consts.RED_BTN)
+				.setPosition(Consts.GAME_WIDTH * 0.6f, Consts.GAME_HEIGHT * 0.5f)
 				.setSize(Consts.BUTTON_WIDTH * 0.5f, Consts.BUTTON_HEIGHT)
 				.addListener(new ActChangeListener(this,ActChangeListener.Variants.NEXT))
 				.build();
 		//@formatter:on
 	}
 
-	private Button createPrevActButton()
+	private TextButton createPrevActButton()
 	{
 		//@formatter:off
 		return TextButtonsBuilder
 				.INSTANCE
 				.getBuilder(this)
-				.init(UIStrings.NEXT_ACT)
-				.setPosition(Consts.GAME_WIDTH * 0.1f, Consts.GAME_HEIGHT * 0.6f)
+				.init(UIStrings.PREV_ACT.replaceAll("#", NumbersUtils.toRoman(actNumber - 1)),Consts.RED_BTN)
+				.setPosition(Consts.GAME_WIDTH * 0.1f, Consts.GAME_HEIGHT * 0.5f)
 				.setSize(Consts.BUTTON_WIDTH * 0.5f, Consts.BUTTON_HEIGHT)
 				.addListener(new ActChangeListener(this,ActChangeListener.Variants.PREV))
 				.build();
 		//@formatter:on
 	}
 
-	private TextButton createMissionButton(int buttonIndex)
+	private TextButton createMissionButton(int buttonIndex,ChangeStageButtonListener listener)
 	{
 		//@formatter:off
 		return TextButtonsBuilder
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.MISSION + buttonIndex)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * (0.38f + buttonIndex * 0.7f))
+				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * (0.48f - buttonIndex * 0.1f))
 				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
-				.addListener(new ChangeStageButtonListener(this, Stages.getMissionStage(calculateMission(buttonIndex))))
+				.addListener(listener)
 				.build();
 		//@formatter:on
 	}
@@ -105,8 +114,8 @@ public class MissionsStage extends UIStage
 		return TextButtonsBuilder
 				.INSTANCE
 				.getBuilder(this)
-				.init(UIStrings.BACK)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.1f)
+				.init(UIStrings.BACK,Consts.RED_BTN)
+				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.04f)
 				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
 				.addListener(new ChangeStageButtonListener(this, Stages.MAIN_MENU))
 				.build();
@@ -147,17 +156,24 @@ public class MissionsStage extends UIStage
 	void refreshAct()
 	{
 		getActors().removeValue(actLogo, true);
-		actLogo = createImage(Paths.ACT_LOGO + actNumber, Consts.GAME_WIDTH * 0.4f, Consts.GAME_HEIGHT * 0.3f);
+		actLogo = createImage(Paths.ACT_LOGO.replaceAll("#", String.valueOf(actNumber)), Consts.GAME_WIDTH * 0.25f,
+				Consts.GAME_HEIGHT * 0.27f);
 		addActor(actLogo);
 
 		for (int i = 0; i < missionsButtons.size(); i++)
 		{
-			TextButton button = missionsButtons.get(i);
-			button.setText(UIStrings.MISSION + calculateMission(i));
-			button.setDisabled(disableMission(i));
+			TextButton button = missionsButtons.get(i).getKey();
+			button.setText(UIStrings.MISSION + calculateMission(i + 1));
+			button.setDisabled(disableMission(i + 1));
+			button.setTouchable(button.isDisabled() ? Touchable.disabled : Touchable.enabled);
+			missionsButtons.get(i).getValue().setNextStage(Stages.getMissionStage(calculateMission(i + 1)));
 		}
+		getActors();
 		nextActButton.setVisible(showNextAct());
+		nextActButton.setText(UIStrings.NEXT_ACT.replaceAll("#", NumbersUtils.toRoman(actNumber + 1)));
+
 		previousActButton.setVisible(showPrevAct());
+		previousActButton.setText(UIStrings.PREV_ACT.replaceAll("#", NumbersUtils.toRoman(actNumber - 1)));
 	}
 
 	int calculateMission(int buttonIndex)

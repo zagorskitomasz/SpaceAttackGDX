@@ -29,10 +29,15 @@ public class MainMenuStage extends UIStage
 		continueGameButton = createContinueGameButton();
 
 		addActor(createImage(Paths.MENU_BACKGROUND, 0, 0));
-		addActor(createImage(Paths.LOGO, 0, 30));
+		addActor(createImage(Paths.LOGO, 0, getConstGameHeight() * 0.03f));
 		addActor(createNewGameButton());
 		addActor(continueGameButton);
 		addActor(createExitGameButton());
+	}
+
+	float getConstGameHeight()
+	{
+		return Consts.GAME_HEIGHT;
 	}
 
 	@Override
@@ -53,7 +58,7 @@ public class MainMenuStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.NEW_GAME)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.5f)
+				.setPosition(Consts.GAME_WIDTH * 0.2f, getConstGameHeight() * 0.5f)
 				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
 				.addListener(new NewGameListener(this, Stages.MISSIONS))
 				.build();
@@ -67,7 +72,7 @@ public class MainMenuStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.CONTINUE)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.38f)
+				.setPosition(Consts.GAME_WIDTH * 0.2f, getConstGameHeight() * 0.38f)
 				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
 				.addListener(new ChangeStageButtonListener(this, Stages.MISSIONS))
 				.build();
@@ -80,8 +85,8 @@ public class MainMenuStage extends UIStage
 		return TextButtonsBuilder
 				.INSTANCE
 				.getBuilder(this)
-				.init(UIStrings.EXIT)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.1f)
+				.init(UIStrings.EXIT,Consts.RED_BTN)
+				.setPosition(Consts.GAME_WIDTH * 0.2f, getConstGameHeight() * 0.1f)
 				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
 				.addListener(new ExitGameListener(this))
 				.build();

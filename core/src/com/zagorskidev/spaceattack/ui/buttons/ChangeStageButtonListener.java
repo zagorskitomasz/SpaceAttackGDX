@@ -37,4 +37,9 @@ public class ChangeStageButtonListener extends ClickListener
 	{
 		stage.setResult(createResult(stage.getGameProgress()), true);
 	}
+
+	public void setNextStage(Stages nextStage)
+	{
+		this.nextStage = nextStage;
+	}
 }

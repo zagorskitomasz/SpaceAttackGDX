@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.ui.buttons.TextButtonsBuilder.BuilderImpl;
 
 public class TextButtonsBuilderTest
@@ -28,7 +29,7 @@ public class TextButtonsBuilderTest
 		Mockito.doCallRealMethod().when(builderImpl).build();
 
 		button = Mockito.mock(TextButton.class);
-		Mockito.doReturn(button).when(builderImpl).constructButton("test");
+		Mockito.doReturn(button).when(builderImpl).constructButton("test", Consts.DEFAULT);
 
 		builder = Mockito.spy(TextButtonsBuilder.INSTANCE);
 		Mockito.doReturn(builderImpl).when(builder).getBuilder(ArgumentMatchers.any());

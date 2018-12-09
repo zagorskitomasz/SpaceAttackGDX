@@ -27,13 +27,20 @@ public enum TextButtonsBuilder
 		@Override
 		public Initialized init(String text)
 		{
-			button = constructButton(text);
+			button = constructButton(text, Consts.DEFAULT);
 			return this;
 		}
 
-		TextButton constructButton(String text)
+		@Override
+		public Initialized init(String text,String skinName)
 		{
-			return new TextButton(text, stage.getSkin(), Consts.DEFAULT);
+			button = constructButton(text, skinName);
+			return this;
+		}
+
+		TextButton constructButton(String text,String skinName)
+		{
+			return new TextButton(text, stage.getSkin(), skinName);
 		}
 
 		@Override
@@ -67,6 +74,8 @@ public enum TextButtonsBuilder
 	public interface Builder
 	{
 		public Initialized init(String text);
+
+		public Initialized init(String text,String skinName);
 	}
 
 	public interface Initialized
