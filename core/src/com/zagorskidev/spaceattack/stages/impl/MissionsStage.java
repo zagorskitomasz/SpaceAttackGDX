@@ -13,6 +13,7 @@ import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
+import com.zagorskidev.spaceattack.ui.buttons.ActChangeListener;
 import com.zagorskidev.spaceattack.ui.buttons.ChangeStageButtonListener;
 import com.zagorskidev.spaceattack.ui.buttons.TextButtonsBuilder;
 
@@ -47,28 +48,55 @@ public class MissionsStage extends UIStage
 			missionsButtons.add(button);
 			addActor(button);
 		}
-		nextActButton = createChangeActButton();
+		nextActButton = createNextActButton();
 		addActor(nextActButton);
 
-		previousActButton = createChangeActButton();
+		previousActButton = createPrevActButton();
 		addActor(previousActButton);
 
 		addActor(createBackButton());
 	}
 
-	Button createChangeActButton()
+	private Button createNextActButton()
 	{
-		// TODO
-		// return nextActButton = new ChangeActButton(this, NEXT);
-		return null;
+		//@formatter:off
+		return TextButtonsBuilder
+				.INSTANCE
+				.getBuilder(this)
+				.init(UIStrings.NEXT_ACT)
+				.setPosition(Consts.GAME_WIDTH * 0.6f, Consts.GAME_HEIGHT * 0.6f)
+				.setSize(Consts.BUTTON_WIDTH * 0.5f, Consts.BUTTON_HEIGHT)
+				.addListener(new ActChangeListener(this,ActChangeListener.Variants.NEXT))
+				.build();
+		//@formatter:on
+	}
+
+	private Button createPrevActButton()
+	{
+		//@formatter:off
+		return TextButtonsBuilder
+				.INSTANCE
+				.getBuilder(this)
+				.init(UIStrings.NEXT_ACT)
+				.setPosition(Consts.GAME_WIDTH * 0.1f, Consts.GAME_HEIGHT * 0.6f)
+				.setSize(Consts.BUTTON_WIDTH * 0.5f, Consts.BUTTON_HEIGHT)
+				.addListener(new ActChangeListener(this,ActChangeListener.Variants.PREV))
+				.build();
+		//@formatter:on
 	}
 
 	private TextButton createMissionButton(int buttonIndex)
 	{
-		// TODO
-		// TextButton button = new MissionButton(this, Consts.GAME_WIDTH * 0.2f,
-		// Consts.GAME_HEIGHT * (0.38f + buttonIndex * 0.7f));
-		return null;
+		//@formatter:off
+		return TextButtonsBuilder
+				.INSTANCE
+				.getBuilder(this)
+				.init(UIStrings.MISSION + buttonIndex)
+				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * (0.38f + buttonIndex * 0.7f))
+				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.addListener(new ChangeStageButtonListener(this, Stages.getMissionStage(calculateMission(buttonIndex))))
+				.build();
+		//@formatter:on
 	}
 
 	private Button createBackButton()
