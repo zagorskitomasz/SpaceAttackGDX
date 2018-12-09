@@ -3,13 +3,17 @@ package com.zagorskidev.spaceattack.stages.impl;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.consts.Paths;
+import com.zagorskidev.spaceattack.consts.UIStrings;
 import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
+import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameLoader;
-import com.zagorskidev.spaceattack.ui.buttons.ContinueGameButton;
-import com.zagorskidev.spaceattack.ui.buttons.ExitGameButton;
-import com.zagorskidev.spaceattack.ui.buttons.NewGameButton;
+import com.zagorskidev.spaceattack.ui.buttons.ChangeStageButtonListener;
+import com.zagorskidev.spaceattack.ui.buttons.ExitGameListener;
+import com.zagorskidev.spaceattack.ui.buttons.NewGameListener;
+import com.zagorskidev.spaceattack.ui.buttons.TextButtonsBuilder;
 
 public class MainMenuStage extends UIStage
 {
@@ -44,17 +48,44 @@ public class MainMenuStage extends UIStage
 
 	Button createNewGameButton()
 	{
-		return new NewGameButton(this);
+		//@formatter:off
+		return TextButtonsBuilder
+				.INSTANCE
+				.getBuilder(this)
+				.init(UIStrings.NEW_GAME)
+				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.5f)
+				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.addListener(new NewGameListener(this, Stages.MISSIONS))
+				.build();
+		//@formatter:on
 	}
 
 	Button createContinueGameButton()
 	{
-		return new ContinueGameButton(this);
+		//@formatter:off
+		return TextButtonsBuilder
+				.INSTANCE
+				.getBuilder(this)
+				.init(UIStrings.CONTINUE)
+				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.38f)
+				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.addListener(new ChangeStageButtonListener(this, Stages.MISSIONS))
+				.build();
+		//@formatter:on
 	}
 
 	Button createExitGameButton()
 	{
-		return new ExitGameButton(this);
+		//@formatter:off
+		return TextButtonsBuilder
+				.INSTANCE
+				.getBuilder(this)
+				.init(UIStrings.EXIT)
+				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.1f)
+				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.addListener(new ExitGameListener(this))
+				.build();
+		//@formatter:on
 	}
 
 	Actor createImage(String path,float x,float y)

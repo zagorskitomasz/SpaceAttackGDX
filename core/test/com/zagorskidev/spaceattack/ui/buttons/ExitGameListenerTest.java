@@ -11,10 +11,9 @@ import static org.mockito.Mockito.verify;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.zagorskidev.spaceattack.ui.buttons.ExitGameButton.ConfirmExitDialog;
-import com.zagorskidev.spaceattack.ui.buttons.ExitGameButton.ExitGameListener;
+import com.zagorskidev.spaceattack.stages.UIStage;
 
-public class ExitGameButtonTest
+public class ExitGameListenerTest
 {
 	private ConfirmExitDialog dialog;
 	private ExitGameListener listener;
@@ -22,8 +21,8 @@ public class ExitGameButtonTest
 	@Before
 	public void setUp()
 	{
-		ExitGameButton button = mock(ExitGameButton.class);
-		listener = spy(button.new ExitGameListener());
+		UIStage stage = mock(UIStage.class);
+		listener = spy(new ExitGameListener(stage));
 		doNothing().when(listener).closeApp();
 		doNothing().when(listener).confirmExit();
 		dialog = mock(ConfirmExitDialog.class);

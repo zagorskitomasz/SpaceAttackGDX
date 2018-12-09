@@ -17,15 +17,12 @@ import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.impl.MainMenuStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
-import com.zagorskidev.spaceattack.ui.buttons.NewGameButton.ConfirmNewGameDialog;
-import com.zagorskidev.spaceattack.ui.buttons.NewGameButton.NewGameListener;
 
-public class NewGameButtonTest
+public class NewGameListenerTest
 {
 	private MainMenuStage stage;
 	private ConfirmNewGameDialog dialog;
 	private NewGameListener listener;
-	private NewGameButton button;
 
 	private StageResult result;
 
@@ -35,11 +32,7 @@ public class NewGameButtonTest
 		stage = mock(MainMenuStage.class);
 		doCallRealMethod().when(stage).getGameProgress();
 
-		button = mock(NewGameButton.class);
-		doCallRealMethod().when(button).setStage(stage);
-		button.setStage(stage);
-
-		listener = spy(button.new NewGameListener());
+		listener = spy(new NewGameListener(stage, Stages.MISSIONS));
 		dialog = mock(ConfirmNewGameDialog.class);
 
 		doCallRealMethod().when(dialog).setListener(any());

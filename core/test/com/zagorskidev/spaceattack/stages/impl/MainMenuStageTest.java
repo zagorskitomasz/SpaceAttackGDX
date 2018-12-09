@@ -16,13 +16,11 @@ import org.junit.Test;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.system.GameLoader;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.system.GameSaver;
-import com.zagorskidev.spaceattack.ui.buttons.ContinueGameButton;
-import com.zagorskidev.spaceattack.ui.buttons.ExitGameButton;
-import com.zagorskidev.spaceattack.ui.buttons.NewGameButton;
 
 public class MainMenuStageTest
 {
@@ -42,11 +40,11 @@ public class MainMenuStageTest
 		doCallRealMethod().when(stage).setGameProgress(any());
 		doNothing().when(stage).addActor(any());
 
-		continueGameButton = mock(ContinueGameButton.class);
+		continueGameButton = mock(TextButton.class);
 
-		doReturn(mock(NewGameButton.class)).when(stage).createNewGameButton();
+		doReturn(mock(TextButton.class)).when(stage).createNewGameButton();
 		doReturn(continueGameButton).when(stage).createContinueGameButton();
-		doReturn(mock(ExitGameButton.class)).when(stage).createExitGameButton();
+		doReturn(mock(TextButton.class)).when(stage).createExitGameButton();
 		stage.init();
 
 		progress = new GameProgress();
@@ -56,21 +54,9 @@ public class MainMenuStageTest
 	}
 
 	@Test
-	public void stageContainsNewGameButton()
+	public void stageContainsThreeButton()
 	{
-		verify(stage).addActor(any(NewGameButton.class));
-	}
-
-	@Test
-	public void stageContainsContinueGameButton()
-	{
-		verify(stage).addActor(any(ContinueGameButton.class));
-	}
-
-	@Test
-	public void stageContainsExitGameButton()
-	{
-		verify(stage).addActor(any(ExitGameButton.class));
+		verify(stage, times(3)).addActor(any(TextButton.class));
 	}
 
 	@Test
