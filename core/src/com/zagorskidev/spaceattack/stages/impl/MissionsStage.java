@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.consts.UIStrings;
-import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
@@ -120,11 +119,6 @@ public class MissionsStage extends UIStage
 				.addListener(new ChangeStageButtonListener(this, Stages.MAIN_MENU))
 				.build();
 		//@formatter:on
-	}
-
-	Actor createImage(String path,float x,float y)
-	{
-		return StaticImageFactory.INSTANCE.create(path, x, y);
 	}
 
 	@Override

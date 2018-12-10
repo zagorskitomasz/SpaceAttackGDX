@@ -1,12 +1,10 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.consts.UIStrings;
-import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameLoader;
@@ -91,10 +89,5 @@ public class MainMenuStage extends UIStage
 				.addListener(new ExitGameListener(this))
 				.build();
 		//@formatter:on
-	}
-
-	Actor createImage(String path,float x,float y)
-	{
-		return StaticImageFactory.INSTANCE.create(path, x, y);
 	}
 }
