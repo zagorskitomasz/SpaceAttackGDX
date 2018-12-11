@@ -1,5 +1,6 @@
 package com.zagorskidev.spaceattack.stages;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -7,7 +8,7 @@ import com.zagorskidev.spaceattack.system.GameLoader;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.system.GameSaver;
 
-public interface IStage
+public interface IStage extends InputProcessor
 {
 	public Stages getType();
 
@@ -38,4 +39,6 @@ public interface IStage
 	void saveProgress(GameSaver saver);
 
 	public Viewport getViewport();
+
+	public InputProcessor getInputProcessor();
 }

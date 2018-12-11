@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.consts.UIStrings;
+import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
@@ -72,8 +73,8 @@ public class MissionsStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.NEXT_ACT.replaceAll("#", NumbersUtils.toRoman(actNumber + 1)),Consts.RED_BTN)
-				.setPosition(Consts.GAME_WIDTH * 0.6f, Consts.GAME_HEIGHT * 0.5f)
-				.setSize(Consts.BUTTON_WIDTH * 0.5f, Consts.BUTTON_HEIGHT)
+				.setPosition(Sizes.gameWidth() * 0.6f, Sizes.gameHeight() * 0.5f)
+				.setSize(Sizes.buttonWidth() * 0.5f, Sizes.buttonHeight())
 				.addListener(new ActChangeListener(this,ActChangeListener.Variants.NEXT))
 				.build();
 		//@formatter:on
@@ -86,8 +87,8 @@ public class MissionsStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.PREV_ACT.replaceAll("#", NumbersUtils.toRoman(actNumber - 1)),Consts.RED_BTN)
-				.setPosition(Consts.GAME_WIDTH * 0.1f, Consts.GAME_HEIGHT * 0.5f)
-				.setSize(Consts.BUTTON_WIDTH * 0.5f, Consts.BUTTON_HEIGHT)
+				.setPosition(Sizes.gameWidth() * 0.1f, Sizes.gameHeight() * 0.5f)
+				.setSize(Sizes.buttonWidth() * 0.5f, Sizes.buttonHeight())
 				.addListener(new ActChangeListener(this,ActChangeListener.Variants.PREV))
 				.build();
 		//@formatter:on
@@ -100,8 +101,8 @@ public class MissionsStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.MISSION + buttonIndex)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * (0.48f - buttonIndex * 0.1f))
-				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.setPosition(Sizes.gameWidth() * 0.2f, Sizes.gameHeight() * (0.48f - buttonIndex * 0.1f))
+				.setSize(Sizes.buttonWidth(), Sizes.buttonHeight())
 				.addListener(listener)
 				.build();
 		//@formatter:on
@@ -114,8 +115,8 @@ public class MissionsStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.BACK,Consts.RED_BTN)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, Consts.GAME_HEIGHT * 0.04f)
-				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.setPosition(Sizes.gameWidth() * 0.2f, Sizes.gameHeight() * 0.04f)
+				.setSize(Sizes.buttonWidth(), Sizes.buttonHeight())
 				.addListener(new ChangeStageButtonListener(this, Stages.MAIN_MENU))
 				.build();
 		//@formatter:on
@@ -150,8 +151,8 @@ public class MissionsStage extends UIStage
 	void refreshAct()
 	{
 		getActors().removeValue(actLogo, true);
-		actLogo = createImage(Paths.ACT_LOGO.replaceAll("#", String.valueOf(actNumber)), Consts.GAME_WIDTH * 0.25f,
-				Consts.GAME_HEIGHT * 0.27f);
+		actLogo = createImage(Paths.ACT_LOGO.replaceAll("#", String.valueOf(actNumber)), Sizes.gameWidth() * 0.25f,
+				Sizes.gameHeight() * 0.27f);
 		addActor(actLogo);
 
 		for (int i = 0; i < missionsButtons.size(); i++)

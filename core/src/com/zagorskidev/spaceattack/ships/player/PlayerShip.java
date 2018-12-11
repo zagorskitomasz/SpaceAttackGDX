@@ -1,7 +1,7 @@
 package com.zagorskidev.spaceattack.ships.player;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.zagorskidev.spaceattack.consts.Consts;
+import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.stages.GameplayStage;
 
 public class PlayerShip extends Ship
@@ -13,6 +13,6 @@ public class PlayerShip extends Ship
 		super(texture);
 
 		this.stage = stage;
-		setPosition(Consts.GAME_WIDTH * 0.5f, Consts.GAME_HEIGHT * 0.3f);
+		setPosition(Sizes.gameWidth() * 0.5f, Sizes.gameHeight() * 0.3f);
 	}
 }

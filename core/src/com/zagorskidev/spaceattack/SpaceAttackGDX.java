@@ -3,7 +3,6 @@ package com.zagorskidev.spaceattack;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageFactory;
 import com.zagorskidev.spaceattack.stages.StageResult;
@@ -22,12 +21,12 @@ public class SpaceAttackGDX extends ApplicationAdapter
 		StageResult defaultResult = new StageResult();
 		stage = factory.getStage(defaultResult);
 		stage.loadGame(GameLoader.INSTANCE);
-		setStageAsInputProcessor();
+		setInputProcessor();
 	}
 
-	void setStageAsInputProcessor()
+	void setInputProcessor()
 	{
-		Gdx.input.setInputProcessor((Stage) stage);
+		Gdx.input.setInputProcessor(stage.getInputProcessor());
 	}
 
 	StageFactory getStageFactory()
@@ -52,7 +51,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 		{
 			StageResult result = stage.getResult();
 			stage = factory.getStage(result);
-			setStageAsInputProcessor();
+			setInputProcessor();
 		}
 	}
 
