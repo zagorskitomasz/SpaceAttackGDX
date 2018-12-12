@@ -7,16 +7,19 @@ import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageFactory;
 import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
+import com.zagorskidev.spaceattack.system.FrameController;
 import com.zagorskidev.spaceattack.system.GameLoader;
 
 public class SpaceAttackGDX extends ApplicationAdapter
 {
 	private StageFactory factory;
 	private IStage stage;
+	private FrameController frameController;
 
 	@Override
 	public void create()
 	{
+		frameController = new FrameController();
 		factory = getStageFactory();
 		StageResult defaultResult = new StageResult();
 		stage = factory.getStage(defaultResult);
@@ -39,10 +42,17 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	{
 		clearScreen();
 
-		stage.act(getDeltaTime());
+		if (checkFrame())
+			stage.act(getDeltaTime());
+
 		stage.draw();
 
 		checkStageSwitch();
+	}
+
+	boolean checkFrame()
+	{
+		return frameController.check();
 	}
 
 	private void checkStageSwitch()
