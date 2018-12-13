@@ -1,7 +1,5 @@
 package com.zagorskidev.spaceattack.ships.player;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.moving.engines.ShipEngineBuilder;
@@ -14,7 +12,7 @@ public enum PlayerShipFactory
 
 	public IShip create(GameplayStage stage)
 	{
-		PlayerShip ship = new PlayerShip(new Texture(Gdx.files.internal(Paths.PLAYER_SHIP)));
+		PlayerShip ship = new PlayerShip();
 
 		//@formatter:off
 		IEngine engine = ShipEngineBuilder
@@ -27,6 +25,7 @@ public enum PlayerShipFactory
 				.build();
 		//@formatter:on
 
+		ship.loadGraphics(Paths.PLAYER_SHIP);
 		ship.setShipEngine(engine);
 
 		return ship;

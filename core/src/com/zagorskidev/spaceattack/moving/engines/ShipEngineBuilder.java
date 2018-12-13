@@ -49,7 +49,7 @@ public enum ShipEngineBuilder
 		}
 
 		@Override
-		public IEngine build()
+		public ShipEngine build()
 		{
 			return engine;
 		}
@@ -77,6 +77,6 @@ public enum ShipEngineBuilder
 
 	public interface Agility
 	{
-		public IEngine build();
+		public ShipEngine build();
 	}
 }

@@ -7,6 +7,11 @@ import com.zagorskidev.spaceattack.moving.engines.IEngine;
 
 public interface IShip
 {
+	public enum Turn
+	{
+		FRONT,LEFT,RIGHT;
+	}
+
 	public Actor getActor();
 
 	public void draw(Batch batch,float alpha);
@@ -22,4 +27,6 @@ public interface IShip
 	public void setY(float y);
 
 	public void setShipEngine(IEngine engine);
+
+	public void loadGraphics(String texturePath);
 }

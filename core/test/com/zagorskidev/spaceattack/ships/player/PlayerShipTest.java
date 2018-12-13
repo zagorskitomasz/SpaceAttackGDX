@@ -1,15 +1,14 @@
 package com.zagorskidev.spaceattack.ships.player;
 
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.zagorskidev.spaceattack.ships.IShip;
 
 public class PlayerShipTest
 {
-
 	@Test
 	public void isSettingCenterCoords()
 	{
@@ -19,7 +18,9 @@ public class PlayerShipTest
 
 		Batch batch = Mockito.mock(Batch.class);
 
-		IShip ship = new PlayerShip(texture);
+		PlayerShip ship = Mockito.spy(new PlayerShip());
+		Mockito.doReturn(texture).when(ship).createTexture(ArgumentMatchers.any());
+		ship.loadGraphics("");
 		ship.draw(batch, 0);
 
 		Mockito.verify(batch).draw(texture, 150f, 125.000015f);

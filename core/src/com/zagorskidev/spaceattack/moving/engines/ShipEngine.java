@@ -3,6 +3,7 @@ package com.zagorskidev.spaceattack.moving.engines;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.zagorskidev.spaceattack.ships.IShip;
+import com.zagorskidev.spaceattack.ships.IShip.Turn;
 
 public class ShipEngine implements IEngine
 {
@@ -27,6 +28,7 @@ public class ShipEngine implements IEngine
 	void setBaseSpeed(float baseSpeed)
 	{
 		this.baseSpeed = baseSpeed;
+		currentSpeed = baseSpeed;
 	}
 
 	void setAcceleration(float acceleration)
@@ -64,23 +66,23 @@ public class ShipEngine implements IEngine
 	}
 
 	@Override
-	public void fly()
+	public Turn fly()
 	{
 		if (destination == null)
-			return;
+			return IShip.Turn.FRONT;
 
 		if (isDestinationReached())
 		{
 			if (isTurning)
 				doTurn();
 
-			return;
+			return IShip.Turn.FRONT;
 		}
 
 		Vector2 movement = new Vector2(destination.x - ship.getX(), destination.y - ship.getY());
 
 		computeSpeed(movement);
-		moveShip(movement);
+		return moveShip(movement);
 	}
 
 	private void doTurn()
@@ -90,19 +92,34 @@ public class ShipEngine implements IEngine
 		isTurning = false;
 	}
 
-	private void moveShip(Vector2 movement)
+	private Turn moveShip(Vector2 movement)
 	{
 		if (movement.len() <= currentSpeed || movement.len() <= baseSpeed)
 		{
 			ship.setX(destination.x);
 			ship.setY(destination.y);
+
+			return IShip.Turn.FRONT;
 		}
 		else
 		{
 			movement = movement.nor();
 			ship.setX(ship.getX() + movement.x * currentSpeed);
 			ship.setY(ship.getY() + movement.y * currentSpeed);
+
+			return calculateShipTurning(movement);
 		}
+	}
+
+	private Turn calculateShipTurning(Vector2 movement)
+	{
+		if (movement.x >= 0.3)
+			return Turn.RIGHT;
+
+		if (movement.x <= -0.3)
+			return Turn.LEFT;
+
+		return Turn.FRONT;
 	}
 
 	private void computeSpeed(Vector2 movement)
@@ -121,8 +138,8 @@ public class ShipEngine implements IEngine
 			else
 				brake();
 
-			if (currentSpeed <= 0)
-				currentSpeed = 0;
+			if (currentSpeed <= baseSpeed)
+				currentSpeed = baseSpeed;
 		}
 	}
 
@@ -158,7 +175,7 @@ public class ShipEngine implements IEngine
 	private float brakingWay()
 	{
 		float brakingWay = 0;
-		float tempSpeed = currentSpeed;
+		float tempSpeed = currentSpeed - 1;
 
 		while (tempSpeed >= baseSpeed)
 		{
@@ -166,5 +183,20 @@ public class ShipEngine implements IEngine
 			tempSpeed -= braking;
 		}
 		return brakingWay;
+	}
+
+	Vector2 getDestination()
+	{
+		return destination;
+	}
+
+	Vector2 getNextDestination()
+	{
+		return nextDestination;
+	}
+
+	float getCurrentSpeed()
+	{
+		return currentSpeed;
 	}
 }
