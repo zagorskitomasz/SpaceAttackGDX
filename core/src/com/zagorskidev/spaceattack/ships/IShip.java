@@ -1,9 +1,12 @@
 package com.zagorskidev.spaceattack.ships;
 
+import java.util.Set;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.zagorskidev.spaceattack.moving.engines.IEngine;
+import com.zagorskidev.spaceattack.weapons.IWeapon;
 
 public interface IShip
 {
@@ -29,4 +32,8 @@ public interface IShip
 	public void setShipEngine(IEngine engine);
 
 	public void loadGraphics(String texturePath);
+
+	public void addWeapon(IWeapon weapon);
+
+	public Set<IWeapon> getWeapons();
 }

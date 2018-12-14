@@ -5,8 +5,10 @@ import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.input.MissionInputHandler;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
+import com.zagorskidev.spaceattack.weapons.IWeapon;
+import com.zagorskidev.spaceattack.weapons.IWeaponController;
 
-public abstract class GameplayStage extends AbstractStage
+public abstract class GameplayStage extends AbstractStage implements IWeaponController
 {
 	private IInput inputHandler;
 
@@ -38,5 +40,11 @@ public abstract class GameplayStage extends AbstractStage
 			inputHandler = initInputProcessor();
 
 		return inputHandler;
+	}
+
+	@Override
+	public void setPrimaryWeapon(IWeapon weapon)
+	{
+		// TODO
 	}
 }

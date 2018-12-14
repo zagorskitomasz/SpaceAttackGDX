@@ -2,6 +2,8 @@ package com.zagorskidev.spaceattack.ships;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,14 +11,15 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.zagorskidev.spaceattack.moving.engines.IEngine;
+import com.zagorskidev.spaceattack.weapons.IWeapon;
 
 public abstract class Ship extends Actor implements IShip
 {
 	private Texture currentTexture;
-
 	private Map<IShip.Turn, Texture> textures;
 
 	private IEngine engine;
+	private Set<IWeapon> weapons;
 
 	public Ship()
 	{
@@ -83,5 +86,18 @@ public abstract class Ship extends Actor implements IShip
 			IShip.Turn turn = engine.fly();
 			currentTexture = textures.get(turn);
 		}
+	}
+
+	@Override
+	public void addWeapon(IWeapon weapon)
+	{
+		if (weapons == null)
+			weapons = new CopyOnWriteArraySet<>();
+	}
+
+	@Override
+	public Set<IWeapon> getWeapons()
+	{
+		return weapons;
 	}
 }
