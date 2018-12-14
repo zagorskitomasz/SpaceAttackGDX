@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.zagorskidev.spaceattack.consts.Consts;
 
 public class StaticImage extends Actor
 {
@@ -21,7 +20,7 @@ public class StaticImage extends Actor
 
 	float gameHeight()
 	{
-		return Consts.GAME_HEIGHT;
+		return Sizes.gameHeight();
 	}
 
 	Texture createTexture(String path)

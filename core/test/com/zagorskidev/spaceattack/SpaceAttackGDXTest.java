@@ -55,8 +55,9 @@ public class SpaceAttackGDXTest
 		game = spy(SpaceAttackGDX.class);
 		doReturn(factory).when(game).getStageFactory();
 		doNothing().when(game).clearScreen();
-		doNothing().when(game).setStageAsInputProcessor();
+		doNothing().when(game).setInputProcessor();
 		doReturn(30f).when(game).getDeltaTime();
+		doReturn(true).when(game).checkFrame();
 	}
 
 	@Test

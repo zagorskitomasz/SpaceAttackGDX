@@ -3,31 +3,33 @@ package com.zagorskidev.spaceattack;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageFactory;
 import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.stages.Stages;
+import com.zagorskidev.spaceattack.system.FrameController;
 import com.zagorskidev.spaceattack.system.GameLoader;
 
 public class SpaceAttackGDX extends ApplicationAdapter
 {
 	private StageFactory factory;
 	private IStage stage;
+	private FrameController frameController;
 
 	@Override
 	public void create()
 	{
+		frameController = new FrameController();
 		factory = getStageFactory();
 		StageResult defaultResult = new StageResult();
 		stage = factory.getStage(defaultResult);
 		stage.loadGame(GameLoader.INSTANCE);
-		setStageAsInputProcessor();
+		setInputProcessor();
 	}
 
-	void setStageAsInputProcessor()
+	void setInputProcessor()
 	{
-		Gdx.input.setInputProcessor((Stage) stage);
+		Gdx.input.setInputProcessor(stage.getInputProcessor());
 	}
 
 	StageFactory getStageFactory()
@@ -40,10 +42,17 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	{
 		clearScreen();
 
-		stage.act(getDeltaTime());
+		if (checkFrame())
+			stage.act(getDeltaTime());
+
 		stage.draw();
 
 		checkStageSwitch();
+	}
+
+	boolean checkFrame()
+	{
+		return frameController.check();
 	}
 
 	private void checkStageSwitch()
@@ -52,7 +61,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 		{
 			StageResult result = stage.getResult();
 			stage = factory.getStage(result);
-			setStageAsInputProcessor();
+			setInputProcessor();
 		}
 	}
 

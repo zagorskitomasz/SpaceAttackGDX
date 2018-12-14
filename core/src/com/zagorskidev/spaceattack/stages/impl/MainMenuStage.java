@@ -1,12 +1,11 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.consts.UIStrings;
-import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
+import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameLoader;
@@ -37,7 +36,7 @@ public class MainMenuStage extends UIStage
 
 	float getConstGameHeight()
 	{
-		return Consts.GAME_HEIGHT;
+		return Sizes.gameHeight();
 	}
 
 	@Override
@@ -58,8 +57,8 @@ public class MainMenuStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.NEW_GAME)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, getConstGameHeight() * 0.5f)
-				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.setPosition(Sizes.gameWidth() * 0.2f, getConstGameHeight() * 0.5f)
+				.setSize(Sizes.buttonWidth(), Sizes.buttonHeight())
 				.addListener(new NewGameListener(this, Stages.MISSIONS))
 				.build();
 		//@formatter:on
@@ -72,8 +71,8 @@ public class MainMenuStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.CONTINUE)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, getConstGameHeight() * 0.38f)
-				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.setPosition(Sizes.gameWidth() * 0.2f, getConstGameHeight() * 0.38f)
+				.setSize(Sizes.buttonWidth(), Sizes.buttonHeight())
 				.addListener(new ChangeStageButtonListener(this, Stages.MISSIONS))
 				.build();
 		//@formatter:on
@@ -86,15 +85,10 @@ public class MainMenuStage extends UIStage
 				.INSTANCE
 				.getBuilder(this)
 				.init(UIStrings.EXIT,Consts.RED_BTN)
-				.setPosition(Consts.GAME_WIDTH * 0.2f, getConstGameHeight() * 0.1f)
-				.setSize(Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT)
+				.setPosition(Sizes.gameWidth() * 0.2f, getConstGameHeight() * 0.1f)
+				.setSize(Sizes.buttonWidth(), Sizes.buttonHeight())
 				.addListener(new ExitGameListener(this))
 				.build();
 		//@formatter:on
-	}
-
-	Actor createImage(String path,float x,float y)
-	{
-		return StaticImageFactory.INSTANCE.create(path, x, y);
 	}
 }
