@@ -40,6 +40,7 @@ public class ShipEngineTest
 				.setAcceleration(1)
 				.setBraking(1)
 				.setAgility(2)
+				.setEngineLevel(1)
 				.build();
 		//@formatter.on
 	}

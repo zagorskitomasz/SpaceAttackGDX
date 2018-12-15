@@ -11,7 +11,7 @@ public enum ShipEngineBuilder
 		return new BuilderImpl(ship);
 	}
 
-	public static class BuilderImpl implements Builder,BaseSpeed,Acceleration,Braking,Agility
+	public static class BuilderImpl implements Builder,BaseSpeed,Acceleration,Braking,Agility,Level
 	{
 		private ShipEngine engine;
 
@@ -49,6 +49,13 @@ public enum ShipEngineBuilder
 		}
 
 		@Override
+		public Level setEngineLevel(int level)
+		{
+			engine.setLevel(level);
+			return this;
+		}
+
+		@Override
 		public ShipEngine build()
 		{
 			return engine;
@@ -76,6 +83,11 @@ public enum ShipEngineBuilder
 	}
 
 	public interface Agility
+	{
+		public Level setEngineLevel(int level);
+	}
+
+	public interface Level
 	{
 		public ShipEngine build();
 	}

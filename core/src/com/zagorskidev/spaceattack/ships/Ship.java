@@ -1,7 +1,5 @@
 package com.zagorskidev.spaceattack.ships;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -15,11 +13,10 @@ import com.zagorskidev.spaceattack.weapons.IWeapon;
 
 public abstract class Ship extends Actor implements IShip
 {
-	private Texture currentTexture;
-	private Map<IShip.Turn, Texture> textures;
+	protected Texture currentTexture;
 
-	private IEngine engine;
-	private Set<IWeapon> weapons;
+	protected IEngine engine;
+	protected Set<IWeapon> weapons;
 
 	public Ship()
 	{
@@ -29,12 +26,7 @@ public abstract class Ship extends Actor implements IShip
 	@Override
 	public void loadGraphics(String texturePath)
 	{
-		textures = new HashMap<>();
-		textures.put(IShip.Turn.FRONT, createTexture(texturePath));
-		textures.put(IShip.Turn.LEFT, createTexture(texturePath.replaceAll(".png", "L.png")));
-		textures.put(IShip.Turn.RIGHT, createTexture(texturePath.replaceAll(".png", "R.png")));
-
-		currentTexture = textures.get(IShip.Turn.FRONT);
+		currentTexture = createTexture(texturePath);
 	}
 
 	public Texture createTexture(String texturePath)
@@ -82,10 +74,12 @@ public abstract class Ship extends Actor implements IShip
 	public void act(float delta)
 	{
 		if (engine != null)
-		{
-			IShip.Turn turn = engine.fly();
-			currentTexture = textures.get(turn);
-		}
+			fly();
+	}
+
+	protected void fly()
+	{
+		engine.fly();
 	}
 
 	@Override
@@ -99,5 +93,14 @@ public abstract class Ship extends Actor implements IShip
 	public Set<IWeapon> getWeapons()
 	{
 		return weapons;
+	}
+
+	@Override
+	public void setLevel(int level)
+	{
+		engine.setLevel(level);
+
+		for (IWeapon weapon : weapons)
+			weapon.setLevel(level);
 	}
 }

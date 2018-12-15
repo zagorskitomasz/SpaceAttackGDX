@@ -24,6 +24,7 @@ public enum PlayerShipFactory
 				.setAcceleration(1f)
 				.setBraking(1f)
 				.setAgility(2f)
+				.setEngineLevel(1)
 				.build();
 		//@formatter:on
 

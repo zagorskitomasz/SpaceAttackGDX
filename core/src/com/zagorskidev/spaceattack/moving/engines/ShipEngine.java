@@ -1,5 +1,8 @@
 package com.zagorskidev.spaceattack.moving.engines;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.zagorskidev.spaceattack.ships.IShip;
@@ -8,6 +11,11 @@ import com.zagorskidev.spaceattack.ships.IShip.Turn;
 public class ShipEngine implements IEngine
 {
 	private IShip ship;
+
+	private float factorSpeed;
+	private float factorAcceleration;
+	private float factorBraking;
+	private float factorAgility;
 
 	private float baseSpeed;
 	private float acceleration;
@@ -20,43 +28,65 @@ public class ShipEngine implements IEngine
 
 	private boolean isTurning;
 
+	private Lock lock;
+
 	ShipEngine(IShip ship)
 	{
 		this.ship = ship;
+		lock = new ReentrantLock();
 	}
 
-	void setBaseSpeed(float baseSpeed)
+	void setBaseSpeed(float factorSpeed)
 	{
-		this.baseSpeed = baseSpeed;
-		currentSpeed = baseSpeed;
+		this.factorSpeed = factorSpeed;
 	}
 
 	void setAcceleration(float acceleration)
 	{
-		this.acceleration = acceleration;
+		this.factorAcceleration = acceleration;
 	}
 
 	void setBraking(float braking)
 	{
-		this.braking = braking;
+		this.factorBraking = braking;
 	}
 
 	void setAgility(float agility)
 	{
-		this.agility = agility;
+		this.factorAgility = agility;
+	}
+
+	@Override
+	public void setLevel(int level)
+	{
+		baseSpeed = factorSpeed * (0.8f + 0.2f * level);
+		acceleration = factorAcceleration * (0.8f + 0.2f * level);
+		braking = factorBraking * (0.8f + 0.2f * level);
+		agility = factorAgility * (0.8f + 0.2f * level);
+
+		currentSpeed = baseSpeed;
 	}
 
 	@Override
 	public void setDestination(Vector2 destination)
 	{
-		if (this.destination == null || isDestinationReached())
+		try
 		{
-			this.destination = destination;
+			lock.lock();
+
+			if (this.destination == null || isDestinationReached())
+			{
+				this.destination = destination;
+			}
+			else
+			{
+				isTurning = true;
+				nextDestination = destination;
+			}
 		}
-		else
+		finally
 		{
-			isTurning = true;
-			nextDestination = destination;
+			lock.unlock();
 		}
 	}
 
@@ -68,21 +98,28 @@ public class ShipEngine implements IEngine
 	@Override
 	public Turn fly()
 	{
-		if (destination == null)
-			return IShip.Turn.FRONT;
-
-		if (isDestinationReached())
+		try
 		{
-			if (isTurning)
-				doTurn();
+			lock.lock();
 
-			return IShip.Turn.FRONT;
+			if (destination == null)
+				return IShip.Turn.FRONT;
+
+			if (isDestinationReached())
+			{
+				if (isTurning)
+					doTurn();
+
+				return IShip.Turn.FRONT;
+			}
+
+			computeSpeed();
+			return moveShip();
 		}
-
-		Vector2 movement = new Vector2(destination.x - ship.getX(), destination.y - ship.getY());
-
-		computeSpeed(movement);
-		return moveShip(movement);
+		finally
+		{
+			lock.unlock();
+		}
 	}
 
 	private void doTurn()
@@ -92,8 +129,10 @@ public class ShipEngine implements IEngine
 		isTurning = false;
 	}
 
-	private Turn moveShip(Vector2 movement)
+	private Turn moveShip()
 	{
+		Vector2 movement = computeMovement();
+
 		if (movement.len() <= currentSpeed || movement.len() <= baseSpeed)
 		{
 			ship.setX(destination.x);
@@ -111,6 +150,11 @@ public class ShipEngine implements IEngine
 		}
 	}
 
+	Vector2 computeMovement()
+	{
+		return new Vector2(destination.x - ship.getX(), destination.y - ship.getY());
+	}
+
 	private Turn calculateShipTurning(Vector2 movement)
 	{
 		if (movement.x >= 0.3)
@@ -122,8 +166,10 @@ public class ShipEngine implements IEngine
 		return Turn.FRONT;
 	}
 
-	private void computeSpeed(Vector2 movement)
+	private void computeSpeed()
 	{
+		Vector2 movement = computeMovement();
+
 		if (isTurning)
 		{
 			if (canTurnWithThisSpeed(movement.cpy().nor()))

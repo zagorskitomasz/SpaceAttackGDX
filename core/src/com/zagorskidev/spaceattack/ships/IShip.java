@@ -36,4 +36,6 @@ public interface IShip
 	public void addWeapon(IWeapon weapon);
 
 	public Set<IWeapon> getWeapons();
+
+	void setLevel(int level);
 }

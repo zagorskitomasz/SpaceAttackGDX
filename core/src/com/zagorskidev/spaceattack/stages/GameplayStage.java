@@ -5,18 +5,20 @@ import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.input.MissionInputHandler;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
+import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.IWeaponController;
 
 public abstract class GameplayStage extends AbstractStage implements IWeaponController
 {
 	private IInput inputHandler;
+	private IShip playersShip;
 
 	protected IShip createPlayersShip()
 	{
-		IShip ship = PlayerShipFactory.INSTANCE.create(this);
-		registerShip(ship);
-		return ship;
+		playersShip = PlayerShipFactory.INSTANCE.create(this);
+		registerShip(playersShip);
+		return playersShip;
 	}
 
 	void registerShip(IShip ship)
@@ -40,6 +42,14 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 			inputHandler = initInputProcessor();
 
 		return inputHandler;
+	}
+
+	@Override
+	public void setGameProgress(GameProgress gameProgress)
+	{
+		super.setGameProgress(gameProgress);
+
+		playersShip.setLevel(gameProgress.getLevel());
 	}
 
 	@Override

@@ -8,4 +8,6 @@ public interface IEngine
 	public void setDestination(Vector2 destination);
 
 	public Turn fly();
+
+	public void setLevel(int level);
 }
