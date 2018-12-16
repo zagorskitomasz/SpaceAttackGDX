@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.Ship;
+import com.zagorskidev.spaceattack.system.GameProgress;
 
 public class PlayerShip extends Ship
 {
@@ -33,5 +34,11 @@ public class PlayerShip extends Ship
 	protected void fly()
 	{
 		currentTexture = textures.get(engine.fly());
+	}
+
+	@Override
+	public void notify(GameProgress state)
+	{
+		setLevel(state.getLevel());
 	}
 }

@@ -98,9 +98,11 @@ public abstract class Ship extends Actor implements IShip
 	@Override
 	public void setLevel(int level)
 	{
-		engine.setLevel(level);
+		if (engine != null)
+			engine.setLevel(level);
 
-		for (IWeapon weapon : weapons)
-			weapon.setLevel(level);
+		if (weapons != null)
+			for (IWeapon weapon : weapons)
+				weapon.setLevel(level);
 	}
 }

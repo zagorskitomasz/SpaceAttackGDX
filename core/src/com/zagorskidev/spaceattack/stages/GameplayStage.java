@@ -49,7 +49,8 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	{
 		super.setGameProgress(gameProgress);
 
-		playersShip.setLevel(gameProgress.getLevel());
+		this.gameProgress.registerObserver(playersShip);
+		this.gameProgress.setLevel(this.gameProgress.getLevel());
 	}
 
 	@Override
