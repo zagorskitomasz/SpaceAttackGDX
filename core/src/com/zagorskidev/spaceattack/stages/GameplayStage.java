@@ -6,13 +6,21 @@ import com.zagorskidev.spaceattack.input.MissionInputHandler;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
 import com.zagorskidev.spaceattack.system.GameProgress;
+import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.IWeaponController;
+import com.zagorskidev.spaceattack.weapons.MissileLauncher;
 
 public abstract class GameplayStage extends AbstractStage implements IWeaponController
 {
+	private IMissileLauncher missileLauncher;
 	private IInput inputHandler;
 	private IShip playersShip;
+
+	public GameplayStage()
+	{
+		missileLauncher = new MissileLauncher(this);
+	}
 
 	protected IShip createPlayersShip()
 	{
@@ -57,5 +65,10 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	public void setPrimaryWeapon(IWeapon weapon)
 	{
 		// TODO
+	}
+
+	public IMissileLauncher getMissileLauncher()
+	{
+		return missileLauncher;
 	}
 }

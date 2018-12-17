@@ -9,8 +9,9 @@ import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.notifiers.Observer;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
+import com.zagorskidev.spaceattack.weapons.missiles.Vulnerable;
 
-public interface IShip extends Observer<GameProgress>
+public interface IShip extends Observer<GameProgress>,Vulnerable
 {
 	public enum Turn
 	{
