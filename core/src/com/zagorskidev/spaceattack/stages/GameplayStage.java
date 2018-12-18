@@ -6,6 +6,8 @@ import com.zagorskidev.spaceattack.input.MissionInputHandler;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
 import com.zagorskidev.spaceattack.system.GameProgress;
+import com.zagorskidev.spaceattack.ui.buttons.FireButton;
+import com.zagorskidev.spaceattack.ui.buttons.FireButtonsFactory;
 import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.IWeaponController;
@@ -64,7 +66,11 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	@Override
 	public void setPrimaryWeapon(IWeapon weapon)
 	{
-		// TODO
+		if (inputHandler == null)
+			inputHandler = initInputProcessor();
+
+		FireButton primaryFireButton = FireButtonsFactory.INSTANCE.primary(this, weapon);
+		inputHandler.registerFireButton(primaryFireButton);
 	}
 
 	public IMissileLauncher getMissileLauncher()

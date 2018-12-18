@@ -41,4 +41,6 @@ public interface IStage extends InputProcessor
 	public Viewport getViewport();
 
 	public InputProcessor getInputProcessor();
+
+	public void addActor(Actor button);
 }

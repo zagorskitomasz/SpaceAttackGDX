@@ -9,4 +9,7 @@ public class Paths
 	public static final String ACT_LOGO = "graphics/actLogo#.png";
 	public static final String M1_BACKGROUND = "graphics/m1Background.jpg";
 	public static final String PLAYER_SHIP = "graphics/ships/player/form1.png";
+	public static final String PF_BUTTON_UP = "graphics/gui/redActive.png";
+	public static final String PF_BUTTON_DOWN = "graphics/gui/redPressed.png";
+	public static final String FIRE_BUTTON_DISABLED = "graphics/gui/disabled.png";
 }

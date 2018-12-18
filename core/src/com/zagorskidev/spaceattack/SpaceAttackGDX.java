@@ -29,7 +29,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 
 	void setInputProcessor()
 	{
-		Gdx.input.setInputProcessor(stage.getInputProcessor());
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	StageFactory getStageFactory()
