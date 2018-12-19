@@ -15,7 +15,7 @@ public class MissileLauncher implements IMissileLauncher
 	@Override
 	public void launch(AbstractMissile missile)
 	{
-		stage.addActor(missile);
-		missile.addActors(stage.getActors());
+		stage.addActorBeforeGUI(missile);
+		missile.setActors(stage.getActors());
 	}
 }

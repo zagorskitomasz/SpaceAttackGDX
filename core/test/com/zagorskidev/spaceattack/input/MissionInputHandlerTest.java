@@ -46,7 +46,7 @@ public class MissionInputHandlerTest
 	@Test
 	public void ifWeaponFiredShipIsNotMoved()
 	{
-		doReturn(true).when(button).touch(anyInt(), anyInt());
+		doReturn(true).when(button).touchUp(anyInt(), anyInt());
 
 		handler.registerShip(ship);
 		handler.registerFireButton(button);

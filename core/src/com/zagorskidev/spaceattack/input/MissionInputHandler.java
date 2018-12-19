@@ -32,11 +32,22 @@ public class MissionInputHandler extends InputAdapter implements IInput
 	}
 
 	@Override
+	public boolean touchDown(int screenX,int screenY,int pointer,int button)
+	{
+		for (FireButton fireButton : buttons)
+		{
+			fireButton.touchDown(screenX, screenY);
+
+		}
+		return true;
+	}
+
+	@Override
 	public boolean touchUp(int screenX,int screenY,int pointer,int button)
 	{
 		for (FireButton fireButton : buttons)
 		{
-			if (fireButton.touch(screenX, screenY))
+			if (fireButton.touchUp(screenX, screenY))
 				return true;
 		}
 

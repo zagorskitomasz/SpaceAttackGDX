@@ -23,6 +23,6 @@ public class Mission1Stage extends GameplayStage
 
 	private void addPlayersShip()
 	{
-		addActor(createPlayersShip().getActor());
+		addActorBeforeGUI(createPlayersShip().getActor());
 	}
 }

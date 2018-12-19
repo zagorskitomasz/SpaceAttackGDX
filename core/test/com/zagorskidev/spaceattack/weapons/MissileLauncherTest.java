@@ -37,7 +37,7 @@ public class MissileLauncherTest
 	public void addingActorToStage()
 	{
 		launcher.launch(missile);
-		verify(stage).addActor(missile);
+		verify(stage).addActorBeforeGUI(missile);
 	}
 
 	@Test
@@ -46,6 +46,6 @@ public class MissileLauncherTest
 		doReturn(actors).when(stage).getActors();
 
 		launcher.launch(missile);
-		verify(missile).addActors(actors);
+		verify(missile).setActors(actors);
 	}
 }

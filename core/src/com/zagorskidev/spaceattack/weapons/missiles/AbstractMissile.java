@@ -7,7 +7,7 @@ public abstract class AbstractMissile extends Actor
 {
 	private Array<Actor> actors;
 
-	public void addActors(Array<Actor> actors)
+	public void setActors(Array<Actor> actors)
 	{
 		this.actors = actors;
 	}

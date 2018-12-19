@@ -1,12 +1,18 @@
 package com.zagorskidev.spaceattack.ui.buttons;
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.zagorskidev.spaceattack.graphics.Sizes;
 
 public class PrimaryFireButton extends FireButton
 {
-	public PrimaryFireButton(Drawable drawableUp,Drawable drawableDown)
+	PrimaryFireButton(Drawable drawableUp,Drawable drawableDown)
 	{
 		super(drawableUp, drawableDown);
-		// TODO placement
+	}
+
+	@Override
+	protected void setPosition()
+	{
+		setPosition(Sizes.gameWidth() * 0.5f - getWidth() * 0.5f, Sizes.gameHeight() * 0.08f);
 	}
 }

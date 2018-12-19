@@ -6,7 +6,7 @@ public enum WeaponFactory
 
 	public IWeapon redLaser()
 	{
-		// TODO Auto-generated method stub
+		// TODO rather return step builder
 		return null;
 	}
 
