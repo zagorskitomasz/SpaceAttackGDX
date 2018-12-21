@@ -1,6 +1,7 @@
 package com.zagorskidev.spaceattack.stages;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.input.MissionInputHandler;
 import com.zagorskidev.spaceattack.ships.IShip;
@@ -18,6 +19,8 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	private IMissileLauncher missileLauncher;
 	private IInput inputHandler;
 	private IShip playersShip;
+
+	private IWeapon primaryWeapon;
 
 	public GameplayStage()
 	{
@@ -37,6 +40,7 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 			inputHandler = initInputProcessor();
 
 		inputHandler.registerShip(ship);
+		playersShip = ship;
 	}
 
 	IInput initInputProcessor()
@@ -66,15 +70,29 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	@Override
 	public void setPrimaryWeapon(IWeapon weapon)
 	{
+		this.primaryWeapon = weapon;
+
 		if (inputHandler == null)
 			inputHandler = initInputProcessor();
 
-		FireButton primaryFireButton = FireButtonsFactory.INSTANCE.primary(this, weapon);
+		FireButton primaryFireButton = createPrimaryFireButton();
 		inputHandler.registerFireButton(primaryFireButton);
+	}
+
+	FireButton createPrimaryFireButton()
+	{
+		return FireButtonsFactory.INSTANCE.primary(this, primaryWeapon);
 	}
 
 	public IMissileLauncher getMissileLauncher()
 	{
 		return missileLauncher;
+	}
+
+	@Override
+	public Vector2 getPrimaryWeaponUsePlacement()
+	{
+		return new Vector2(playersShip.getX(),
+				playersShip.getY() + playersShip.getHeight() * primaryWeapon.getWeaponsMovementFactor());
 	}
 }

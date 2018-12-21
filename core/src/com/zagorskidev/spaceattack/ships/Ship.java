@@ -105,4 +105,16 @@ public abstract class Ship extends Actor implements IShip
 			for (IWeapon weapon : weapons)
 				weapon.setLevel(level);
 	}
+
+	@Override
+	public float getHeight()
+	{
+		return currentTexture.getHeight();
+	}
+
+	@Override
+	public float getWidth()
+	{
+		return currentTexture.getWidth();
+	}
 }

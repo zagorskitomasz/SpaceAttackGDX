@@ -41,4 +41,8 @@ public interface IShip extends Observer<GameProgress>,Vulnerable
 	public Set<IWeapon> getWeapons();
 
 	void setLevel(int level);
+
+	public float getHeight();
+
+	public float getWidth();
 }

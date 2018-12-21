@@ -12,4 +12,5 @@ public class Paths
 	public static final String PF_BUTTON_UP = "graphics/gui/redActive.png";
 	public static final String PF_BUTTON_DOWN = "graphics/gui/redPressed.png";
 	public static final String FIRE_BUTTON_DISABLED = "graphics/gui/disabled.png";
+	public static final String RED_LASER = "graphics/weapons/laserNS.png";
 }

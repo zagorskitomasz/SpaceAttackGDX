@@ -25,9 +25,16 @@ public enum PlayerShipFactory
 				.setBraking(1f)
 				.setAgility(2f)
 				.build();
+
+		IWeapon redLaser = WeaponFactory
+				.INSTANCE
+				.redLaser()
+				.setController(stage)
+				.setMissileLauncher(stage.getMissileLauncher())
+				.setLevel(1)
+				.build();
 		//@formatter:on
 
-		IWeapon redLaser = WeaponFactory.INSTANCE.redLaser();
 		stage.setPrimaryWeapon(redLaser);
 
 		ship.loadGraphics(Paths.PLAYER_SHIP);
