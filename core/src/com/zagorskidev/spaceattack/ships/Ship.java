@@ -18,6 +18,8 @@ public abstract class Ship extends DrawableActor implements IShip
 	protected IEngine engine;
 	protected Set<IWeapon> weapons;
 
+	private boolean isToKill;
+
 	public Ship()
 	{
 
@@ -105,5 +107,36 @@ public abstract class Ship extends DrawableActor implements IShip
 	public float getWidth()
 	{
 		return currentTexture.getWidth();
+	}
+
+	@Override
+	public void takeDmg(float dmg)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public float getRadius()
+	{
+		return (getHeight() + getWidth()) * 0.25f;
+	}
+
+	@Override
+	public Vector2 getPosition()
+	{
+		return new Vector2(getX(), getY());
+	}
+
+	@Override
+	public void setToKill()
+	{
+		isToKill = true;
+	}
+
+	@Override
+	public boolean isToKill()
+	{
+		return isToKill;
 	}
 }

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class NumbersUtilsTest
 {
 	@Test
@@ -19,5 +21,14 @@ public class NumbersUtilsTest
 		assertEquals("VIII", NumbersUtils.toRoman(8));
 		assertEquals("IX", NumbersUtils.toRoman(9));
 		assertEquals("X", NumbersUtils.toRoman(10));
+	}
+
+	@Test
+	public void distance()
+	{
+		Vector2 v1 = new Vector2(10, 10);
+		Vector2 v2 = new Vector2(13, 14);
+
+		assertEquals(5f, NumbersUtils.distance(v1, v2), 0);
 	}
 }

@@ -28,4 +28,9 @@ public class Paths
 			public static final String RED_LASER = "graphics/weapons/laserNS.png";
 		}
 	}
+
+	public class Sounds
+	{
+		public static final String RED_LASER = "sound/redShot.mp3";
+	}
 }

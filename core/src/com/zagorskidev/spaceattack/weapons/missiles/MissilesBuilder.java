@@ -13,7 +13,7 @@ public enum MissilesBuilder
 	}
 
 	public static class BuilderImpl
-			implements Builder,TextureSet,DmgSet,SpeedSet,AccelerationSet,MovementSet,PositionSet
+			implements Builder,TextureSet,DmgSet,SpeedSet,AccelerationSet,MovementSet,PositionSet,SoundSet
 	{
 		private Missile missile;
 
@@ -67,6 +67,13 @@ public enum MissilesBuilder
 		}
 
 		@Override
+		public SoundSet setSound(String soundPath)
+		{
+			missile.setSound(soundPath);
+			return this;
+		}
+
+		@Override
 		public Missile build()
 		{
 			return missile;
@@ -104,6 +111,11 @@ public enum MissilesBuilder
 	}
 
 	public interface PositionSet
+	{
+		public SoundSet setSound(String soundPath);
+	}
+
+	public interface SoundSet
 	{
 		public Missile build();
 	}

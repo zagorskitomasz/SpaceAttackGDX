@@ -2,6 +2,8 @@ package com.zagorskidev.spaceattack.stages;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.input.MissionInputHandler;
 import com.zagorskidev.spaceattack.ships.IShip;
@@ -13,6 +15,7 @@ import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.MissileLauncher;
+import com.zagorskidev.spaceattack.weapons.missiles.Killable;
 
 public abstract class GameplayStage extends AbstractStage implements IWeaponController
 {
@@ -100,5 +103,25 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	public Vector2 getPrimaryWeaponMovement()
 	{
 		return new Vector2(0, 1);
+	}
+
+	@Override
+	public void act(float delta)
+	{
+		callSuperAct(delta);
+
+		Array<Actor> actorsToKill = new Array<>();
+		getActors().forEach(actor->
+		{
+			if (actor instanceof Killable && ((Killable) actor).isToKill())
+				actorsToKill.add(actor);
+		});
+
+		getActors().removeAll(actorsToKill, true);
+	}
+
+	void callSuperAct(float delta)
+	{
+		super.act(delta);
 	}
 }

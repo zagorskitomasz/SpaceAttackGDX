@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.zagorskidev.spaceattack.system.NumbersUtils;
 import com.zagorskidev.spaceattack.ui.ActorGUI;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 
@@ -34,7 +35,7 @@ public abstract class FireButton extends Button implements ActorGUI
 
 	private double distance(Vector2 object1,Vector2 object2)
 	{
-		return Math.sqrt(Math.pow((object2.x - object1.x), 2) + Math.pow((object2.y - object1.y), 2));
+		return NumbersUtils.distance(object1, object2);
 	}
 
 	public boolean touchDown(int screenX,int screenY)

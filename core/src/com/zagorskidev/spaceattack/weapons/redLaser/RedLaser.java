@@ -54,6 +54,7 @@ public class RedLaser implements IWeapon
 				.setAcceleration(0)
 				.setMovement(controller.getPrimaryWeaponMovement())
 				.setPosition(controller.getPrimaryWeaponUsePlacement())
+				.setSound(Paths.Sounds.RED_LASER)
 				.build();
 		//@formatter:on
 	}

@@ -5,8 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.graphics.DrawableActor;
+import com.zagorskidev.spaceattack.system.NumbersUtils;
 
-public class Missile extends DrawableActor
+public class Missile extends DrawableActor implements Killable
 {
 	private Array<Actor> actors;
 
@@ -15,6 +16,9 @@ public class Missile extends DrawableActor
 	private float speed;
 	private float acceleration;
 	private Vector2 movement;
+	private String soundPath;
+
+	private boolean isToKill;
 
 	Missile()
 	{
@@ -37,7 +41,7 @@ public class Missile extends DrawableActor
 		for (Actor actor : actors)
 		{
 			if (actor instanceof Vulnerable)
-				collision(actor);
+				collision((Vulnerable) actor);
 		}
 	}
 
@@ -49,9 +53,26 @@ public class Missile extends DrawableActor
 		speed += acceleration;
 	}
 
-	private void collision(Actor actor)
+	private void collision(Vulnerable vulnerable)
 	{
-		// TODO Auto-generated method stub
+		if (checkCollision(vulnerable))
+		{
+			vulnerable.takeDmg(dmg);
+			setToKill();
+		}
+	}
+
+	private boolean checkCollision(Vulnerable vulnerable)
+	{
+		Vector2 missileCenter = new Vector2(getX(), getY());
+		Vector2 vulnerableCenter = vulnerable.getPosition();
+
+		return NumbersUtils.distance(missileCenter, vulnerableCenter) <= vulnerable.getRadius() + getRadius();
+	}
+
+	private float getRadius()
+	{
+		return (getHeight() + getWidth()) * 0.25f;
 	}
 
 	@Override
@@ -86,6 +107,11 @@ public class Missile extends DrawableActor
 			this.movement = movement.nor();
 	}
 
+	public void setSound(String soundPath)
+	{
+		this.soundPath = soundPath;
+	}
+
 	public float getDmg()
 	{
 		return dmg;
@@ -104,5 +130,22 @@ public class Missile extends DrawableActor
 	public Vector2 getPosition()
 	{
 		return new Vector2(getX(), getY());
+	}
+
+	@Override
+	public void setToKill()
+	{
+		isToKill = true;
+	}
+
+	@Override
+	public boolean isToKill()
+	{
+		return isToKill;
+	}
+
+	public String getSound()
+	{
+		return soundPath;
 	}
 }

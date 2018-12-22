@@ -13,8 +13,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.ships.IShip;
+import com.zagorskidev.spaceattack.ships.Ship;
+import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.WeaponFactory;
 
@@ -70,5 +74,28 @@ public class GameplayStageTest
 		stage.setPrimaryWeapon(redLaser);
 		
 		assertEquals(new Vector2(100,242), stage.getPrimaryWeaponUsePlacement());
+	}
+	
+	@Test
+	public void removingActorsToKill()
+	{
+		Array<Actor> actors = new Array<>();
+		
+		Ship killableToKill = mock(Ship.class);
+		Ship killableNotToKill = mock(Ship.class);
+		FireButton notKillable = mock(FireButton.class);
+		doReturn(true).when(killableToKill).isToKill();
+		doReturn(false).when(killableNotToKill).isToKill();
+		
+		actors.add(killableToKill);
+		actors.add(killableNotToKill);
+		actors.add(notKillable);
+		
+		doReturn(actors).when(stage).getActors();
+		doCallRealMethod().when(stage).act(0);
+		
+		stage.act(0);
+		
+		assertEquals(2, actors.size);
 	}
 }
