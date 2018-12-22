@@ -28,6 +28,8 @@ public class ShipEngineTest
 		doCallRealMethod().when(ship).getY();
 		doCallRealMethod().when(ship).setX(ArgumentMatchers.anyFloat());
 		doCallRealMethod().when(ship).setY(ArgumentMatchers.anyFloat());
+		doCallRealMethod().when(ship).setLevel(ArgumentMatchers.anyInt());
+		doCallRealMethod().when(ship).setShipEngine(ArgumentMatchers.any(IEngine.class));
 
 		ship.setX(10);
 		ship.setY(20);
@@ -42,6 +44,9 @@ public class ShipEngineTest
 				.setAgility(2)
 				.build();
 		//@formatter.on
+		
+		ship.setShipEngine(engine);
+		engine.setLevel(1);
 	}
 
 	@Test
@@ -151,5 +156,13 @@ public class ShipEngineTest
 		assertEquals(7,engine.getCurrentSpeed(),0);
 		assertEquals(new Vector2(100,20), engine.getDestination());
 		assertEquals(new Vector2(1,21), engine.getNextDestination());
+	}
+	
+	@Test
+	public void increasingLevel()
+	{
+		ship.setLevel(3);
+		
+		assertEquals(2.8f, engine.getCurrentSpeed(),0.01);
 	}
 }

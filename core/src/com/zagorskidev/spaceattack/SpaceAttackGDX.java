@@ -3,6 +3,7 @@ package com.zagorskidev.spaceattack;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
+import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageFactory;
 import com.zagorskidev.spaceattack.stages.StageResult;
@@ -19,7 +20,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	@Override
 	public void create()
 	{
-		frameController = new FrameController();
+		frameController = new FrameController(Consts.Metagame.FPS);
 		factory = getStageFactory();
 		StageResult defaultResult = new StageResult();
 		stage = factory.getStage(defaultResult);

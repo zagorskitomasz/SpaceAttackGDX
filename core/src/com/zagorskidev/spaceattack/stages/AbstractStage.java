@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.system.GameSaver;
+import com.zagorskidev.spaceattack.ui.ActorGUI;
 
 public abstract class AbstractStage extends Stage implements IStage
 {
@@ -68,5 +69,18 @@ public abstract class AbstractStage extends Stage implements IStage
 	protected Actor createImage(String path,float x,float y)
 	{
 		return StaticImageFactory.INSTANCE.create(path, x, y);
+	}
+
+	@Override
+	public void addActorBeforeGUI(Actor newActor)
+	{
+		for (Actor actor : getActors())
+		{
+			if (actor instanceof ActorGUI)
+			{
+				getRoot().addActorBefore(actor, newActor);
+				return;
+			}
+		}
 	}
 }

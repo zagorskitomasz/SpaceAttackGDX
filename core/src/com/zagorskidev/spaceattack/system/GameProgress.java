@@ -1,16 +1,26 @@
 package com.zagorskidev.spaceattack.system;
 
-public class GameProgress
+import java.util.LinkedList;
+import java.util.List;
+
+import com.zagorskidev.spaceattack.notifiers.INotifier;
+import com.zagorskidev.spaceattack.notifiers.Observer;
+
+public class GameProgress implements INotifier<GameProgress>
 {
 	private Integer mission;
 	private Integer level;
 	private Long experience;
+
+	private transient List<Observer<GameProgress>> observers;
 
 	public GameProgress()
 	{
 		mission = 1;
 		level = 1;
 		experience = 0l;
+
+		observers = new LinkedList<>();
 	}
 
 	public Integer getMission()
@@ -21,6 +31,7 @@ public class GameProgress
 	public void setMission(Integer mission)
 	{
 		this.mission = mission;
+		notifyObservers();
 	}
 
 	public Integer getLevel()
@@ -31,6 +42,7 @@ public class GameProgress
 	public void setLevel(Integer level)
 	{
 		this.level = level;
+		notifyObservers();
 	}
 
 	public Long getExperience()
@@ -53,5 +65,23 @@ public class GameProgress
 
 		return otherProgress.experience == experience && otherProgress.level == level
 				&& otherProgress.mission == mission;
+	}
+
+	@Override
+	public void registerObserver(Observer<GameProgress> observer)
+	{
+		observers.add(observer);
+	}
+
+	@Override
+	public void unregisterObserver(Observer<GameProgress> observer)
+	{
+		observers.remove(observer);
+	}
+
+	private void notifyObservers()
+	{
+		for (Observer<GameProgress> observer : observers)
+			observer.notify(this);
 	}
 }

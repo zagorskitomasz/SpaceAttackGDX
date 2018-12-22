@@ -18,11 +18,11 @@ public class Mission1Stage extends GameplayStage
 
 	private void prepareStaticContent()
 	{
-		addActor(createImage(Paths.M1_BACKGROUND, 0, 0));
+		addActor(createImage(Paths.Graphics.UI.M1_BACKGROUND, 0, 0));
 	}
 
 	private void addPlayersShip()
 	{
-		addActor(createPlayersShip().getActor());
+		addActorBeforeGUI(createPlayersShip().getActor());
 	}
 }

@@ -5,6 +5,8 @@ import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.moving.engines.ShipEngineBuilder;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.stages.GameplayStage;
+import com.zagorskidev.spaceattack.weapons.IWeapon;
+import com.zagorskidev.spaceattack.weapons.WeaponFactory;
 
 public enum PlayerShipFactory
 {
@@ -23,10 +25,21 @@ public enum PlayerShipFactory
 				.setBraking(1f)
 				.setAgility(2f)
 				.build();
+
+		IWeapon redLaser = WeaponFactory
+				.INSTANCE
+				.redLaser()
+				.setController(stage)
+				.setMissileLauncher(stage.getMissileLauncher())
+				.setLevel(1)
+				.build();
 		//@formatter:on
 
-		ship.loadGraphics(Paths.PLAYER_SHIP);
+		stage.setPrimaryWeapon(redLaser);
+
+		ship.loadGraphics(Paths.Graphics.Ships.PLAYER_SHIP);
 		ship.setShipEngine(engine);
+		ship.addWeapon(redLaser);
 
 		return ship;
 	}

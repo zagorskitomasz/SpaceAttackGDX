@@ -38,16 +38,16 @@ public class MissionsStage extends UIStage
 
 	void init()
 	{
-		addActor(createImage(Paths.MENU_BACKGROUND, 0, 0));
-		addActor(createImage(Paths.LOGO, 0, 0));
+		addActor(createImage(Paths.Graphics.UI.MENU_BACKGROUND, 0, 0));
+		addActor(createImage(Paths.Graphics.UI.LOGO, 0, 0));
 		initButtons();
 	}
 
 	void initButtons()
 	{
-		missionsButtons = new ArrayList<>(Consts.MISSIONS_IN_ACT);
+		missionsButtons = new ArrayList<>(Consts.Metagame.MISSIONS_IN_ACT);
 
-		for (int i = 0; i < Consts.MISSIONS_IN_ACT; i++)
+		for (int i = 0; i < Consts.Metagame.MISSIONS_IN_ACT; i++)
 		{
 			ChangeStageButtonListener listener = new ChangeStageButtonListener(this,
 					Stages.getMissionStage(calculateMission(i + 1)));
@@ -129,9 +129,9 @@ public class MissionsStage extends UIStage
 
 		if (progress != null)
 		{
-			actNumber = (progress.getMission() - 1) / Consts.MISSIONS_IN_ACT + 1;
-			if (actNumber > Consts.ACTS_NUMBER)
-				actNumber = Consts.ACTS_NUMBER;
+			actNumber = (progress.getMission() - 1) / Consts.Metagame.MISSIONS_IN_ACT + 1;
+			if (actNumber > Consts.Metagame.ACTS_NUMBER)
+				actNumber = Consts.Metagame.ACTS_NUMBER;
 			refreshAct();
 		}
 	}
@@ -151,8 +151,8 @@ public class MissionsStage extends UIStage
 	void refreshAct()
 	{
 		getActors().removeValue(actLogo, true);
-		actLogo = createImage(Paths.ACT_LOGO.replaceAll("#", String.valueOf(actNumber)), Sizes.gameWidth() * 0.25f,
-				Sizes.gameHeight() * 0.27f);
+		actLogo = createImage(Paths.Graphics.UI.ACT_LOGO.replaceAll("#", String.valueOf(actNumber)),
+				Sizes.gameWidth() * 0.25f, Sizes.gameHeight() * 0.27f);
 		addActor(actLogo);
 
 		for (int i = 0; i < missionsButtons.size(); i++)
@@ -173,7 +173,7 @@ public class MissionsStage extends UIStage
 
 	int calculateMission(int buttonIndex)
 	{
-		return (actNumber - 1) * Consts.MISSIONS_IN_ACT + buttonIndex;
+		return (actNumber - 1) * Consts.Metagame.MISSIONS_IN_ACT + buttonIndex;
 	}
 
 	boolean disableMission(int buttonIndex)
@@ -183,7 +183,7 @@ public class MissionsStage extends UIStage
 
 	boolean showNextAct()
 	{
-		return actNumber < Consts.ACTS_NUMBER && gameProgress.getMission() > actNumber * 3;
+		return actNumber < Consts.Metagame.ACTS_NUMBER && gameProgress.getMission() > actNumber * 3;
 	}
 
 	boolean showPrevAct()
