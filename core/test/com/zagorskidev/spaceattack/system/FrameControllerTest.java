@@ -17,7 +17,7 @@ public class FrameControllerTest
 	@Before
 	public void setUp()
 	{
-		frameController = spy(new FrameController());
+		frameController = spy(new FrameController(Consts.FPS));
 	}
 
 	@Test

@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.stages.GameplayStage;
-import com.zagorskidev.spaceattack.weapons.missiles.AbstractMissile;
+import com.zagorskidev.spaceattack.weapons.missiles.Missile;
 
 public class MissileLauncherTest
 {
@@ -19,7 +19,7 @@ public class MissileLauncherTest
 	private GameplayStage stage;
 
 	@Mock
-	private AbstractMissile missile;
+	private Missile missile;
 
 	@Mock
 	private Array<Actor> actors;

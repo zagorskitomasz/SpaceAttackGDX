@@ -1,7 +1,7 @@
 package com.zagorskidev.spaceattack.weapons;
 
 import com.zagorskidev.spaceattack.stages.GameplayStage;
-import com.zagorskidev.spaceattack.weapons.missiles.AbstractMissile;
+import com.zagorskidev.spaceattack.weapons.missiles.Missile;
 
 public class MissileLauncher implements IMissileLauncher
 {
@@ -13,7 +13,7 @@ public class MissileLauncher implements IMissileLauncher
 	}
 
 	@Override
-	public void launch(AbstractMissile missile)
+	public void launch(Missile missile)
 	{
 		stage.addActorBeforeGUI(missile);
 		missile.setActors(stage.getActors());

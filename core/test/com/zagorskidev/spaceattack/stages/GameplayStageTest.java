@@ -69,6 +69,6 @@ public class GameplayStageTest
 		stage.registerShip(ship);
 		stage.setPrimaryWeapon(redLaser);
 		
-		assertEquals(new Vector2(100,260), stage.getPrimaryWeaponUsePlacement());
+		assertEquals(new Vector2(100,242), stage.getPrimaryWeaponUsePlacement());
 	}
 }

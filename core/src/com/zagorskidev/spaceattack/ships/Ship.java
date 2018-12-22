@@ -5,13 +5,13 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.zagorskidev.spaceattack.graphics.DrawableActor;
 import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 
-public abstract class Ship extends Actor implements IShip
+public abstract class Ship extends DrawableActor implements IShip
 {
 	protected Texture currentTexture;
 
@@ -47,20 +47,9 @@ public abstract class Ship extends Actor implements IShip
 	}
 
 	@Override
-	public void draw(Batch batch,float alpha)
+	protected Texture getTexture()
 	{
-		if (currentTexture != null)
-			batch.draw(currentTexture, getDrawingX(), getDrawingY());
-	}
-
-	private float getDrawingX()
-	{
-		return getX() - currentTexture.getWidth() * 0.5f;
-	}
-
-	private float getDrawingY()
-	{
-		return getY() - currentTexture.getHeight() * 0.5f;
+		return currentTexture;
 	}
 
 	@Override

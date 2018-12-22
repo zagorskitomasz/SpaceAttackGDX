@@ -95,4 +95,10 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 		return new Vector2(playersShip.getX(),
 				playersShip.getY() + playersShip.getHeight() * primaryWeapon.getWeaponsMovementFactor());
 	}
+
+	@Override
+	public Vector2 getPrimaryWeaponMovement()
+	{
+		return new Vector2(0, 1);
+	}
 }

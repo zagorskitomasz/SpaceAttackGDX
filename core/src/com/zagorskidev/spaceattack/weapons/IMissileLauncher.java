@@ -1,8 +1,8 @@
 package com.zagorskidev.spaceattack.weapons;
 
-import com.zagorskidev.spaceattack.weapons.missiles.AbstractMissile;
+import com.zagorskidev.spaceattack.weapons.missiles.Missile;
 
 public interface IMissileLauncher
 {
-	public void launch(AbstractMissile missile);
+	public void launch(Missile missile);
 }
