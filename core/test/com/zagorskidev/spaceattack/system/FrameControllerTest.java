@@ -17,7 +17,7 @@ public class FrameControllerTest
 	@Before
 	public void setUp()
 	{
-		frameController = spy(new FrameController(Consts.FPS));
+		frameController = spy(new FrameController(Consts.Metagame.FPS));
 	}
 
 	@Test
@@ -25,7 +25,7 @@ public class FrameControllerTest
 	{
 		doReturn(60000l).when(frameController).getCurrentTime();
 		frameController.check();
-		doReturn(60000l + 1000 / Consts.FPS + 1).when(frameController).getCurrentTime();
+		doReturn(60000l + 1000 / Consts.Metagame.FPS + 1).when(frameController).getCurrentTime();
 
 		assertTrue(frameController.check());
 	}
@@ -35,7 +35,7 @@ public class FrameControllerTest
 	{
 		doReturn(60000l).when(frameController).getCurrentTime();
 		frameController.check();
-		doReturn(60000l + 1000 / Consts.FPS - 1).when(frameController).getCurrentTime();
+		doReturn(60000l + 1000 / Consts.Metagame.FPS - 1).when(frameController).getCurrentTime();
 
 		assertFalse(frameController.check());
 	}

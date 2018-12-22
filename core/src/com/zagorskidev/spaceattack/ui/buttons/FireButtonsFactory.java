@@ -14,8 +14,8 @@ public enum FireButtonsFactory
 
 	public FireButton primary(IStage stage,IWeapon weapon)
 	{
-		Drawable drawableUp = getDrawable(Paths.PF_BUTTON_UP);
-		Drawable drawableDown = getDrawable(Paths.PF_BUTTON_DOWN);
+		Drawable drawableUp = getDrawable(Paths.Graphics.UI.PF_BUTTON_UP);
+		Drawable drawableDown = getDrawable(Paths.Graphics.UI.PF_BUTTON_DOWN);
 
 		FireButton button = instantiatePrimary(drawableUp, drawableDown);
 		button.setWeapon(weapon);

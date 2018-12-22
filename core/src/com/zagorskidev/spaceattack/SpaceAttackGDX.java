@@ -20,7 +20,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	@Override
 	public void create()
 	{
-		frameController = new FrameController(Consts.FPS);
+		frameController = new FrameController(Consts.Metagame.FPS);
 		factory = getStageFactory();
 		StageResult defaultResult = new StageResult();
 		stage = factory.getStage(defaultResult);

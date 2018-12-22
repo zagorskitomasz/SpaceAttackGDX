@@ -94,8 +94,8 @@ public class RedLaserTest
 		doReturn(mock(Texture.class)).when(redLaser).getMissileTexture();
 		Missile missile = redLaser.buildMissile();
 
-		assertEquals(Consts.RED_LASER_BASE_DMG, missile.getDmg(), 0);
-		assertEquals(Consts.RED_LASER_BASE_SPEED, missile.getSpeed(), 0);
+		assertEquals(Consts.Weapons.RED_LASER_BASE_DMG, missile.getDmg(), 0);
+		assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED, missile.getSpeed(), 0);
 		assertEquals(0, missile.getAcceleration(), 0);
 	}
 
@@ -106,8 +106,10 @@ public class RedLaserTest
 		redLaser.setLevel(4);
 		Missile missile = redLaser.buildMissile();
 
-		assertEquals(Consts.RED_LASER_BASE_DMG + 3 * Consts.RED_LASER_DMG_PER_LEVEL, missile.getDmg(), 0);
-		assertEquals(Consts.RED_LASER_BASE_SPEED + 3 * Consts.RED_LASER_SPEED_PER_LEVEL, missile.getSpeed(), 0);
+		assertEquals(Consts.Weapons.RED_LASER_BASE_DMG + 3 * Consts.Weapons.RED_LASER_DMG_PER_LEVEL, missile.getDmg(),
+				0);
+		assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED + 3 * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL,
+				missile.getSpeed(), 0);
 		assertEquals(0, missile.getAcceleration(), 0);
 	}
 }

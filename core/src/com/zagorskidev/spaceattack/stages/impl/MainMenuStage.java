@@ -27,8 +27,8 @@ public class MainMenuStage extends UIStage
 	{
 		continueGameButton = createContinueGameButton();
 
-		addActor(createImage(Paths.MENU_BACKGROUND, 0, 0));
-		addActor(createImage(Paths.LOGO, 0, getConstGameHeight() * 0.03f));
+		addActor(createImage(Paths.Graphics.UI.MENU_BACKGROUND, 0, 0));
+		addActor(createImage(Paths.Graphics.UI.LOGO, 0, getConstGameHeight() * 0.03f));
 		addActor(createNewGameButton());
 		addActor(continueGameButton);
 		addActor(createExitGameButton());

@@ -37,7 +37,7 @@ public enum PlayerShipFactory
 
 		stage.setPrimaryWeapon(redLaser);
 
-		ship.loadGraphics(Paths.PLAYER_SHIP);
+		ship.loadGraphics(Paths.Graphics.Ships.PLAYER_SHIP);
 		ship.setShipEngine(engine);
 		ship.addWeapon(redLaser);
 
