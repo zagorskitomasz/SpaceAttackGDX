@@ -56,6 +56,7 @@ public class SpaceAttackGDXTest
 		doReturn(factory).when(game).getStageFactory();
 		doNothing().when(game).clearScreen();
 		doNothing().when(game).setInputProcessor();
+		doNothing().when(game).loadMedia();
 		doReturn(30f).when(game).getDeltaTime();
 		doReturn(true).when(game).checkFrame();
 	}

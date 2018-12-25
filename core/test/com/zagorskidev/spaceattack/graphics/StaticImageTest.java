@@ -19,11 +19,10 @@ public class StaticImageTest
 
 		Batch batch = mock(Batch.class);
 		Texture texture = mock(Texture.class);
-		doReturn(texture).when(image).createTexture("path");
 		doReturn(700f).when(image).gameHeight();
 		doReturn(200).when(texture).getHeight();
 
-		image.init("path", 10, 20);
+		image.init(texture, 10, 20);
 		image.draw(batch, 0);
 
 		verify(batch).draw(texture, 10, 480);

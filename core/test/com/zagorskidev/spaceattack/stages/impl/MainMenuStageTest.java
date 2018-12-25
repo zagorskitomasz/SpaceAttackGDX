@@ -17,6 +17,7 @@ import org.junit.Test;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.stages.StageResult;
 import com.zagorskidev.spaceattack.system.GameLoader;
 import com.zagorskidev.spaceattack.system.GameProgress;
@@ -31,6 +32,7 @@ public class MainMenuStageTest
 	@Before
 	public void setUp()
 	{
+		Textures.loadForTest();
 		stage = mock(MainMenuStage.class);
 		doCallRealMethod().when(stage).init();
 		doCallRealMethod().when(stage).isCompleted();

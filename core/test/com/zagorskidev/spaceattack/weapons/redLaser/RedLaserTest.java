@@ -14,7 +14,6 @@ import org.mockito.Mock;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.zagorskidev.spaceattack.consts.Consts;
-import com.zagorskidev.spaceattack.graphics.TexturesFactory;
 import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
 import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.WeaponFactory;
@@ -27,9 +26,6 @@ public class RedLaserTest
 
 	@Mock
 	private IMissileLauncher launcher;
-
-	@Mock
-	private TexturesFactory texturesFactory;
 
 	@Mock
 	private Missile missile;

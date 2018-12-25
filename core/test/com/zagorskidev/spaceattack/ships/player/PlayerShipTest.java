@@ -1,7 +1,6 @@
 package com.zagorskidev.spaceattack.ships.player;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -24,8 +23,7 @@ public class PlayerShipTest
 		Batch batch = mock(Batch.class);
 
 		PlayerShip ship = spy(new PlayerShip());
-		doReturn(texture).when(ship).createTexture(any());
-		ship.loadGraphics("");
+		ship.loadGraphics(texture);
 		ship.draw(batch, 0);
 
 		verify(batch).draw(texture, 150f, 125.000015f);

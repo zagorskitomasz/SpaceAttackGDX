@@ -3,9 +3,9 @@ package com.zagorskidev.spaceattack.stages.impl;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.zagorskidev.spaceattack.consts.Consts;
-import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.consts.UIStrings;
 import com.zagorskidev.spaceattack.graphics.Sizes;
+import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameLoader;
@@ -27,8 +27,8 @@ public class MainMenuStage extends UIStage
 	{
 		continueGameButton = createContinueGameButton();
 
-		addActor(createImage(Paths.Graphics.UI.MENU_BACKGROUND, 0, 0));
-		addActor(createImage(Paths.Graphics.UI.LOGO, 0, getConstGameHeight() * 0.03f));
+		addActor(createImage(Textures.MENU_BACKGROUND.getTexture(), 0, 0));
+		addActor(createImage(Textures.LOGO.getTexture(), 0, getConstGameHeight() * 0.03f));
 		addActor(createNewGameButton());
 		addActor(continueGameButton);
 		addActor(createExitGameButton());

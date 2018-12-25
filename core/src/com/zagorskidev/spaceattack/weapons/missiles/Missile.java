@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.graphics.DrawableActor;
+import com.zagorskidev.spaceattack.sound.Sounds;
 import com.zagorskidev.spaceattack.system.NumbersUtils;
 
 public class Missile extends DrawableActor implements Killable
@@ -16,7 +17,7 @@ public class Missile extends DrawableActor implements Killable
 	private float speed;
 	private float acceleration;
 	private Vector2 movement;
-	private String soundPath;
+	private Sounds sound;
 
 	private boolean isToKill;
 
@@ -107,9 +108,9 @@ public class Missile extends DrawableActor implements Killable
 			this.movement = movement.nor();
 	}
 
-	public void setSound(String soundPath)
+	public void setSound(Sounds sound)
 	{
-		this.soundPath = soundPath;
+		this.sound = sound;
 	}
 
 	public float getDmg()
@@ -144,8 +145,8 @@ public class Missile extends DrawableActor implements Killable
 		return isToKill;
 	}
 
-	public String getSound()
+	public Sounds getSound()
 	{
-		return soundPath;
+		return sound;
 	}
 }

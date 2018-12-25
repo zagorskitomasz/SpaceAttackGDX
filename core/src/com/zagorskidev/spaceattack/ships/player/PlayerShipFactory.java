@@ -1,6 +1,6 @@
 package com.zagorskidev.spaceattack.ships.player;
 
-import com.zagorskidev.spaceattack.consts.Paths;
+import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.moving.engines.ShipEngineBuilder;
 import com.zagorskidev.spaceattack.ships.IShip;
@@ -37,7 +37,8 @@ public enum PlayerShipFactory
 
 		stage.setPrimaryWeapon(redLaser);
 
-		ship.loadGraphics(Paths.Graphics.Ships.PLAYER_SHIP);
+		ship.loadComplexGraphics(Textures.PLAYER_SHIP_F.getTexture(), Textures.PLAYER_SHIP_R.getTexture(),
+				Textures.PLAYER_SHIP_L.getTexture());
 		ship.setShipEngine(engine);
 		ship.addWeapon(redLaser);
 

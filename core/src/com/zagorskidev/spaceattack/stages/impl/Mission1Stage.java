@@ -1,6 +1,6 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
-import com.zagorskidev.spaceattack.consts.Paths;
+import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.stages.GameplayStage;
 
 public class Mission1Stage extends GameplayStage
@@ -18,7 +18,7 @@ public class Mission1Stage extends GameplayStage
 
 	private void prepareStaticContent()
 	{
-		addActor(createImage(Paths.Graphics.UI.M1_BACKGROUND, 0, 0));
+		addActor(createImage(Textures.M1_BACKGROUND.getTexture(), 0, 0));
 	}
 
 	private void addPlayersShip()

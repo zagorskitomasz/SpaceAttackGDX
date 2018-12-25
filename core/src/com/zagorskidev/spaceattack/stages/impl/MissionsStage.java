@@ -10,11 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.zagorskidev.spaceattack.consts.Consts;
-import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.consts.UIStrings;
 import com.zagorskidev.spaceattack.graphics.Sizes;
+import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
+import com.zagorskidev.spaceattack.system.Acts;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.system.NumbersUtils;
 import com.zagorskidev.spaceattack.ui.buttons.ActChangeListener;
@@ -38,8 +39,8 @@ public class MissionsStage extends UIStage
 
 	void init()
 	{
-		addActor(createImage(Paths.Graphics.UI.MENU_BACKGROUND, 0, 0));
-		addActor(createImage(Paths.Graphics.UI.LOGO, 0, 0));
+		addActor(createImage(Textures.MENU_BACKGROUND.getTexture(), 0, 0));
+		addActor(createImage(Textures.LOGO.getTexture(), 0, 0));
 		initButtons();
 	}
 
@@ -151,8 +152,8 @@ public class MissionsStage extends UIStage
 	void refreshAct()
 	{
 		getActors().removeValue(actLogo, true);
-		actLogo = createImage(Paths.Graphics.UI.ACT_LOGO.replaceAll("#", String.valueOf(actNumber)),
-				Sizes.gameWidth() * 0.25f, Sizes.gameHeight() * 0.27f);
+		actLogo = createImage(Acts.get(actNumber).getLogo().getTexture(), Sizes.gameWidth() * 0.25f,
+				Sizes.gameHeight() * 0.27f);
 		addActor(actLogo);
 
 		for (int i = 0; i < missionsButtons.size(); i++)

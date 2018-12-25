@@ -2,6 +2,7 @@ package com.zagorskidev.spaceattack.weapons.missiles;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.zagorskidev.spaceattack.sound.Sounds;
 
 public enum MissilesBuilder
 {
@@ -67,9 +68,9 @@ public enum MissilesBuilder
 		}
 
 		@Override
-		public SoundSet setSound(String soundPath)
+		public SoundSet setSound(Sounds sound)
 		{
-			missile.setSound(soundPath);
+			missile.setSound(sound);
 			return this;
 		}
 
@@ -112,7 +113,7 @@ public enum MissilesBuilder
 
 	public interface PositionSet
 	{
-		public SoundSet setSound(String soundPath);
+		public SoundSet setSound(Sounds sound);
 	}
 
 	public interface SoundSet

@@ -19,7 +19,7 @@ public class MissileLauncher implements IMissileLauncher
 	{
 		stage.addActorBeforeGUI(missile);
 		missile.setActors(stage.getActors());
-		playSound(missile.getSound());
+		missile.getSound().play();
 	}
 
 	void playSound(String soundPath)

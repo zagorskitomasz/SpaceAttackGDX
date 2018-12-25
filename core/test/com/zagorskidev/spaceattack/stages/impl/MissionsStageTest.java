@@ -11,6 +11,7 @@ import static org.mockito.Mockito.mock;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.system.GameProgress;
 
 public class MissionsStageTest
@@ -21,6 +22,7 @@ public class MissionsStageTest
 	@Before
 	public void setUp()
 	{
+		Textures.loadForTest();
 		progress = new GameProgress();
 		stage = mock(MissionsStage.class);
 		doCallRealMethod().when(stage).setGameProgress(any(GameProgress.class));

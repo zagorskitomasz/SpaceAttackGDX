@@ -2,8 +2,8 @@ package com.zagorskidev.spaceattack.weapons.redLaser;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.zagorskidev.spaceattack.consts.Consts;
-import com.zagorskidev.spaceattack.consts.Paths;
-import com.zagorskidev.spaceattack.graphics.TexturesFactory;
+import com.zagorskidev.spaceattack.graphics.Textures;
+import com.zagorskidev.spaceattack.sound.Sounds;
 import com.zagorskidev.spaceattack.system.FrameController;
 import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
@@ -54,7 +54,7 @@ public class RedLaser implements IWeapon
 				.setAcceleration(0)
 				.setMovement(controller.getPrimaryWeaponMovement())
 				.setPosition(controller.getPrimaryWeaponUsePlacement())
-				.setSound(Paths.Sounds.RED_LASER)
+				.setSound(Sounds.RED_LASER)
 				.build();
 		//@formatter:on
 	}
@@ -67,7 +67,7 @@ public class RedLaser implements IWeapon
 
 	Texture getMissileTexture()
 	{
-		return TexturesFactory.INSTANCE.createTexture(Paths.Graphics.Weapons.RED_LASER);
+		return Textures.RED_LASER.getTexture();
 	}
 
 	IWeaponController getController()

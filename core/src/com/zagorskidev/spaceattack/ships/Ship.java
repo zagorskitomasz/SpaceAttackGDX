@@ -3,7 +3,6 @@ package com.zagorskidev.spaceattack.ships;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -26,14 +25,9 @@ public abstract class Ship extends DrawableActor implements IShip
 	}
 
 	@Override
-	public void loadGraphics(String texturePath)
+	public void loadGraphics(Texture texture)
 	{
-		currentTexture = createTexture(texturePath);
-	}
-
-	public Texture createTexture(String texturePath)
-	{
-		return new Texture(Gdx.files.internal(texturePath));
+		currentTexture = texture;
 	}
 
 	@Override

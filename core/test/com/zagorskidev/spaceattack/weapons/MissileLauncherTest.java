@@ -13,7 +13,7 @@ import org.mockito.Mock;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.zagorskidev.spaceattack.consts.Paths;
+import com.zagorskidev.spaceattack.sound.Sounds;
 import com.zagorskidev.spaceattack.stages.GameplayStage;
 import com.zagorskidev.spaceattack.weapons.missiles.Missile;
 
@@ -26,6 +26,9 @@ public class MissileLauncherTest
 	private Missile missile;
 
 	@Mock
+	private Sounds sound;
+
+	@Mock
 	private Array<Actor> actors;
 
 	private MissileLauncher launcher;
@@ -35,7 +38,7 @@ public class MissileLauncherTest
 	{
 		initMocks(this);
 		launcher = spy(new MissileLauncher(stage));
-		doReturn(Paths.Sounds.RED_LASER).when(missile).getSound();
+		doReturn(sound).when(missile).getSound();
 		doNothing().when(launcher).playSound(anyString());
 	}
 
@@ -58,8 +61,7 @@ public class MissileLauncherTest
 	@Test
 	public void playingSoundAfterShot()
 	{
-		doNothing().when(launcher).playSound(anyString());
 		launcher.launch(missile);
-		verify(launcher).playSound(Paths.Sounds.RED_LASER);
+		verify(sound).play();
 	}
 }

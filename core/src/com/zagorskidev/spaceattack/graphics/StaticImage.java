@@ -1,6 +1,5 @@
 package com.zagorskidev.spaceattack.graphics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -11,9 +10,9 @@ public class StaticImage extends Actor
 	private float y;
 	private Texture texture;
 
-	void init(String path,float x,float y)
+	void init(Texture texture,float x,float y)
 	{
-		texture = createTexture(path);
+		this.texture = texture;
 		this.x = x;
 		this.y = gameHeight() - (y + texture.getHeight());
 	}
@@ -21,11 +20,6 @@ public class StaticImage extends Actor
 	float gameHeight()
 	{
 		return Sizes.gameHeight();
-	}
-
-	Texture createTexture(String path)
-	{
-		return new Texture(Gdx.files.internal(path));
 	}
 
 	@Override

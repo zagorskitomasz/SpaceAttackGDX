@@ -1,5 +1,6 @@
 package com.zagorskidev.spaceattack.stages;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.zagorskidev.spaceattack.graphics.StaticImageFactory;
@@ -66,9 +67,9 @@ public abstract class AbstractStage extends Stage implements IStage
 		saver.save(gameProgress);
 	}
 
-	protected Actor createImage(String path,float x,float y)
+	protected Actor createImage(Texture texture,float x,float y)
 	{
-		return StaticImageFactory.INSTANCE.create(path, x, y);
+		return StaticImageFactory.INSTANCE.create(texture, x, y);
 	}
 
 	@Override

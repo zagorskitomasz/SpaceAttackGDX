@@ -1,13 +1,15 @@
 package com.zagorskidev.spaceattack.graphics;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public enum StaticImageFactory
 {
 	INSTANCE;
 
-	public StaticImage create(String path,float x,float y)
+	public StaticImage create(Texture texture,float x,float y)
 	{
 		StaticImage image = instantiateImage();
-		image.init(path, x, y);
+		image.init(texture, x, y);
 
 		return image;
 	}

@@ -19,13 +19,12 @@ public class PlayerShip extends Ship
 		setPosition(Sizes.gameWidth() * 0.5f, Sizes.gameHeight() * 0.3f);
 	}
 
-	@Override
-	public void loadGraphics(String texturePath)
+	void loadComplexGraphics(Texture front,Texture right,Texture left)
 	{
 		textures = new HashMap<>();
-		textures.put(IShip.Turn.FRONT, createTexture(texturePath));
-		textures.put(IShip.Turn.LEFT, createTexture(texturePath.replaceAll(".png", "L.png")));
-		textures.put(IShip.Turn.RIGHT, createTexture(texturePath.replaceAll(".png", "R.png")));
+		textures.put(IShip.Turn.FRONT, front);
+		textures.put(IShip.Turn.LEFT, left);
+		textures.put(IShip.Turn.RIGHT, right);
 
 		currentTexture = textures.get(IShip.Turn.FRONT);
 	}
@@ -33,7 +32,10 @@ public class PlayerShip extends Ship
 	@Override
 	protected void fly()
 	{
-		currentTexture = textures.get(engine.fly());
+		Turn turn = engine.fly();
+
+		if (textures != null)
+			currentTexture = textures.get(turn);
 	}
 
 	@Override

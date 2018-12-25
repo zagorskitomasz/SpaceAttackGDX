@@ -16,8 +16,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.zagorskidev.spaceattack.consts.Paths;
 import com.zagorskidev.spaceattack.ships.Ship;
+import com.zagorskidev.spaceattack.sound.Sounds;
 import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 
 public class MissileTest
@@ -50,7 +50,7 @@ public class MissileTest
 				.setAcceleration(3)
 				.setMovement(new Vector2(1,0))
 				.setPosition(new Vector2(200,200))
-				.setSound(Paths.Sounds.RED_LASER)
+				.setSound(Sounds.RED_LASER)
 				.build();
 		//@formatter:on
 

@@ -4,6 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.zagorskidev.spaceattack.consts.Consts;
+import com.zagorskidev.spaceattack.graphics.Textures;
+import com.zagorskidev.spaceattack.sound.Sounds;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.StageFactory;
 import com.zagorskidev.spaceattack.stages.StageResult;
@@ -20,6 +22,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	@Override
 	public void create()
 	{
+		loadMedia();
 		frameController = new FrameController(Consts.Metagame.FPS);
 		factory = getStageFactory();
 		StageResult defaultResult = new StageResult();
@@ -31,6 +34,12 @@ public class SpaceAttackGDX extends ApplicationAdapter
 	void setInputProcessor()
 	{
 		Gdx.input.setInputProcessor(stage.getInputProcessor());
+	}
+
+	void loadMedia()
+	{
+		Sounds.load();
+		Textures.load();
 	}
 
 	StageFactory getStageFactory()
