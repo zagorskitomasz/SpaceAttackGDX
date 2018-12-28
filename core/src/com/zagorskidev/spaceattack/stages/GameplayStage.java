@@ -106,6 +106,12 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	}
 
 	@Override
+	public boolean takeEnergy(float energyCost)
+	{
+		return playersShip.takeEnergy(energyCost);
+	}
+
+	@Override
 	public void act(float delta)
 	{
 		callSuperAct(delta);

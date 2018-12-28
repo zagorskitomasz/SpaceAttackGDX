@@ -14,10 +14,12 @@ public class Consts
 
 	public class Weapons
 	{
-		public static final int LASER_INTERVAL = 3;
+		public static final int LASER_ATTACKS_PER_SECOND = 4;
 		public static final float RED_LASER_BASE_DMG = 10;
+		public static final float RED_LASER_DMG_PER_LEVEL = 3;
 		public static final float RED_LASER_BASE_SPEED = 15;
-		public static final int RED_LASER_DMG_PER_LEVEL = 3;
-		public static final int RED_LASER_SPEED_PER_LEVEL = 2;
+		public static final float RED_LASER_SPEED_PER_LEVEL = 2;
+		public static final float RED_LASER_BASE_COST = 10;
+		public static final float RED_LASER_COST_PER_LEVEL = 2;
 	}
 }

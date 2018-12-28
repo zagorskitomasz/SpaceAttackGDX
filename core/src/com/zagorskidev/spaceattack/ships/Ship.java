@@ -17,6 +17,8 @@ public abstract class Ship extends DrawableActor implements IShip
 	protected IEngine engine;
 	protected Set<IWeapon> weapons;
 
+	private IPool energyPool;
+
 	private boolean isToKill;
 
 	public Ship()
@@ -56,8 +58,17 @@ public abstract class Ship extends DrawableActor implements IShip
 	}
 
 	@Override
+	public void setEnergyPool(IPool pool)
+	{
+		energyPool = pool;
+	}
+
+	@Override
 	public void act(float delta)
 	{
+		if (energyPool != null)
+			energyPool.update();
+
 		if (engine != null)
 			fly();
 	}
@@ -132,5 +143,11 @@ public abstract class Ship extends DrawableActor implements IShip
 	public boolean isToKill()
 	{
 		return isToKill;
+	}
+
+	@Override
+	public boolean takeEnergy(float energyCost)
+	{
+		return energyPool.take(energyCost);
 	}
 }

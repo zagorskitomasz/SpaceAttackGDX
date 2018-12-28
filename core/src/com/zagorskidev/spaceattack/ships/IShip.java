@@ -46,4 +46,8 @@ public interface IShip extends Observer<GameProgress>,Vulnerable
 	public float getHeight();
 
 	public float getWidth();
+
+	public boolean takeEnergy(float energyCost);
+
+	public void setEnergyPool(IPool pool);
 }

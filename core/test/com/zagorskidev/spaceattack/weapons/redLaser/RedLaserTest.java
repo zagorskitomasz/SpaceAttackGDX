@@ -1,6 +1,7 @@
 package com.zagorskidev.spaceattack.weapons.redLaser;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -48,6 +49,7 @@ public class RedLaserTest
 		//@formatter:on
 
 		redLaser = spy(redLaser);
+		doReturn(true).when(controller).takeEnergy(anyFloat());
 	}
 
 	@Test
@@ -107,5 +109,13 @@ public class RedLaserTest
 		assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED + 3 * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL,
 				missile.getSpeed(), 0);
 		assertEquals(0, missile.getAcceleration(), 0);
+	}
+
+	@Test
+	public void cantShotWithoutEnergy()
+	{
+		doReturn(false).when(controller).takeEnergy(anyFloat());
+		redLaser.use();
+		verify(launcher, times(0)).launch(missile);
 	}
 }

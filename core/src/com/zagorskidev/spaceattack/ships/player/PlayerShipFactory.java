@@ -3,7 +3,9 @@ package com.zagorskidev.spaceattack.ships.player;
 import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.moving.engines.ShipEngineBuilder;
+import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
+import com.zagorskidev.spaceattack.ships.Pool;
 import com.zagorskidev.spaceattack.stages.GameplayStage;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.WeaponFactory;
@@ -35,12 +37,15 @@ public enum PlayerShipFactory
 				.build();
 		//@formatter:on
 
+		IPool energyPool = new Pool(50, 10);
+
 		stage.setPrimaryWeapon(redLaser);
 
 		ship.loadComplexGraphics(Textures.PLAYER_SHIP_F.getTexture(), Textures.PLAYER_SHIP_R.getTexture(),
 				Textures.PLAYER_SHIP_L.getTexture());
 		ship.setShipEngine(engine);
 		ship.addWeapon(redLaser);
+		ship.setEnergyPool(energyPool);
 
 		return ship;
 	}

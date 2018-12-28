@@ -19,10 +19,11 @@ public class RedLaser implements IWeapon
 
 	private float dmg;
 	private float speed;
+	private float energyCost;
 
 	RedLaser()
 	{
-		frameController = new FrameController(Consts.Weapons.LASER_INTERVAL);
+		frameController = new FrameController(Consts.Weapons.LASER_ATTACKS_PER_SECOND);
 	}
 
 	@Override
@@ -30,11 +31,15 @@ public class RedLaser implements IWeapon
 	{
 		dmg = Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL;
 		speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;
+		energyCost = Consts.Weapons.RED_LASER_BASE_COST + (level - 1) * Consts.Weapons.RED_LASER_COST_PER_LEVEL;
 	}
 
 	@Override
 	public void use()
 	{
+		if (!controller.takeEnergy(energyCost))
+			return;
+
 		if (!frameController.check())
 			return;
 

@@ -9,4 +9,6 @@ public interface IWeaponController
 	public Vector2 getPrimaryWeaponUsePlacement();
 
 	public Vector2 getPrimaryWeaponMovement();
+
+	public boolean takeEnergy(float energyCost);
 }
