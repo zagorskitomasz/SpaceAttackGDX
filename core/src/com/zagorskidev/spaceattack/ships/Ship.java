@@ -153,4 +153,10 @@ public abstract class Ship extends DrawableActor implements IShip
 	{
 		return energyPool.take(energyCost);
 	}
+
+	@Override
+	public IPool getEnergyPool()
+	{
+		return energyPool;
+	}
 }

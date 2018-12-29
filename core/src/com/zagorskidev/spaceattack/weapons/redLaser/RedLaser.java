@@ -94,4 +94,10 @@ public class RedLaser implements IWeapon
 	{
 		this.launcher = launcher;
 	}
+
+	@Override
+	public float getEnergyCost()
+	{
+		return energyCost;
+	}
 }

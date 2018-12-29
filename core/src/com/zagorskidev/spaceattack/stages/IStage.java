@@ -42,7 +42,7 @@ public interface IStage extends InputProcessor
 
 	public InputProcessor getInputProcessor();
 
-	public void addActor(Actor button);
+	public void addActor(Actor actor);
 
 	public void addActorBeforeGUI(Actor actor);
 }

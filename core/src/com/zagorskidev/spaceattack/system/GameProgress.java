@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.zagorskidev.spaceattack.notifiers.INotifier;
-import com.zagorskidev.spaceattack.notifiers.Observer;
+import com.zagorskidev.spaceattack.notifiers.IObserver;
 
 public class GameProgress implements INotifier<GameProgress>
 {
@@ -12,7 +12,7 @@ public class GameProgress implements INotifier<GameProgress>
 	private Integer level;
 	private Long experience;
 
-	private transient List<Observer<GameProgress>> observers;
+	private transient List<IObserver<GameProgress>> observers;
 
 	public GameProgress()
 	{
@@ -68,20 +68,20 @@ public class GameProgress implements INotifier<GameProgress>
 	}
 
 	@Override
-	public void registerObserver(Observer<GameProgress> observer)
+	public void registerObserver(IObserver<GameProgress> observer)
 	{
 		observers.add(observer);
 	}
 
 	@Override
-	public void unregisterObserver(Observer<GameProgress> observer)
+	public void unregisterObserver(IObserver<GameProgress> observer)
 	{
 		observers.remove(observer);
 	}
 
 	private void notifyObservers()
 	{
-		for (Observer<GameProgress> observer : observers)
+		for (IObserver<GameProgress> observer : observers)
 			observer.notify(this);
 	}
 }

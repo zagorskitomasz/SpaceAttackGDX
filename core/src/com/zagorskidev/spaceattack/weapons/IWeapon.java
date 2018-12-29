@@ -7,4 +7,6 @@ public interface IWeapon
 	public void use();
 
 	public float getWeaponsMovementFactor();
+
+	public float getEnergyCost();
 }

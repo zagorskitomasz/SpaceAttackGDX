@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.zagorskidev.spaceattack.notifiers.Observer;
+import com.zagorskidev.spaceattack.notifiers.IObserver;
 
 public class PoolTest
 {
@@ -24,7 +24,7 @@ public class PoolTest
 	private Pool pool;
 
 	@Mock
-	private Observer<Float> observer;
+	private IObserver<Float> observer;
 
 	@Before
 	public void setUp()
@@ -166,5 +166,14 @@ public class PoolTest
 		pool.take(30);
 
 		verify(observer, times(0)).notify(anyFloat());
+	}
+
+	@Test
+	public void cantRegenerateMoreThanMaxAmount()
+	{
+		pool.update();
+
+		assertEquals(50, pool.getAmount(), 0);
+		assertEquals(50, pool.getMaxAmount(), 0);
 	}
 }

@@ -3,6 +3,7 @@ package com.zagorskidev.spaceattack.ui.buttons;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
@@ -18,6 +19,9 @@ import org.mockito.Mock;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.zagorskidev.spaceattack.ships.IPool;
+import com.zagorskidev.spaceattack.ships.Pool;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 
 public class PrimaryFireButtonTest
@@ -41,6 +45,8 @@ public class PrimaryFireButtonTest
 		doReturn(stage).when(button).getStage();
 		doCallRealMethod().when(button).touchUp(anyInt(), anyInt());
 		doCallRealMethod().when(button).setButtonCenter(any(Vector2.class));
+		doCallRealMethod().when(button).setEnergyPool(any(IPool.class));
+		doCallRealMethod().when(button).notify(anyFloat());
 		button.setButtonCenter(new Vector2(200, 200));
 	}
 
@@ -93,5 +99,17 @@ public class PrimaryFireButtonTest
 
 		verify(button).fire(any(InputEvent.class));
 		assertFalse(result);
+	}
+
+	@Test
+	public void disabledWhenNotifiedAndNotEnoughEnergy()
+	{
+		doReturn(100f).when(weapon).getEnergyCost();
+		IPool pool = new Pool(10, 10, 10, 10);
+		button.setEnergyPool(pool);
+		pool.update();
+
+		verify(button).setDisabled(true);
+		verify(button).setTouchable(Touchable.disabled);
 	}
 }

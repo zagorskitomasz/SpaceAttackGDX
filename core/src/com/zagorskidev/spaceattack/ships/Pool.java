@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.zagorskidev.spaceattack.notifiers.Observer;
+import com.zagorskidev.spaceattack.notifiers.IObserver;
 import com.zagorskidev.spaceattack.system.FrameController;
 
 public class Pool implements IPool
@@ -19,7 +19,7 @@ public class Pool implements IPool
 	private float amount;
 	private float regenPerSecond;
 
-	private Set<Observer<Float>> observers;
+	private Set<IObserver<Float>> observers;
 
 	private Lock lock;
 	private FrameController controller;
@@ -119,18 +119,22 @@ public class Pool implements IPool
 		if (controller.check())
 		{
 			amount += regenPerSecond;
+
+			if (amount > maxAmount)
+				amount = maxAmount;
+
 			notifyObservers();
 		}
 	}
 
 	@Override
-	public void registerObserver(Observer<Float> observer)
+	public void registerObserver(IObserver<Float> observer)
 	{
 		observers.add(observer);
 	}
 
 	@Override
-	public void unregisterObserver(Observer<Float> observer)
+	public void unregisterObserver(IObserver<Float> observer)
 	{
 		if (observers == null)
 			return;
@@ -145,7 +149,7 @@ public class Pool implements IPool
 
 		float poolPercent = amount / maxAmount;
 
-		for (Observer<Float> observer : observers)
+		for (IObserver<Float> observer : observers)
 			observer.notify(poolPercent);
 	}
 }

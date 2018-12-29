@@ -6,6 +6,7 @@ import java.util.Set;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.zagorskidev.spaceattack.graphics.Sizes;
+import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 
@@ -23,6 +24,10 @@ public class MissionInputHandler extends InputAdapter implements IInput
 	public void registerShip(IShip ship)
 	{
 		this.ship = ship;
+		IPool pool = ship.getEnergyPool();
+
+		for (FireButton button : buttons)
+			button.setEnergyPool(pool);
 	}
 
 	@Override
