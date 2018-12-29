@@ -97,6 +97,9 @@ public abstract class Ship extends DrawableActor implements IShip
 		if (engine != null)
 			engine.setLevel(level);
 
+		if (energyPool != null)
+			energyPool.setLevel(level);
+
 		if (weapons != null)
 			for (IWeapon weapon : weapons)
 				weapon.setLevel(level);

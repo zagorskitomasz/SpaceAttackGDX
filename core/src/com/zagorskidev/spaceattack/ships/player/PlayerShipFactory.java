@@ -37,7 +37,7 @@ public enum PlayerShipFactory
 				.build();
 		//@formatter:on
 
-		IPool energyPool = new Pool(50, 10);
+		IPool energyPool = new Pool(50, 10, 10, 2);
 
 		stage.setPrimaryWeapon(redLaser);
 
