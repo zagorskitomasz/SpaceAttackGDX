@@ -10,6 +10,8 @@ import com.zagorskidev.spaceattack.system.FrameController;
 
 public class Pool implements IPool
 {
+	public static final Integer UPDATES_PER_SECOND = 10;
+
 	private float baseAmount;
 	private float increasePerLevel;
 	private float baseRegen;
@@ -27,7 +29,7 @@ public class Pool implements IPool
 	public Pool(float baseAmount,float increasePerLevel,float baseRegen,float regenPerLevel)
 	{
 		lock = new ReentrantLock();
-		controller = new FrameController(1);
+		controller = new FrameController(UPDATES_PER_SECOND);
 		observers = new HashSet<>();
 
 		this.baseAmount = baseAmount;
@@ -118,7 +120,7 @@ public class Pool implements IPool
 	{
 		if (controller.check())
 		{
-			amount += regenPerSecond;
+			amount += regenPerSecond / UPDATES_PER_SECOND;
 
 			if (amount > maxAmount)
 				amount = maxAmount;

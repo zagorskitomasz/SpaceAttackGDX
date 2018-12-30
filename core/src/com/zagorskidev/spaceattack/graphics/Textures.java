@@ -20,6 +20,7 @@ public enum Textures
 	PF_BUTTON_UP("graphics/gui/redActive.png"),
 	PF_BUTTON_DOWN("graphics/gui/redPressed.png"),
 	FIRE_BUTTON_DISABLED("graphics/gui/disabled.png"),
+	HP_ENE_BAR("graphics/gui/barHp.png"),
 	
 	// ships
 	PLAYER_SHIP_F("graphics/ships/player/form1.png"),

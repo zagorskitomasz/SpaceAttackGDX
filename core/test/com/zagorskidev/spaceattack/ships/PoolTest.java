@@ -18,8 +18,8 @@ public class PoolTest
 {
 	private static final float BASE_AMOUNT = 50;
 	private static final float INCREASE_PER_LEVEL = 20;
-	private static final float BASE_REGEN = 10;
-	private static final float REGEN_PER_LEVEL = 5;
+	private static final float BASE_REGEN = 10 * Pool.UPDATES_PER_SECOND;
+	private static final float REGEN_PER_LEVEL = 5 * Pool.UPDATES_PER_SECOND;
 
 	private Pool pool;
 
@@ -100,11 +100,11 @@ public class PoolTest
 	}
 
 	@Test
-	public void updatingIsPossibleAfterSecond() throws InterruptedException
+	public void updatingIsPossibleAfterFixedTime() throws InterruptedException
 	{
 		pool.take(45);
 		pool.update();
-		Thread.sleep(1100);
+		Thread.sleep(1000 / Pool.UPDATES_PER_SECOND + 10);
 		pool.update();
 
 		assertEquals(25, pool.getAmount(), 0);
