@@ -176,4 +176,14 @@ public class PoolTest
 		assertEquals(50, pool.getAmount(), 0);
 		assertEquals(50, pool.getMaxAmount(), 0);
 	}
+
+	@Test
+	public void afterDestroyingPoolIsEmptyAndDoesntRegen()
+	{
+		pool.destroy();
+		pool.update();
+
+		assertEquals(0, pool.getAmount(), 0);
+		assertEquals(50, pool.getMaxAmount(), 0);
+	}
 }

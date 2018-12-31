@@ -21,6 +21,7 @@ public class Pool implements IPool
 	private float amount;
 	private float regenPerSecond;
 
+	private boolean destroyed;
 	private Set<IObserver<Float>> observers;
 
 	private Lock lock;
@@ -118,7 +119,7 @@ public class Pool implements IPool
 
 	void doUpdate()
 	{
-		if (controller.check())
+		if (controller.check() && !destroyed)
 		{
 			amount += regenPerSecond / UPDATES_PER_SECOND;
 
@@ -153,5 +154,12 @@ public class Pool implements IPool
 
 		for (IObserver<Float> observer : observers)
 			observer.notify(poolPercent);
+	}
+
+	@Override
+	public void destroy()
+	{
+		destroyed = true;
+		amount = 0;
 	}
 }

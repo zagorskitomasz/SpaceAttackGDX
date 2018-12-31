@@ -13,4 +13,6 @@ public interface IPool extends INotifier<Float>
 	public void setLevel(int level);
 
 	public void update();
+
+	public void destroy();
 }
