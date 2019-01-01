@@ -13,6 +13,7 @@ public abstract class AbstractStage extends Stage implements IStage
 	protected Stages type;
 	private StageResult result;
 	protected GameProgress gameProgress;
+	protected GameProgress progressBackup;
 
 	@Override
 	public boolean isCompleted()
@@ -30,8 +31,8 @@ public abstract class AbstractStage extends Stage implements IStage
 	public void setResult(StageResult result,boolean forceSave)
 	{
 		this.result = result;
-		if (result.getGameProgress() != null && (!result.getGameProgress().equals(gameProgress) || forceSave))
-			saveProgress(GameSaver.INSTANCE);
+		if (result.getGameProgress() != null && (!result.getGameProgress().equals(progressBackup) || forceSave))
+			saveProgress(GameSaver.INSTANCE, result.getGameProgress());
 	}
 
 	@Override
@@ -59,10 +60,13 @@ public abstract class AbstractStage extends Stage implements IStage
 	public void setGameProgress(GameProgress gameProgress)
 	{
 		this.gameProgress = gameProgress;
+
+		if (progressBackup == null)
+			progressBackup = gameProgress;
 	}
 
 	@Override
-	public void saveProgress(GameSaver saver)
+	public void saveProgress(GameSaver saver,GameProgress gameProgress)
 	{
 		saver.save(gameProgress);
 	}
@@ -83,5 +87,11 @@ public abstract class AbstractStage extends Stage implements IStage
 				return;
 			}
 		}
+	}
+
+	protected GameProgress getProgressBackup()
+	{
+		System.out.println(progressBackup.getExperience());
+		return progressBackup;
 	}
 }

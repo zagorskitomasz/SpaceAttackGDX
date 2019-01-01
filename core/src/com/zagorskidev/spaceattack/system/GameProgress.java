@@ -3,6 +3,7 @@ package com.zagorskidev.spaceattack.system;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.zagorskidev.spaceattack.consts.Experience;
 import com.zagorskidev.spaceattack.notifiers.INotifier;
 import com.zagorskidev.spaceattack.notifiers.IObserver;
 
@@ -55,6 +56,14 @@ public class GameProgress implements INotifier<GameProgress>
 		this.experience = experience;
 	}
 
+	public void addExperience(long amount)
+	{
+		experience += amount;
+
+		if (experience >= Experience.nextLevelReq[level])
+			setLevel(level + 1);
+	}
+
 	@Override
 	public boolean equals(Object other)
 	{
@@ -79,9 +88,21 @@ public class GameProgress implements INotifier<GameProgress>
 		observers.remove(observer);
 	}
 
-	private void notifyObservers()
+	public void notifyObservers()
 	{
 		for (IObserver<GameProgress> observer : observers)
 			observer.notify(this);
+	}
+
+	@Override
+	public GameProgress clone()
+	{
+		GameProgress newProgress = new GameProgress();
+
+		newProgress.experience = this.experience;
+		newProgress.level = this.level;
+		newProgress.mission = this.mission;
+
+		return newProgress;
 	}
 }

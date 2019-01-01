@@ -24,7 +24,7 @@ public class ChangeStageButtonListener extends ClickListener
 		finalizeStage();
 	}
 
-	private StageResult createResult(GameProgress progress)
+	protected StageResult createResult(GameProgress progress)
 	{
 		StageResult result = new StageResult();
 		result.setNextStage(nextStage);

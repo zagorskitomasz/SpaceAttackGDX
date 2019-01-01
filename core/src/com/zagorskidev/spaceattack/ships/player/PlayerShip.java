@@ -7,9 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.Ship;
+import com.zagorskidev.spaceattack.stages.RequiredOnStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
 
-public class PlayerShip extends Ship
+public class PlayerShip extends Ship implements RequiredOnStage
 {
 	private Map<IShip.Turn, Texture> textures;
 

@@ -8,15 +8,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
+import com.zagorskidev.spaceattack.stages.IGameOverChecker;
 import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 
 public class MissionInputHandler extends InputAdapter implements IInput
 {
 	private IShip ship;
 	private Set<FireButton> buttons;
+	private IGameOverChecker gameOverChecker;
 
-	public MissionInputHandler()
+	public MissionInputHandler(IGameOverChecker gameOverChecker)
 	{
+		this.gameOverChecker = gameOverChecker;
 		buttons = new HashSet<>();
 	}
 
@@ -39,6 +42,11 @@ public class MissionInputHandler extends InputAdapter implements IInput
 	@Override
 	public boolean touchDown(int screenX,int screenY,int pointer,int button)
 	{
+		if (gameOverChecker.isGameOver())
+		{
+			return true;
+		}
+
 		for (FireButton fireButton : buttons)
 		{
 			fireButton.touchDown(screenX, screenY);
@@ -50,6 +58,12 @@ public class MissionInputHandler extends InputAdapter implements IInput
 	@Override
 	public boolean touchUp(int screenX,int screenY,int pointer,int button)
 	{
+		if (gameOverChecker.isGameOver())
+		{
+			gameOverChecker.finalizeStage();
+			return true;
+		}
+
 		for (FireButton fireButton : buttons)
 		{
 			if (fireButton.touchUp(screenX, screenY))

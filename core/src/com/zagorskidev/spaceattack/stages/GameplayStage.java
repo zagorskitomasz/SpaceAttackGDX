@@ -6,8 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.input.MissionInputHandler;
+import com.zagorskidev.spaceattack.ships.ExperiencePool;
+import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
+import com.zagorskidev.spaceattack.stages.impl.Bar;
+import com.zagorskidev.spaceattack.stages.impl.ExperienceBar;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 import com.zagorskidev.spaceattack.ui.buttons.FireButtonsFactory;
@@ -17,13 +21,17 @@ import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.MissileLauncher;
 import com.zagorskidev.spaceattack.weapons.missiles.Killable;
 
-public abstract class GameplayStage extends AbstractStage implements IWeaponController
+public abstract class GameplayStage extends AbstractStage implements IWeaponController,IGameOverChecker
 {
 	private IMissileLauncher missileLauncher;
 	private IInput inputHandler;
 	private IShip playersShip;
+	private IPool expPool;
 
 	private IWeapon primaryWeapon;
+
+	private boolean gameOver;
+	private boolean won;
 
 	public GameplayStage()
 	{
@@ -48,7 +56,7 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 
 	IInput initInputProcessor()
 	{
-		IInput input = new MissionInputHandler();
+		IInput input = new MissionInputHandler(this);
 		return input;
 	}
 
@@ -64,10 +72,23 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	@Override
 	public void setGameProgress(GameProgress gameProgress)
 	{
-		super.setGameProgress(gameProgress);
-
+		this.gameProgress = gameProgress;
 		this.gameProgress.registerObserver(playersShip);
 		this.gameProgress.setLevel(this.gameProgress.getLevel());
+
+		if (progressBackup == null)
+		{
+			progressBackup = this.gameProgress.clone();
+			initExpBar();
+		}
+	}
+
+	void initExpBar()
+	{
+		expPool = new ExperiencePool(getGameProgress(), getProgressBackup());
+		Bar expBar = new ExperienceBar(expPool);
+		expBar.initGdx();
+		addActor(expBar);
 	}
 
 	@Override
@@ -120,7 +141,11 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 		getActors().forEach(actor->
 		{
 			if (actor instanceof Killable && ((Killable) actor).isToKill())
+			{
 				actorsToKill.add(actor);
+				if (actor instanceof RequiredOnStage)
+					lose();
+			}
 		});
 
 		getActors().removeAll(actorsToKill, true);
@@ -129,5 +154,46 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	void callSuperAct(float delta)
 	{
 		super.act(delta);
+	}
+
+	void lose()
+	{
+		gameOver = true;
+		if (expPool != null)
+			expPool.destroy();
+	}
+
+	@Override
+	public boolean isGameOver()
+	{
+		return gameOver;
+	}
+
+	void setGameOver(boolean gameOver)
+	{
+		this.gameOver = gameOver;
+	}
+
+	void setWon(boolean won)
+	{
+		this.won = won;
+	}
+
+	@Override
+	public void finalizeStage()
+	{
+		StageResult result = new StageResult();
+		result.setNextStage(Stages.MISSIONS);
+
+		if (won)
+		{
+			result.setGameProgress(getGameProgress());
+		}
+		else
+		{
+			result.setGameProgress(getProgressBackup());
+		}
+
+		setResult(result, false);
 	}
 }

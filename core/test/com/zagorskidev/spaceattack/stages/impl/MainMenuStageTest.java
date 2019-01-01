@@ -97,7 +97,7 @@ public class MainMenuStageTest
 
 		stage.setResult(result, false);
 
-		verify(stage).saveProgress(any(GameSaver.class));
+		verify(stage).saveProgress(any(GameSaver.class), any(GameProgress.class));
 	}
 
 	@Test
@@ -107,7 +107,7 @@ public class MainMenuStageTest
 
 		stage.setResult(result, false);
 
-		verify(stage, times(0)).saveProgress(any(GameSaver.class));
+		verify(stage, times(0)).saveProgress(any(GameSaver.class), any(GameProgress.class));
 	}
 
 	@Test
@@ -119,6 +119,6 @@ public class MainMenuStageTest
 		stage.setGameProgress(progress);
 		stage.setResult(result, false);
 
-		verify(stage, times(0)).saveProgress(any(GameSaver.class));
+		verify(stage, times(0)).saveProgress(any(GameSaver.class), any(GameProgress.class));
 	}
 }

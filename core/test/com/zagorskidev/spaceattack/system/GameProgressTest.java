@@ -1,20 +1,72 @@
 package com.zagorskidev.spaceattack.system;
 
-import org.junit.Test;
-import org.mockito.Mockito;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.verify;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import com.zagorskidev.spaceattack.consts.Experience;
 import com.zagorskidev.spaceattack.ships.IShip;
 
 public class GameProgressTest
 {
+	@Mock
+	private IShip ship;
+
+	private GameProgress progress;
+
+	@Before
+	public void setUp()
+	{
+		MockitoAnnotations.initMocks(this);
+		progress = new GameProgress();
+		progress.registerObserver(ship);
+	}
+
 	@Test
 	public void notifingAboutLevelChange()
 	{
-		IShip ship = Mockito.mock(IShip.class);
-		GameProgress progress = new GameProgress();
-		progress.registerObserver(ship);
 		progress.setLevel(progress.getLevel() + 1);
+		verify(ship).notify(progress);
+	}
 
-		Mockito.verify(ship).notify(progress);
+	@Test
+	public void addingExperienceOverBreakpointIsIncreasingLevel()
+	{
+		progress.addExperience(Experience.nextLevelReq[1] + 1);
+		verify(ship).notify(progress);
+	}
+
+	@Test
+	public void equalObjectsHasSameProperties()
+	{
+		progress.setExperience(100l);
+		progress.setLevel(2);
+		progress.setMission(3);
+
+		GameProgress otherProgress = new GameProgress();
+		otherProgress.setExperience(100l);
+		otherProgress.setLevel(2);
+		otherProgress.setMission(3);
+
+		assertEquals(progress, otherProgress);
+	}
+
+	@Test
+	public void cloningIsCreatingNewObject()
+	{
+		GameProgress otherProgress = progress.clone();
+		assertFalse(progress == otherProgress);
+	}
+
+	@Test
+	public void cloningIsCreatingEqualObject()
+	{
+		GameProgress otherProgress = progress.clone();
+		assertEquals(progress, otherProgress);
 	}
 }

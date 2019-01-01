@@ -1,19 +1,12 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.ships.IPool;
 
 public class HpEnergyBar extends Bar
 {
-	private ShapeRenderer renderer;
-
-	private Texture texture;
-
 	private AbstractBarFiller energyFiller;
 	private AbstractBarFiller hpFiller;
 
@@ -28,41 +21,30 @@ public class HpEnergyBar extends Bar
 	@Override
 	public void initGdx()
 	{
-		renderer = buildRenderer();
+		super.initGdx();
+
 		energyFiller.initLabel();
 		hpFiller.initLabel();
 	}
 
-	ShapeRenderer buildRenderer()
+	@Override
+	protected void drawTexture(Batch batch)
 	{
-		return new ShapeRenderer();
+		batch.draw(texture, 0, Sizes.gameHeight() - texture.getHeight());
 	}
 
 	@Override
-	public void draw(Batch batch,float aplpha)
+	protected void drawFillerLabel(Batch batch)
 	{
-		batch.end();
-
-		drawBarRect(batch);
-
-		batch.begin();
-
 		energyFiller.drawLabel(batch);
 		hpFiller.drawLabel(batch);
-
-		if (texture != null)
-			batch.draw(texture, 0, Sizes.gameHeight() - texture.getHeight());
 	}
 
-	void drawBarRect(Batch batch)
+	@Override
+	protected void drawFillerRect()
 	{
-		renderer.setProjectionMatrix(batch.getProjectionMatrix());
-		renderer.begin(ShapeType.Filled);
-
 		energyFiller.drawRect(renderer);
 		hpFiller.drawRect(renderer);
-
-		renderer.end();
 	}
 
 	float getMaxEnergy()

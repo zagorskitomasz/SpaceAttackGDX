@@ -36,7 +36,7 @@ public interface IStage extends InputProcessor
 				"Loading game is not supported on stage: " + getClass().getSimpleName());
 	}
 
-	void saveProgress(GameSaver saver);
+	void saveProgress(GameSaver saver,GameProgress progress);
 
 	public Viewport getViewport();
 

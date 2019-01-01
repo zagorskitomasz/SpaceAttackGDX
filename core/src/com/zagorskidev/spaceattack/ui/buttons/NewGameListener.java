@@ -8,6 +8,7 @@ import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
 import com.zagorskidev.spaceattack.system.GameLoader;
+import com.zagorskidev.spaceattack.system.GameProgress;
 
 public class NewGameListener extends ChangeStageButtonListener
 {
@@ -43,6 +44,12 @@ public class NewGameListener extends ChangeStageButtonListener
 		dialog.button("No", false);
 		dialog.key(Keys.ENTER, true);
 		dialog.show(stage);
+	}
+
+	@Override
+	public void finalizeStage()
+	{
+		stage.setResult(createResult(new GameProgress()), true);
 	}
 }
 
