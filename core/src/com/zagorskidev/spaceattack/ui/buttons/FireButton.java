@@ -108,7 +108,7 @@ public abstract class FireButton extends Button implements ActorGUI,IObserver<Fl
 			setDisabled(true);
 			setTouchable(Touchable.disabled);
 		}
-		else if (isDisabled())
+		else if (isDisabled() && energyPool.getAmount() >= weapon.getEnergyCost())
 		{
 			setDisabled(false);
 			setTouchable(Touchable.enabled);

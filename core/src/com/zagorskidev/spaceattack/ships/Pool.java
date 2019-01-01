@@ -18,7 +18,7 @@ public class Pool implements IPool
 	private float regenPerLevel;
 
 	private float maxAmount;
-	private float amount;
+	protected float amount;
 	private float regenPerSecond;
 
 	private boolean destroyed;
@@ -145,7 +145,7 @@ public class Pool implements IPool
 		observers.remove(observer);
 	}
 
-	private void notifyObservers()
+	protected void notifyObservers()
 	{
 		if (observers == null || observers.size() <= 0)
 			return;
@@ -161,5 +161,6 @@ public class Pool implements IPool
 	{
 		destroyed = true;
 		amount = 0;
+		notifyObservers();
 	}
 }

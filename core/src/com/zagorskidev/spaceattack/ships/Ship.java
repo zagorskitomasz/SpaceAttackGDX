@@ -18,6 +18,7 @@ public abstract class Ship extends DrawableActor implements IShip
 	protected Set<IWeapon> weapons;
 
 	private IPool energyPool;
+	private IPool hpPool;
 
 	private boolean isToKill;
 
@@ -63,11 +64,19 @@ public abstract class Ship extends DrawableActor implements IShip
 		energyPool = pool;
 	}
 
+	public void setHpPool(IPool pool)
+	{
+		hpPool = pool;
+	}
+
 	@Override
 	public void act(float delta)
 	{
 		if (energyPool != null)
 			energyPool.update();
+
+		if (hpPool != null)
+			hpPool.update();
 
 		if (engine != null)
 			fly();
@@ -83,6 +92,8 @@ public abstract class Ship extends DrawableActor implements IShip
 	{
 		if (weapons == null)
 			weapons = new CopyOnWriteArraySet<>();
+
+		weapons.add(weapon);
 	}
 
 	@Override
@@ -99,6 +110,9 @@ public abstract class Ship extends DrawableActor implements IShip
 
 		if (energyPool != null)
 			energyPool.setLevel(level);
+
+		if (hpPool != null)
+			hpPool.setLevel(level);
 
 		if (weapons != null)
 			for (IWeapon weapon : weapons)
@@ -120,8 +134,11 @@ public abstract class Ship extends DrawableActor implements IShip
 	@Override
 	public void takeDmg(float dmg)
 	{
-		// TODO Auto-generated method stub
-
+		if (!hpPool.take(dmg))
+		{
+			setToKill();
+			energyPool.destroy();
+		}
 	}
 
 	@Override
