@@ -57,6 +57,7 @@ public class GameplayStageTest
 		doCallRealMethod().when(stage).setGameOver(anyBoolean());
 		doCallRealMethod().when(stage).setGameProgress(any(GameProgress.class));
 		doCallRealMethod().when(stage).act(0);
+		doCallRealMethod().when(stage).notify(any(GameProgress.class));
 	}
 
 	@Test
@@ -171,5 +172,15 @@ public class GameplayStageTest
 		stage.finalizeStage();
 		
 		verify(stage).setResult(eq(result), anyBoolean());
+	}
+	
+	@Test
+	public void levelingUpIsShowingLabel()
+	{
+		GameProgress progress = new GameProgress();
+		stage.setGameProgress(progress);
+		progress.setLevel(2);
+		
+		verify(stage).showLevelUpLabel();
 	}
 }

@@ -6,12 +6,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.input.MissionInputHandler;
+import com.zagorskidev.spaceattack.notifiers.IObserver;
 import com.zagorskidev.spaceattack.ships.ExperiencePool;
 import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
 import com.zagorskidev.spaceattack.stages.impl.Bar;
 import com.zagorskidev.spaceattack.stages.impl.ExperienceBar;
+import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 import com.zagorskidev.spaceattack.ui.buttons.FireButtonsFactory;
@@ -21,7 +23,8 @@ import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.MissileLauncher;
 import com.zagorskidev.spaceattack.weapons.missiles.Killable;
 
-public abstract class GameplayStage extends AbstractStage implements IWeaponController,IGameOverChecker
+public abstract class GameplayStage extends AbstractStage
+		implements IWeaponController,IGameOverChecker,IObserver<GameProgress>
 {
 	private IMissileLauncher missileLauncher;
 	private IInput inputHandler;
@@ -32,6 +35,8 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 
 	private boolean gameOver;
 	private boolean won;
+
+	private TimeLabel levelUpLabel;
 
 	public GameplayStage()
 	{
@@ -73,8 +78,14 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	public void setGameProgress(GameProgress gameProgress)
 	{
 		this.gameProgress = gameProgress;
-		this.gameProgress.registerObserver(playersShip);
-		this.gameProgress.setLevel(this.gameProgress.getLevel());
+
+		if (playersShip != null)
+		{
+			this.gameProgress.registerObserver(playersShip);
+			playersShip.notify(this.gameProgress);
+		}
+
+		this.gameProgress.registerObserver(this);
 
 		if (progressBackup == null)
 		{
@@ -136,7 +147,6 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	public void act(float delta)
 	{
 		callSuperAct(delta);
-
 		Array<Actor> actorsToKill = new Array<>();
 		getActors().forEach(actor->
 		{
@@ -195,5 +205,27 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 		}
 
 		setResult(result, false);
+	}
+
+	@Override
+	public void notify(GameProgress state)
+	{
+		if (state.getLevel() > progressBackup.getLevel())
+			showLevelUpLabel();
+	}
+
+	void showLevelUpLabel()
+	{
+		if (levelUpLabel == null)
+			createLevelUpLabel();
+
+		levelUpLabel.show();
+	}
+
+	private void createLevelUpLabel()
+	{
+		levelUpLabel = new TimeLabel("Level Up!");
+		levelUpLabel.initGdx();
+		addActor(levelUpLabel);
 	}
 }

@@ -91,7 +91,6 @@ public abstract class AbstractStage extends Stage implements IStage
 
 	protected GameProgress getProgressBackup()
 	{
-		System.out.println(progressBackup.getExperience());
 		return progressBackup;
 	}
 }

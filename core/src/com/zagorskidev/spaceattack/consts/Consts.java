@@ -22,4 +22,9 @@ public class Consts
 		public static final float RED_LASER_BASE_COST = 10;
 		public static final float RED_LASER_COST_PER_LEVEL = 2;
 	}
+
+	public class Gameplay
+	{
+		public static final long LABEL_SHOW_TIME = 3000;
+	}
 }
