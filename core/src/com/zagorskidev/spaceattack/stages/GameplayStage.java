@@ -1,6 +1,7 @@
 package com.zagorskidev.spaceattack.stages;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -23,8 +24,7 @@ import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.MissileLauncher;
 import com.zagorskidev.spaceattack.weapons.missiles.Killable;
 
-public abstract class GameplayStage extends AbstractStage
-		implements IWeaponController,IGameOverChecker,IObserver<GameProgress>
+public abstract class GameplayStage extends AbstractStage implements IWeaponController,IObserver<GameProgress>
 {
 	private IMissileLauncher missileLauncher;
 	private IInput inputHandler;
@@ -37,6 +37,7 @@ public abstract class GameplayStage extends AbstractStage
 	private boolean won;
 
 	private TimeLabel levelUpLabel;
+	private TimeLabel finalizeLabel;
 
 	public GameplayStage()
 	{
@@ -61,7 +62,7 @@ public abstract class GameplayStage extends AbstractStage
 
 	IInput initInputProcessor()
 	{
-		IInput input = new MissionInputHandler(this);
+		IInput input = new MissionInputHandler();
 		return input;
 	}
 
@@ -146,6 +147,12 @@ public abstract class GameplayStage extends AbstractStage
 	@Override
 	public void act(float delta)
 	{
+		if (gameOver && finalizeLabel == null)
+			showFinalizeLabel();
+
+		if (finalizeLabel != null && !finalizeLabel.isVisible())
+			finalizeStage();
+
 		callSuperAct(delta);
 		Array<Actor> actorsToKill = new Array<>();
 		getActors().forEach(actor->
@@ -157,7 +164,6 @@ public abstract class GameplayStage extends AbstractStage
 					lose();
 			}
 		});
-
 		getActors().removeAll(actorsToKill, true);
 	}
 
@@ -173,12 +179,6 @@ public abstract class GameplayStage extends AbstractStage
 			expPool.destroy();
 	}
 
-	@Override
-	public boolean isGameOver()
-	{
-		return gameOver;
-	}
-
 	void setGameOver(boolean gameOver)
 	{
 		this.gameOver = gameOver;
@@ -189,7 +189,38 @@ public abstract class GameplayStage extends AbstractStage
 		this.won = won;
 	}
 
-	@Override
+	boolean isGameOver()
+	{
+		return gameOver;
+	}
+
+	private void showFinalizeLabel()
+	{
+		if (won)
+			finalizeLabel = createCompletedLabel();
+		else
+			finalizeLabel = createFailedLabel();
+
+		addActor(finalizeLabel);
+		finalizeLabel.show();
+	}
+
+	TimeLabel createCompletedLabel()
+	{
+		TimeLabel label = new TimeLabel(" MISSION\nCOMPLETED!");
+		label.initGdx(Color.GREEN);
+
+		return label;
+	}
+
+	TimeLabel createFailedLabel()
+	{
+		TimeLabel label = new TimeLabel("MISSION\nFAILED!");
+		label.initGdx(Color.RED);
+
+		return label;
+	}
+
 	public void finalizeStage()
 	{
 		StageResult result = new StageResult();
@@ -224,8 +255,8 @@ public abstract class GameplayStage extends AbstractStage
 
 	private void createLevelUpLabel()
 	{
-		levelUpLabel = new TimeLabel("Level Up!");
-		levelUpLabel.initGdx();
+		levelUpLabel = new TimeLabel("LEVEL UP!");
+		levelUpLabel.initGdx(Color.GOLDENROD);
 		addActor(levelUpLabel);
 	}
 }

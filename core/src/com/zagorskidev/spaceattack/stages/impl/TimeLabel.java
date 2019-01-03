@@ -23,17 +23,17 @@ public class TimeLabel extends Actor
 		this.text = text;
 	}
 
-	public void initGdx()
+	public void initGdx(Color color)
 	{
-		label = createLabel();
+		label = createLabel(color);
 	}
 
-	Label createLabel()
+	Label createLabel(Color color)
 	{
 		BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
-		Label.LabelStyle style = new Label.LabelStyle(font, Color.GOLDENROD);
+		Label.LabelStyle style = new Label.LabelStyle(font, color);
 		Label label = new Label(text, style);
-		label.setPosition((Sizes.gameWidth() - label.getWidth()) * 0.5f, Sizes.gameHeight() * 0.8f);
+		label.setPosition((Sizes.gameWidth() - label.getWidth()) * 0.5f, Sizes.gameHeight() * 0.7f);
 
 		return label;
 	}

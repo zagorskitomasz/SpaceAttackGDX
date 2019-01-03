@@ -7,9 +7,11 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.zagorskidev.spaceattack.consts.Consts;
 
@@ -26,8 +28,8 @@ public class TimeLabelTest
 		MockitoAnnotations.initMocks(this);
 
 		timeLabel = spy(new TimeLabel("TEST"));
-		doReturn(label).when(timeLabel).createLabel();
-		timeLabel.initGdx();
+		doReturn(label).when(timeLabel).createLabel(ArgumentMatchers.any(Color.class));
+		timeLabel.initGdx(Color.GOLDENROD);
 	}
 
 	@Test

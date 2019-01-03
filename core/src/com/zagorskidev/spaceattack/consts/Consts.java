@@ -25,6 +25,6 @@ public class Consts
 
 	public class Gameplay
 	{
-		public static final long LABEL_SHOW_TIME = 3000;
+		public static final long LABEL_SHOW_TIME = 4500;
 	}
 }

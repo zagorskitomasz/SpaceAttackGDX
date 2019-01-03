@@ -20,10 +20,12 @@ import org.mockito.MockitoAnnotations;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.Ship;
 import com.zagorskidev.spaceattack.ships.player.PlayerShip;
+import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
@@ -38,6 +40,8 @@ public class GameplayStageTest
 
 	@Mock
 	private IInput inputProcessor;
+
+	private TimeLabel finalizeLabel;
 
 	@Before
 	public void setUp()
@@ -58,6 +62,8 @@ public class GameplayStageTest
 		doCallRealMethod().when(stage).setGameProgress(any(GameProgress.class));
 		doCallRealMethod().when(stage).act(0);
 		doCallRealMethod().when(stage).notify(any(GameProgress.class));
+
+		finalizeLabel = spy(new TimeLabel("TEST"));
 	}
 
 	@Test
@@ -182,5 +188,46 @@ public class GameplayStageTest
 		progress.setLevel(2);
 		
 		verify(stage).showLevelUpLabel();
+	}
+	
+	@Test
+	public void ifGameOverAndWonCompletedLabelIsShown()
+	{
+		doReturn(finalizeLabel).when(stage).createCompletedLabel();
+		doReturn(new Array<Actor>()).when(stage).getActors();
+
+		stage.setGameOver(true);
+		stage.setWon(true);
+		stage.act(0);
+		
+		verify(finalizeLabel).show();
+	}
+	
+	@Test
+	public void ifGameOverAndLostFailedLabelIsShown()
+	{
+		doReturn(finalizeLabel).when(stage).createFailedLabel();
+		doReturn(new Array<Actor>()).when(stage).getActors();
+
+		stage.setGameOver(true);
+		stage.setWon(false);
+		stage.act(0);
+		
+		verify(finalizeLabel).show();
+	}
+	
+	@Test
+	public void afterGivenTimeStageIsFinalized() throws InterruptedException
+	{
+		doReturn(finalizeLabel).when(stage).createFailedLabel();
+		doReturn(new Array<Actor>()).when(stage).getActors();
+
+		stage.setGameOver(true);
+		stage.setWon(false);
+		stage.act(0);
+		Thread.sleep(Consts.Gameplay.LABEL_SHOW_TIME + 1);
+		stage.act(0);
+		
+		verify(stage).finalizeStage();
 	}
 }
