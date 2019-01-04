@@ -28,6 +28,7 @@ import com.zagorskidev.spaceattack.ships.player.PlayerShip;
 import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
 import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.ui.buttons.FireButton;
+import com.zagorskidev.spaceattack.ui.buttons.SecondaryFireButton;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.WeaponFactory;
 
@@ -41,6 +42,15 @@ public class GameplayStageTest
 	@Mock
 	private IInput inputProcessor;
 
+	@Mock
+	private SecondaryFireButton secondaryButton;
+
+	@Mock
+	private IWeapon weapon;
+
+	@Mock
+	private IWeapon otherWeapon;
+
 	private TimeLabel finalizeLabel;
 
 	@Before
@@ -51,6 +61,8 @@ public class GameplayStageTest
 		stage = mock(GameplayStage.class);
 		doCallRealMethod().when(stage).registerShip(any(IShip.class));
 		doCallRealMethod().when(stage).setPrimaryWeapon(any(IWeapon.class));
+		doCallRealMethod().when(stage).setSecondaryWeapon(any(IWeapon.class));
+		doCallRealMethod().when(stage).updateSecondaryWeapon(any(IWeapon.class));
 		doCallRealMethod().when(stage).getPrimaryWeaponUsePlacement();
 		doCallRealMethod().when(stage).isGameOver();
 		doCallRealMethod().when(stage).lose();
@@ -229,5 +241,19 @@ public class GameplayStageTest
 		stage.act(0);
 		
 		verify(stage).finalizeStage();
+	}
+	
+	@Test
+	public void settingSecondaryWeapon()
+	{
+		doReturn(inputProcessor).when(stage).initInputProcessor();
+		doReturn(secondaryButton).when(stage).createSecondaryFireButton();
+		doCallRealMethod().when(secondaryButton).setWeapon(any(IWeapon.class));
+		doCallRealMethod().when(secondaryButton).getWeapon();
+		
+		stage.setSecondaryWeapon(weapon);
+		stage.updateSecondaryWeapon(otherWeapon);
+		
+		assertEquals(otherWeapon, secondaryButton.getWeapon());
 	}
 }

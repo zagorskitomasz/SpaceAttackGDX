@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.zagorskidev.spaceattack.graphics.Textures;
+import com.zagorskidev.spaceattack.stages.GameplayStage;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 
@@ -14,8 +15,8 @@ public enum FireButtonsFactory
 
 	public FireButton primary(IStage stage,IWeapon weapon)
 	{
-		Drawable drawableUp = getDrawable(Textures.PF_BUTTON_UP.getTexture());
-		Drawable drawableDown = getDrawable(Textures.PF_BUTTON_DOWN.getTexture());
+		Drawable drawableUp = getDrawable(Textures.RED_BUTTON_UP.getTexture());
+		Drawable drawableDown = getDrawable(Textures.RED_BUTTON_DOWN.getTexture());
 
 		FireButton button = instantiatePrimary(drawableUp, drawableDown);
 		button.setWeapon(weapon);
@@ -28,6 +29,29 @@ public enum FireButtonsFactory
 	PrimaryFireButton instantiatePrimary(Drawable drawableUp,Drawable drawableDown)
 	{
 		return new PrimaryFireButton(drawableUp, drawableDown);
+	}
+
+	public FireButton secondary(GameplayStage stage,IWeapon weapon)
+	{
+		Drawable drawableUp = getDrawable(Textures.GREEN_BUTTON_UP.getTexture());
+		Drawable drawableDown = getDrawable(Textures.GREEN_BUTTON_DOWN.getTexture());
+
+		Drawable specialDrawableUp = getDrawable(Textures.YELLOW_BUTTON_UP.getTexture());
+		Drawable dpecialDrawableDown = getDrawable(Textures.YELLOW_BUTTON_DOWN.getTexture());
+
+		SecondaryFireButton button = instantiateSecondary(drawableUp, drawableDown);
+		button.setSpecialTextures(specialDrawableUp, dpecialDrawableDown);
+		button.setWeaponController(stage);
+		button.setMainWeapon(weapon);
+
+		stage.addActor(button);
+
+		return button;
+	}
+
+	SecondaryFireButton instantiateSecondary(Drawable drawableUp,Drawable drawableDown)
+	{
+		return new SecondaryFireButton(drawableUp, drawableDown);
 	}
 
 	Drawable getDrawable(Texture texture)

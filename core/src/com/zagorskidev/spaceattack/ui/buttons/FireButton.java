@@ -120,4 +120,9 @@ public abstract class FireButton extends Button implements ActorGUI,IObserver<Fl
 		this.energyPool = pool;
 		pool.registerObserver(this);
 	}
+
+	public IWeapon getWeapon()
+	{
+		return weapon;
+	}
 }

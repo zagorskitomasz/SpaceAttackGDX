@@ -46,6 +46,7 @@ public enum PlayerShipFactory
 		energyBar.initGdx();
 
 		stage.setPrimaryWeapon(redLaser);
+		stage.setSecondaryWeapon(redLaser);
 		stage.addActor(energyBar);
 
 		ship.loadComplexGraphics(Textures.PLAYER_SHIP_F.getTexture(), Textures.PLAYER_SHIP_R.getTexture(),

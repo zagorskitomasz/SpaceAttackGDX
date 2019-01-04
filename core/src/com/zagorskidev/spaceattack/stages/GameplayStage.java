@@ -32,6 +32,8 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	private IPool expPool;
 
 	private IWeapon primaryWeapon;
+	private IWeapon secondaryWeapon;
+	private FireButton secondaryFireButton;
 
 	private boolean gameOver;
 	private boolean won;
@@ -115,9 +117,33 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 		inputHandler.registerFireButton(primaryFireButton);
 	}
 
+	@Override
+	public void setSecondaryWeapon(IWeapon weapon)
+	{
+		this.secondaryWeapon = weapon;
+
+		if (inputHandler == null)
+			inputHandler = initInputProcessor();
+
+		secondaryFireButton = createSecondaryFireButton();
+		inputHandler.registerFireButton(secondaryFireButton);
+	}
+
+	@Override
+	public void updateSecondaryWeapon(IWeapon weapon)
+	{
+		secondaryWeapon = weapon;
+		secondaryFireButton.setWeapon(secondaryWeapon);
+	}
+
 	FireButton createPrimaryFireButton()
 	{
 		return FireButtonsFactory.INSTANCE.primary(this, primaryWeapon);
+	}
+
+	FireButton createSecondaryFireButton()
+	{
+		return FireButtonsFactory.INSTANCE.secondary(this, secondaryWeapon);
 	}
 
 	public IMissileLauncher getMissileLauncher()
@@ -133,7 +159,14 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	}
 
 	@Override
-	public Vector2 getPrimaryWeaponMovement()
+	public Vector2 getSecondaryWeaponUsePlacement()
+	{
+		return new Vector2(playersShip.getX(),
+				playersShip.getY() + playersShip.getHeight() * secondaryWeapon.getWeaponsMovementFactor());
+	}
+
+	@Override
+	public Vector2 getWeaponMovement()
 	{
 		return new Vector2(0, 1);
 	}

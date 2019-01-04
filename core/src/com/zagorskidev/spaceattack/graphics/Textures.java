@@ -17,9 +17,14 @@ public enum Textures
 	M1_BACKGROUND("graphics/m1Background.jpg"),
 	
 	// UI
-	PF_BUTTON_UP("graphics/gui/redActive.png"),
-	PF_BUTTON_DOWN("graphics/gui/redPressed.png"),
+	RED_BUTTON_UP("graphics/gui/redActive.png"),
+	RED_BUTTON_DOWN("graphics/gui/redPressed.png"),
+	GREEN_BUTTON_UP("graphics/gui/greenActive.png"),
+	GREEN_BUTTON_DOWN("graphics/gui/greenPressed.png"),
+	YELLOW_BUTTON_UP("graphics/gui/yellowActive.png"),
+	YELLOW_BUTTON_DOWN("graphics/gui/yellowPressed.png"),
 	FIRE_BUTTON_DISABLED("graphics/gui/disabled.png"),
+	
 	HP_ENE_BAR("graphics/gui/barHp.png"),
 	EXP_BAR("graphics/gui/barExp.png"),
 	
