@@ -1,30 +1,28 @@
-package com.zagorskidev.spaceattack.system;
+package spaceattack.game.system;
 
-import com.badlogic.gdx.utils.TimeUtils;
+import spaceattack.game.utils.ExtUtils;
 
 public class FrameController
 {
+	private ExtUtils extUtils;
+
 	private int checksPerSecond;
 	private long lastFrameTime;
 
-	public FrameController(int checksPerSecond)
+	public FrameController(ExtUtils extUtils,int checksPerSecond)
 	{
+		this.extUtils = extUtils;
 		this.checksPerSecond = checksPerSecond;
 	}
 
 	public boolean check()
 	{
-		long currentTime = getCurrentTime();
+		long currentTime = extUtils.getCurrentTime();
 		if (currentTime >= lastFrameTime + 1000 / checksPerSecond)
 		{
 			lastFrameTime = currentTime;
 			return true;
 		}
 		return false;
-	}
-
-	long getCurrentTime()
-	{
-		return TimeUtils.millis();
 	}
 }

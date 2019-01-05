@@ -1,31 +1,38 @@
-package com.zagorskidev.spaceattack.system;
+package spaceattack.game.system;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import com.zagorskidev.spaceattack.consts.Consts;
 
+import spaceattack.game.utils.ExtUtils;
+
 public class FrameControllerTest
 {
+	@Mock
+	private ExtUtils extUtils;
+
 	private FrameController frameController;
 
 	@Before
 	public void setUp()
 	{
-		frameController = spy(new FrameController(Consts.Metagame.FPS));
+		initMocks(this);
+		frameController = new FrameController(extUtils, Consts.Metagame.FPS);
 	}
 
 	@Test
 	public void ifIntervalGreaterThanThresholdReturnTrue()
 	{
-		doReturn(60000l).when(frameController).getCurrentTime();
+		doReturn(60000l).when(extUtils).getCurrentTime();
 		frameController.check();
-		doReturn(60000l + 1000 / Consts.Metagame.FPS + 1).when(frameController).getCurrentTime();
+		doReturn(60000l + 1000 / Consts.Metagame.FPS + 1).when(extUtils).getCurrentTime();
 
 		assertTrue(frameController.check());
 	}
@@ -33,9 +40,9 @@ public class FrameControllerTest
 	@Test
 	public void ifIntervalLesserThanThresholdReturnFalse()
 	{
-		doReturn(60000l).when(frameController).getCurrentTime();
+		doReturn(60000l).when(extUtils).getCurrentTime();
 		frameController.check();
-		doReturn(60000l + 1000 / Consts.Metagame.FPS - 1).when(frameController).getCurrentTime();
+		doReturn(60000l + 1000 / Consts.Metagame.FPS - 1).when(extUtils).getCurrentTime();
 
 		assertFalse(frameController.check());
 	}

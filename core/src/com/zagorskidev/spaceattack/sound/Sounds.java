@@ -10,6 +10,8 @@ public enum Sounds
 	private String path;
 	private Sound sound;
 
+	private static boolean isTest;
+
 	Sounds(String path)
 	{
 		this.path = path;
@@ -23,9 +25,19 @@ public enum Sounds
 
 	public void play()
 	{
-		if (sound == null)
+		if (sound == null && !isTest)
 			throw new SoundNotLoadedException(name());
 
 		sound.play();
+	}
+
+	/**
+	 * Only for JUnit test purposes! This fake method won't load any real textures.
+	 * It will only suppress TextureNotLoadedException. After fake load
+	 * Textures#getTexture() method will return null!
+	 */
+	public static void loadForTest()
+	{
+		isTest = true;
 	}
 }

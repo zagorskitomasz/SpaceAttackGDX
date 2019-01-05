@@ -1,6 +1,9 @@
-package com.zagorskidev.spaceattack.stages;
+package spaceattack.game.stages;
 
-public enum StageFactory
+import com.zagorskidev.spaceattack.stages.IStage;
+import com.zagorskidev.spaceattack.stages.StageResult;
+
+public enum StageBuilder
 {
 	INSTANCE;
 
