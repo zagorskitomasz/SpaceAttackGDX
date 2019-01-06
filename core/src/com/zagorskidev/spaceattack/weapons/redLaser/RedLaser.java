@@ -1,7 +1,6 @@
 package com.zagorskidev.spaceattack.weapons.redLaser;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.sound.Sounds;
 import com.zagorskidev.spaceattack.system.FrameController;
@@ -10,6 +9,8 @@ import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.missiles.Missile;
 import com.zagorskidev.spaceattack.weapons.missiles.MissilesBuilder;
+
+import spaceattack.consts.Consts;
 
 public class RedLaser implements IWeapon
 {

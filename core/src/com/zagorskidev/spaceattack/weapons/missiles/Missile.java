@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.zagorskidev.spaceattack.graphics.DrawableActor;
 import com.zagorskidev.spaceattack.sound.Sounds;
-import com.zagorskidev.spaceattack.system.NumbersUtils;
+
+import spaceattack.game.actors.DrawableActor;
+import spaceattack.game.utils.NumbersUtils;
 
 public class Missile extends DrawableActor implements Killable
 {

@@ -9,8 +9,9 @@ import org.mockito.Mockito;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.ui.buttons.TextButtonsBuilder.BuilderImpl;
+
+import spaceattack.consts.Consts;
 
 public class TextButtonsBuilderTest
 {

@@ -1,23 +1,23 @@
 package spaceattack.game.system;
 
-import spaceattack.game.utils.ExtUtils;
+import spaceattack.game.utils.IUtils;
 
 public class FrameController
 {
-	private ExtUtils extUtils;
+	private IUtils utils;
 
 	private int checksPerSecond;
 	private long lastFrameTime;
 
-	public FrameController(ExtUtils extUtils,int checksPerSecond)
+	public FrameController(IUtils utils,int checksPerSecond)
 	{
-		this.extUtils = extUtils;
+		this.utils = utils;
 		this.checksPerSecond = checksPerSecond;
 	}
 
 	public boolean check()
 	{
-		long currentTime = extUtils.getCurrentTime();
+		long currentTime = utils.getCurrentTime();
 		if (currentTime >= lastFrameTime + 1000 / checksPerSecond)
 		{
 			lastFrameTime = currentTime;

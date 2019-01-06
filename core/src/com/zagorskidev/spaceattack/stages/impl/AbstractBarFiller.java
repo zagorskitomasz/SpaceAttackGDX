@@ -6,9 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.zagorskidev.spaceattack.consts.Paths;
-import com.zagorskidev.spaceattack.notifiers.IObserver;
 import com.zagorskidev.spaceattack.ships.IPool;
+
+import spaceattack.consts.Paths;
+import spaceattack.game.system.notifiers.IObserver;
 
 public abstract class AbstractBarFiller
 {

@@ -19,9 +19,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.stages.StageResult;
-import com.zagorskidev.spaceattack.system.GameLoader;
 import com.zagorskidev.spaceattack.system.GameProgress;
-import com.zagorskidev.spaceattack.system.GameSaver;
+
+import spaceattack.game.system.GameLoader;
+import spaceattack.game.system.GameSaver;
 
 public class MainMenuStageTest
 {

@@ -14,11 +14,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
 import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.WeaponFactory;
 import com.zagorskidev.spaceattack.weapons.missiles.Missile;
+
+import spaceattack.consts.Consts;
 
 public class RedLaserTest
 {

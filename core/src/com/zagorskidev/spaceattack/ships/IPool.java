@@ -1,6 +1,6 @@
 package com.zagorskidev.spaceattack.ships;
 
-import com.zagorskidev.spaceattack.notifiers.INotifier;
+import spaceattack.game.system.notifiers.INotifier;
 
 public interface IPool extends INotifier<Float>
 {

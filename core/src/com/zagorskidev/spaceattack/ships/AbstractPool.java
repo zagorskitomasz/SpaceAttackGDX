@@ -3,7 +3,7 @@ package com.zagorskidev.spaceattack.ships;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.zagorskidev.spaceattack.notifiers.IObserver;
+import spaceattack.game.system.notifiers.IObserver;
 
 public abstract class AbstractPool implements IPool
 {

@@ -1,8 +1,9 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.ships.IPool;
+
+import spaceattack.consts.Sizes;
 
 public class ExperienceBarFiller extends AbstractBarFiller
 {

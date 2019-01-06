@@ -9,14 +9,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.zagorskidev.spaceattack.consts.Consts;
-
-import spaceattack.game.utils.ExtUtils;
+import spaceattack.consts.Consts;
+import spaceattack.game.utils.IUtils;
 
 public class FrameControllerTest
 {
 	@Mock
-	private ExtUtils extUtils;
+	private IUtils extUtils;
 
 	private FrameController frameController;
 

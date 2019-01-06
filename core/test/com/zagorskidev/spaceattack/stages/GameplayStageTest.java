@@ -20,7 +20,6 @@ import org.mockito.MockitoAnnotations;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.Ship;
@@ -31,6 +30,8 @@ import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 import com.zagorskidev.spaceattack.ui.buttons.SecondaryFireButton;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.WeaponFactory;
+
+import spaceattack.consts.Consts;
 
 public class GameplayStageTest
 {

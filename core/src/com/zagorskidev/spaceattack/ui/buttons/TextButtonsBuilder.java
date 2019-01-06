@@ -2,8 +2,9 @@ package com.zagorskidev.spaceattack.ui.buttons;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.zagorskidev.spaceattack.consts.Consts;
 import com.zagorskidev.spaceattack.stages.UIStage;
+
+import spaceattack.consts.Consts;
 
 public enum TextButtonsBuilder
 {

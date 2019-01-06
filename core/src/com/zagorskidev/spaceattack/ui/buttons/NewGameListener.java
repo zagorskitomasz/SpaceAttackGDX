@@ -7,8 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
-import com.zagorskidev.spaceattack.system.GameLoader;
 import com.zagorskidev.spaceattack.system.GameProgress;
+
+import spaceattack.game.system.GameLoader;
 
 public class NewGameListener extends ChangeStageButtonListener
 {
@@ -26,7 +27,7 @@ public class NewGameListener extends ChangeStageButtonListener
 			confirm();
 	}
 
-	IStage getStage()
+	IGameStage getStage()
 	{
 		return stage;
 	}

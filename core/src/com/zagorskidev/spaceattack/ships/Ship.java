@@ -6,9 +6,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.zagorskidev.spaceattack.graphics.DrawableActor;
 import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
+
+import spaceattack.game.actors.DrawableActor;
 
 public abstract class Ship extends DrawableActor implements IShip
 {

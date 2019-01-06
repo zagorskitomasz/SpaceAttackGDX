@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.zagorskidev.spaceattack.notifiers.IObserver;
+import spaceattack.game.system.notifiers.IObserver;
 
 public class PoolTest
 {

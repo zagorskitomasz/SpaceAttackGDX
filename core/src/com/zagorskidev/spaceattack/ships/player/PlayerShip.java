@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.Ship;
-import com.zagorskidev.spaceattack.stages.RequiredOnStage;
 import com.zagorskidev.spaceattack.system.GameProgress;
+
+import spaceattack.consts.Sizes;
+import spaceattack.game.actors.interfaces.RequiredOnStage;
 
 public class PlayerShip extends Ship implements RequiredOnStage
 {

@@ -2,8 +2,9 @@ package com.zagorskidev.spaceattack.stages.impl;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
-import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.ships.IPool;
+
+import spaceattack.consts.Sizes;
 
 public class EnergyBarFiller extends AbstractBarFiller
 {

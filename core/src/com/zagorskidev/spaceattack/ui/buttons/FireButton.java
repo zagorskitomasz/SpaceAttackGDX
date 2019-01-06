@@ -10,11 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.zagorskidev.spaceattack.graphics.Textures;
-import com.zagorskidev.spaceattack.notifiers.IObserver;
 import com.zagorskidev.spaceattack.ships.IPool;
-import com.zagorskidev.spaceattack.system.NumbersUtils;
 import com.zagorskidev.spaceattack.ui.ActorGUI;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
+
+import spaceattack.game.system.notifiers.IObserver;
+import spaceattack.game.utils.NumbersUtils;
 
 public abstract class FireButton extends Button implements ActorGUI,IObserver<Float>
 {

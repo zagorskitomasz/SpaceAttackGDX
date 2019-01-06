@@ -1,19 +1,18 @@
 package spaceattack.game.stages;
 
-import com.zagorskidev.spaceattack.stages.IStage;
-import com.zagorskidev.spaceattack.stages.StageResult;
+import spaceattack.game.StageResult;
 
 public enum StageBuilder
 {
 	INSTANCE;
 
-	public IStage getStage(StageResult result)
+	public IGameStage getStage(StageResult result)
 	{
 		try
 		{
-			Class<? extends IStage> stageClass = result.getNextStage().getStageClass();
+			Class<? extends IGameStage> stageClass = result.getNextStage().getStageClass();
 
-			IStage stage = createInstance(stageClass);
+			IGameStage stage = createInstance(stageClass);
 			stage.setType(result.getNextStage());
 			stage.setGameProgress(result.getGameProgress());
 			return stage;
@@ -25,7 +24,7 @@ public enum StageBuilder
 		}
 	}
 
-	IStage createInstance(Class<? extends IStage> stageClass) throws InstantiationException,IllegalAccessException
+	IGameStage createInstance(Class<? extends IGameStage> stageClass) throws InstantiationException,IllegalAccessException
 	{
 		return stageClass.newInstance();
 	}

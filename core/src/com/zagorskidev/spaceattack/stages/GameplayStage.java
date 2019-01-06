@@ -6,8 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.input.IInput;
-import com.zagorskidev.spaceattack.input.MissionInputHandler;
-import com.zagorskidev.spaceattack.notifiers.IObserver;
 import com.zagorskidev.spaceattack.ships.ExperiencePool;
 import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
@@ -15,7 +13,6 @@ import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
 import com.zagorskidev.spaceattack.stages.impl.Bar;
 import com.zagorskidev.spaceattack.stages.impl.ExperienceBar;
 import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
-import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 import com.zagorskidev.spaceattack.ui.buttons.FireButtonsFactory;
 import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
@@ -23,6 +20,14 @@ import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.MissileLauncher;
 import com.zagorskidev.spaceattack.weapons.missiles.Killable;
+
+import spaceattack.game.GameProgress;
+import spaceattack.game.StageResult;
+import spaceattack.game.actors.interfaces.RequiredOnStage;
+import spaceattack.game.input.MissionInputHandler;
+import spaceattack.game.stages.AbstractStage;
+import spaceattack.game.stages.Stages;
+import spaceattack.game.system.notifiers.IObserver;
 
 public abstract class GameplayStage extends AbstractStage implements IWeaponController,IObserver<GameProgress>
 {
@@ -197,6 +202,7 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 					lose();
 			}
 		});
+		// TODO stage.removeActor();
 		getActors().removeAll(actorsToKill, true);
 	}
 

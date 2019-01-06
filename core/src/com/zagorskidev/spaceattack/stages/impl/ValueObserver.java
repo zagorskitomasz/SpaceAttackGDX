@@ -2,7 +2,7 @@ package com.zagorskidev.spaceattack.stages.impl;
 
 import java.util.function.Consumer;
 
-import com.zagorskidev.spaceattack.notifiers.IObserver;
+import spaceattack.game.system.notifiers.IObserver;
 
 public class ValueObserver implements IObserver<Float>
 {

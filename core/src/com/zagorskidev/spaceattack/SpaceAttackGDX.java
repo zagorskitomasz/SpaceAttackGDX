@@ -2,18 +2,36 @@ package com.zagorskidev.spaceattack;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
-import spaceattack.game.main.GameFactory;
-import spaceattack.game.main.SpaceAttackGame;
+import spaceattack.ext.actor.ExtActorFactory;
+import spaceattack.ext.sound.ExtSoundFactory;
+import spaceattack.ext.stage.ExtStageFactory;
+import spaceattack.ext.texture.ExtTextureFactory;
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.GameFactory;
+import spaceattack.game.IGame;
+import spaceattack.game.factories.Factories;
 
 public class SpaceAttackGDX extends ApplicationAdapter
 {
-	private SpaceAttackGame game;
+	private IGame game;
 
 	@Override
 	public void create()
 	{
+		initFactories();
 		game = GameFactory.INSTANCE.create();
 		game.create();
+	}
+
+	private void initFactories()
+	{
+		Factories.setSoundFactory(ExtSoundFactory.INSTANCE);
+		Factories.setTextureFactory(ExtTextureFactory.INSTANCE);
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+		Factories.setStageFactory(ExtStageFactory.INSTANCE);
+		Factories.setActorFactory(ExtActorFactory.INSTANCE);
+		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 	}
 
 	@Override

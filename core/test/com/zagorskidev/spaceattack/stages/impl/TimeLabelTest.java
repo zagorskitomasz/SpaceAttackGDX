@@ -13,7 +13,8 @@ import org.mockito.MockitoAnnotations;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.zagorskidev.spaceattack.consts.Consts;
+
+import spaceattack.consts.Consts;
 
 public class TimeLabelTest
 {

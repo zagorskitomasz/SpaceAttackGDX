@@ -9,18 +9,19 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.zagorskidev.spaceattack.consts.Consts;
-import com.zagorskidev.spaceattack.consts.UIStrings;
-import com.zagorskidev.spaceattack.graphics.Sizes;
 import com.zagorskidev.spaceattack.graphics.Textures;
 import com.zagorskidev.spaceattack.stages.Stages;
 import com.zagorskidev.spaceattack.stages.UIStage;
-import com.zagorskidev.spaceattack.system.Acts;
 import com.zagorskidev.spaceattack.system.GameProgress;
-import com.zagorskidev.spaceattack.system.NumbersUtils;
 import com.zagorskidev.spaceattack.ui.buttons.ActChangeListener;
 import com.zagorskidev.spaceattack.ui.buttons.ChangeStageButtonListener;
 import com.zagorskidev.spaceattack.ui.buttons.TextButtonsBuilder;
+
+import spaceattack.consts.Consts;
+import spaceattack.consts.Sizes;
+import spaceattack.consts.UIStrings;
+import spaceattack.game.system.Acts;
+import spaceattack.game.utils.NumbersUtils;
 
 public class MissionsStage extends UIStage
 {

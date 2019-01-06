@@ -13,7 +13,7 @@ public enum FireButtonsFactory
 {
 	INSTANCE;
 
-	public FireButton primary(IStage stage,IWeapon weapon)
+	public FireButton primary(IGameStage stage,IWeapon weapon)
 	{
 		Drawable drawableUp = getDrawable(Textures.RED_BUTTON_UP.getTexture());
 		Drawable drawableDown = getDrawable(Textures.RED_BUTTON_DOWN.getTexture());

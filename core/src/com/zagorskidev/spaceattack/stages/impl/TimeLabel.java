@@ -7,9 +7,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.zagorskidev.spaceattack.consts.Consts;
-import com.zagorskidev.spaceattack.consts.Paths;
-import com.zagorskidev.spaceattack.graphics.Sizes;
+
+import spaceattack.consts.Consts;
+import spaceattack.consts.Paths;
+import spaceattack.consts.Sizes;
 
 public class TimeLabel extends Actor
 {

@@ -4,13 +4,14 @@ import java.util.Set;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.zagorskidev.spaceattack.moving.engines.IEngine;
-import com.zagorskidev.spaceattack.notifiers.IObserver;
-import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.missiles.Vulnerable;
+
+import spaceattack.game.GameProgress;
+import spaceattack.game.system.notifiers.IObserver;
+import spaceattack.game.utils.vector.IVector;
 
 public interface IShip extends IObserver<GameProgress>,Vulnerable
 {
@@ -23,7 +24,7 @@ public interface IShip extends IObserver<GameProgress>,Vulnerable
 
 	public void draw(Batch batch,float alpha);
 
-	public void setDestination(Vector2 destination);
+	public void setDestination(IVector iVector);
 
 	public float getX();
 
