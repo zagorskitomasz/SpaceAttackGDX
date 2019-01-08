@@ -4,6 +4,7 @@ public class Consts
 {
 	public static final String DEFAULT = "default";
 	public static final String RED_BTN = "red-btn";
+	public static final String DIALOG = "Dialog";
 
 	public class Metagame
 	{

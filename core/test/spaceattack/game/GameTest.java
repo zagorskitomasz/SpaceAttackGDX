@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import spaceattack.game.stages.IGameStage;
-import spaceattack.game.stages.StageBuilder;
+import spaceattack.game.stages.GameStageFactory;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.system.GameLoader;
@@ -29,7 +29,7 @@ public class GameTest
 	private GameLoader gameLoader;
 
 	@Mock
-	private StageBuilder stageBuilder;
+	private GameStageFactory stageBuilder;
 
 	@Mock
 	private FrameController frameController;

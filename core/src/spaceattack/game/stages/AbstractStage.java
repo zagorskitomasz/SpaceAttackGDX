@@ -115,4 +115,10 @@ public abstract class AbstractStage implements IGameStage
 	{
 		stage.updateViewport(width, height, centerCamera);
 	}
+
+	@Override
+	public IStage getStage()
+	{
+		return stage;
+	}
 }

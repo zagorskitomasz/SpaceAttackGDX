@@ -1,7 +1,7 @@
 package spaceattack.game;
 
 import spaceattack.game.stages.IGameStage;
-import spaceattack.game.stages.StageBuilder;
+import spaceattack.game.stages.GameStageFactory;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.system.GameLoader;
@@ -15,7 +15,7 @@ class Game implements IGame
 
 	private IUtils extUtils;
 	private GameLoader gameLoader;
-	private StageBuilder stageBuilder;
+	private GameStageFactory stageBuilder;
 	private FrameController frameController;
 
 	private IGameStage stage;
@@ -35,7 +35,7 @@ class Game implements IGame
 		this.gameLoader = gameLoader;
 	}
 
-	public void setStageBuilder(StageBuilder stageBuilder)
+	public void setStageBuilder(GameStageFactory stageBuilder)
 	{
 		this.stageBuilder = stageBuilder;
 	}

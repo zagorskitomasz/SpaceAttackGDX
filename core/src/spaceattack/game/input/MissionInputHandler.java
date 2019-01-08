@@ -10,7 +10,7 @@ import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 import spaceattack.consts.Sizes;
 import spaceattack.game.factories.Factories;
 
-public class MissionInputHandler implements IInputProcessor
+public class MissionInputHandler implements IGameplayInput
 {
 	private IShip ship;
 	private Set<FireButton> buttons;

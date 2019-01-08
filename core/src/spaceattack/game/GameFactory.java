@@ -2,7 +2,7 @@ package spaceattack.game;
 
 import spaceattack.consts.Consts;
 import spaceattack.game.factories.Factories;
-import spaceattack.game.stages.StageBuilder;
+import spaceattack.game.stages.GameStageFactory;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.system.GameLoaderFactory;
 import spaceattack.game.utils.IUtils;
@@ -19,7 +19,7 @@ public enum GameFactory
 
 		game.setExtUtils(utils);
 		game.setGameLoader(GameLoaderFactory.INSTANCE.create());
-		game.setStageBuilder(StageBuilder.INSTANCE);
+		game.setStageBuilder(GameStageFactory.INSTANCE);
 		game.setFrameController(new FrameController(utils, Consts.Metagame.FPS));
 
 		return game;

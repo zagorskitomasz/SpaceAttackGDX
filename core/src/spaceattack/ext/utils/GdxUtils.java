@@ -3,7 +3,10 @@ package spaceattack.ext.utils;
 import java.io.InputStream;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -12,9 +15,8 @@ import spaceattack.ext.stage.GdxStage;
 import spaceattack.game.input.IInputProcessor;
 import spaceattack.game.stages.IStage;
 import spaceattack.game.system.IFileHandle;
-import spaceattack.game.utils.IUtils;
 
-enum GdxUtils implements IUtils
+enum GdxUtils implements IGdxUtils
 {
 	INSTANCE;
 
@@ -79,5 +81,30 @@ enum GdxUtils implements IUtils
 	public void setInputProcessor(IInputProcessor inputProcessor)
 	{
 		Gdx.input.setInputProcessor(new GdxInput(inputProcessor));
+	}
+
+	@Override
+	public Skin getUiSkin()
+	{
+		return new Skin(Gdx.files.internal(Paths.UI_STYLE));
+	}
+
+	@Override
+	public boolean confirmDialog(String caption,String question,IStage stage)
+	{
+		try
+		{
+			Dialog dialog = new GdxDialog(caption);
+			dialog.text(question);
+			dialog.button("Yes", true);
+			dialog.button("No", false);
+			dialog.key(Keys.ENTER, true);
+			dialog.show((GdxStage) stage);
+		}
+		catch (DialogAcceptedThrowable throwable)
+		{
+			return true;
+		}
+		return false;
 	}
 }

@@ -9,4 +9,5 @@ public class UIStrings
 	public static final String MISSION = "Mission ";
 	public static final String NEXT_ACT = "Act # >";
 	public static final String PREV_ACT = "< Act #";
+	public static final String NEW_GAME_QUESTION = "\nOverride progress?\n";
 }

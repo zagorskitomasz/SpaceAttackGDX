@@ -27,4 +27,6 @@ public interface IUtils
 	public void setInputProcessor(IStage stage);
 
 	public void setInputProcessor(IInputProcessor inputProcessor);
+
+	boolean confirmDialog(String caption,String question,IStage stage);
 }

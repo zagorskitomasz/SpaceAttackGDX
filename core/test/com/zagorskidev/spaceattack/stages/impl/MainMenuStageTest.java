@@ -1,14 +1,11 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
@@ -17,12 +14,11 @@ import org.junit.Test;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.zagorskidev.spaceattack.graphics.Textures;
-import com.zagorskidev.spaceattack.stages.StageResult;
-import com.zagorskidev.spaceattack.system.GameProgress;
 
+import spaceattack.game.GameProgress;
+import spaceattack.game.StageResult;
 import spaceattack.game.system.GameLoader;
-import spaceattack.game.system.GameSaver;
+import spaceattack.game.system.graphics.Textures;
 
 public class MainMenuStageTest
 {
@@ -57,29 +53,6 @@ public class MainMenuStageTest
 	}
 
 	@Test
-	public void stageContainsThreeButton()
-	{
-		verify(stage, times(3)).addActor(any(TextButton.class));
-	}
-
-	@Test
-	public void afterSettingResultIsCompleted()
-	{
-		stage.setResult(new StageResult(), false);
-		assertTrue(stage.isCompleted());
-	}
-
-	@Test
-	public void afterLoadingGameProgressIsLoaded()
-	{
-		GameLoader loader = mock(GameLoader.class);
-		doReturn(mock(GameProgress.class)).when(loader).load(stage);
-
-		stage.loadGame(loader);
-		assertNotNull(stage.getGameProgress());
-	}
-
-	@Test
 	public void whenFileNotExistsContinueButtonIsDisabled()
 	{
 		GameLoader loader = mock(GameLoader.class);
@@ -88,38 +61,5 @@ public class MainMenuStageTest
 
 		stage.loadGame(loader);
 		verify(continueGameButton).setTouchable(Touchable.disabled);
-	}
-
-	@Test
-	public void settingResultIsSavingProgressFile()
-	{
-		StageResult result = new StageResult();
-		result.setGameProgress(progress);
-
-		stage.setResult(result, false);
-
-		verify(stage).saveProgress(any(GameSaver.class), any(GameProgress.class));
-	}
-
-	@Test
-	public void notSavedWhenProgressIsNull()
-	{
-		StageResult result = new StageResult();
-
-		stage.setResult(result, false);
-
-		verify(stage, times(0)).saveProgress(any(GameSaver.class), any(GameProgress.class));
-	}
-
-	@Test
-	public void notSavedWhenNoChange()
-	{
-		StageResult result = new StageResult();
-		result.setGameProgress(progress);
-
-		stage.setGameProgress(progress);
-		stage.setResult(result, false);
-
-		verify(stage, times(0)).saveProgress(any(GameSaver.class), any(GameProgress.class));
 	}
 }

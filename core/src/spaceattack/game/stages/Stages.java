@@ -1,40 +1,33 @@
 package spaceattack.game.stages;
 
-import com.zagorskidev.spaceattack.stages.impl.MainMenuStage;
-import com.zagorskidev.spaceattack.stages.impl.Mission1Stage;
-import com.zagorskidev.spaceattack.stages.impl.Mission2Stage;
-import com.zagorskidev.spaceattack.stages.impl.Mission3Stage;
-import com.zagorskidev.spaceattack.stages.impl.MissionsStage;
+import spaceattack.game.stages.builders.IStageBuilder;
+import spaceattack.game.stages.builders.MainMenuStageBuilder;
+import spaceattack.game.stages.builders.Mission1StageBuilder;
+import spaceattack.game.stages.builders.MissionsStageBuilder;
 
 public enum Stages
 {
 	//@formatter:off
-	MAIN_MENU(MainMenuStage.class, Type.GUI),
-	MISSIONS(MissionsStage.class, Type.GUI),
-	MISSION_1(Mission1Stage.class, Type.GAMEPLAY),
-	MISSION_2(Mission2Stage.class, Type.GAMEPLAY),
-	MISSION_3(Mission3Stage.class, Type.GAMEPLAY);
+	MAIN_MENU(MainMenuStageBuilder.INSTANCE),
+	MISSIONS(MissionsStageBuilder.INSTANCE),
+	MISSION_1(Mission1StageBuilder.INSTANCE),
+	MISSION_2(Mission1StageBuilder.INSTANCE),
+	MISSION_3(Mission1StageBuilder.INSTANCE);
+	// TODO missions 2-3
 	//@formatter:on
 
 	private static final String MISSION_STAGE_PREFIX = "MISSION_";
 
-	private Class<? extends IGameStage> stageClass;
-	private Type type;
+	private IStageBuilder stageBuilder;
 
-	private Stages(Class<? extends IGameStage> stageClass,Type type)
+	private Stages(IStageBuilder stageBuilder)
 	{
-		this.stageClass = stageClass;
-		this.type = type;
+		this.stageBuilder = stageBuilder;
 	}
 
-	public Class<? extends IGameStage> getStageClass()
+	public IStageBuilder getStageBuilder()
 	{
-		return stageClass;
-	}
-
-	public Type getStageType()
-	{
-		return type;
+		return stageBuilder;
 	}
 
 	public static Stages getMissionStage(int mission)
@@ -45,10 +38,5 @@ public enum Stages
 				return stage;
 		}
 		return null;
-	}
-
-	public enum Type
-	{
-		GUI,GAMEPLAY;
 	}
 }

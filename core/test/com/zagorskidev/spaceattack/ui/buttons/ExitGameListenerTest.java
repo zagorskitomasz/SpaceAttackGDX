@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.zagorskidev.spaceattack.stages.UIStage;
+import spaceattack.game.stages.UIStage;
 
 public class ExitGameListenerTest
 {

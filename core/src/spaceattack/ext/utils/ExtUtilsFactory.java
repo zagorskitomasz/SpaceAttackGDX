@@ -12,4 +12,9 @@ public enum ExtUtilsFactory implements IUtilsFactory
 	{
 		return GdxUtils.INSTANCE;
 	}
+
+	public IGdxUtils getGdxUtils()
+	{
+		return GdxUtils.INSTANCE;
+	}
 }
