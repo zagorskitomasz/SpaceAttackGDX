@@ -23,4 +23,6 @@ public interface IButton extends IGameActor,IActor
 	public void setSize(float buttonWidth,float buttonHeight);
 
 	public void addListener(IListener listener);
+
+	public void setEnabled(boolean enabled);
 }

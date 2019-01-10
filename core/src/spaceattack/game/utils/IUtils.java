@@ -1,6 +1,7 @@
 package spaceattack.game.utils;
 
 import java.io.InputStream;
+import java.util.function.Consumer;
 
 import spaceattack.game.input.IInputProcessor;
 import spaceattack.game.stages.IStage;
@@ -28,5 +29,7 @@ public interface IUtils
 
 	public void setInputProcessor(IInputProcessor inputProcessor);
 
-	boolean confirmDialog(String caption,String question,IStage stage);
+	public void confirmDialog(String caption,String question,IStage stage,Consumer<Boolean> resultProcessor);
+
+	public void exit();
 }

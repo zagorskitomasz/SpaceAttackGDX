@@ -1,9 +1,9 @@
 package spaceattack.game.stages;
 
-import spaceattack.game.stages.builders.IStageBuilder;
-import spaceattack.game.stages.builders.MainMenuStageBuilder;
-import spaceattack.game.stages.builders.Mission1StageBuilder;
-import spaceattack.game.stages.builders.MissionsStageBuilder;
+import spaceattack.game.stages.impl.IStageBuilder;
+import spaceattack.game.stages.impl.MainMenuStageBuilder;
+import spaceattack.game.stages.impl.Mission1StageBuilder;
+import spaceattack.game.stages.impl.MissionsStageBuilder;
 
 public enum Stages
 {

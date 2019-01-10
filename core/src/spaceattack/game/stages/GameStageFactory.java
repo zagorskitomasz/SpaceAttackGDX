@@ -1,7 +1,7 @@
 package spaceattack.game.stages;
 
 import spaceattack.game.StageResult;
-import spaceattack.game.stages.builders.IStageBuilder;
+import spaceattack.game.stages.impl.IStageBuilder;
 
 public enum GameStageFactory
 {

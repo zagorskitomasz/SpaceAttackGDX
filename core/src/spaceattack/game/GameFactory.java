@@ -15,7 +15,7 @@ public enum GameFactory
 	{
 		IUtils utils = Factories.getUtilsFactory().create();
 
-		Game game = new Game(true);
+		Game game = new Game(false);
 
 		game.setExtUtils(utils);
 		game.setGameLoader(GameLoaderFactory.INSTANCE.create());

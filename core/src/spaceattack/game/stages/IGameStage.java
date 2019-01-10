@@ -1,8 +1,11 @@
 package spaceattack.game.stages;
 
+import java.util.function.Predicate;
+
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
 import spaceattack.game.actors.IGameActor;
+import spaceattack.game.buttons.IButton;
 import spaceattack.game.input.IInputProcessor;
 
 public interface IGameStage
@@ -36,4 +39,8 @@ public interface IGameStage
 	public void updateViewport(int width,int height,boolean b);
 
 	public IStage getStage();
+
+	public void updateControls();
+
+	public void addButtonsEnabledPredicate(IButton button,Predicate<IButton> predicate);
 }

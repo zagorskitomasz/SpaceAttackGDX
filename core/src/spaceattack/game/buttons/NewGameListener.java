@@ -2,7 +2,6 @@ package spaceattack.game.buttons;
 
 import spaceattack.consts.UIStrings;
 import spaceattack.game.GameProgress;
-import spaceattack.game.buttons.ChangeStageButtonListener;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.Stages;
@@ -24,18 +23,27 @@ public class NewGameListener extends ChangeStageButtonListener
 	@Override
 	public void clicked()
 	{
-		if (!loader.fileExists() || confirm())
+		if (!loader.fileExists())
 			finalizeStage();
-	}
-
-	private boolean confirm()
-	{
-		return utils.confirmDialog(UIStrings.NEW_GAME, UIStrings.NEW_GAME_QUESTION, stage.getStage());
+		else
+			confirm();
 	}
 
 	@Override
 	public void finalizeStage()
 	{
 		stage.setResult(createResult(new GameProgress()));
+	}
+
+	private void confirm()
+	{
+		utils.confirmDialog(UIStrings.NEW_GAME, UIStrings.NEW_GAME_QUESTION, stage.getStage(),
+				this::processOverrideDialogResult);
+	}
+
+	public void processOverrideDialogResult(boolean result)
+	{
+		if (result)
+			finalizeStage();
 	}
 }

@@ -3,9 +3,11 @@ package spaceattack.ext.stage;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import spaceattack.ext.actor.GdxActor;
+import spaceattack.ext.batch.BatchProxyHolder;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.stages.IStage;
 
@@ -35,7 +37,7 @@ public class GdxStage extends Stage implements IStage
 	public void addActor(IGameActor actor)
 	{
 		actorProxies.add(actor);
-		super.addActor((GdxActor) actor.getActor());
+		super.addActor((Actor) actor.getActor());
 	}
 
 	@Override
@@ -49,5 +51,12 @@ public class GdxStage extends Stage implements IStage
 	{
 		actorProxies.remove(actor);
 		getActors().removeValue((GdxActor) actor.getActor(), false);
+	}
+
+	@Override
+	public void draw()
+	{
+		BatchProxyHolder.INSTANCE.set(getBatch());
+		super.draw();
 	}
 }

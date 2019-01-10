@@ -1,30 +1,49 @@
 package spaceattack.game.stages;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
 import spaceattack.game.actors.IGameActor;
+import spaceattack.game.buttons.IButton;
+import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
 
 public abstract class AbstractStage implements IGameStage
 {
 	protected IStage stage;
 
-	private GameSaver gameSaver;
+	protected GameSaver gameSaver;
+	protected GameLoader gameLoader;
+
 	private Stages type;
 	private StageResult result;
 	private GameProgress gameProgress;
 	private GameProgress progressBackup;
 
-	void setStage(IStage stage)
+	private Map<IButton, Predicate<IButton>> buttonsToEnable;
+
+	public AbstractStage()
+	{
+		buttonsToEnable = new HashMap<>();
+	}
+
+	public void setStage(IStage stage)
 	{
 		this.stage = stage;
 	}
 
-	void setGameSaver(GameSaver saver)
+	public void setGameSaver(GameSaver saver)
 	{
 		gameSaver = saver;
+	}
+
+	public void setGameLoader(GameLoader loader)
+	{
+		gameLoader = loader;
 	}
 
 	@Override
@@ -44,7 +63,8 @@ public abstract class AbstractStage implements IGameStage
 	{
 		this.result = result;
 
-		if (result.getGameProgress() != null && !result.getGameProgress().equals(progressBackup))
+		if (result.getGameProgress() != null
+				&& !(result.getGameProgress().equals(progressBackup) && gameLoader.fileExists()))
 			gameSaver.save(result.getGameProgress());
 	}
 
@@ -120,5 +140,17 @@ public abstract class AbstractStage implements IGameStage
 	public IStage getStage()
 	{
 		return stage;
+	}
+
+	@Override
+	public void updateControls()
+	{
+		buttonsToEnable.forEach((button,predicate)->button.setEnabled(predicate.test(button)));
+	}
+
+	@Override
+	public void addButtonsEnabledPredicate(IButton button,Predicate<IButton> predicate)
+	{
+		buttonsToEnable.put(button, predicate);
 	}
 }

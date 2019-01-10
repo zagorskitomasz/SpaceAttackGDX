@@ -1,5 +1,6 @@
 package spaceattack.ext.button;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import spaceattack.consts.Consts;
@@ -25,5 +26,12 @@ public class GdxButton extends TextButton implements IButton
 	public void addListener(IListener listener)
 	{
 		addListener(new ListenerProxy(listener));
+	}
+
+	@Override
+	public void setEnabled(boolean enabled)
+	{
+		setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
+		setDisabled(!enabled);
 	}
 }

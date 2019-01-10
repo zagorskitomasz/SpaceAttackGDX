@@ -1,11 +1,11 @@
 package spaceattack.ext.utils;
 
 import java.io.InputStream;
+import java.util.function.Consumer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -90,21 +90,21 @@ enum GdxUtils implements IGdxUtils
 	}
 
 	@Override
-	public boolean confirmDialog(String caption,String question,IStage stage)
+	public void confirmDialog(String caption,String question,IStage stage,Consumer<Boolean> resultProcessor)
 	{
-		try
-		{
-			Dialog dialog = new GdxDialog(caption);
-			dialog.text(question);
-			dialog.button("Yes", true);
-			dialog.button("No", false);
-			dialog.key(Keys.ENTER, true);
-			dialog.show((GdxStage) stage);
-		}
-		catch (DialogAcceptedThrowable throwable)
-		{
-			return true;
-		}
-		return false;
+		GdxDialog dialog = new GdxDialog(caption);
+		dialog.text(question);
+		dialog.button("Yes", true);
+		dialog.button("No", false);
+		dialog.key(Keys.ENTER, true);
+		dialog.setResultProcessor(resultProcessor);
+
+		dialog.show((GdxStage) stage);
+	}
+
+	@Override
+	public void exit()
+	{
+		Gdx.app.exit();
 	}
 }

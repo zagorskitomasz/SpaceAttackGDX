@@ -1,4 +1,4 @@
-package spaceattack.game.stages.builders;
+package spaceattack.game.stages.impl;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.stages.IGameStage;
