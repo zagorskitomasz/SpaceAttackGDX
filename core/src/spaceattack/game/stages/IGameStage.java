@@ -1,5 +1,6 @@
 package spaceattack.game.stages;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import spaceattack.game.GameProgress;
@@ -43,4 +44,8 @@ public interface IGameStage
 	public void updateControls();
 
 	public void addButtonsEnabledPredicate(IButton button,Predicate<IButton> predicate);
+
+	public void addButtonsVisiblePredicate(IButton button,Predicate<IButton> predicate);
+
+	public void addButtonsTextFunction(IButton button,Function<IButton, String> predicate);
 }

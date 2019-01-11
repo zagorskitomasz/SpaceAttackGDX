@@ -11,6 +11,8 @@ import spaceattack.game.buttons.IListener;
 
 public class GdxButton extends TextButton implements IButton
 {
+	private int columnPosition;
+
 	public GdxButton(String text)
 	{
 		super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), Consts.DEFAULT);
@@ -33,5 +35,17 @@ public class GdxButton extends TextButton implements IButton
 	{
 		setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
 		setDisabled(!enabled);
+	}
+
+	@Override
+	public void setColumnPosition(int position)
+	{
+		columnPosition = position;
+	}
+
+	@Override
+	public int getColumnPosition()
+	{
+		return columnPosition;
 	}
 }

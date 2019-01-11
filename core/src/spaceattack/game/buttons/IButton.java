@@ -25,4 +25,12 @@ public interface IButton extends IGameActor,IActor
 	public void addListener(IListener listener);
 
 	public void setEnabled(boolean enabled);
+
+	public void setVisible(boolean visible);
+
+	public void setColumnPosition(int position);
+
+	public int getColumnPosition();
+
+	public void setText(String apply);
 }

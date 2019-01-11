@@ -3,6 +3,7 @@ package spaceattack.game.stages;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import spaceattack.game.GameProgress;
@@ -25,10 +26,14 @@ public abstract class AbstractStage implements IGameStage
 	private GameProgress progressBackup;
 
 	private Map<IButton, Predicate<IButton>> buttonsToEnable;
+	private Map<IButton, Predicate<IButton>> buttonsToHide;
+	private Map<IButton, Function<IButton, String>> changeTextButtons;
 
 	public AbstractStage()
 	{
 		buttonsToEnable = new HashMap<>();
+		buttonsToHide = new HashMap<>();
+		changeTextButtons = new HashMap<>();
 	}
 
 	public void setStage(IStage stage)
@@ -146,11 +151,25 @@ public abstract class AbstractStage implements IGameStage
 	public void updateControls()
 	{
 		buttonsToEnable.forEach((button,predicate)->button.setEnabled(predicate.test(button)));
+		buttonsToHide.forEach((button,predicate)->button.setVisible(predicate.test(button)));
+		changeTextButtons.forEach((button,function)->button.setText(function.apply(button)));
 	}
 
 	@Override
 	public void addButtonsEnabledPredicate(IButton button,Predicate<IButton> predicate)
 	{
 		buttonsToEnable.put(button, predicate);
+	}
+
+	@Override
+	public void addButtonsVisiblePredicate(IButton button,Predicate<IButton> predicate)
+	{
+		buttonsToHide.put(button, predicate);
+	}
+
+	@Override
+	public void addButtonsTextFunction(IButton button,Function<IButton, String> predicate)
+	{
+		changeTextButtons.put(button, predicate);
 	}
 }

@@ -5,7 +5,7 @@ import spaceattack.game.stages.UIStage;
 
 public class MainMenuStage extends UIStage
 {
-	public boolean continueButtonEnabled(IButton button)
+	public boolean isContinueButtonEnabled(IButton button)
 	{
 		return gameLoader != null && gameLoader.fileExists();
 	}

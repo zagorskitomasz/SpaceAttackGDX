@@ -20,7 +20,13 @@ public enum MainMenuStageBuilder implements IStageBuilder
 	public IGameStage build(GameProgress progress)
 	{
 		MainMenuStage stage = new MainMenuStage();
+
 		stage.setStage(Factories.getStageFactory().create());
+		stage.setGameSaver(GameSaverFactory.INSTANCE.create());
+		stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
+		stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load());
+
+		Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
 
 		StaticImage background = StaticImageFactory.INSTANCE.create(Textures.MENU_BACKGROUND.getTexture(), 0, 0);
 		StaticImage logo = StaticImageFactory.INSTANCE.create(Textures.LOGO.getTexture(), 0, Sizes.GAME_HEIGHT * 0.03f);
@@ -35,13 +41,8 @@ public enum MainMenuStageBuilder implements IStageBuilder
 		stage.addActor(continueGameButton);
 		stage.addActor(exitGameButton);
 
-		stage.setGameSaver(GameSaverFactory.INSTANCE.create());
-		stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
-		stage.addButtonsEnabledPredicate(continueGameButton, stage::continueButtonEnabled);
+		stage.addButtonsEnabledPredicate(continueGameButton, stage::isContinueButtonEnabled);
 		stage.updateControls();
-
-		stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load());
-		Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
 
 		return stage;
 	}

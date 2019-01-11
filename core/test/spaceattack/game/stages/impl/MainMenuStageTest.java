@@ -117,7 +117,7 @@ public class MainMenuStageTest
 		doReturn(false).when(loader).fileExists();
 
 		stage.setGameLoader(loader);
-		stage.addButtonsEnabledPredicate(button, stage::continueButtonEnabled);
+		stage.addButtonsEnabledPredicate(button, stage::isContinueButtonEnabled);
 		stage.updateControls();
 
 		verify(button).setEnabled(false);

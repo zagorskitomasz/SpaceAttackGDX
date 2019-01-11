@@ -9,16 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.zagorskidev.spaceattack.graphics.Textures;
-import com.zagorskidev.spaceattack.stages.Stages;
-import com.zagorskidev.spaceattack.system.GameProgress;
 import com.zagorskidev.spaceattack.ui.buttons.ActChangeListener;
-import com.zagorskidev.spaceattack.ui.buttons.ChangeStageButtonListener;
 import com.zagorskidev.spaceattack.ui.buttons.TextButtonsBuilder;
 
 import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.consts.UIStrings;
+import spaceattack.game.GameProgress;
+import spaceattack.game.buttons.ChangeStageButtonListener;
+import spaceattack.game.stages.Stages;
 import spaceattack.game.stages.UIStage;
 import spaceattack.game.system.Acts;
 import spaceattack.game.utils.NumbersUtils;
@@ -40,8 +39,6 @@ public class MissionsStage extends UIStage
 
 	void init()
 	{
-		addActor(createImage(Textures.MENU_BACKGROUND.getTexture(), 0, 0));
-		addActor(createImage(Textures.LOGO.getTexture(), 0, 0));
 		initButtons();
 	}
 
