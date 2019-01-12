@@ -35,13 +35,13 @@ public enum MainMenuStageBuilder implements IStageBuilder
 		IButton continueGameButton = MenuButtonsBuilder.INSTANCE.continueGameButton(stage);
 		IButton exitGameButton = MenuButtonsBuilder.INSTANCE.exitGameButton(stage);
 
+		stage.addButtonsEnabledPredicate(continueGameButton, stage::isContinueButtonEnabled);
+
 		stage.addActor(background);
 		stage.addActor(logo);
 		stage.addActor(newGameButton);
 		stage.addActor(continueGameButton);
 		stage.addActor(exitGameButton);
-
-		stage.addButtonsEnabledPredicate(continueGameButton, stage::isContinueButtonEnabled);
 		stage.updateControls();
 
 		return stage;

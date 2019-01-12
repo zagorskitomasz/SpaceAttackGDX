@@ -8,7 +8,7 @@ import spaceattack.game.stages.Stages;
 public class ChangeStageButtonListener implements IListener
 {
 	protected IGameStage stage;
-	private Stages nextStage;
+	protected Stages nextStage;
 
 	public ChangeStageButtonListener(IGameStage stage,Stages nextStage)
 	{

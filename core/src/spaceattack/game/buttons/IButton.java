@@ -30,7 +30,7 @@ public interface IButton extends IGameActor,IActor
 
 	public void setColumnPosition(int position);
 
-	public int getColumnPosition();
+	public int getGridPosition();
 
 	public void setText(String apply);
 }

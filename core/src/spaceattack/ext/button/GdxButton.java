@@ -1,5 +1,6 @@
 package spaceattack.ext.button;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -16,6 +17,11 @@ public class GdxButton extends TextButton implements IButton
 	public GdxButton(String text)
 	{
 		super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), Consts.DEFAULT);
+	}
+
+	public GdxButton(String text,String styleName)
+	{
+		super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), styleName);
 	}
 
 	@Override
@@ -44,7 +50,14 @@ public class GdxButton extends TextButton implements IButton
 	}
 
 	@Override
-	public int getColumnPosition()
+	public void draw(Batch batch,float alpha)
+	{
+		getText();
+		super.draw(batch, alpha);
+	}
+
+	@Override
+	public int getGridPosition()
 	{
 		return columnPosition;
 	}

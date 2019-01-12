@@ -45,6 +45,11 @@ public class StaticImage implements IGameActor
 		// do nothing
 	}
 
+	public void setTexture(ITexture newTexture)
+	{
+		texture = newTexture;
+	}
+
 	ITexture getTexture()
 	{
 		return texture;
