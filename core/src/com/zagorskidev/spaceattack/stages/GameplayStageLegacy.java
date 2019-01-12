@@ -1,11 +1,9 @@
 package com.zagorskidev.spaceattack.stages;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.zagorskidev.spaceattack.input.IInput;
 import com.zagorskidev.spaceattack.ships.ExperiencePool;
 import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
@@ -24,15 +22,13 @@ import com.zagorskidev.spaceattack.weapons.missiles.Killable;
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
 import spaceattack.game.actors.interfaces.RequiredOnStage;
-import spaceattack.game.input.MissionInputHandler;
 import spaceattack.game.stages.AbstractStage;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.notifiers.IObserver;
 
-public abstract class GameplayStage extends AbstractStage implements IWeaponController,IObserver<GameProgress>
+public abstract class GameplayStageLegacy extends AbstractStage implements IWeaponController,IObserver<GameProgress>
 {
 	private IMissileLauncher missileLauncher;
-	private IInput inputHandler;
 	private IShip playersShip;
 	private IPool expPool;
 
@@ -46,7 +42,7 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	private TimeLabel levelUpLabel;
 	private TimeLabel finalizeLabel;
 
-	public GameplayStage()
+	public GameplayStageLegacy()
 	{
 		missileLauncher = new MissileLauncher(this);
 	}
@@ -60,26 +56,8 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 
 	void registerShip(IShip ship)
 	{
-		if (inputHandler == null)
-			inputHandler = initInputProcessor();
-
 		inputHandler.registerShip(ship);
 		playersShip = ship;
-	}
-
-	IInput initInputProcessor()
-	{
-		IInput input = new MissionInputHandler();
-		return input;
-	}
-
-	@Override
-	public InputProcessor getInputProcessor()
-	{
-		if (inputHandler == null)
-			inputHandler = initInputProcessor();
-
-		return inputHandler;
 	}
 
 	@Override
@@ -91,14 +69,6 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 		{
 			this.gameProgress.registerObserver(playersShip);
 			playersShip.notify(this.gameProgress);
-		}
-
-		this.gameProgress.registerObserver(this);
-
-		if (progressBackup == null)
-		{
-			progressBackup = this.gameProgress.clone();
-			initExpBar();
 		}
 	}
 
@@ -115,9 +85,6 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	{
 		this.primaryWeapon = weapon;
 
-		if (inputHandler == null)
-			inputHandler = initInputProcessor();
-
 		FireButton primaryFireButton = createPrimaryFireButton();
 		inputHandler.registerFireButton(primaryFireButton);
 	}
@@ -126,9 +93,6 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 	public void setSecondaryWeapon(IWeapon weapon)
 	{
 		this.secondaryWeapon = weapon;
-
-		if (inputHandler == null)
-			inputHandler = initInputProcessor();
 
 		secondaryFireButton = createSecondaryFireButton();
 		inputHandler.registerFireButton(secondaryFireButton);
@@ -275,13 +239,6 @@ public abstract class GameplayStage extends AbstractStage implements IWeaponCont
 		}
 
 		setResult(result, false);
-	}
-
-	@Override
-	public void notify(GameProgress state)
-	{
-		if (state.getLevel() > progressBackup.getLevel())
-			showLevelUpLabel();
 	}
 
 	void showLevelUpLabel()

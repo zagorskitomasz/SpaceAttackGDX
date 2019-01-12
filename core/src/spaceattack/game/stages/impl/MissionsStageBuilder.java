@@ -39,9 +39,6 @@ public enum MissionsStageBuilder implements IStageBuilder
 		IButton nextActButton = MenuButtonsBuilder.INSTANCE.nextActButton(stage);
 
 		stage.addActLogoImage(actLogo);
-		stage.addActor(background);
-		stage.addActor(logo);
-		stage.addActor(actLogo);
 
 		for (int i = 0; i < Consts.Metagame.MISSIONS_IN_ACT; i++)
 		{
@@ -56,6 +53,9 @@ public enum MissionsStageBuilder implements IStageBuilder
 		stage.addButtonsTextFunction(nextActButton, stage::getNextActButtonText);
 		stage.addButtonsTextFunction(previouwActButton, stage::getPreviousActButtonText);
 
+		stage.addActorBeforeGUI(actLogo);
+		stage.addActorBeforeGUI(logo);
+		stage.addActorBeforeGUI(background);
 		stage.addActor(backToMenuButton);
 		stage.addActor(previouwActButton);
 		stage.addActor(nextActButton);

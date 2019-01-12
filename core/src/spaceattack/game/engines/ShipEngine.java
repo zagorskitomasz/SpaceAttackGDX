@@ -1,15 +1,22 @@
-package com.zagorskidev.spaceattack.moving.engines;
+package spaceattack.game.engines;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.IShip.Turn;
 
+import spaceattack.game.engines.IEngine;
+import spaceattack.game.factories.Factories;
+import spaceattack.game.utils.IUtils;
+import spaceattack.game.utils.vector.IVector;
+import spaceattack.game.utils.vector.IVectorFactory;
+
 public class ShipEngine implements IEngine
 {
+	private IUtils utils;
+	private IVectorFactory vectorFactory;
+
 	private IShip ship;
 
 	private float factorSpeed;
@@ -22,17 +29,19 @@ public class ShipEngine implements IEngine
 	private float braking;
 	private float agility;
 
-	private Vector2 destination;
-	private Vector2 nextDestination;
+	private IVector destination;
+	private IVector nextDestination;
 	private float currentSpeed;
 
 	private boolean isTurning;
 
 	private Lock lock;
 
-	ShipEngine(IShip ship)
+	ShipEngine(IShip ship,IUtils utils)
 	{
 		this.ship = ship;
+		this.utils = utils;
+		vectorFactory = Factories.getVectorFactory();
 		lock = new ReentrantLock();
 	}
 
@@ -68,7 +77,7 @@ public class ShipEngine implements IEngine
 	}
 
 	@Override
-	public void setDestination(Vector2 destination)
+	public void setDestination(IVector destination)
 	{
 		try
 		{
@@ -92,7 +101,7 @@ public class ShipEngine implements IEngine
 
 	private boolean isDestinationReached()
 	{
-		return ship.getX() == this.destination.x && ship.getY() == this.destination.y;
+		return ship.getX() == destination.getX() && ship.getY() == destination.getY();
 	}
 
 	@Override
@@ -131,36 +140,36 @@ public class ShipEngine implements IEngine
 
 	private Turn moveShip()
 	{
-		Vector2 movement = computeMovement();
+		IVector movement = computeMovement();
 
-		if (movement.len() <= currentSpeed || movement.len() <= baseSpeed)
+		if (movement.length() <= currentSpeed || movement.length() <= baseSpeed)
 		{
-			ship.setX(destination.x);
-			ship.setY(destination.y);
+			ship.setX(destination.getX());
+			ship.setY(destination.getY());
 
 			return IShip.Turn.FRONT;
 		}
 		else
 		{
-			movement = movement.nor();
-			ship.setX(ship.getX() + movement.x * currentSpeed);
-			ship.setY(ship.getY() + movement.y * currentSpeed);
+			movement = movement.normalize();
+			ship.setX(ship.getX() + movement.getX() * currentSpeed);
+			ship.setY(ship.getY() + movement.getY() * currentSpeed);
 
 			return calculateShipTurning(movement);
 		}
 	}
 
-	Vector2 computeMovement()
+	IVector computeMovement()
 	{
-		return new Vector2(destination.x - ship.getX(), destination.y - ship.getY());
+		return vectorFactory.create(destination.getX() - ship.getX(), destination.getY() - ship.getY());
 	}
 
-	private Turn calculateShipTurning(Vector2 movement)
+	private Turn calculateShipTurning(IVector movement)
 	{
-		if (movement.x >= 0.3)
+		if (movement.getX() >= 0.3)
 			return Turn.RIGHT;
 
-		if (movement.x <= -0.3)
+		if (movement.getY() <= -0.3)
 			return Turn.LEFT;
 
 		return Turn.FRONT;
@@ -168,18 +177,18 @@ public class ShipEngine implements IEngine
 
 	private void computeSpeed()
 	{
-		Vector2 movement = computeMovement();
+		IVector movement = computeMovement();
 
 		if (isTurning)
 		{
-			if (canTurnWithThisSpeed(movement.cpy().nor()))
+			if (canTurnWithThisSpeed(movement.copy().normalize()))
 				doTurn();
 			else
 				brake();
 		}
 		else
 		{
-			if (movement.len() > brakingWay())
+			if (movement.length() > brakingWay())
 				accelerate();
 			else
 				brake();
@@ -199,20 +208,21 @@ public class ShipEngine implements IEngine
 		currentSpeed -= braking;
 	}
 
-	private boolean canTurnWithThisSpeed(Vector2 currentDirection)
+	private boolean canTurnWithThisSpeed(IVector currentDirection)
 	{
-		Vector2 newDirection = new Vector2(nextDestination.x - ship.getX(), nextDestination.y - ship.getY()).nor();
+		IVector newDirection = vectorFactory
+				.create(nextDestination.getX() - ship.getX(), nextDestination.getY() - ship.getY()).normalize();
 
 		float angle = computeAngle(currentDirection, newDirection);
 
 		return currentSpeed <= baseSpeed || (currentSpeed * currentSpeed / agility) < angle;
 	}
 
-	private float computeAngle(Vector2 first,Vector2 second)
+	private float computeAngle(IVector first,IVector second)
 	{
-		float angle = (MathUtils.atan2(first.x, first.y) - MathUtils.atan2(second.x, second.y));
+		float angle = (utils.atan2(first.getX(), first.getY()) - utils.atan2(second.getX(), second.getY()));
 
-		angle *= MathUtils.radiansToDegrees;
+		angle *= utils.radiansToDegrees();
 		angle = Math.abs(Math.abs(angle) - 180);
 
 		return angle;
@@ -231,12 +241,12 @@ public class ShipEngine implements IEngine
 		return brakingWay;
 	}
 
-	Vector2 getDestination()
+	IVector getDestination()
 	{
 		return destination;
 	}
 
-	Vector2 getNextDestination()
+	IVector getNextDestination()
 	{
 		return nextDestination;
 	}

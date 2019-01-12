@@ -14,13 +14,13 @@ import org.mockito.Mock;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.sound.Sounds;
-import com.zagorskidev.spaceattack.stages.GameplayStage;
+import com.zagorskidev.spaceattack.stages.GameplayStageLegacy;
 import com.zagorskidev.spaceattack.weapons.missiles.Missile;
 
 public class MissileLauncherTest
 {
 	@Mock
-	private GameplayStage stage;
+	private GameplayStageLegacy stage;
 
 	@Mock
 	private Missile missile;

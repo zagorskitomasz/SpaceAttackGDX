@@ -5,11 +5,11 @@ import java.util.Set;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.missiles.Vulnerable;
 
 import spaceattack.game.GameProgress;
+import spaceattack.game.engines.IEngine;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.utils.vector.IVector;
 

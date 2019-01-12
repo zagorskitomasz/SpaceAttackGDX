@@ -1,11 +1,12 @@
-package com.zagorskidev.spaceattack.moving.engines;
+package spaceattack.game.engines;
 
-import com.badlogic.gdx.math.Vector2;
 import com.zagorskidev.spaceattack.ships.IShip.Turn;
+
+import spaceattack.game.utils.vector.IVector;
 
 public interface IEngine
 {
-	public void setDestination(Vector2 destination);
+	public void setDestination(IVector destination);
 
 	public Turn fly();
 

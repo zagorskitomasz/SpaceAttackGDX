@@ -1,9 +1,9 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
 import com.zagorskidev.spaceattack.graphics.Textures;
-import com.zagorskidev.spaceattack.stages.GameplayStage;
+import com.zagorskidev.spaceattack.stages.GameplayStageLegacy;
 
-public class Mission1Stage extends GameplayStage
+public class Mission1Stage extends GameplayStageLegacy
 {
 	public Mission1Stage()
 	{

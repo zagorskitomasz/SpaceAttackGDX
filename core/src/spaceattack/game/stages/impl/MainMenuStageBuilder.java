@@ -37,11 +37,12 @@ public enum MainMenuStageBuilder implements IStageBuilder
 
 		stage.addButtonsEnabledPredicate(continueGameButton, stage::isContinueButtonEnabled);
 
-		stage.addActor(background);
-		stage.addActor(logo);
+		stage.addActorBeforeGUI(logo);
+		stage.addActorBeforeGUI(background);
 		stage.addActor(newGameButton);
 		stage.addActor(continueGameButton);
 		stage.addActor(exitGameButton);
+
 		stage.updateControls();
 
 		return stage;

@@ -32,4 +32,8 @@ public interface IUtils
 	public void confirmDialog(String caption,String question,IStage stage,Consumer<Boolean> resultProcessor);
 
 	public void exit();
+
+	public float atan2(float x,float y);
+
+	public float radiansToDegrees();
 }

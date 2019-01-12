@@ -35,7 +35,7 @@ import spaceattack.consts.Consts;
 
 public class GameplayStageTest
 {
-	private GameplayStage stage;
+	private GameplayStageLegacy stage;
 
 	@Mock
 	private IShip ship;
@@ -59,7 +59,7 @@ public class GameplayStageTest
 	{
 		MockitoAnnotations.initMocks(this);
 
-		stage = mock(GameplayStage.class);
+		stage = mock(GameplayStageLegacy.class);
 		doCallRealMethod().when(stage).registerShip(any(IShip.class));
 		doCallRealMethod().when(stage).setPrimaryWeapon(any(IWeapon.class));
 		doCallRealMethod().when(stage).setSecondaryWeapon(any(IWeapon.class));

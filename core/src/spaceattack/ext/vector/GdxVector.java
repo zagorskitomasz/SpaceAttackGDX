@@ -24,4 +24,24 @@ class GdxVector extends Vector2 implements IVector
 	{
 		return y;
 	}
+
+	@Override
+	public float length()
+	{
+		return len();
+	}
+
+	@Override
+	public IVector normalize()
+	{
+		nor();
+		return this;
+	}
+
+	@Override
+	public IVector copy()
+	{
+		Vector2 copy = cpy();
+		return new GdxVector(copy.x, copy.y);
+	}
 }

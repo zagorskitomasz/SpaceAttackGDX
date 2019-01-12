@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.zagorskidev.spaceattack.graphics.Textures;
-import com.zagorskidev.spaceattack.stages.GameplayStage;
+import com.zagorskidev.spaceattack.stages.GameplayStageLegacy;
 import com.zagorskidev.spaceattack.stages.IStage;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 
@@ -31,7 +31,7 @@ public enum FireButtonsFactory
 		return new PrimaryFireButton(drawableUp, drawableDown);
 	}
 
-	public FireButton secondary(GameplayStage stage,IWeapon weapon)
+	public FireButton secondary(GameplayStageLegacy stage,IWeapon weapon)
 	{
 		Drawable drawableUp = getDrawable(Textures.GREEN_BUTTON_UP.getTexture());
 		Drawable drawableDown = getDrawable(Textures.GREEN_BUTTON_DOWN.getTexture());

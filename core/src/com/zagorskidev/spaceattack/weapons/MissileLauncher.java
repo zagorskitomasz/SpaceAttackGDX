@@ -2,14 +2,14 @@ package com.zagorskidev.spaceattack.weapons;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.zagorskidev.spaceattack.stages.GameplayStage;
+import com.zagorskidev.spaceattack.stages.GameplayStageLegacy;
 import com.zagorskidev.spaceattack.weapons.missiles.Missile;
 
 public class MissileLauncher implements IMissileLauncher
 {
-	private GameplayStage stage;
+	private GameplayStageLegacy stage;
 
-	public MissileLauncher(GameplayStage stage)
+	public MissileLauncher(GameplayStageLegacy stage)
 	{
 		this.stage = stage;
 	}

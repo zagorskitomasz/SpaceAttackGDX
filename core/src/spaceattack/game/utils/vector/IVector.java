@@ -5,4 +5,10 @@ public interface IVector
 	public float getX();
 
 	public float getY();
+
+	public float length();
+
+	public IVector normalize();
+
+	public IVector copy();
 }

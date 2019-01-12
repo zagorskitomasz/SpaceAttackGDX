@@ -7,7 +7,7 @@ import com.zagorskidev.spaceattack.ships.HpPool;
 import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.Pool;
-import com.zagorskidev.spaceattack.stages.GameplayStage;
+import com.zagorskidev.spaceattack.stages.GameplayStageLegacy;
 import com.zagorskidev.spaceattack.stages.impl.Bar;
 import com.zagorskidev.spaceattack.stages.impl.HpEnergyBar;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
@@ -17,7 +17,7 @@ public enum PlayerShipFactory
 {
 	INSTANCE;
 
-	public IShip create(GameplayStage stage)
+	public IShip create(GameplayStageLegacy stage)
 	{
 		PlayerShip ship = new PlayerShip();
 

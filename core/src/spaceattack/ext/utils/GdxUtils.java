@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -106,5 +107,17 @@ enum GdxUtils implements IGdxUtils
 	public void exit()
 	{
 		Gdx.app.exit();
+	}
+
+	@Override
+	public float atan2(float x,float y)
+	{
+		return MathUtils.atan2(y, x);
+	}
+
+	@Override
+	public float radiansToDegrees()
+	{
+		return MathUtils.radiansToDegrees;
 	}
 }
