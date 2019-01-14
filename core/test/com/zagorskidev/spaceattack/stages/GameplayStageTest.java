@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.input.IInput;
@@ -25,13 +24,14 @@ import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.Ship;
 import com.zagorskidev.spaceattack.ships.player.PlayerShip;
 import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
-import com.zagorskidev.spaceattack.system.GameProgress;
-import com.zagorskidev.spaceattack.ui.buttons.FireButton;
-import com.zagorskidev.spaceattack.ui.buttons.SecondaryFireButton;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
-import com.zagorskidev.spaceattack.weapons.WeaponFactory;
 
 import spaceattack.consts.Consts;
+import spaceattack.game.GameProgress;
+import spaceattack.game.StageResult;
+import spaceattack.game.buttons.weapon.FireButton;
+import spaceattack.game.buttons.weapon.ComplexFireButton;
+import spaceattack.game.stages.Stages;
 
 public class GameplayStageTest
 {
@@ -44,7 +44,7 @@ public class GameplayStageTest
 	private IInput inputProcessor;
 
 	@Mock
-	private SecondaryFireButton secondaryButton;
+	private ComplexFireButton secondaryButton;
 
 	@Mock
 	private IWeapon weapon;
@@ -80,75 +80,42 @@ public class GameplayStageTest
 	}
 
 	@Test
-	public void registeringObjectIsInitializingInputProcessor()
-	{
-		doReturn(inputProcessor).when(stage).initInputProcessor();
-		stage.registerShip(ship);
-
-		verify(inputProcessor).registerShip(ship);
-	}
-
-	@Test
-	public void placementOfLaserShot()
-	{
-		//@formatter:off
-		IWeapon redLaser = WeaponFactory
-				.INSTANCE
-				.redLaser()
-				.setController(stage)
-				.setMissileLauncher(null)
-				.setLevel(1)
-				.build();
-		//@formatter:off
-		
-		doReturn(100f).when(ship).getX();
-		doReturn(200f).when(ship).getY();
-		doReturn(60f).when(ship).getHeight();
-		
-		doReturn(inputProcessor).when(stage).initInputProcessor();
-		stage.registerShip(ship);
-		stage.setPrimaryWeapon(redLaser);
-		
-		assertEquals(new Vector2(100,242), stage.getPrimaryWeaponUsePlacement());
-	}
-	
-	@Test
 	public void removingActorsToKill()
 	{
 		Array<Actor> actors = new Array<>();
-		
+
 		Ship killableToKill = mock(Ship.class);
 		Ship killableNotToKill = mock(Ship.class);
 		FireButton notKillable = mock(FireButton.class);
 		doReturn(true).when(killableToKill).isToKill();
 		doReturn(false).when(killableNotToKill).isToKill();
-		
+
 		actors.add(killableToKill);
 		actors.add(killableNotToKill);
 		actors.add(notKillable);
-		
+
 		doReturn(actors).when(stage).getActors();
-		
+
 		stage.act(0);
-		
+
 		assertEquals(2, actors.size);
 	}
-	
+
 	@Test
 	public void killingRequiredActorCausesGameOver()
 	{
 		Array<Actor> actors = new Array<>();
-		
+
 		PlayerShip playersShip = mock(PlayerShip.class);
 		doReturn(true).when(playersShip).isToKill();
 		actors.add(playersShip);
 		doReturn(actors).when(stage).getActors();
-		
+
 		stage.act(0);
-		
+
 		assertTrue(stage.isGameOver());
 	}
-	
+
 	@Test
 	public void losingGameIsCausingSavingBackupProgress()
 	{
@@ -158,19 +125,19 @@ public class GameplayStageTest
 		StageResult result = new StageResult();
 		result.setNextStage(Stages.MISSIONS);
 		result.setGameProgress(backupProgress);
-		
+
 		doNothing().when(baseProgress).notifyObservers();
-		
+
 		stage.setGameProgress(baseProgress);
-		
+
 		baseProgress.addExperience(1000);
-		
+
 		stage.lose();
 		stage.finalizeStage();
-		
+
 		verify(stage).setResult(eq(result), anyBoolean());
 	}
-	
+
 	@Test
 	public void winningGameIsCausingSaveOfNewProgress()
 	{
@@ -179,30 +146,30 @@ public class GameplayStageTest
 		StageResult result = new StageResult();
 		result.setNextStage(Stages.MISSIONS);
 		result.setGameProgress(baseProgress);
-		
+
 		doNothing().when(baseProgress).notifyObservers();
-		
+
 		stage.setGameProgress(baseProgress);
-		
+
 		baseProgress.addExperience(1000);
-		
+
 		stage.setGameOver(true);
 		stage.setWon(true);
 		stage.finalizeStage();
-		
+
 		verify(stage).setResult(eq(result), anyBoolean());
 	}
-	
+
 	@Test
 	public void levelingUpIsShowingLabel()
 	{
 		GameProgress progress = new GameProgress();
 		stage.setGameProgress(progress);
 		progress.setLevel(2);
-		
+
 		verify(stage).showLevelUpLabel();
 	}
-	
+
 	@Test
 	public void ifGameOverAndWonCompletedLabelIsShown()
 	{
@@ -212,10 +179,10 @@ public class GameplayStageTest
 		stage.setGameOver(true);
 		stage.setWon(true);
 		stage.act(0);
-		
+
 		verify(finalizeLabel).show();
 	}
-	
+
 	@Test
 	public void ifGameOverAndLostFailedLabelIsShown()
 	{
@@ -225,10 +192,10 @@ public class GameplayStageTest
 		stage.setGameOver(true);
 		stage.setWon(false);
 		stage.act(0);
-		
+
 		verify(finalizeLabel).show();
 	}
-	
+
 	@Test
 	public void afterGivenTimeStageIsFinalized() throws InterruptedException
 	{
@@ -240,21 +207,7 @@ public class GameplayStageTest
 		stage.act(0);
 		Thread.sleep(Consts.Gameplay.LABEL_SHOW_TIME + 1);
 		stage.act(0);
-		
+
 		verify(stage).finalizeStage();
-	}
-	
-	@Test
-	public void settingSecondaryWeapon()
-	{
-		doReturn(inputProcessor).when(stage).initInputProcessor();
-		doReturn(secondaryButton).when(stage).createSecondaryFireButton();
-		doCallRealMethod().when(secondaryButton).setWeapon(any(IWeapon.class));
-		doCallRealMethod().when(secondaryButton).getWeapon();
-		
-		stage.setSecondaryWeapon(weapon);
-		stage.updateSecondaryWeapon(otherWeapon);
-		
-		assertEquals(otherWeapon, secondaryButton.getWeapon());
 	}
 }

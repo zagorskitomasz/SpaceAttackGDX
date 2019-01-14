@@ -3,7 +3,8 @@ package com.zagorskidev.spaceattack.ships;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.zagorskidev.spaceattack.system.FrameController;
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.game.system.FrameController;
 
 public class Pool extends AbstractPool
 {
@@ -25,7 +26,7 @@ public class Pool extends AbstractPool
 	{
 		super();
 		lock = new ReentrantLock();
-		controller = new FrameController(UPDATES_PER_SECOND);
+		controller = new FrameController(ExtUtilsFactory.INSTANCE.create(), UPDATES_PER_SECOND);
 
 		this.baseAmount = baseAmount;
 		this.increasePerLevel = increasePerLevel;

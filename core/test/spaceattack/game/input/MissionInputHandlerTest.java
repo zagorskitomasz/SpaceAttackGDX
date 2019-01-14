@@ -13,9 +13,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import com.zagorskidev.spaceattack.ships.IShip;
-import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 
 import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.utils.vector.IVector;
 
 public class MissionInputHandlerTest
@@ -24,7 +24,7 @@ public class MissionInputHandlerTest
 	private IShip ship;
 
 	@Mock
-	private FireButton button;
+	private IFireButton button;
 
 	private MissionInputHandler handler;
 

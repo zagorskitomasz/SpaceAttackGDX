@@ -1,7 +1,6 @@
 package com.zagorskidev.spaceattack.stages;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.ships.ExperiencePool;
@@ -11,22 +10,20 @@ import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
 import com.zagorskidev.spaceattack.stages.impl.Bar;
 import com.zagorskidev.spaceattack.stages.impl.ExperienceBar;
 import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
-import com.zagorskidev.spaceattack.ui.buttons.FireButton;
-import com.zagorskidev.spaceattack.ui.buttons.FireButtonsFactory;
 import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
-import com.zagorskidev.spaceattack.weapons.IWeaponController;
 import com.zagorskidev.spaceattack.weapons.MissileLauncher;
 import com.zagorskidev.spaceattack.weapons.missiles.Killable;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
 import spaceattack.game.actors.interfaces.RequiredOnStage;
+import spaceattack.game.buttons.weapon.FireButton;
 import spaceattack.game.stages.AbstractStage;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.notifiers.IObserver;
 
-public abstract class GameplayStageLegacy extends AbstractStage implements IWeaponController,IObserver<GameProgress>
+public abstract class GameplayStageLegacy extends AbstractStage implements IObserver<GameProgress>
 {
 	private IMissileLauncher missileLauncher;
 	private IShip playersShip;
@@ -60,18 +57,6 @@ public abstract class GameplayStageLegacy extends AbstractStage implements IWeap
 		playersShip = ship;
 	}
 
-	@Override
-	public void setGameProgress(GameProgress gameProgress)
-	{
-		this.gameProgress = gameProgress;
-
-		if (playersShip != null)
-		{
-			this.gameProgress.registerObserver(playersShip);
-			playersShip.notify(this.gameProgress);
-		}
-	}
-
 	void initExpBar()
 	{
 		expPool = new ExperiencePool(getGameProgress(), getProgressBackup());
@@ -80,70 +65,9 @@ public abstract class GameplayStageLegacy extends AbstractStage implements IWeap
 		addActor(expBar);
 	}
 
-	@Override
-	public void setPrimaryWeapon(IWeapon weapon)
-	{
-		this.primaryWeapon = weapon;
-
-		FireButton primaryFireButton = createPrimaryFireButton();
-		inputHandler.registerFireButton(primaryFireButton);
-	}
-
-	@Override
-	public void setSecondaryWeapon(IWeapon weapon)
-	{
-		this.secondaryWeapon = weapon;
-
-		secondaryFireButton = createSecondaryFireButton();
-		inputHandler.registerFireButton(secondaryFireButton);
-	}
-
-	@Override
-	public void updateSecondaryWeapon(IWeapon weapon)
-	{
-		secondaryWeapon = weapon;
-		secondaryFireButton.setWeapon(secondaryWeapon);
-	}
-
-	FireButton createPrimaryFireButton()
-	{
-		return FireButtonsFactory.INSTANCE.primary(this, primaryWeapon);
-	}
-
-	FireButton createSecondaryFireButton()
-	{
-		return FireButtonsFactory.INSTANCE.secondary(this, secondaryWeapon);
-	}
-
 	public IMissileLauncher getMissileLauncher()
 	{
 		return missileLauncher;
-	}
-
-	@Override
-	public Vector2 getPrimaryWeaponUsePlacement()
-	{
-		return new Vector2(playersShip.getX(),
-				playersShip.getY() + playersShip.getHeight() * primaryWeapon.getWeaponsMovementFactor());
-	}
-
-	@Override
-	public Vector2 getSecondaryWeaponUsePlacement()
-	{
-		return new Vector2(playersShip.getX(),
-				playersShip.getY() + playersShip.getHeight() * secondaryWeapon.getWeaponsMovementFactor());
-	}
-
-	@Override
-	public Vector2 getWeaponMovement()
-	{
-		return new Vector2(0, 1);
-	}
-
-	@Override
-	public boolean takeEnergy(float energyCost)
-	{
-		return playersShip.takeEnergy(energyCost);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 
 import spaceattack.ext.actor.ExtActorFactory;
 import spaceattack.ext.button.ExtTextButtonsFactory;
+import spaceattack.ext.button.image.ExtImageButtonFactory;
 import spaceattack.ext.sound.ExtSoundFactory;
 import spaceattack.ext.stage.ExtStageFactory;
 import spaceattack.ext.texture.ExtTextureFactory;
@@ -34,6 +35,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 		Factories.setActorFactory(ExtActorFactory.INSTANCE);
 		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 		Factories.setTextButtonFactory(ExtTextButtonsFactory.INSTANCE);
+		Factories.setImageButtonFactory(ExtImageButtonFactory.INSTANCE);
 	}
 
 	@Override

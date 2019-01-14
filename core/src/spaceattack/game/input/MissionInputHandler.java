@@ -5,15 +5,15 @@ import java.util.Set;
 
 import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.IShip;
-import com.zagorskidev.spaceattack.ui.buttons.FireButton;
 
 import spaceattack.consts.Sizes;
+import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
 
 public class MissionInputHandler implements IGameplayInput
 {
 	private IShip ship;
-	private Set<FireButton> buttons;
+	private Set<IFireButton> buttons;
 
 	public MissionInputHandler()
 	{
@@ -26,12 +26,12 @@ public class MissionInputHandler implements IGameplayInput
 		this.ship = ship;
 		IPool pool = ship.getEnergyPool();
 
-		for (FireButton button : buttons)
+		for (IFireButton button : buttons)
 			button.setEnergyPool(pool);
 	}
 
 	@Override
-	public void registerFireButton(FireButton button)
+	public void registerFireButton(IFireButton button)
 	{
 		buttons.add(button);
 	}
@@ -39,7 +39,7 @@ public class MissionInputHandler implements IGameplayInput
 	@Override
 	public boolean touchDown(int screenX,int screenY,int pointer,int button)
 	{
-		for (FireButton fireButton : buttons)
+		for (IFireButton fireButton : buttons)
 		{
 			fireButton.touchDown(screenX, screenY);
 
@@ -50,7 +50,7 @@ public class MissionInputHandler implements IGameplayInput
 	@Override
 	public boolean touchUp(int screenX,int screenY,int pointer,int button)
 	{
-		for (FireButton fireButton : buttons)
+		for (IFireButton fireButton : buttons)
 		{
 			if (fireButton.touchUp(screenX, screenY))
 				return true;
