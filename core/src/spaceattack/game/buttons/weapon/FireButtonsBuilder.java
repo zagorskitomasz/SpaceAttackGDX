@@ -1,12 +1,11 @@
 package spaceattack.game.buttons.weapon;
 
-import com.zagorskidev.spaceattack.weapons.IWeapon;
-
 import spaceattack.consts.Sizes;
 import spaceattack.game.buttons.IImageButton;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.system.graphics.Textures;
+import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 
 public enum FireButtonsBuilder

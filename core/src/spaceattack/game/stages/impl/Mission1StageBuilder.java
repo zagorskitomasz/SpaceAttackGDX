@@ -1,7 +1,6 @@
 package spaceattack.game.stages.impl;
 
 import com.zagorskidev.spaceattack.ships.IShip;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.buttons.weapon.FireButtonsBuilder;
@@ -14,7 +13,10 @@ import spaceattack.game.system.GameSaverFactory;
 import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
+import spaceattack.game.weapons.IWeapon;
+import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
+import spaceattack.game.weapons.WeaponsFactory;
 
 public enum Mission1StageBuilder implements IStageBuilder
 {
@@ -37,7 +39,8 @@ public enum Mission1StageBuilder implements IStageBuilder
 
 		MissionInputHandler processor = new MissionInputHandler();
 		PlayerWeaponController weaponController = new PlayerWeaponController();
-		IWeapon redLaser = null;
+		MissilesLauncher missilesLauncher = new MissilesLauncher(stage);
+		IWeapon redLaser = WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher);
 		IWeapon greenLaser = null;
 		IFireButton primaryFireButton = FireButtonsBuilder.INSTANCE.primary(redLaser);
 		IFireButton secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);

@@ -14,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import com.zagorskidev.spaceattack.ships.IPool;
 import com.zagorskidev.spaceattack.ships.Pool;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
 
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
@@ -23,6 +22,7 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.input.InputType;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.utils.vector.IVectorFactory;
+import spaceattack.game.weapons.IWeapon;
 
 public class FireButtonTest
 {

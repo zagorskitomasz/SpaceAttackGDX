@@ -1,4 +1,4 @@
-package com.zagorskidev.spaceattack.weapons;
+package spaceattack.game.weapons;
 
 public interface IWeapon
 {

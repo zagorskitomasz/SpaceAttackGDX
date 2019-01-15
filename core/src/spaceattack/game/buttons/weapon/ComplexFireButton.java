@@ -1,9 +1,8 @@
 package spaceattack.game.buttons.weapon;
 
-import com.zagorskidev.spaceattack.weapons.IWeapon;
-
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.system.graphics.Textures;
+import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 
 @SuppressWarnings("unused")

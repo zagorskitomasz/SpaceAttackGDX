@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.zagorskidev.spaceattack.ships.IShip;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
 
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.buttons.weapon.IFireButton;

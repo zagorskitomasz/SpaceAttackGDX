@@ -13,10 +13,10 @@ import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
 import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
 import com.zagorskidev.spaceattack.weapons.IWeapon;
 import com.zagorskidev.spaceattack.weapons.MissileLauncher;
-import com.zagorskidev.spaceattack.weapons.missiles.Killable;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
+import spaceattack.game.actors.interfaces.Killable;
 import spaceattack.game.actors.interfaces.RequiredOnStage;
 import spaceattack.game.buttons.weapon.FireButton;
 import spaceattack.game.stages.AbstractStage;
@@ -41,7 +41,7 @@ public abstract class GameplayStageLegacy extends AbstractStage implements IObse
 
 	public GameplayStageLegacy()
 	{
-		missileLauncher = new MissileLauncher(this);
+		missileLauncher = new MissilesLauncher(this);
 	}
 
 	protected IShip createPlayersShip()

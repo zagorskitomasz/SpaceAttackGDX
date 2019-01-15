@@ -1,7 +1,5 @@
 package com.zagorskidev.spaceattack.ships.player;
 
-import com.zagorskidev.spaceattack.graphics.Textures;
-import com.zagorskidev.spaceattack.moving.engines.IEngine;
 import com.zagorskidev.spaceattack.moving.engines.ShipEngineBuilder;
 import com.zagorskidev.spaceattack.ships.HpPool;
 import com.zagorskidev.spaceattack.ships.IPool;
@@ -10,8 +8,9 @@ import com.zagorskidev.spaceattack.ships.Pool;
 import com.zagorskidev.spaceattack.stages.GameplayStageLegacy;
 import com.zagorskidev.spaceattack.stages.impl.Bar;
 import com.zagorskidev.spaceattack.stages.impl.HpEnergyBar;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
-import com.zagorskidev.spaceattack.weapons.WeaponFactory;
+
+import spaceattack.game.engines.IEngine;
+import spaceattack.game.system.graphics.Textures;
 
 public enum PlayerShipFactory
 {
@@ -29,14 +28,6 @@ public enum PlayerShipFactory
 				.setAcceleration(1f)
 				.setBraking(1f)
 				.setAgility(2f)
-				.build();
-
-		IWeapon redLaser = WeaponFactory
-				.INSTANCE
-				.redLaser()
-				.setController(stage)
-				.setMissileLauncher(stage.getMissileLauncher())
-				.setLevel(1)
 				.build();
 		//@formatter:on
 

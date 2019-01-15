@@ -1,10 +1,32 @@
 package spaceattack.game.buttons.weapon;
 
 import com.zagorskidev.spaceattack.ships.IPool;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
 
-public interface IFireButton
+import spaceattack.game.actors.IActor;
+import spaceattack.game.actors.IGameActor;
+import spaceattack.game.batch.IBatch;
+import spaceattack.game.weapons.IWeapon;
+
+public interface IFireButton extends IGameActor
 {
+	@Override
+	public default void setActor(IActor actor)
+	{
+		// do nothing
+	}
+
+	@Override
+	public default void draw(IBatch batch,float alpha)
+	{
+		// do nothing
+	}
+
+	@Override
+	public default void act(float delta)
+	{
+		// do nothing
+	}
+
 	public void setWeapon(IWeapon secondaryWeapon);
 
 	public void setEnergyPool(IPool pool);

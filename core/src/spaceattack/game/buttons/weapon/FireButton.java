@@ -1,14 +1,15 @@
 package spaceattack.game.buttons.weapon;
 
 import com.zagorskidev.spaceattack.ships.IPool;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
 
+import spaceattack.game.actors.IActor;
 import spaceattack.game.buttons.IImageButton;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.InputType;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;
+import spaceattack.game.weapons.IWeapon;
 
 public class FireButton implements IObserver<Float>,IFireButton
 {
@@ -110,5 +111,11 @@ public class FireButton implements IObserver<Float>,IFireButton
 	public IWeapon getWeapon()
 	{
 		return weapon;
+	}
+
+	@Override
+	public IActor getActor()
+	{
+		return button;
 	}
 }

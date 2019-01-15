@@ -1,10 +1,9 @@
-package com.zagorskidev.spaceattack.weapons.redLaser;
+package spaceattack.game.weapons.redLaser;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -13,13 +12,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
-import com.zagorskidev.spaceattack.weapons.IWeaponController;
-import com.zagorskidev.spaceattack.weapons.WeaponFactory;
-import com.zagorskidev.spaceattack.weapons.missiles.Missile;
-
 import spaceattack.consts.Consts;
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.factories.Factories;
+import spaceattack.game.system.graphics.Textures;
+import spaceattack.game.weapons.IWeaponController;
+import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.missiles.Missile;
 
 public class RedLaserTest
 {
@@ -27,10 +27,7 @@ public class RedLaserTest
 	private IWeaponController controller;
 
 	@Mock
-	private IMissileLauncher launcher;
-
-	@Mock
-	private Missile missile;
+	private MissilesLauncher launcher;
 
 	private RedLaser redLaser;
 
@@ -38,59 +35,46 @@ public class RedLaserTest
 	public void setUp()
 	{
 		initMocks(this);
+		Textures.loadForTest();
+		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 
-		//@formatter:off
-		redLaser = WeaponFactory
-				.INSTANCE
-				.redLaser()
-				.setController(controller)
-				.setMissileLauncher(launcher)
-				.setLevel(1)
-				.build();
-		//@formatter:on
+		redLaser = new RedLaser();
 
-		redLaser = spy(redLaser);
+		redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
+		redLaser.setController(controller);
+		redLaser.setMissilesLauncher(launcher);
+		redLaser.setLevel(1);
+
 		doReturn(true).when(controller).takeEnergy(anyFloat());
-	}
-
-	@Test
-	public void builderIsSettingProperValues()
-	{
-		assertEquals(controller, redLaser.getController());
-		assertEquals(launcher, redLaser.getLauncher());
 	}
 
 	@Test
 	public void useIsLaunchingMissile()
 	{
-		doReturn(missile).when(redLaser).buildMissile();
 		redLaser.use();
-		verify(launcher).launch(missile);
+		verify(launcher).launch(any(Missile.class));
 	}
 
 	@Test
 	public void laserCantBeShootedTooOften()
 	{
-		doReturn(missile).when(redLaser).buildMissile();
 		redLaser.use();
 		redLaser.use();
-		verify(launcher, times(1)).launch(missile);
+		verify(launcher, times(1)).launch(any(Missile.class));
 	}
 
 	@Test
 	public void laserCantBeShootedAfterInterval() throws InterruptedException
 	{
-		doReturn(missile).when(redLaser).buildMissile();
 		redLaser.use();
 		Thread.sleep(500);
 		redLaser.use();
-		verify(launcher, times(2)).launch(missile);
+		verify(launcher, times(2)).launch(any(Missile.class));
 	}
 
 	@Test
 	public void buildingRedLaserMissile()
 	{
-		doReturn(mock(Texture.class)).when(redLaser).getMissileTexture();
 		Missile missile = redLaser.buildMissile();
 
 		assertEquals(Consts.Weapons.RED_LASER_BASE_DMG, missile.getDmg(), 0);
@@ -101,7 +85,6 @@ public class RedLaserTest
 	@Test
 	public void buildingHigherLevelMissile()
 	{
-		doReturn(mock(Texture.class)).when(redLaser).getMissileTexture();
 		redLaser.setLevel(4);
 		Missile missile = redLaser.buildMissile();
 
@@ -117,6 +100,6 @@ public class RedLaserTest
 	{
 		doReturn(false).when(controller).takeEnergy(anyFloat());
 		redLaser.use();
-		verify(launcher, times(0)).launch(missile);
+		verify(launcher, times(0)).launch(any(Missile.class));
 	}
 }

@@ -1,4 +1,4 @@
-package com.zagorskidev.spaceattack.weapons.missiles;
+package spaceattack.game.actors.interfaces;
 
 public interface Killable
 {
