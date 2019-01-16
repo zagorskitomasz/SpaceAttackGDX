@@ -12,14 +12,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.zagorskidev.spaceattack.ships.IPool;
-import com.zagorskidev.spaceattack.ships.Pool;
-
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.buttons.IImageButton;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.InputType;
+import spaceattack.game.ships.pools.IPool;
+import spaceattack.game.ships.pools.Pool;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.utils.vector.IVectorFactory;
 import spaceattack.game.weapons.IWeapon;

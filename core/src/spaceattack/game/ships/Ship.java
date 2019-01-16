@@ -1,19 +1,20 @@
-package com.zagorskidev.spaceattack.ships;
+package spaceattack.game.ships;
 
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
-
+import spaceattack.game.GameProgress;
 import spaceattack.game.actors.DrawableActor;
 import spaceattack.game.engines.IEngine;
+import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.pools.IPool;
+import spaceattack.game.system.graphics.ITexture;
+import spaceattack.game.utils.vector.IVector;
+import spaceattack.game.weapons.IWeapon;
 
 public abstract class Ship extends DrawableActor implements IShip
 {
-	protected Texture currentTexture;
+	protected ITexture currentTexture;
 
 	protected IEngine engine;
 	protected Set<IWeapon> weapons;
@@ -23,13 +24,8 @@ public abstract class Ship extends DrawableActor implements IShip
 
 	private boolean isToKill;
 
-	public Ship()
-	{
-
-	}
-
 	@Override
-	public void loadGraphics(Texture texture)
+	public void setTexture(ITexture texture)
 	{
 		currentTexture = texture;
 	}
@@ -41,19 +37,13 @@ public abstract class Ship extends DrawableActor implements IShip
 	}
 
 	@Override
-	public Actor getActor()
-	{
-		return this;
-	}
-
-	@Override
-	protected Texture getTexture()
+	protected ITexture getTexture()
 	{
 		return currentTexture;
 	}
 
 	@Override
-	public void setDestination(Vector2 destination)
+	public void setDestination(IVector destination)
 	{
 		if (engine != null)
 			engine.setDestination(destination);
@@ -149,9 +139,9 @@ public abstract class Ship extends DrawableActor implements IShip
 	}
 
 	@Override
-	public Vector2 getPosition()
+	public IVector getPosition()
 	{
-		return new Vector2(getX(), getY());
+		return Factories.getVectorFactory().create(getX(), getY());
 	}
 
 	@Override
@@ -176,5 +166,11 @@ public abstract class Ship extends DrawableActor implements IShip
 	public IPool getEnergyPool()
 	{
 		return energyPool;
+	}
+
+	@Override
+	public void notify(GameProgress state)
+	{
+		setLevel(state.getLevel());
 	}
 }

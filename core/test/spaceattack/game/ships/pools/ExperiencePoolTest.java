@@ -1,12 +1,14 @@
-package com.zagorskidev.spaceattack.ships;
+package spaceattack.game.ships.pools;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.zagorskidev.spaceattack.consts.Experience;
-import com.zagorskidev.spaceattack.system.GameProgress;
+import spaceattack.consts.Experience;
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.game.GameProgress;
+import spaceattack.game.factories.Factories;
 
 public class ExperiencePoolTest
 {
@@ -20,6 +22,7 @@ public class ExperiencePoolTest
 	@Before
 	public void setUp()
 	{
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 		progress = new GameProgress();
 		progress.setLevel(LEVEL);
 		progress.setExperience(1700l);

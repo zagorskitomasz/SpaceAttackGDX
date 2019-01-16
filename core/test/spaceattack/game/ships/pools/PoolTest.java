@@ -1,4 +1,4 @@
-package com.zagorskidev.spaceattack.ships;
+package spaceattack.game.ships.pools;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,6 +12,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.system.notifiers.IObserver;
 
 public class PoolTest
@@ -29,6 +31,7 @@ public class PoolTest
 	@Before
 	public void setUp()
 	{
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 		pool = new Pool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
 	}
 

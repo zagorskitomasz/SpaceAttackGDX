@@ -1,9 +1,10 @@
-package com.zagorskidev.spaceattack.ships;
+package spaceattack.game.ships.pools;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.pools.AbstractPool;
 import spaceattack.game.system.FrameController;
 
 public class Pool extends AbstractPool
@@ -26,7 +27,7 @@ public class Pool extends AbstractPool
 	{
 		super();
 		lock = new ReentrantLock();
-		controller = new FrameController(ExtUtilsFactory.INSTANCE.create(), UPDATES_PER_SECOND);
+		controller = new FrameController(Factories.getUtilsFactory().create(), UPDATES_PER_SECOND);
 
 		this.baseAmount = baseAmount;
 		this.increasePerLevel = increasePerLevel;

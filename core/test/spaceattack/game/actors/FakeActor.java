@@ -41,4 +41,10 @@ public class FakeActor implements IActor
 		return 0;
 	}
 
+	@Override
+	public void setPosition(float x,float y)
+	{
+		this.x = x;
+		this.y = y;
+	}
 }

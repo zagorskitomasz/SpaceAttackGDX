@@ -3,11 +3,9 @@ package spaceattack.game.engines;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.zagorskidev.spaceattack.ships.IShip;
-import com.zagorskidev.spaceattack.ships.IShip.Turn;
-
-import spaceattack.game.engines.IEngine;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.IShip;
+import spaceattack.game.ships.IShip.Turn;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.utils.vector.IVectorFactory;

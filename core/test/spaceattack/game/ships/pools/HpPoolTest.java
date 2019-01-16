@@ -1,9 +1,12 @@
-package com.zagorskidev.spaceattack.ships;
+package spaceattack.game.ships.pools;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.game.factories.Factories;
 
 public class HpPoolTest
 {
@@ -17,6 +20,7 @@ public class HpPoolTest
 	@Before
 	public void setUp()
 	{
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 		pool = new HpPool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
 	}
 

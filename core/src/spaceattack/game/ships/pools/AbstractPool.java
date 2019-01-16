@@ -1,8 +1,9 @@
-package com.zagorskidev.spaceattack.ships;
+package spaceattack.game.ships.pools;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.notifiers.IObserver;
 
 public abstract class AbstractPool implements IPool

@@ -1,7 +1,6 @@
 package spaceattack.game.weapons;
 
-import com.zagorskidev.spaceattack.ships.IShip;
-
+import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
 public interface IWeaponController

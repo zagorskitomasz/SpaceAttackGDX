@@ -1,9 +1,8 @@
 package spaceattack.game.weapons;
 
-import com.zagorskidev.spaceattack.ships.IShip;
-
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
 public class PlayerWeaponController implements IWeaponController

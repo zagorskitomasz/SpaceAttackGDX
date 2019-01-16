@@ -9,11 +9,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.zagorskidev.spaceattack.ships.IShip;
-
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVectorFactory;
 
 public class PlayerWeaponControllerTest

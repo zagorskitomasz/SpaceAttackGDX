@@ -1,7 +1,6 @@
 package spaceattack.game.engines;
 
-import com.zagorskidev.spaceattack.ships.IShip.Turn;
-
+import spaceattack.game.ships.IShip.Turn;
 import spaceattack.game.utils.vector.IVector;
 
 public interface IEngine

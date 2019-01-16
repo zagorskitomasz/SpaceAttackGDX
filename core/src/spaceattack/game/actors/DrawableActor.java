@@ -37,4 +37,24 @@ public abstract class DrawableActor implements IGameActor
 	{
 		return actor.getY() - getTexture().getHeight() * 0.5f;
 	}
+
+	public float getX()
+	{
+		return actor.getX();
+	}
+
+	public float getY()
+	{
+		return actor.getY();
+	}
+
+	public void setX(float x)
+	{
+		actor.setX(x);
+	}
+
+	public void setY(float y)
+	{
+		actor.setY(y);
+	}
 }

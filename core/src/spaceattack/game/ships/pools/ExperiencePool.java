@@ -1,7 +1,8 @@
-package com.zagorskidev.spaceattack.ships;
+package spaceattack.game.ships.pools;
 
-import com.zagorskidev.spaceattack.consts.Experience;
-import com.zagorskidev.spaceattack.system.GameProgress;
+import spaceattack.consts.Experience;
+import spaceattack.game.GameProgress;
+import spaceattack.game.ships.pools.AbstractPool;
 
 public class ExperiencePool extends AbstractPool
 {

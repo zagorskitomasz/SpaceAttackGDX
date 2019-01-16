@@ -1,10 +1,9 @@
 package spaceattack.game.buttons.weapon;
 
-import com.zagorskidev.spaceattack.ships.IPool;
-
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.batch.IBatch;
+import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.weapons.IWeapon;
 
 public interface IFireButton extends IGameActor

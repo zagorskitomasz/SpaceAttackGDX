@@ -2,28 +2,23 @@ package spaceattack.game.engines;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyFloat;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.doReturn;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.zagorskidev.spaceattack.ships.IShip.Turn;
-import com.zagorskidev.spaceattack.ships.player.PlayerShip;
-
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.FakeShip;
+import spaceattack.game.ships.IShip;
+import spaceattack.game.ships.IShip.Turn;
 
 public class ShipEngineTest
 {
 	@Mock
-	private PlayerShip ship;
+	private IShip ship;
 
 	private ShipEngine engine;
 
@@ -33,12 +28,7 @@ public class ShipEngineTest
 		MockitoAnnotations.initMocks(this);
 		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 
-		doCallRealMethod().when(ship).getX();
-		doCallRealMethod().when(ship).getY();
-		doCallRealMethod().when(ship).setX(anyFloat());
-		doCallRealMethod().when(ship).setY(anyFloat());
-		doCallRealMethod().when(ship).setLevel(anyInt());
-		doCallRealMethod().when(ship).setShipEngine(any(IEngine.class));
+		ship = new FakeShip();
 
 		ship.setX(10);
 		ship.setY(20);
@@ -48,8 +38,6 @@ public class ShipEngineTest
 		engine.setAcceleration(1);
 		engine.setBraking(1);
 		engine.setAgility(2);
-
-		ship.setShipEngine(engine);
 		engine.setLevel(1);
 	}
 
@@ -95,8 +83,8 @@ public class ShipEngineTest
 	{
 		engine.setDestination(ExtVectorFactory.INSTANCE.create(30, 30));
 		engine.setDestination(ExtVectorFactory.INSTANCE.create(40, 40));
-		doReturn(30f).when(ship).getX();
-		doReturn(30f).when(ship).getY();
+		ship.setX(30);
+		ship.setY(30);
 
 		engine.fly();
 
@@ -165,7 +153,7 @@ public class ShipEngineTest
 	@Test
 	public void increasingLevel()
 	{
-		ship.setLevel(3);
+		engine.setLevel(3);
 
 		assertEquals(2.8f, engine.getCurrentSpeed(), 0.01);
 	}

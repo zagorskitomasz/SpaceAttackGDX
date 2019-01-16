@@ -1,4 +1,4 @@
-package com.zagorskidev.spaceattack.ships;
+package spaceattack.game.ships.pools;
 
 import spaceattack.game.system.notifiers.INotifier;
 

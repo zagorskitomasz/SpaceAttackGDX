@@ -12,10 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.zagorskidev.spaceattack.ships.IShip;
-
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.buttons.weapon.IFireButton;
+import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
 public class MissionInputHandlerTest

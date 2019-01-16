@@ -1,11 +1,10 @@
 package spaceattack.game.buttons.weapon;
 
-import com.zagorskidev.spaceattack.ships.IPool;
-
 import spaceattack.game.actors.IActor;
 import spaceattack.game.buttons.IImageButton;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.InputType;
+import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;

@@ -1,10 +1,10 @@
 package com.zagorskidev.spaceattack.stages.impl;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.zagorskidev.spaceattack.graphics.Textures;
-import com.zagorskidev.spaceattack.ships.IPool;
 
 import spaceattack.consts.Sizes;
+import spaceattack.game.ships.pools.IPool;
+import spaceattack.game.system.graphics.Textures;
 
 public class HpEnergyBar extends Bar
 {

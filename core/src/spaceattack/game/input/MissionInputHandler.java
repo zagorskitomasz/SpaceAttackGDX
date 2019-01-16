@@ -3,12 +3,11 @@ package spaceattack.game.input;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.zagorskidev.spaceattack.ships.IPool;
-import com.zagorskidev.spaceattack.ships.IShip;
-
 import spaceattack.consts.Sizes;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.IShip;
+import spaceattack.game.ships.pools.IPool;
 
 public class MissionInputHandler implements IGameplayInput
 {

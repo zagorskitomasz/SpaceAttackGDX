@@ -13,4 +13,6 @@ public interface IActor
 	public float getHeight();
 
 	public float getWidth();
+
+	public void setPosition(float x,float y);
 }
