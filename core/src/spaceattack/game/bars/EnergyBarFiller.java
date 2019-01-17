@@ -2,15 +2,15 @@ package spaceattack.game.bars;
 
 import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
-import spaceattack.game.bars.AbstractBarFiller;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.pools.IPool;
+import spaceattack.game.utils.IUtils;
 
 public class EnergyBarFiller extends AbstractBarFiller
 {
-	public EnergyBarFiller(IPool energyPool)
+	public EnergyBarFiller(IPool energyPool,IUtils utils)
 	{
-		super(energyPool);
+		super(energyPool, utils);
 
 		label.setAlignment(Consts.Align.topRight);
 		label.setPosition(Sizes.GAME_WIDTH - 30, Sizes.GAME_WIDTH - 10);

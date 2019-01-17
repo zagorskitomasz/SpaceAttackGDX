@@ -1,9 +1,7 @@
 package spaceattack.game.bars;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,6 @@ import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.utils.IUtils;
-import spaceattack.game.utils.IUtilsFactory;
 
 public class HpEnergyBarTest
 {
@@ -26,8 +23,6 @@ public class HpEnergyBarTest
 	private IPool hpPool;
 
 	@Mock
-	private IUtilsFactory utilsFactory;
-
 	private IUtils utils;
 
 	@Mock
@@ -37,17 +32,18 @@ public class HpEnergyBarTest
 	public void setUp()
 	{
 		MockitoAnnotations.initMocks(this);
-		utils = spy(ExtUtilsFactory.INSTANCE.create());
-		doReturn(utils).when(utilsFactory).create();
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 		doReturn(label).when(utils).createBarLabel();
-		doCallRealMethod().when(utils).millis();
 
 		Textures.loadForTest();
-		Factories.setUtilsFactory(utilsFactory);
 
 		energyPool = new Pool(50, 10, 5 * Pool.UPDATES_PER_SECOND, 5 * Pool.UPDATES_PER_SECOND);
 		hpPool = new Pool(80, 20, 3 * Pool.UPDATES_PER_SECOND, 3 * Pool.UPDATES_PER_SECOND);
+
 		bar = new HpEnergyBar(energyPool, hpPool);
+		HpBarFiller hpFiller = new HpBarFiller(hpPool, utils);
+		EnergyBarFiller energyFiller = new EnergyBarFiller(energyPool, utils);
+		bar.setFillers(hpFiller, energyFiller);
 	}
 
 	@Test

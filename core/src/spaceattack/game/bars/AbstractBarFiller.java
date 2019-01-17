@@ -2,10 +2,10 @@ package spaceattack.game.bars;
 
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.batch.IBatch;
-import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.system.notifiers.ValueObserver;
+import spaceattack.game.utils.IUtils;
 
 public abstract class AbstractBarFiller
 {
@@ -17,14 +17,14 @@ public abstract class AbstractBarFiller
 
 	protected ILabel label;
 
-	public AbstractBarFiller(IPool pool)
+	public AbstractBarFiller(IPool pool,IUtils utils)
 	{
 		this.pool = pool;
 
 		IObserver<Float> observer = new ValueObserver(this::valueChanged);
 		pool.registerObserver(observer);
 
-		label = Factories.getUtilsFactory().create().createBarLabel();
+		label = utils.createBarLabel();
 	}
 
 	public void valueChanged(float percent)
@@ -35,11 +35,6 @@ public abstract class AbstractBarFiller
 
 		if (label != null)
 			label.setText(String.format("%.0f", amount) + " / " + String.format("%.0f", maxAmount));
-	}
-
-	public void setLabel(ILabel label)
-	{
-		this.label = label;
 	}
 
 	public abstract void drawRect(IBatch batch);

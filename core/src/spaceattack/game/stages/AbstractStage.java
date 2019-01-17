@@ -112,7 +112,7 @@ public abstract class AbstractStage implements IGameStage
 		stage.addActor(actor);
 	}
 
-	protected GameProgress getProgressBackup()
+	public GameProgress getProgressBackup()
 	{
 		return progressBackup;
 	}

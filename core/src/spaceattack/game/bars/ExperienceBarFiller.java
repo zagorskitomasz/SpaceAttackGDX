@@ -1,15 +1,15 @@
 package spaceattack.game.bars;
 
 import spaceattack.consts.Sizes;
-import spaceattack.game.bars.AbstractBarFiller;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.pools.IPool;
+import spaceattack.game.utils.IUtils;
 
 public class ExperienceBarFiller extends AbstractBarFiller
 {
-	public ExperienceBarFiller(IPool pool)
+	public ExperienceBarFiller(IPool pool,IUtils utils)
 	{
-		super(pool);
+		super(pool, utils);
 	}
 
 	@Override

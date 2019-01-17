@@ -13,8 +13,12 @@ public class ExperienceBar extends Bar
 	public ExperienceBar(IPool pool)
 	{
 		expPool = pool;
-		expFiller = new ExperienceBarFiller(pool);
 		texture = Textures.EXP_BAR.getTexture();
+	}
+
+	void setFiller(AbstractBarFiller filler)
+	{
+		expFiller = filler;
 	}
 
 	@Override

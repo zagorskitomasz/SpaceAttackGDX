@@ -4,6 +4,7 @@ import spaceattack.game.GameProgress;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.actors.TimeLabel;
 import spaceattack.game.bars.Bar;
+import spaceattack.game.bars.BarBuilder;
 import spaceattack.game.bars.HpEnergyBar;
 import spaceattack.game.buttons.weapon.FireButtonsBuilder;
 import spaceattack.game.buttons.weapon.IFireButton;
@@ -12,6 +13,7 @@ import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.MissionInputHandler;
 import spaceattack.game.ships.player.PlayerShip;
+import spaceattack.game.ships.pools.ExperiencePool;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
@@ -75,6 +77,9 @@ public enum Mission1StageBuilder implements IStageBuilder
 		IPool hpPool = new HpPool(50, 10, 5, 1);
 		Bar energyBar = new HpEnergyBar(energyPool, hpPool);
 		energyBar.setActor(Factories.getActorFactory().create(energyBar));
+
+		IPool expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
+		Bar expBar = BarBuilder.INSTANCE.experienceBar(expPool);
 
 		playersShip.setActor(Factories.getActorFactory().create(playersShip));
 		playersShip.loadComplexGraphics(Textures.PLAYER_SHIP_F.getTexture(), Textures.PLAYER_SHIP_R.getTexture(),

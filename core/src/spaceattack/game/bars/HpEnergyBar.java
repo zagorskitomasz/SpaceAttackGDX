@@ -1,10 +1,6 @@
 package spaceattack.game.bars;
 
 import spaceattack.consts.Sizes;
-import spaceattack.game.bars.AbstractBarFiller;
-import spaceattack.game.bars.Bar;
-import spaceattack.game.bars.EnergyBarFiller;
-import spaceattack.game.bars.HpBarFiller;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.Textures;
@@ -16,10 +12,13 @@ public class HpEnergyBar extends Bar
 
 	public HpEnergyBar(IPool energyPool,IPool hpPool)
 	{
-		energyFiller = new EnergyBarFiller(energyPool);
-		hpFiller = new HpBarFiller(hpPool);
-
 		texture = Textures.HP_ENE_BAR.getTexture();
+	}
+
+	void setFillers(AbstractBarFiller hpFiller,AbstractBarFiller energyFiller)
+	{
+		this.hpFiller = hpFiller;
+		this.energyFiller = energyFiller;
 	}
 
 	@Override
