@@ -5,14 +5,20 @@ import java.util.function.Consumer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import spaceattack.consts.Paths;
+import spaceattack.consts.Sizes;
+import spaceattack.ext.actor.GdxLabel;
 import spaceattack.ext.stage.GdxStage;
+import spaceattack.game.actors.ILabel;
 import spaceattack.game.input.IInputProcessor;
 import spaceattack.game.stages.IStage;
 import spaceattack.game.system.IFileHandle;
@@ -119,5 +125,30 @@ enum GdxUtils implements IGdxUtils
 	public float radiansToDegrees()
 	{
 		return MathUtils.radiansToDegrees;
+	}
+
+	@Override
+	public long millis()
+	{
+		return TimeUtils.millis();
+	}
+
+	@Override
+	public ILabel createTimeLabel(String text,int color)
+	{
+		BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
+		Label.LabelStyle style = new Label.LabelStyle(font, new Color(color));
+		GdxLabel label = new GdxLabel(text, style);
+		label.setPosition((Sizes.GAME_WIDTH - label.getWidth()) * 0.5f, Sizes.GAME_HEIGHT * 0.7f);
+
+		return label;
+	}
+
+	@Override
+	public ILabel createBarLabel()
+	{
+		BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.GAMEPLAY_FONT));
+		Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+		return new GdxLabel("", style);
 	}
 }

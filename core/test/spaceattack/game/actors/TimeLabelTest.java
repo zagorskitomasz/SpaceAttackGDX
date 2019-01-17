@@ -1,36 +1,32 @@
-package com.zagorskidev.spaceattack.stages.impl;
+package spaceattack.game.actors;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-
 import spaceattack.consts.Consts;
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.game.factories.Factories;
 
 public class TimeLabelTest
 {
 	private TimeLabel timeLabel;
 
 	@Mock
-	private Label label;
+	private ILabel label;
 
 	@Before
 	public void setUp()
 	{
 		MockitoAnnotations.initMocks(this);
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-		timeLabel = spy(new TimeLabel("TEST"));
-		doReturn(label).when(timeLabel).createLabel(ArgumentMatchers.any(Color.class));
-		timeLabel.initGdx(Color.GOLDENROD);
+		timeLabel = new TimeLabel();
+		timeLabel.setLabel(label);
 	}
 
 	@Test

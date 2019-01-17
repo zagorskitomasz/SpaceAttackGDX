@@ -1,4 +1,4 @@
-package com.zagorskidev.spaceattack.stages.impl;
+package spaceattack.game.system.notifiers;
 
 import java.util.function.Consumer;
 

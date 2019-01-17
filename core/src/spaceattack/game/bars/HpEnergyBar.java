@@ -1,8 +1,11 @@
-package com.zagorskidev.spaceattack.stages.impl;
-
-import com.badlogic.gdx.graphics.g2d.Batch;
+package spaceattack.game.bars;
 
 import spaceattack.consts.Sizes;
+import spaceattack.game.bars.AbstractBarFiller;
+import spaceattack.game.bars.Bar;
+import spaceattack.game.bars.EnergyBarFiller;
+import spaceattack.game.bars.HpBarFiller;
+import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.Textures;
 
@@ -20,32 +23,23 @@ public class HpEnergyBar extends Bar
 	}
 
 	@Override
-	public void initGdx()
+	protected void drawTexture(IBatch batch)
 	{
-		super.initGdx();
-
-		energyFiller.initLabel();
-		hpFiller.initLabel();
+		batch.draw(texture, 0, Sizes.GAME_HEIGHT - texture.getHeight());
 	}
 
 	@Override
-	protected void drawTexture(Batch batch)
-	{
-		batch.draw(texture, 0, Sizes.gameHeight() - texture.getHeight());
-	}
-
-	@Override
-	protected void drawFillerLabel(Batch batch)
+	protected void drawFillerLabel(IBatch batch)
 	{
 		energyFiller.drawLabel(batch);
 		hpFiller.drawLabel(batch);
 	}
 
 	@Override
-	protected void drawFillerRect()
+	protected void drawBarRect(IBatch batch)
 	{
-		energyFiller.drawRect(renderer);
-		hpFiller.drawRect(renderer);
+		energyFiller.drawRect(batch);
+		hpFiller.drawRect(batch);
 	}
 
 	float getMaxEnergy()

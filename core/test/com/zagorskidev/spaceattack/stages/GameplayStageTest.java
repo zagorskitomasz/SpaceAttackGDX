@@ -20,18 +20,18 @@ import org.mockito.MockitoAnnotations;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.zagorskidev.spaceattack.input.IInput;
-import com.zagorskidev.spaceattack.ships.IShip;
-import com.zagorskidev.spaceattack.ships.Ship;
-import com.zagorskidev.spaceattack.ships.player.PlayerShip;
-import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
 
 import spaceattack.consts.Consts;
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
-import spaceattack.game.buttons.weapon.FireButton;
+import spaceattack.game.actors.TimeLabel;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
+import spaceattack.game.buttons.weapon.FireButton;
+import spaceattack.game.ships.IShip;
+import spaceattack.game.ships.Ship;
+import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.stages.Stages;
+import spaceattack.game.weapons.IWeapon;
 
 public class GameplayStageTest
 {

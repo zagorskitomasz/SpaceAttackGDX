@@ -1,9 +1,10 @@
 package spaceattack.game.stages.impl;
 
-import com.zagorskidev.spaceattack.stages.impl.Bar;
-import com.zagorskidev.spaceattack.stages.impl.HpEnergyBar;
-
 import spaceattack.game.GameProgress;
+import spaceattack.game.actors.ILabel;
+import spaceattack.game.actors.TimeLabel;
+import spaceattack.game.bars.Bar;
+import spaceattack.game.bars.HpEnergyBar;
 import spaceattack.game.buttons.weapon.FireButtonsBuilder;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.engines.IEngine;
@@ -73,7 +74,7 @@ public enum Mission1StageBuilder implements IStageBuilder
 		IPool energyPool = new Pool(50, 10, 10, 2);
 		IPool hpPool = new HpPool(50, 10, 5, 1);
 		Bar energyBar = new HpEnergyBar(energyPool, hpPool);
-		energyBar.initGdx();
+		energyBar.setActor(Factories.getActorFactory().create(energyBar));
 
 		playersShip.setActor(Factories.getActorFactory().create(playersShip));
 		playersShip.loadComplexGraphics(Textures.PLAYER_SHIP_F.getTexture(), Textures.PLAYER_SHIP_R.getTexture(),
@@ -82,6 +83,10 @@ public enum Mission1StageBuilder implements IStageBuilder
 		playersShip.addWeapon(redLaser);
 		playersShip.setEnergyPool(energyPool);
 		playersShip.setHpPool(hpPool);
+
+		ILabel levelUpLabel = Factories.getUtilsFactory().create().createTimeLabel("name", 0xdaa520ff);
+		TimeLabel label = new TimeLabel();
+		label.setLabel(levelUpLabel);
 
 		StaticImage background = StaticImageFactory.INSTANCE.create(Textures.M1_BACKGROUND.getTexture(), 0, 0);
 

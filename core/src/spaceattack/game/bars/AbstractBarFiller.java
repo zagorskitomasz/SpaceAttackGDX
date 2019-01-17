@@ -1,15 +1,11 @@
-package com.zagorskidev.spaceattack.stages.impl;
+package spaceattack.game.bars;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.zagorskidev.spaceattack.ships.IPool;
-
-import spaceattack.consts.Paths;
+import spaceattack.game.actors.ILabel;
+import spaceattack.game.batch.IBatch;
+import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.notifiers.IObserver;
+import spaceattack.game.system.notifiers.ValueObserver;
 
 public abstract class AbstractBarFiller
 {
@@ -19,7 +15,7 @@ public abstract class AbstractBarFiller
 	private float maxAmount;
 	protected float percent;
 
-	protected Label label;
+	protected ILabel label;
 
 	public AbstractBarFiller(IPool pool)
 	{
@@ -27,6 +23,8 @@ public abstract class AbstractBarFiller
 
 		IObserver<Float> observer = new ValueObserver(this::valueChanged);
 		pool.registerObserver(observer);
+
+		label = Factories.getUtilsFactory().create().createBarLabel();
 	}
 
 	public void valueChanged(float percent)
@@ -39,16 +37,14 @@ public abstract class AbstractBarFiller
 			label.setText(String.format("%.0f", amount) + " / " + String.format("%.0f", maxAmount));
 	}
 
-	public void initLabel()
+	public void setLabel(ILabel label)
 	{
-		BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.GAMEPLAY_FONT));
-		Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
-		label = new Label("", style);
+		this.label = label;
 	}
 
-	public abstract void drawRect(ShapeRenderer renderer);
+	public abstract void drawRect(IBatch batch);
 
-	public void drawLabel(Batch batch)
+	public void drawLabel(IBatch batch)
 	{
 		if (label != null)
 			label.draw(batch, 0.8f);

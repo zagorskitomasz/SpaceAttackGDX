@@ -3,6 +3,7 @@ package spaceattack.game.utils;
 import java.io.InputStream;
 import java.util.function.Consumer;
 
+import spaceattack.game.actors.ILabel;
 import spaceattack.game.input.IInputProcessor;
 import spaceattack.game.stages.IStage;
 import spaceattack.game.system.IFileHandle;
@@ -36,4 +37,10 @@ public interface IUtils
 	public float atan2(float x,float y);
 
 	public float radiansToDegrees();
+
+	public long millis();
+
+	public ILabel createTimeLabel(String text,int color);
+
+	public ILabel createBarLabel();
 }

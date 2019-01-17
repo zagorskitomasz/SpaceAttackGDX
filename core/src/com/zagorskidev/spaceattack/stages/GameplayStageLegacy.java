@@ -3,25 +3,25 @@ package com.zagorskidev.spaceattack.stages;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import com.zagorskidev.spaceattack.ships.ExperiencePool;
-import com.zagorskidev.spaceattack.ships.IPool;
-import com.zagorskidev.spaceattack.ships.IShip;
 import com.zagorskidev.spaceattack.ships.player.PlayerShipFactory;
-import com.zagorskidev.spaceattack.stages.impl.Bar;
-import com.zagorskidev.spaceattack.stages.impl.ExperienceBar;
-import com.zagorskidev.spaceattack.stages.impl.TimeLabel;
 import com.zagorskidev.spaceattack.weapons.IMissileLauncher;
-import com.zagorskidev.spaceattack.weapons.IWeapon;
-import com.zagorskidev.spaceattack.weapons.MissileLauncher;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
+import spaceattack.game.actors.TimeLabel;
 import spaceattack.game.actors.interfaces.Killable;
 import spaceattack.game.actors.interfaces.RequiredOnStage;
+import spaceattack.game.bars.Bar;
+import spaceattack.game.bars.ExperienceBar;
 import spaceattack.game.buttons.weapon.FireButton;
+import spaceattack.game.ships.IShip;
+import spaceattack.game.ships.pools.ExperiencePool;
+import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.AbstractStage;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.notifiers.IObserver;
+import spaceattack.game.weapons.IWeapon;
+import spaceattack.game.weapons.MissilesLauncher;
 
 public abstract class GameplayStageLegacy extends AbstractStage implements IObserver<GameProgress>
 {
