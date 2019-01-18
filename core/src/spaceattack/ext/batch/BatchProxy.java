@@ -3,6 +3,7 @@ package spaceattack.ext.batch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import spaceattack.ext.actor.GdxLabel;
 import spaceattack.game.actors.ILabel;
@@ -42,7 +43,10 @@ class BatchProxy implements IBatch
 	public void rect(float x,float y,float width,float height)
 	{
 		realBatch.end();
+		renderer.setProjectionMatrix(realBatch.getProjectionMatrix());
+		renderer.begin(ShapeType.Filled);
 		renderer.rect(x, y, width, height);
+		renderer.end();
 		realBatch.begin();
 	}
 }

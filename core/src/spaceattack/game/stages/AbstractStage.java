@@ -12,6 +12,7 @@ import spaceattack.game.actors.IGameActor;
 import spaceattack.game.buttons.IButton;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
+import spaceattack.game.system.graphics.StaticImage;
 
 public abstract class AbstractStage implements IGameStage
 {
@@ -171,5 +172,11 @@ public abstract class AbstractStage implements IGameStage
 	public void addButtonsTextFunction(IButton button,Function<IButton, String> predicate)
 	{
 		changeTextButtons.put(button, predicate);
+	}
+
+	@Override
+	public void addBackground(StaticImage background)
+	{
+		stage.addBackground(background);
 	}
 }

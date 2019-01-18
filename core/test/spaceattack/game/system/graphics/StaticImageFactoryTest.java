@@ -35,6 +35,6 @@ public class StaticImageFactoryTest
 
 		assertEquals(texture, image.getTexture());
 		assertEquals(100, image.getX(), 0);
-		assertEquals(250, image.getY(), 0);
+		assertEquals(200, image.getY(), 0);
 	}
 }

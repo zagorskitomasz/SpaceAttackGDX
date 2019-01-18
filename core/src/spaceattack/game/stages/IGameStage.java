@@ -8,6 +8,7 @@ import spaceattack.game.StageResult;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.buttons.IButton;
 import spaceattack.game.input.IInputProcessor;
+import spaceattack.game.system.graphics.StaticImage;
 
 public interface IGameStage
 {
@@ -48,4 +49,6 @@ public interface IGameStage
 	public void addButtonsVisiblePredicate(IButton button,Predicate<IButton> predicate);
 
 	public void addButtonsTextFunction(IButton button,Function<IButton, String> predicate);
+
+	public void addBackground(StaticImage background);
 }

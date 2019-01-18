@@ -23,8 +23,11 @@ public class GdxStage extends Stage implements IStage
 	@Override
 	public void addActorAtBegining(IGameActor actor)
 	{
-		actorProxies.add(0, actor);
-		getRoot().addActorAt(0, (GdxActor) actor.getActor());
+		// background always first
+		int index = Math.min(1, actorProxies.size());
+
+		actorProxies.add(index, actor);
+		getRoot().addActorAt(index, (GdxActor) actor.getActor());
 	}
 
 	@Override
@@ -58,5 +61,12 @@ public class GdxStage extends Stage implements IStage
 	{
 		BatchProxyHolder.INSTANCE.set(getBatch());
 		super.draw();
+	}
+
+	@Override
+	public void addBackground(IGameActor actor)
+	{
+		actorProxies.add(0, actor);
+		getRoot().addActorAt(0, (GdxActor) actor.getActor());
 	}
 }

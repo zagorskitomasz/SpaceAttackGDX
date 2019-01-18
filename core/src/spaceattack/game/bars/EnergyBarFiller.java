@@ -13,7 +13,7 @@ public class EnergyBarFiller extends AbstractBarFiller
 		super(energyPool, utils);
 
 		label.setAlignment(Consts.Align.topRight);
-		label.setPosition(Sizes.GAME_WIDTH - 30, Sizes.GAME_WIDTH - 10);
+		label.setPosition(Sizes.GAME_WIDTH - 30, Sizes.GAME_HEIGHT - 10);
 	}
 
 	@Override

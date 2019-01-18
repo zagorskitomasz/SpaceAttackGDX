@@ -13,10 +13,8 @@ import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 
-public enum MissionsStageBuilder implements IStageBuilder
+public class MissionsStageBuilder implements IStageBuilder
 {
-	INSTANCE;
-
 	@Override
 	public IGameStage build(GameProgress progress)
 	{
@@ -38,6 +36,7 @@ public enum MissionsStageBuilder implements IStageBuilder
 		IButton previouwActButton = MenuButtonsBuilder.INSTANCE.previousActButton(stage);
 		IButton nextActButton = MenuButtonsBuilder.INSTANCE.nextActButton(stage);
 
+		stage.addBackground(background);
 		stage.addActLogoImage(actLogo);
 
 		for (int i = 0; i < Consts.Metagame.MISSIONS_IN_ACT; i++)
@@ -55,7 +54,6 @@ public enum MissionsStageBuilder implements IStageBuilder
 
 		stage.addActorBeforeGUI(actLogo);
 		stage.addActorBeforeGUI(logo);
-		stage.addActorBeforeGUI(background);
 		stage.addActor(backToMenuButton);
 		stage.addActor(previouwActButton);
 		stage.addActor(nextActButton);

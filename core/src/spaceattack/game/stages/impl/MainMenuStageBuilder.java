@@ -12,10 +12,8 @@ import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 
-public enum MainMenuStageBuilder implements IStageBuilder
+public class MainMenuStageBuilder implements IStageBuilder
 {
-	INSTANCE;
-
 	@Override
 	public IGameStage build(GameProgress progress)
 	{
@@ -37,8 +35,8 @@ public enum MainMenuStageBuilder implements IStageBuilder
 
 		stage.addButtonsEnabledPredicate(continueGameButton, stage::isContinueButtonEnabled);
 
+		stage.addBackground(background);
 		stage.addActorBeforeGUI(logo);
-		stage.addActorBeforeGUI(background);
 		stage.addActor(newGameButton);
 		stage.addActor(continueGameButton);
 		stage.addActor(exitGameButton);

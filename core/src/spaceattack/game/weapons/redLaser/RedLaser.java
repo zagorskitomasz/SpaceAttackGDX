@@ -1,6 +1,7 @@
 package spaceattack.game.weapons.redLaser;
 
 import spaceattack.consts.Consts;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.Sounds;
@@ -75,6 +76,7 @@ public class RedLaser implements IWeapon
 		missile.setMovement(controller.getWeaponMovement());
 		missile.setPosition(controller.getPrimaryWeaponUsePlacement());
 		missile.setSound(Sounds.RED_LASER);
+		missile.setActor(Factories.getActorFactory().create(missile));
 
 		return missile;
 	}

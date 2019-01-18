@@ -8,6 +8,8 @@ public interface IStage
 {
 	public void addActorAtBegining(IGameActor actor);
 
+	public void addBackground(IGameActor actor);
+
 	public void addActor(IGameActor actor);
 
 	public List<IGameActor> getGameActors();

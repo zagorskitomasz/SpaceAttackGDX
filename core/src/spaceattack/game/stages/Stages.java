@@ -8,26 +8,34 @@ import spaceattack.game.stages.impl.MissionsStageBuilder;
 public enum Stages
 {
 	//@formatter:off
-	MAIN_MENU(MainMenuStageBuilder.INSTANCE),
-	MISSIONS(MissionsStageBuilder.INSTANCE),
-	MISSION_1(Mission1StageBuilder.INSTANCE),
-	MISSION_2(Mission1StageBuilder.INSTANCE),
-	MISSION_3(Mission1StageBuilder.INSTANCE);
+	MAIN_MENU(MainMenuStageBuilder.class),
+	MISSIONS(MissionsStageBuilder.class),
+	MISSION_1(Mission1StageBuilder.class),
+	MISSION_2(Mission1StageBuilder.class),
+	MISSION_3(Mission1StageBuilder.class);
 	// TODO missions 2-3
 	//@formatter:on
 
 	private static final String MISSION_STAGE_PREFIX = "MISSION_";
 
-	private IStageBuilder stageBuilder;
+	private Class<? extends IStageBuilder> stageBuilderClass;
 
-	private Stages(IStageBuilder stageBuilder)
+	private Stages(Class<? extends IStageBuilder> stageBuilderClass)
 	{
-		this.stageBuilder = stageBuilder;
+		this.stageBuilderClass = stageBuilderClass;
 	}
 
 	public IStageBuilder getStageBuilder()
 	{
-		return stageBuilder;
+		try
+		{
+			return stageBuilderClass.newInstance();
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			return null;
+		}
 	}
 
 	public static Stages getMissionStage(int mission)

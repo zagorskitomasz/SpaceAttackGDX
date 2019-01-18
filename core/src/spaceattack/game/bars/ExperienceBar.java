@@ -37,7 +37,6 @@ public class ExperienceBar extends Bar
 	protected void drawBarRect(IBatch batch)
 	{
 		expFiller.drawRect(batch);
-		expFiller.drawLabel(batch);
 	}
 
 	@Override

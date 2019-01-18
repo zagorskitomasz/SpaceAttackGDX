@@ -34,7 +34,7 @@ public class TimeLabel implements IGameActor
 		showed = utils.millis();
 	}
 
-	private boolean isVisible()
+	public boolean isVisible()
 	{
 		return showed + Consts.Gameplay.LABEL_SHOW_TIME > utils.millis();
 	}

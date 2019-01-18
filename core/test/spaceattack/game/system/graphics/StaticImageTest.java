@@ -36,6 +36,6 @@ public class StaticImageTest
 
 		image.draw(batch, 0);
 
-		verify(batch).draw(texture, 10, 270);
+		verify(batch).draw(texture, 10, 220);
 	}
 }

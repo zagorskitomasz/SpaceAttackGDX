@@ -14,6 +14,7 @@ import org.mockito.Mock;
 
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.buttons.weapon.IFireButton;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
@@ -31,6 +32,7 @@ public class MissionInputHandlerTest
 	public void setUp()
 	{
 		initMocks(this);
+		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 
 		handler = new MissionInputHandler();
 	}
@@ -44,7 +46,7 @@ public class MissionInputHandlerTest
 		handler.registerFireButton(button);
 		handler.touchUp(100, 200, 1, 1);
 
-		verify(ship).setDestination(eq(ExtVectorFactory.INSTANCE.create(100, 550)));
+		verify(ship).setDestination(eq(ExtVectorFactory.INSTANCE.create(100, 500)));
 	}
 
 	@Test
