@@ -128,6 +128,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		playersShip.addWeapon(redLaser);
 		playersShip.setEnergyPool(energyPool);
 		playersShip.setHpPool(hpPool);
+		playersShip.setLevel(gameProgress.getLevel());
 	}
 
 	private void initPools()
@@ -138,6 +139,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 
 		expBar = BarBuilder.INSTANCE.experienceBar(expPool);
 		hpEnergyBar = BarBuilder.INSTANCE.hpEnergyBar(hpPool, energyPool);
+
+		stage.setExpPool(expPool);
 	}
 
 	private void setTimeLabels()

@@ -167,7 +167,7 @@ public class ShipEngine implements IEngine
 		if (movement.getX() >= 0.3)
 			return Turn.RIGHT;
 
-		if (movement.getY() <= -0.3)
+		if (movement.getX() <= -0.3)
 			return Turn.LEFT;
 
 		return Turn.FRONT;

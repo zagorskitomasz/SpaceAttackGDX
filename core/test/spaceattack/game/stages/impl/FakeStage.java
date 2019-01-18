@@ -18,7 +18,7 @@ public class FakeStage implements IStage
 	@Override
 	public void addActorAtBegining(IGameActor actor)
 	{
-		actors.add(0, actor);
+		actors.add(Math.min(1, actors.size()), actor);
 	}
 
 	@Override
@@ -54,6 +54,12 @@ public class FakeStage implements IStage
 	@Override
 	public void act(float delta)
 	{
-		actors.forEach(actor -> actor.act(delta));
+		actors.forEach(actor->actor.act(delta));
+	}
+
+	@Override
+	public void addBackground(IGameActor actor)
+	{
+		actors.add(0, actor);
 	}
 }

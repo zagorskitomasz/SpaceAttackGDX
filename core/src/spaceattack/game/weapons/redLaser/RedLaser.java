@@ -69,6 +69,7 @@ public class RedLaser implements IWeapon
 	{
 		Missile missile = new Missile();
 
+		missile.setActor(Factories.getActorFactory().create(missile));
 		missile.setTexture(Textures.RED_LASER.getTexture());
 		missile.setDmg(dmg);
 		missile.setSpeed(speed);
@@ -76,7 +77,6 @@ public class RedLaser implements IWeapon
 		missile.setMovement(controller.getWeaponMovement());
 		missile.setPosition(controller.getPrimaryWeaponUsePlacement());
 		missile.setSound(Sounds.RED_LASER);
-		missile.setActor(Factories.getActorFactory().create(missile));
 
 		return missile;
 	}
