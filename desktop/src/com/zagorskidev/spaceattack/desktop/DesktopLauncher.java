@@ -4,6 +4,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.zagorskidev.spaceattack.SpaceAttackGDX;
 
+import spaceattack.consts.Sizes;
+
 public class DesktopLauncher
 {
 	public static void main(String[] arg)
@@ -12,8 +14,8 @@ public class DesktopLauncher
 
 		config.title = "Space Attack";
 		config.useGL30 = true;
-		config.height = 700;
-		config.width = 400;
+		config.height = Sizes.GAME_HEIGHT;
+		config.width = Sizes.GAME_WIDTH;
 
 		new LwjglApplication(new SpaceAttackGDX(), config);
 	}

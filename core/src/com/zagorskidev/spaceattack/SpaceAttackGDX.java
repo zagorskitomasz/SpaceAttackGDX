@@ -1,100 +1,52 @@
 package com.zagorskidev.spaceattack;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL30;
-import com.zagorskidev.spaceattack.consts.Consts;
-import com.zagorskidev.spaceattack.graphics.Textures;
-import com.zagorskidev.spaceattack.sound.Sounds;
-import com.zagorskidev.spaceattack.stages.IStage;
-import com.zagorskidev.spaceattack.stages.StageFactory;
-import com.zagorskidev.spaceattack.stages.StageResult;
-import com.zagorskidev.spaceattack.stages.Stages;
-import com.zagorskidev.spaceattack.system.FrameController;
-import com.zagorskidev.spaceattack.system.GameLoader;
+
+import spaceattack.ext.actor.ExtActorFactory;
+import spaceattack.ext.button.ExtTextButtonsFactory;
+import spaceattack.ext.button.image.ExtImageButtonFactory;
+import spaceattack.ext.sound.ExtSoundFactory;
+import spaceattack.ext.stage.ExtStageFactory;
+import spaceattack.ext.texture.ExtTextureFactory;
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.GameFactory;
+import spaceattack.game.IGame;
+import spaceattack.game.factories.Factories;
 
 public class SpaceAttackGDX extends ApplicationAdapter
 {
-	private StageFactory factory;
-	private IStage stage;
-	private FrameController frameController;
+	private IGame game;
 
 	@Override
 	public void create()
 	{
-		loadMedia();
-		frameController = new FrameController(Consts.Metagame.FPS);
-		factory = getStageFactory();
-		StageResult defaultResult = new StageResult();
-		stage = factory.getStage(defaultResult);
-		stage.loadGame(GameLoader.INSTANCE);
-		setInputProcessor();
+		initFactories();
+		game = GameFactory.INSTANCE.create();
+		game.create();
 	}
 
-	void setInputProcessor()
+	private void initFactories()
 	{
-		Gdx.input.setInputProcessor(stage.getInputProcessor());
-	}
-
-	void loadMedia()
-	{
-		Sounds.load();
-		Textures.load();
-	}
-
-	StageFactory getStageFactory()
-	{
-		return StageFactory.INSTANCE;
+		Factories.setSoundFactory(ExtSoundFactory.INSTANCE);
+		Factories.setTextureFactory(ExtTextureFactory.INSTANCE);
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+		Factories.setStageFactory(ExtStageFactory.INSTANCE);
+		Factories.setActorFactory(ExtActorFactory.INSTANCE);
+		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+		Factories.setTextButtonFactory(ExtTextButtonsFactory.INSTANCE);
+		Factories.setImageButtonFactory(ExtImageButtonFactory.INSTANCE);
 	}
 
 	@Override
 	public void render()
 	{
-		clearScreen();
-
-		if (checkFrame())
-			stage.act(getDeltaTime());
-
-		stage.draw();
-
-		checkStageSwitch();
-	}
-
-	boolean checkFrame()
-	{
-		return frameController.check();
-	}
-
-	private void checkStageSwitch()
-	{
-		if (stage.isCompleted())
-		{
-			StageResult result = stage.getResult();
-			stage = factory.getStage(result);
-			setInputProcessor();
-		}
-	}
-
-	void clearScreen()
-	{
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-	}
-
-	float getDeltaTime()
-	{
-		return Gdx.graphics.getDeltaTime();
-	}
-
-	Stages getCurrentStage()
-	{
-		return stage.getType();
+		game.render();
 	}
 
 	@Override
 	public void resize(int width,int height)
 	{
-		if (stage != null)
-			stage.getViewport().update(width, height, true);
+		game.resize(width, height);
 	}
 }
