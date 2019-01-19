@@ -35,6 +35,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private PlayerWeaponController weaponController;
 	private MissilesLauncher missilesLauncher;
 	private IWeapon redLaser;
+	private IWeapon greenLaser;
 	private IFireButton primaryFireButton;
 	private IFireButton secondaryFireButton;
 	private IPool expPool;
@@ -91,8 +92,9 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		weaponController = new PlayerWeaponController();
 		missilesLauncher = new MissilesLauncher(stage);
 		redLaser = WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher);
+		greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
 		primaryFireButton = FireButtonsBuilder.INSTANCE.primary(redLaser);
-		secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, redLaser);
+		secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
 	}
 
 	private void configureInputProcessor()
@@ -100,7 +102,6 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		processor.registerFireButton(primaryFireButton);
 		processor.registerFireButton(secondaryFireButton);
 		processor.registerShip(playersShip);
-		stage.setInputProcessor(processor);
 		Factories.getUtilsFactory().create().setInputProcessor(processor);
 	}
 
@@ -109,7 +110,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		weaponController.setPrimaryWeapon(redLaser);
 		weaponController.setPrimaryFireButton(primaryFireButton);
 
-		weaponController.setSecondaryWeapon(redLaser);
+		weaponController.setSecondaryWeapon(greenLaser);
 		weaponController.setSecondaryFireButton(secondaryFireButton);
 
 		weaponController.setShip(playersShip);
@@ -126,6 +127,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 				Textures.PLAYER_SHIP_L.getTexture());
 		playersShip.setShipEngine(engine);
 		playersShip.addWeapon(redLaser);
+		playersShip.addWeapon(greenLaser);
 		playersShip.setEnergyPool(energyPool);
 		playersShip.setHpPool(hpPool);
 		playersShip.setLevel(gameProgress.getLevel());

@@ -4,6 +4,7 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.laser.Laser;
 
 public enum RedLaserBuilder
 {
@@ -11,7 +12,7 @@ public enum RedLaserBuilder
 
 	public IWeapon build(IWeaponController weaponController,MissilesLauncher missilesLauncher)
 	{
-		RedLaser redLaser = new RedLaser();
+		Laser redLaser = new RedLaser();
 
 		redLaser.setUtils(Factories.getUtilsFactory().create());
 		redLaser.setController(weaponController);

@@ -35,7 +35,8 @@ public enum Textures
 	PLAYER_SHIP_L("graphics/ships/player/form1L.png"),
 	
 	// weapons
-	RED_LASER("graphics/weapons/laserNS.png");
+	RED_LASER("graphics/weapons/laserNS.png"),
+	TURBO_LASER("graphics/weapons/turbo.png");
 	//@formatter:on
 
 	private String path;

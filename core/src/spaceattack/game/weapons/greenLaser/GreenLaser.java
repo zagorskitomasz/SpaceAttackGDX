@@ -1,4 +1,4 @@
-package spaceattack.game.weapons.redLaser;
+package spaceattack.game.weapons.greenLaser;
 
 import spaceattack.consts.Consts;
 import spaceattack.game.factories.Factories;
@@ -7,9 +7,9 @@ import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.weapons.laser.Laser;
 import spaceattack.game.weapons.missiles.Missile;
 
-public class RedLaser extends Laser
+public class GreenLaser extends Laser
 {
-	RedLaser()
+	GreenLaser()
 	{
 		// do nothing
 	}
@@ -17,9 +17,9 @@ public class RedLaser extends Laser
 	@Override
 	public void setLevel(int level)
 	{
-		dmg = Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL;
-		speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;
-		energyCost = Consts.Weapons.RED_LASER_BASE_COST + (level - 1) * Consts.Weapons.RED_LASER_COST_PER_LEVEL;
+		dmg = Consts.Weapons.GREEN_LASER_BASE_DMG + (level - 1) * Consts.Weapons.GREEN_LASER_DMG_PER_LEVEL;
+		speed = Consts.Weapons.GREEN_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.GREEN_LASER_SPEED_PER_LEVEL;
+		energyCost = Consts.Weapons.GREEN_LASER_BASE_COST + (level - 1) * Consts.Weapons.GREEN_LASER_COST_PER_LEVEL;
 	}
 
 	@Override
@@ -28,13 +28,13 @@ public class RedLaser extends Laser
 		Missile missile = new Missile();
 
 		missile.setActor(Factories.getActorFactory().create(missile));
-		missile.setTexture(Textures.RED_LASER.getTexture());
+		missile.setTexture(Textures.TURBO_LASER.getTexture());
 		missile.setDmg(dmg);
 		missile.setSpeed(speed);
 		missile.setAcceleration(0);
 		missile.setMovement(controller.getWeaponMovement());
-		missile.setPosition(controller.getPrimaryWeaponUsePlacement());
-		missile.setSound(Sounds.RED_LASER);
+		missile.setPosition(controller.getSecondaryWeaponUsePlacement());
+		missile.setSound(Sounds.TURBO_LASER);
 
 		return missile;
 	}

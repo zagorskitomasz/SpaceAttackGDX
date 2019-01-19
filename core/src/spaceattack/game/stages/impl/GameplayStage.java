@@ -26,13 +26,7 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
 	private TimeLabel finalizeLabel = null;
 
-	private IInputProcessor inputProcessor;
 	private IPool expPool;
-
-	void setInputProcessor(IInputProcessor processor)
-	{
-		inputProcessor = processor;
-	}
 
 	void setExpPool(IPool pool)
 	{
@@ -57,7 +51,7 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 	@Override
 	public IInputProcessor getInputProcessor()
 	{
-		return inputProcessor;
+		return null;
 	}
 
 	@Override
