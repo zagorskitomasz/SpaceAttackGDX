@@ -50,4 +50,9 @@ public class Consts
 		static public final int bottomLeft = bottom | left;
 		static public final int bottomRight = bottom | right;
 	}
+
+	public class AI
+	{
+		public static final float FIGHTERS_PER_SECOND = 0.2f;
+	}
 }

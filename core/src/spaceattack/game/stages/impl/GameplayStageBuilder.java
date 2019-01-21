@@ -3,6 +3,7 @@ package spaceattack.game.stages.impl;
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.actors.TimeLabel;
+import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.bars.Bar;
 import spaceattack.game.bars.BarBuilder;
 import spaceattack.game.buttons.weapon.FireButtonsBuilder;
@@ -11,6 +12,7 @@ import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.MissionInputHandler;
+import spaceattack.game.ships.enemy.EnemyShipsFactory;
 import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.ships.pools.ExperiencePool;
 import spaceattack.game.ships.pools.HpPool;
@@ -43,6 +45,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private IPool energyPool;
 	private Bar expBar;
 	private Bar hpEnergyBar;
+	private EnemyBase enemyBase;
 
 	@Override
 	public IGameStage build(GameProgress progress)
@@ -62,6 +65,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		addGameProgress();
 		initComponents();
 		initPools();
+		initAI();
 		buildShip();
 		configureInputProcessor();
 		configureWeapons();
@@ -95,6 +99,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
 		primaryFireButton = FireButtonsBuilder.INSTANCE.primary(redLaser);
 		secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
+		enemyBase = new EnemyBase(Factories.getUtilsFactory().create());
 	}
 
 	private void configureInputProcessor()
@@ -145,6 +150,13 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		stage.setExpPool(expPool);
 	}
 
+	private void initAI()
+	{
+		enemyBase.setStage(stage);
+		enemyBase.setShipsFactory(EnemyShipsFactory.INSTANCE);
+		enemyBase.setActor(Factories.getActorFactory().create(enemyBase));
+	}
+
 	private void setTimeLabels()
 	{
 		ILabel levelUpILabel = Factories.getUtilsFactory().create().createTimeLabel("LEVEL UP!", 0xdaa520ff);
@@ -172,5 +184,6 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		stage.addActor(secondaryFireButton);
 		stage.addActor(expBar);
 		stage.addActor(hpEnergyBar);
+		stage.addActor(enemyBase);
 	}
 }

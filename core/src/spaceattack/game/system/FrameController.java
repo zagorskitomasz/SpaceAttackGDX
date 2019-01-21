@@ -6,10 +6,10 @@ public class FrameController
 {
 	private IUtils utils;
 
-	private int checksPerSecond;
+	private float checksPerSecond;
 	private long lastFrameTime;
 
-	public FrameController(IUtils utils,int checksPerSecond)
+	public FrameController(IUtils utils,float checksPerSecond)
 	{
 		this.utils = utils;
 		this.checksPerSecond = checksPerSecond;
@@ -18,7 +18,7 @@ public class FrameController
 	public boolean check()
 	{
 		long currentTime = utils.getCurrentTime();
-		if (currentTime >= lastFrameTime + 1000 / checksPerSecond)
+		if (currentTime >= lastFrameTime + (int) (1000 / checksPerSecond))
 		{
 			lastFrameTime = currentTime;
 			return true;
