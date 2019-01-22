@@ -1,8 +1,14 @@
 package spaceattack.game.ai;
 
+import java.util.List;
+
 import spaceattack.consts.Consts;
 import spaceattack.game.actors.InvisibleActor;
-import spaceattack.game.ships.enemy.EnemyShipsFactory;
+import spaceattack.game.actors.interfaces.RadarVisible;
+import spaceattack.game.ai.movers.DirectChaser;
+import spaceattack.game.ai.shooters.DirectShooter;
+import spaceattack.game.ships.enemy.IEnemyShip;
+import spaceattack.game.ships.enemy.IEnemyShipsFactory;
 import spaceattack.game.stages.IGameStage;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
@@ -10,16 +16,17 @@ import spaceattack.game.utils.IUtils;
 public class EnemyBase extends InvisibleActor
 {
 	private IGameStage stage;
-	private EnemyShipsFactory shipsFactory;
-	private IUtils utils;
+	private IEnemyShipsFactory shipsFactory;
 	private Radar radar;
+	private List<IEnemyShip> enemyShips;
+	private RadarVisible playerShip;
 
 	private FrameController fighterTimer;
 
 	public EnemyBase(IUtils utils)
 	{
-		this.utils = utils;
 		fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND);
+		fighterTimer.check();
 	}
 
 	public void setStage(IGameStage stage)
@@ -27,9 +34,14 @@ public class EnemyBase extends InvisibleActor
 		this.stage = stage;
 	}
 
-	public void setShipsFactory(EnemyShipsFactory factory)
+	public void setShipsFactory(IEnemyShipsFactory factory)
 	{
 		shipsFactory = factory;
+	}
+
+	public void setRadar(Radar radar)
+	{
+		this.radar = radar;
 	}
 
 	@Override
@@ -43,14 +55,57 @@ public class EnemyBase extends InvisibleActor
 	{
 		updateRadar();
 
-		MoverAI mover = chooseMover(); // setting new dest if flight direction is wrong
-		ShooterAI shooter = chooseShooter();
+		IEnemyShip fighter = shipsFactory.createFighter(stage);
 
-		IEnemyShip fighter = factory.createFighter(stage); // wpn ctrlr, wpns, pools
+		MoverAI mover = chooseMover(fighter);
+		ShooterAI shooter = chooseShooter(fighter);
+
 		fighter.setPlayerShip(radar.getPlayerShip());
 		fighter.setMover(mover);
 		fighter.setShooter(shooter);
 
 		stage.addActor(fighter);
+	}
+
+	private MoverAI chooseMover(IEnemyShip fighter)
+	{
+		MoverAI mover = null;
+
+		if (enemyShips.isEmpty())
+			mover = new DirectChaser();
+
+		// for tests
+		mover = new DirectChaser();
+
+		mover.setPlayerShip(playerShip);
+		mover.setOwner(fighter);
+
+		return mover;
+	}
+
+	private ShooterAI chooseShooter(IEnemyShip fighter)
+	{
+		ShooterAI shooter = null;
+
+		if (enemyShips.isEmpty())
+			shooter = new DirectShooter();
+
+		// for tests
+		shooter = new DirectShooter();
+
+		shooter.setPlayerShip(playerShip);
+		shooter.setOwner(fighter);
+
+		return shooter;
+	}
+
+	private void updateRadar()
+	{
+		if (radar == null)
+			return;
+
+		radar.update();
+		playerShip = radar.getPlayerShip();
+		enemyShips = radar.getEnemyShips();
 	}
 }

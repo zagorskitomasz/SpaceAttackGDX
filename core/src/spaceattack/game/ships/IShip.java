@@ -4,6 +4,7 @@ import java.util.Set;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.IGameActor;
+import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.actors.interfaces.Vulnerable;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.ships.pools.IPool;
@@ -12,7 +13,7 @@ import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
 
-public interface IShip extends IObserver<GameProgress>,Vulnerable,IGameActor
+public interface IShip extends IObserver<GameProgress>,Vulnerable,IGameActor,RadarVisible
 {
 	public enum Turn
 	{

@@ -4,6 +4,7 @@ import spaceattack.game.GameProgress;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.actors.TimeLabel;
 import spaceattack.game.ai.EnemyBase;
+import spaceattack.game.ai.Radar;
 import spaceattack.game.bars.Bar;
 import spaceattack.game.bars.BarBuilder;
 import spaceattack.game.buttons.weapon.FireButtonsBuilder;
@@ -155,6 +156,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		enemyBase.setStage(stage);
 		enemyBase.setShipsFactory(EnemyShipsFactory.INSTANCE);
 		enemyBase.setActor(Factories.getActorFactory().create(enemyBase));
+		enemyBase.setRadar(new Radar(stage.getActors()));
 	}
 
 	private void setTimeLabels()
