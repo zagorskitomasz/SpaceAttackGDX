@@ -34,6 +34,7 @@ public class RedLaser extends Laser
 		missile.setAcceleration(0);
 		missile.setMovement(controller.getWeaponMovement());
 		missile.setPosition(controller.getPrimaryWeaponUsePlacement());
+		missile.setRadius(Consts.Weapons.LASER_RADIUS);
 		missile.setSound(Sounds.RED_LASER);
 
 		return missile;

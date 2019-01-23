@@ -15,4 +15,6 @@ public interface IEnemyShip extends IShip
 	public void setShooter(ShooterAI shooter);
 
 	public IWeaponController getWeaponController();
+
+	public boolean isMoving();
 }

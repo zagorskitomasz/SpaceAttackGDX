@@ -20,4 +20,8 @@ public interface IWeaponController
 	public boolean takeEnergy(float energyCost);
 
 	public void updateSecondaryWeapon(IWeapon weapon);
+
+	public float getPrimaryWeaponRadius();
+
+	public float getSecondaryWeaponRadius();
 }

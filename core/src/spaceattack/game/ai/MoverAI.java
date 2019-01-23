@@ -11,4 +11,6 @@ public interface MoverAI
 	public void setPlayerShip(RadarVisible playerShip);
 
 	public void setOwner(IEnemyShip fighter);
+
+	public void updateDirection();
 }

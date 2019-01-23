@@ -76,4 +76,16 @@ public class PlayerWeaponController implements IWeaponController
 		secondaryWeapon = weapon;
 		secondaryFireButton.setWeapon(weapon);
 	}
+
+	@Override
+	public float getPrimaryWeaponRadius()
+	{
+		return primaryWeapon.getCollisionRadius();
+	}
+
+	@Override
+	public float getSecondaryWeaponRadius()
+	{
+		return secondaryWeapon.getCollisionRadius();
+	}
 }

@@ -16,6 +16,7 @@ public class FakeShip implements IShip
 {
 	private float x;
 	private float y;
+	private float radius;
 
 	@Override
 	public void notify(GameProgress state)
@@ -32,7 +33,7 @@ public class FakeShip implements IShip
 	@Override
 	public float getRadius()
 	{
-		return 0;
+		return radius;
 	}
 
 	@Override
@@ -106,6 +107,11 @@ public class FakeShip implements IShip
 	public void setY(float y)
 	{
 		this.y = y;
+	}
+
+	public void setRadius(float radius)
+	{
+		this.radius = radius;
 	}
 
 	@Override

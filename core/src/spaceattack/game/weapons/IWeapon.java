@@ -9,4 +9,6 @@ public interface IWeapon
 	public float getWeaponsMovementFactor();
 
 	public float getEnergyCost();
+
+	public float getCollisionRadius();
 }

@@ -62,4 +62,10 @@ public abstract class Laser implements IWeapon
 	{
 		return 0.7f;
 	}
+
+	@Override
+	public float getCollisionRadius()
+	{
+		return Consts.Weapons.LASER_RADIUS;
+	}
 }
