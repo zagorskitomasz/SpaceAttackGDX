@@ -1,15 +1,14 @@
 package spaceattack.game.ships.enemy;
 
-import spaceattack.game.stages.IGameStage;
+import spaceattack.game.stages.impl.GameplayStage;
 
 public enum EnemyShipsFactory implements IEnemyShipsFactory
 {
 	INSTANCE;
 
 	@Override
-	public IEnemyShip createFighter(IGameStage stage)
+	public IEnemyShip createFighter(GameplayStage stage)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return FighterShipBuilder.INSTANCE.build(stage);
 	}
 }

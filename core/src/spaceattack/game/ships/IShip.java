@@ -22,8 +22,10 @@ public interface IShip extends IObserver<GameProgress>,Vulnerable,IGameActor,Rad
 
 	public void setDestination(IVector iVector);
 
+	@Override
 	public float getX();
 
+	@Override
 	public float getY();
 
 	public void setX(float x);
@@ -43,6 +45,10 @@ public interface IShip extends IObserver<GameProgress>,Vulnerable,IGameActor,Rad
 	public float getWidth();
 
 	public boolean takeEnergy(float energyCost);
+
+	public void setHpPool(IPool pool);
+
+	public IPool getHpPool();
 
 	public void setEnergyPool(IPool pool);
 

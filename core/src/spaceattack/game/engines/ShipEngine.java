@@ -43,22 +43,26 @@ public class ShipEngine implements IEngine
 		lock = new ReentrantLock();
 	}
 
-	void setBaseSpeed(float factorSpeed)
+	@Override
+	public void setBaseSpeed(float factorSpeed)
 	{
 		this.factorSpeed = factorSpeed;
 	}
 
-	void setAcceleration(float acceleration)
+	@Override
+	public void setAcceleration(float acceleration)
 	{
 		this.factorAcceleration = acceleration;
 	}
 
-	void setBraking(float braking)
+	@Override
+	public void setBraking(float braking)
 	{
 		this.factorBraking = braking;
 	}
 
-	void setAgility(float agility)
+	@Override
+	public void setAgility(float agility)
 	{
 		this.factorAgility = agility;
 	}

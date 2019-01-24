@@ -19,14 +19,14 @@ import spaceattack.game.ai.movers.DirectChaser;
 import spaceattack.game.ai.shooters.DirectShooter;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
-import spaceattack.game.stages.IGameStage;
+import spaceattack.game.stages.impl.GameplayStage;
 
 public class EnemyBaseTest
 {
 	private EnemyBase base;
 
 	@Mock
-	private IGameStage stage;
+	private GameplayStage stage;
 
 	@Mock
 	private IEnemyShip fighter;

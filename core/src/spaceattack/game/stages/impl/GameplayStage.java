@@ -14,6 +14,7 @@ import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.AbstractStage;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.notifiers.IObserver;
+import spaceattack.game.weapons.MissilesLauncher;
 
 public class GameplayStage extends AbstractStage implements IObserver<GameProgress>
 {
@@ -27,6 +28,8 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 	private TimeLabel finalizeLabel = null;
 
 	private IPool expPool;
+
+	private MissilesLauncher missilesLauncher;
 
 	void setExpPool(IPool pool)
 	{
@@ -141,5 +144,15 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 	void setWon(boolean won)
 	{
 		this.won = won;
+	}
+
+	public void setMissileLauncher(MissilesLauncher missilesLauncher)
+	{
+		this.missilesLauncher = missilesLauncher;
+	}
+
+	public MissilesLauncher getMissilesLauncher()
+	{
+		return missilesLauncher;
 	}
 }

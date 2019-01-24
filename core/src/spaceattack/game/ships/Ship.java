@@ -55,6 +55,7 @@ public abstract class Ship extends DrawableActor implements IShip
 		energyPool = pool;
 	}
 
+	@Override
 	public void setHpPool(IPool pool)
 	{
 		hpPool = pool;
@@ -166,6 +167,12 @@ public abstract class Ship extends DrawableActor implements IShip
 	public IPool getEnergyPool()
 	{
 		return energyPool;
+	}
+
+	@Override
+	public IPool getHpPool()
+	{
+		return hpPool;
 	}
 
 	@Override

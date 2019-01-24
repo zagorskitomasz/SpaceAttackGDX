@@ -181,6 +181,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 
 	private void addComponents()
 	{
+		stage.setMissileLauncher(missilesLauncher);
 		stage.addActorBeforeGUI(playersShip);
 		stage.addActor(primaryFireButton);
 		stage.addActor(secondaryFireButton);

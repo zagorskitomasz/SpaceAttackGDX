@@ -9,13 +9,13 @@ import spaceattack.game.ai.movers.DirectChaser;
 import spaceattack.game.ai.shooters.DirectShooter;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
-import spaceattack.game.stages.IGameStage;
+import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
 
 public class EnemyBase extends InvisibleActor
 {
-	private IGameStage stage;
+	private GameplayStage stage;
 	private IEnemyShipsFactory shipsFactory;
 	private Radar radar;
 	private List<IEnemyShip> enemyShips;
@@ -29,7 +29,7 @@ public class EnemyBase extends InvisibleActor
 		fighterTimer.check();
 	}
 
-	public void setStage(IGameStage stage)
+	public void setStage(GameplayStage stage)
 	{
 		this.stage = stage;
 	}

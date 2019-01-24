@@ -173,4 +173,18 @@ public class FakeShip implements IShip
 	{
 		// do nothing
 	}
+
+	@Override
+	public void setHpPool(IPool pool)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public IPool getHpPool()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -1,8 +1,8 @@
 package spaceattack.game.ships.enemy;
 
-import spaceattack.game.stages.IGameStage;
+import spaceattack.game.stages.impl.GameplayStage;
 
 public interface IEnemyShipsFactory
 {
-	public IEnemyShip createFighter(IGameStage stage);
+	public IEnemyShip createFighter(GameplayStage stage);
 }

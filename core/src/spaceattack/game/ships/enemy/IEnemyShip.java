@@ -17,4 +17,6 @@ public interface IEnemyShip extends IShip
 	public IWeaponController getWeaponController();
 
 	public boolean isMoving();
+
+	public void setWeaponController(IWeaponController controller);
 }
