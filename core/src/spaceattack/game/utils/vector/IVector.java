@@ -11,4 +11,6 @@ public interface IVector
 	public IVector normalize();
 
 	public IVector copy();
+
+	public void setY(float y);
 }

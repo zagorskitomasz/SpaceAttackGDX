@@ -44,4 +44,10 @@ class GdxVector extends Vector2 implements IVector
 		Vector2 copy = cpy();
 		return new GdxVector(copy.x, copy.y);
 	}
+
+	@Override
+	public void setY(float y)
+	{
+		this.y = y;
+	}
 }

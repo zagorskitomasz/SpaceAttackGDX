@@ -18,4 +18,6 @@ public interface IEngine
 	public void setBraking(float braking);
 
 	public void setAgility(float agility);
+
+	public boolean isDestinationReached();
 }

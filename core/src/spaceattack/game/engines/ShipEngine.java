@@ -15,19 +15,19 @@ public class ShipEngine implements IEngine
 	private IUtils utils;
 	private IVectorFactory vectorFactory;
 
-	private IShip ship;
+	protected IShip ship;
 
 	private float factorSpeed;
 	private float factorAcceleration;
 	private float factorBraking;
 	private float factorAgility;
 
-	private float baseSpeed;
+	protected float baseSpeed;
 	private float acceleration;
 	private float braking;
 	private float agility;
 
-	private IVector destination;
+	protected IVector destination;
 	private IVector nextDestination;
 	private float currentSpeed;
 
@@ -101,7 +101,8 @@ public class ShipEngine implements IEngine
 		}
 	}
 
-	private boolean isDestinationReached()
+	@Override
+	public boolean isDestinationReached()
 	{
 		return ship.getX() == destination.getX() && ship.getY() == destination.getY();
 	}
@@ -161,7 +162,7 @@ public class ShipEngine implements IEngine
 		}
 	}
 
-	IVector computeMovement()
+	private IVector computeMovement()
 	{
 		return vectorFactory.create(destination.getX() - ship.getX(), destination.getY() - ship.getY());
 	}

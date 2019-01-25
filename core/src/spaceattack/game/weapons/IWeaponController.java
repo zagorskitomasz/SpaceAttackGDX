@@ -1,5 +1,6 @@
 package spaceattack.game.weapons;
 
+import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
@@ -24,4 +25,9 @@ public interface IWeaponController
 	public float getPrimaryWeaponRadius();
 
 	public float getSecondaryWeaponRadius();
+
+	public default void performAttack(PossibleAttacks possibleAttack)
+	{
+		throw new UnsupportedOperationException();
+	}
 }

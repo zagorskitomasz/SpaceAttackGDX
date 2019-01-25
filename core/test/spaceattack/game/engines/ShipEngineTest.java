@@ -5,8 +5,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
@@ -17,7 +15,6 @@ import spaceattack.game.ships.IShip.Turn;
 
 public class ShipEngineTest
 {
-	@Mock
 	private IShip ship;
 
 	private ShipEngine engine;
@@ -25,7 +22,6 @@ public class ShipEngineTest
 	@Before
 	public void setUp()
 	{
-		MockitoAnnotations.initMocks(this);
 		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 
 		ship = new FakeShip();

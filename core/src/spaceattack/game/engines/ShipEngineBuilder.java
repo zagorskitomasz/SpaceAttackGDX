@@ -22,7 +22,13 @@ public enum ShipEngineBuilder
 
 	public IEngine createFighterEngine(IEnemyShip fighter)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		IEngine engine = new FighterEngine(fighter, Factories.getUtilsFactory().create());
+
+		engine.setBaseSpeed(0.5f);
+		engine.setAcceleration(1f);
+		engine.setBraking(1f);
+		engine.setAgility(1f);
+
+		return engine;
 	}
 }
