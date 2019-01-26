@@ -10,10 +10,6 @@ During early development I'm using desktop launcher, so it will require more or 
 
 # TODO:
 
--> first enemy ship; 
-
--> enemy ship builderd by independant class and injected into stage;
-
 -> explosions (ships and some sort of missiles);
 
 -> fire & burning mechanics;

@@ -1,5 +1,7 @@
 package spaceattack.game.ships.enemy;
 
+import spaceattack.consts.Sizes;
+import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.MoverAI;
 import spaceattack.game.ai.ShooterAI;
@@ -65,5 +67,12 @@ public class Fighter extends Ship implements IEnemyShip
 	public void setWeaponController(IWeaponController controller)
 	{
 		this.controller = controller;
+	}
+
+	@Override
+	public void setActor(IActor actor)
+	{
+		super.setActor(actor);
+		getActor().setPosition((float) (Math.random() * Sizes.GAME_WIDTH), Sizes.GAME_HEIGHT);
 	}
 }

@@ -1,38 +1,15 @@
 package spaceattack.game.weapons;
 
+import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
-import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
-public class PlayerWeaponController implements IWeaponController
+public class PlayerWeaponController extends AbstractWeaponController
 {
-	private IShip ship;
-
-	private IWeapon primaryWeapon;
-	private IWeapon secondaryWeapon;
-
 	@SuppressWarnings("unused")
 	private IFireButton primaryFireButton;
 	private IFireButton secondaryFireButton;
-
-	@Override
-	public void setShip(IShip ship)
-	{
-		this.ship = ship;
-	}
-
-	@Override
-	public void setPrimaryWeapon(IWeapon weapon)
-	{
-		primaryWeapon = weapon;
-	}
-
-	@Override
-	public void setSecondaryWeapon(IWeapon weapon)
-	{
-		secondaryWeapon = weapon;
-	}
 
 	public void setPrimaryFireButton(IFireButton button)
 	{
@@ -42,6 +19,19 @@ public class PlayerWeaponController implements IWeaponController
 	public void setSecondaryFireButton(IFireButton button)
 	{
 		secondaryFireButton = button;
+	}
+
+	@Override
+	public IVector getWeaponMovement()
+	{
+		return Factories.getVectorFactory().create(0, 1);
+	}
+
+	@Override
+	public void updateSecondaryWeapon(IWeapon weapon)
+	{
+		super.updateSecondaryWeapon(weapon);
+		secondaryFireButton.setWeapon(weapon);
 	}
 
 	@Override
@@ -59,33 +49,8 @@ public class PlayerWeaponController implements IWeaponController
 	}
 
 	@Override
-	public IVector getWeaponMovement()
+	public void performAttack(PossibleAttacks possibleAttack)
 	{
-		return Factories.getVectorFactory().create(0, 1);
-	}
-
-	@Override
-	public boolean takeEnergy(float energyCost)
-	{
-		return ship.takeEnergy(energyCost);
-	}
-
-	@Override
-	public void updateSecondaryWeapon(IWeapon weapon)
-	{
-		secondaryWeapon = weapon;
-		secondaryFireButton.setWeapon(weapon);
-	}
-
-	@Override
-	public float getPrimaryWeaponRadius()
-	{
-		return primaryWeapon.getCollisionRadius();
-	}
-
-	@Override
-	public float getSecondaryWeaponRadius()
-	{
-		return secondaryWeapon.getCollisionRadius();
+		// do nothing
 	}
 }

@@ -20,6 +20,9 @@ public class DirectShooter extends AbstractShooter
 	@Override
 	public synchronized PossibleAttacks checkShot()
 	{
+		if (playerShip == null || owner == null)
+			return PossibleAttacks.NONE;
+
 		canPrimary = false;
 		canSecondary = false;
 

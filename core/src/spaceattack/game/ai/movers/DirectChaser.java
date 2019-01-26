@@ -14,6 +14,9 @@ public class DirectChaser extends AbstractMover
 	@Override
 	public void updateDirection()
 	{
+		if (playerShip == null || owner == null)
+			return;
+
 		if (owner.isMoving())
 			return;
 

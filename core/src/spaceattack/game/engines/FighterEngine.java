@@ -14,7 +14,9 @@ public class FighterEngine extends ShipEngine
 	@Override
 	public Turn fly()
 	{
-		destination.setY(ship.getY());
+		if (destination != null)
+			destination.setY(ship.getY());
+
 		Turn result = super.fly();
 		ship.setY(ship.getY() - baseSpeed);
 		return result;
@@ -23,6 +25,6 @@ public class FighterEngine extends ShipEngine
 	@Override
 	public boolean isDestinationReached()
 	{
-		return ship.getX() == destination.getX();
+		return destination == null || ship.getX() == destination.getX();
 	}
 }

@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import spaceattack.consts.Consts;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.actors.IActorFactory;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeaponController;
@@ -29,6 +30,9 @@ public class RedLaserTest
 	@Mock
 	private MissilesLauncher launcher;
 
+	@Mock
+	private IActorFactory factory;
+
 	private RedLaser redLaser;
 
 	@Before
@@ -37,6 +41,7 @@ public class RedLaserTest
 		initMocks(this);
 		Textures.loadForTest();
 		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+		Factories.setActorFactory(factory);
 
 		redLaser = new RedLaser();
 

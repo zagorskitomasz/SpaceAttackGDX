@@ -26,8 +26,5 @@ public interface IWeaponController
 
 	public float getSecondaryWeaponRadius();
 
-	public default void performAttack(PossibleAttacks possibleAttack)
-	{
-		throw new UnsupportedOperationException();
-	}
+	public void performAttack(PossibleAttacks possibleAttack);
 }

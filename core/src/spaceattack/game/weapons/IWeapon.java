@@ -4,7 +4,7 @@ public interface IWeapon
 {
 	public void setLevel(int level);
 
-	public void use();
+	public boolean use();
 
 	public float getWeaponsMovementFactor();
 

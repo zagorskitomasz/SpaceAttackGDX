@@ -25,8 +25,7 @@ public class EnemyBase extends InvisibleActor
 
 	public EnemyBase(IUtils utils)
 	{
-		fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND);
-		fighterTimer.check();
+		fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, 3000);
 	}
 
 	public void setStage(GameplayStage stage)
@@ -64,7 +63,7 @@ public class EnemyBase extends InvisibleActor
 		fighter.setMover(mover);
 		fighter.setShooter(shooter);
 
-		stage.addActor(fighter);
+		stage.addActorBeforeGUI(fighter);
 	}
 
 	private MoverAI chooseMover(IEnemyShip fighter)

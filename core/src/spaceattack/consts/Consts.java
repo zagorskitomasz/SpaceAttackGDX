@@ -55,6 +55,6 @@ public class Consts
 
 	public class AI
 	{
-		public static final float FIGHTERS_PER_SECOND = 0.2f;
+		public static final float FIGHTERS_PER_SECOND = 0.15f;
 	}
 }

@@ -1,79 +1,53 @@
 package spaceattack.game.weapons;
 
-import spaceattack.game.ships.IShip;
+import spaceattack.game.ai.shooters.PossibleAttacks;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.utils.vector.IVector;
 
-public class AIWeaponController implements IWeaponController
+public class AIWeaponController extends AbstractWeaponController
 {
-
 	@Override
-	public void setShip(IShip ship)
+	public IVector getWeaponMovement()
 	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setPrimaryWeapon(IWeapon weapon)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setSecondaryWeapon(IWeapon weapon)
-	{
-		// TODO Auto-generated method stub
-
+		return Factories.getVectorFactory().create(0, -1);
 	}
 
 	@Override
 	public IVector getPrimaryWeaponUsePlacement()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return Factories.getVectorFactory().create(ship.getX(),
+				ship.getY() - ship.getHeight() * primaryWeapon.getWeaponsMovementFactor());
 	}
 
 	@Override
 	public IVector getSecondaryWeaponUsePlacement()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return Factories.getVectorFactory().create(ship.getX(),
+				ship.getY() - ship.getHeight() * secondaryWeapon.getWeaponsMovementFactor());
 	}
 
 	@Override
-	public IVector getWeaponMovement()
+	public void performAttack(PossibleAttacks possibleAttack)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		switch (possibleAttack)
+		{
+			case BOTH:
+				if (!tryUse(primaryWeapon))
+					tryUse(secondaryWeapon);
+				break;
+			case PRIMARY:
+				tryUse(primaryWeapon);
+				break;
+			case SECONDARY:
+				tryUse(secondaryWeapon);
+				break;
+			default:
+				break;
+		}
 	}
 
-	@Override
-	public boolean takeEnergy(float energyCost)
+	private boolean tryUse(IWeapon weapon)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return weapon.use();
 	}
-
-	@Override
-	public void updateSecondaryWeapon(IWeapon weapon)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public float getPrimaryWeaponRadius()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public float getSecondaryWeaponRadius()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

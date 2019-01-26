@@ -15,6 +15,12 @@ public class FrameController
 		this.checksPerSecond = checksPerSecond;
 	}
 
+	public FrameController(IUtils utils,float checksPerSecond,long initialDelay)
+	{
+		this(utils, checksPerSecond);
+		lastFrameTime = utils.getCurrentTime() - (long) (1000 / checksPerSecond) + initialDelay;
+	}
+
 	public boolean check()
 	{
 		long currentTime = utils.getCurrentTime();
