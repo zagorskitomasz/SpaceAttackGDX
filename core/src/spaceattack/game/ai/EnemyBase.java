@@ -1,11 +1,16 @@
 package spaceattack.game.ai;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import spaceattack.consts.Consts;
 import spaceattack.game.actors.InvisibleActor;
 import spaceattack.game.actors.interfaces.RadarVisible;
-import spaceattack.game.ai.movers.DirectChaser;
+import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.DirectShooter;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
@@ -71,15 +76,64 @@ public class EnemyBase extends InvisibleActor
 		MoverAI mover = null;
 
 		if (enemyShips.isEmpty())
-			mover = new DirectChaser();
-
-		// for tests
-		mover = new DirectChaser();
+			mover = MoverType.DIRECT_CHASER.create();
+		else
+			mover = chooseMinOccursMover();
 
 		mover.setPlayerShip(playerShip);
 		mover.setOwner(fighter);
 
 		return mover;
+	}
+
+	private MoverAI chooseMinOccursMover()
+	{
+		Map<MoverType, Long> countedMovers = countMovers();
+		AtomicLong minOccurs = getMinOccursNumber(countedMovers);
+		List<MoverType> lessFrequentMovers = getLessFrequentMovers(countedMovers, minOccurs);
+
+		return lessFrequentMovers.get((int) (Math.random() * (lessFrequentMovers.size() - 1))).create();
+	}
+
+	private Map<MoverType, Long> countMovers()
+	{
+		Map<MoverType, Long> countedMovers = enemyShips //
+				.stream() //
+				.map(ship->ship.getMoverType()) //
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+		Arrays.asList(MoverType.values()) //
+				.stream() //
+				.filter(type->!countedMovers.containsKey(type)) //
+				.forEach(type->countedMovers.put(type, 0l));
+		return countedMovers;
+	}
+
+	private AtomicLong getMinOccursNumber(Map<MoverType, Long> countedMovers)
+	{
+		AtomicLong minOccurs = new AtomicLong(Long.MAX_VALUE);
+
+		countedMovers //
+				.entrySet() //
+				.stream() //
+				.forEach(entry->
+				{
+					if (entry.getValue() < minOccurs.get())
+						minOccurs.set(entry.getValue());
+
+				}); //
+		return minOccurs;
+	}
+
+	private List<MoverType> getLessFrequentMovers(Map<MoverType, Long> countedMovers,AtomicLong minOccurs)
+	{
+		List<MoverType> lessFrequentMovers = countedMovers //
+				.entrySet() //
+				.stream() //
+				.filter(entry->entry.getValue().equals(minOccurs.get()))//
+				.map(entry->entry.getKey()) //
+				.collect(Collectors.toList());
+		return lessFrequentMovers;
 	}
 
 	private ShooterAI chooseShooter(IEnemyShip fighter)

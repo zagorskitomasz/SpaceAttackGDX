@@ -24,7 +24,7 @@ public enum ShipEngineBuilder
 	{
 		IEngine engine = new FighterEngine(fighter, Factories.getUtilsFactory().create());
 
-		engine.setBaseSpeed(0.5f);
+		engine.setBaseSpeed(0.3f + (float) Math.random() * 1f);
 		engine.setAcceleration(1f);
 		engine.setBraking(1f);
 		engine.setAgility(1f);

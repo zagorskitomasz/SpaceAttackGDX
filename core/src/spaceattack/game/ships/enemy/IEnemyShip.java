@@ -3,6 +3,7 @@ package spaceattack.game.ships.enemy;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.MoverAI;
 import spaceattack.game.ai.ShooterAI;
+import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.weapons.IWeaponController;
 
@@ -19,4 +20,6 @@ public interface IEnemyShip extends IShip
 	public boolean isMoving();
 
 	public void setWeaponController(IWeaponController controller);
+
+	public MoverType getMoverType();
 }
