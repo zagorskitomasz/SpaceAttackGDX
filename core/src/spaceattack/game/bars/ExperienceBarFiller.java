@@ -16,6 +16,10 @@ public class ExperienceBarFiller extends AbstractBarFiller
 	public void drawRect(IBatch batch)
 	{
 		batch.setColor(0.6f, 0.1f, 0.6f, 1);
-		batch.rect(Sizes.GAME_WIDTH - 22, (Sizes.GAME_HEIGHT - 500) * 0.5f + 20, 13, percent * 460);
+		batch.rect( //
+				Sizes.GAME_WIDTH - 9 - Sizes.EXP_BAR_WIDTH, //
+				Sizes.GAME_HEIGHT - 900 + 22, //
+				Sizes.EXP_BAR_WIDTH, //
+				(800 - 44) * percent);
 	}
 }
