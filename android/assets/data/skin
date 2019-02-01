@@ -1,13 +1,13 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	font: {
-		file: font.fnt
+		file: menuButtonsFont.fnt
 	}
 	font-over: {
-		file: font.fnt
+		file: menuButtonsFont.fnt
 	}
 	font-pressed: {
-		file: font.fnt
+		file: menuButtonsFont.fnt
 	}
 }
 com.badlogic.gdx.graphics.Color: {

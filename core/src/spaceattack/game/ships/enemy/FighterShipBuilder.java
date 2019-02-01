@@ -26,7 +26,7 @@ public enum FighterShipBuilder
 		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
 		IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(fighter);
 
-		IPool energyPool = new Pool(50, 10, 10, 2);
+		IPool energyPool = new Pool(10, 10, 10, 2);
 		IPool hpPool = new HpPool(50, 10, 5, 1);
 
 		controller.setPrimaryWeapon(redLaser);
