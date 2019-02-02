@@ -18,7 +18,7 @@ public class PlayerShip extends Ship implements RequiredOnStage
 	public void setActor(IActor actor)
 	{
 		super.setActor(actor);
-		getActor().setPosition(Sizes.GAME_WIDTH * 0.5f, Sizes.GAME_HEIGHT * 0.3f);
+		getActor().setPosition(Sizes.GAME_WIDTH * 0.5f, Sizes.GAME_HEIGHT * 0.4f);
 	}
 
 	public void loadComplexGraphics(ITexture iTexture,ITexture iTexture2,ITexture iTexture3)

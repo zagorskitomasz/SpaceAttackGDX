@@ -1,0 +1,83 @@
+package spaceattack.game.ai.shooters;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.ai.ShooterAI;
+import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.FakeShip;
+import spaceattack.game.ships.enemy.IEnemyShip;
+import spaceattack.game.utils.vector.IVectorFactory;
+import spaceattack.game.weapons.IWeaponController;
+
+public class DirectShooterTest
+{
+	private ShooterAI shooter;
+
+	private FakeShip playerShip;
+	private IVectorFactory vectors;
+
+	@Mock
+	private IWeaponController controller;
+
+	@Mock
+	private IEnemyShip owner;
+
+	@Before
+	public void setUp()
+	{
+		vectors = ExtVectorFactory.INSTANCE;
+		Factories.setVectorFactory(vectors);
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+
+		MockitoAnnotations.initMocks(this);
+		doReturn(controller).when(owner).getWeaponController();
+		doReturn(vectors.create(105, 400)).when(controller).getPrimaryWeaponUsePlacement();
+		doReturn(vectors.create(105, 400)).when(controller).getSecondaryWeaponUsePlacement();
+
+		playerShip = new FakeShip();
+
+		playerShip.setX(100);
+		playerShip.setY(200);
+		playerShip.setRadius(15);
+
+		shooter = new DirectShooter();
+		shooter.setPlayerShip(playerShip);
+		shooter.setOwner(owner);
+	}
+
+	@Test
+	public void shootWhenInRadiusWidthLineWithPlayer()
+	{
+		doReturn(vectors.create(105, 400)).when(owner).getPosition();
+
+		assertEquals(PossibleAttacks.BOTH, shooter.checkShot());
+	}
+
+	@Test
+	public void shootOnlyWeaponInRadius()
+	{
+		doReturn(vectors.create(125, 400)).when(controller).getPrimaryWeaponUsePlacement();
+		doReturn(vectors.create(125, 400)).when(controller).getSecondaryWeaponUsePlacement();
+		doReturn(5f).when(controller).getPrimaryWeaponRadius();
+		doReturn(15f).when(controller).getSecondaryWeaponRadius();
+
+		assertEquals(PossibleAttacks.SECONDARY, shooter.checkShot());
+	}
+
+	@Test
+	public void dontShootUnderTarget()
+	{
+		doReturn(vectors.create(105, 190)).when(controller).getPrimaryWeaponUsePlacement();
+		doReturn(vectors.create(105, 100)).when(controller).getSecondaryWeaponUsePlacement();
+
+		assertEquals(PossibleAttacks.PRIMARY, shooter.checkShot());
+	}
+}

@@ -10,14 +10,6 @@ During early development I'm using desktop launcher, so it will require more or 
 
 # TODO:
 
--> first enemy ship; 
-
--> enemy ship builderd by independant class and injected into stage;
-
--> independant AI module which injects orders into all enemy ships on battlefield;
-
--> 'radar' module - space map with all ships (players and enemies) used by AI module to create orders;
-
 -> explosions (ships and some sort of missiles);
 
 -> fire & burning mechanics;

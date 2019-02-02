@@ -10,4 +10,14 @@ public interface IEngine
 	public Turn fly();
 
 	public void setLevel(int level);
+
+	public void setBaseSpeed(float baseSpeed);
+
+	public void setAcceleration(float acceleration);
+
+	public void setBraking(float braking);
+
+	public void setAgility(float agility);
+
+	public boolean isDestinationReached();
 }

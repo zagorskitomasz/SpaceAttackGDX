@@ -1,5 +1,6 @@
 package spaceattack.game.weapons;
 
+import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
@@ -20,4 +21,10 @@ public interface IWeaponController
 	public boolean takeEnergy(float energyCost);
 
 	public void updateSecondaryWeapon(IWeapon weapon);
+
+	public float getPrimaryWeaponRadius();
+
+	public float getSecondaryWeaponRadius();
+
+	public void performAttack(PossibleAttacks possibleAttack);
 }

@@ -23,7 +23,7 @@ public enum FireButtonsBuilder
 		FireButton button = new FireButton();
 		button.setImageButton(imageButton);
 		button.setWeapon(weapon);
-		button.setPosition(Sizes.GAME_WIDTH * 0.5f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.08f);
+		button.setPosition(Sizes.GAME_WIDTH * 0.5f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.09f);
 
 		return button;
 	}
@@ -39,7 +39,7 @@ public enum FireButtonsBuilder
 		ComplexFireButton button = new ComplexFireButton();
 		button.setImageButton(imageButton);
 		button.setMainWeapon(weapon);
-		button.setPosition(Sizes.GAME_WIDTH * 0.25f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.20f);
+		button.setPosition(Sizes.GAME_WIDTH * 0.20f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.27f);
 		button.setWeaponController(controller);
 
 		return button;

@@ -39,16 +39,17 @@ public abstract class Laser implements IWeapon
 	}
 
 	@Override
-	public void use()
+	public boolean use()
 	{
-		if (!controller.takeEnergy(energyCost))
-			return;
-
 		if (!frameController.check())
-			return;
+			return false;
+
+		if (!controller.takeEnergy(energyCost))
+			return false;
 
 		Missile missile = buildMissile();
 		launcher.launch(missile);
+		return true;
 	}
 
 	@Override
@@ -61,5 +62,11 @@ public abstract class Laser implements IWeapon
 	public float getWeaponsMovementFactor()
 	{
 		return 0.7f;
+	}
+
+	@Override
+	public float getCollisionRadius()
+	{
+		return Consts.Weapons.LASER_RADIUS;
 	}
 }

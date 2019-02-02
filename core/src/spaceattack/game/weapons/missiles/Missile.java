@@ -20,6 +20,7 @@ public class Missile extends DrawableActor implements Killable
 	private float acceleration;
 	private IVector movement;
 	private Sounds sound;
+	private float radius;
 
 	private boolean isToKill;
 
@@ -70,7 +71,7 @@ public class Missile extends DrawableActor implements Killable
 
 	private float getRadius()
 	{
-		return (getActor().getHeight() + getActor().getWidth()) * 0.25f;
+		return radius;
 	}
 
 	@Override
@@ -154,5 +155,10 @@ public class Missile extends DrawableActor implements Killable
 			getActor().setX(position.getX());
 			getActor().setY(position.getY());
 		}
+	}
+
+	public void setRadius(float radius)
+	{
+		this.radius = radius;
 	}
 }

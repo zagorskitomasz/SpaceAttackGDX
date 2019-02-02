@@ -16,6 +16,7 @@ public class FakeShip implements IShip
 {
 	private float x;
 	private float y;
+	private float radius;
 
 	@Override
 	public void notify(GameProgress state)
@@ -32,7 +33,7 @@ public class FakeShip implements IShip
 	@Override
 	public float getRadius()
 	{
-		return 0;
+		return radius;
 	}
 
 	@Override
@@ -108,6 +109,11 @@ public class FakeShip implements IShip
 		this.y = y;
 	}
 
+	public void setRadius(float radius)
+	{
+		this.radius = radius;
+	}
+
 	@Override
 	public void setShipEngine(IEngine engine)
 	{
@@ -166,5 +172,19 @@ public class FakeShip implements IShip
 	public void setTexture(ITexture texture)
 	{
 		// do nothing
+	}
+
+	@Override
+	public void setHpPool(IPool pool)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public IPool getHpPool()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

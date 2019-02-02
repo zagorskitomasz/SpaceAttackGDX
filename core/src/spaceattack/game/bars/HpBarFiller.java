@@ -20,6 +20,10 @@ public class HpBarFiller extends AbstractBarFiller
 	public void drawRect(IBatch batch)
 	{
 		batch.setColor(0.6f, 0.1f, 0.1f, 1);
-		batch.rect(20, Sizes.GAME_HEIGHT - 31, (179 * percent), 22);
+		batch.rect( //
+				22, //
+				Sizes.GAME_HEIGHT - 9 - Sizes.HP_ENE_BAR_WIDTH, //
+				(Sizes.GAME_WIDTH * 0.5f - 22) * percent, //
+				Sizes.HP_ENE_BAR_WIDTH);
 	}
 }
