@@ -65,7 +65,7 @@ public class PlayerShipTest
 
 		ship.draw(batch, 0);
 
-		verify(batch).draw(texture, 150f, 110.000015f);
+		verify(batch).draw(texture, 310f, 300f);
 	}
 
 	@Test

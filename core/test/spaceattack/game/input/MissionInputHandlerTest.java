@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import spaceattack.consts.Sizes;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
@@ -46,7 +47,7 @@ public class MissionInputHandlerTest
 		handler.registerFireButton(button);
 		handler.touchUp(100, 200, 1, 1);
 
-		verify(ship).setDestination(eq(ExtVectorFactory.INSTANCE.create(100, 500)));
+		verify(ship).setDestination(eq(ExtVectorFactory.INSTANCE.create(100, Sizes.GAME_HEIGHT - 200)));
 	}
 
 	@Test

@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.consts.Sizes;
 import spaceattack.game.actors.IActorFactory;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.factories.Factories;
@@ -36,6 +37,6 @@ public class StaticImageTest
 
 		image.draw(batch, 0);
 
-		verify(batch).draw(texture, 10, 220);
+		verify(batch).draw(texture, 10, Sizes.GAME_HEIGHT - 480);
 	}
 }
