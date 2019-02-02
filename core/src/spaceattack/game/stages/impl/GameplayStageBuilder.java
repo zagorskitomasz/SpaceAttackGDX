@@ -142,7 +142,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private void initPools()
 	{
 		expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
-		energyPool = new Pool(50, 10, 10, 2);
+		energyPool = new Pool(80, 20, 20, 4);
 		hpPool = new HpPool(50, 10, 5, 1);
 
 		expBar = BarBuilder.INSTANCE.experienceBar(expPool);

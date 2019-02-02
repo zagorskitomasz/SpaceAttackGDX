@@ -1,7 +1,7 @@
 package spaceattack.ext.stage;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,7 +17,7 @@ public class GdxStage extends Stage implements IStage
 
 	public GdxStage()
 	{
-		actorProxies = new LinkedList<>();
+		actorProxies = new CopyOnWriteArrayList<>();
 	}
 
 	@Override
