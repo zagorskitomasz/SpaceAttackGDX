@@ -1,7 +1,7 @@
 package spaceattack.game.weapons;
 
+import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.stages.IGameStage;
-import spaceattack.game.weapons.missiles.Missile;
 
 public class MissilesLauncher
 {
@@ -12,10 +12,10 @@ public class MissilesLauncher
 		this.stage = stage;
 	}
 
-	public void launch(Missile missile)
+	public void launch(Launchable launchable)
 	{
-		stage.addActorBeforeGUI(missile);
-		missile.setActors(stage.getActors());
-		missile.playSound();
+		stage.addActorBeforeGUI(launchable);
+		launchable.setActors(stage.getActors());
+		launchable.playSound();
 	}
 }

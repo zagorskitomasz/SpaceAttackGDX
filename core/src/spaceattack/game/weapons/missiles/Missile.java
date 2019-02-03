@@ -1,16 +1,12 @@
 package spaceattack.game.weapons.missiles;
 
-import spaceattack.game.actors.DrawableActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.interfaces.Killable;
 import spaceattack.game.actors.interfaces.Vulnerable;
-import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.ITexture;
-import spaceattack.game.system.sound.Sounds;
-import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;
 
-public class Missile extends DrawableActor implements Killable
+public class Missile extends AbstractMissile implements Killable
 {
 	private Iterable<IGameActor> actors;
 
@@ -19,11 +15,8 @@ public class Missile extends DrawableActor implements Killable
 	private float speed;
 	private float acceleration;
 	private IVector movement;
-	private Sounds sound;
-	private float radius;
 
-	private boolean isToKill;
-
+	@Override
 	public void setActors(Iterable<IGameActor> iterable)
 	{
 		this.actors = iterable;
@@ -61,19 +54,6 @@ public class Missile extends DrawableActor implements Killable
 		}
 	}
 
-	private boolean checkCollision(Vulnerable vulnerable)
-	{
-		IVector missileCenter = Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
-		IVector vulnerableCenter = vulnerable.getPosition();
-
-		return NumbersUtils.distance(missileCenter, vulnerableCenter) <= vulnerable.getRadius() + getRadius();
-	}
-
-	private float getRadius()
-	{
-		return radius;
-	}
-
 	@Override
 	protected ITexture getTexture()
 	{
@@ -106,11 +86,6 @@ public class Missile extends DrawableActor implements Killable
 			this.movement = movement.normalize();
 	}
 
-	public void setSound(Sounds sound)
-	{
-		this.sound = sound;
-	}
-
 	public float getDmg()
 	{
 		return dmg;
@@ -124,41 +99,5 @@ public class Missile extends DrawableActor implements Killable
 	public float getAcceleration()
 	{
 		return acceleration;
-	}
-
-	public IVector getPosition()
-	{
-		return Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
-	}
-
-	@Override
-	public void setToKill()
-	{
-		isToKill = true;
-	}
-
-	@Override
-	public boolean isToKill()
-	{
-		return isToKill;
-	}
-
-	public void playSound()
-	{
-		sound.play();
-	}
-
-	public void setPosition(IVector position)
-	{
-		if (getActor() != null)
-		{
-			getActor().setX(position.getX());
-			getActor().setY(position.getY());
-		}
-	}
-
-	public void setRadius(float radius)
-	{
-		this.radius = radius;
 	}
 }

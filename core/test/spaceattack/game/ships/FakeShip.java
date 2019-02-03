@@ -5,12 +5,14 @@ import java.util.Set;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.IActor;
+import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
+import spaceattack.game.weapons.MissilesLauncher;
 
 public class FakeShip implements IShip
 {
@@ -177,14 +179,37 @@ public class FakeShip implements IShip
 	@Override
 	public void setHpPool(IPool pool)
 	{
-		// TODO Auto-generated method stub
-
+		// do nothing
 	}
 
 	@Override
 	public IPool getHpPool()
 	{
-		// TODO Auto-generated method stub
+		// do nothing
 		return null;
+	}
+
+	@Override
+	public void setMissilesLauncher(MissilesLauncher launcher)
+	{
+		// do nothing
+	}
+
+	@Override
+	public void explode()
+	{
+		// do nothing
+	}
+
+	@Override
+	public void setExplosion(Launchable explosion)
+	{
+		// do nothing
+	}
+
+	@Override
+	public void ignite(float fireDmg,long fireDuration)
+	{
+		// do nothing
 	}
 }
