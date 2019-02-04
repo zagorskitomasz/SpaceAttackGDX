@@ -9,6 +9,7 @@ import spaceattack.game.utils.IUtils;
 
 public class Explosion extends AbstractMissile
 {
+	private Iterable<IGameActor> actors;
 	private IAnimation animation;
 	private IUtils utils;
 	private float dmg;
@@ -25,8 +26,16 @@ public class Explosion extends AbstractMissile
 	@Override
 	public void setActors(Iterable<IGameActor> actors)
 	{
+		this.actors = actors;
+	}
+
+	@Override
+	public void launched()
+	{
 		if (actors == null)
 			return;
+
+		playSound();
 
 		for (IGameActor actor : actors)
 		{
@@ -48,6 +57,9 @@ public class Explosion extends AbstractMissile
 	@Override
 	protected ITexture getTexture()
 	{
+		if (animation == null)
+			return null;
+
 		elapsed += utils.getDeltaTime();
 		return animation.getKeyFrame(elapsed);
 	}
@@ -90,7 +102,7 @@ public class Explosion extends AbstractMissile
 	@Override
 	public void act(float delta)
 	{
-		if (animation.isCompleted())
+		if (animation != null && animation.isCompleted())
 			setToKill();
 	}
 }

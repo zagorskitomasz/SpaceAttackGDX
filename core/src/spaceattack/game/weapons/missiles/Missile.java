@@ -100,4 +100,10 @@ public class Missile extends AbstractMissile implements Killable
 	{
 		return acceleration;
 	}
+
+	@Override
+	public void launched()
+	{
+		playSound();
+	}
 }

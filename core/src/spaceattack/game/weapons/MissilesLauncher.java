@@ -16,6 +16,6 @@ public class MissilesLauncher
 	{
 		stage.addActorBeforeGUI(launchable);
 		launchable.setActors(stage.getActors());
-		launchable.playSound();
+		launchable.launched();
 	}
 }

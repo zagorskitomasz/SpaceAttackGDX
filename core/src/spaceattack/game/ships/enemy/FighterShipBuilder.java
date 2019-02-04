@@ -12,6 +12,8 @@ import spaceattack.game.weapons.AIWeaponController;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.missiles.Explosion;
+import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 
 public enum FighterShipBuilder
@@ -25,6 +27,7 @@ public enum FighterShipBuilder
 		IWeaponController controller = new AIWeaponController();
 		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
 		IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(fighter);
+		Explosion explosion = ExplosionsBuilder.INSTANCE.createShipExplosion(stage, 10);
 
 		IPool energyPool = new Pool(10, 10, 10, 2);
 		IPool hpPool = new HpPool(50, 10, 5, 1);
@@ -41,6 +44,8 @@ public enum FighterShipBuilder
 		fighter.setHpPool(hpPool);
 		fighter.setLevel(stage.getGameProgress().getMission() * 2);
 		fighter.setWeaponController(controller);
+		fighter.setMissilesLauncher(launcher);
+		fighter.setExplosion(explosion);
 
 		return fighter;
 	}

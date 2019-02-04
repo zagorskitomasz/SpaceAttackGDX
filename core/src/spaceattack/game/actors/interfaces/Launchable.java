@@ -7,4 +7,6 @@ public interface Launchable extends IGameActor
 	public void setActors(Iterable<IGameActor> actors);
 
 	public void playSound();
+
+	public void launched();
 }

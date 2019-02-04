@@ -83,6 +83,8 @@ public class ExplosionTest
 	{
 		explosion.setActors(actors);
 
+		explosion.launched();
+
 		verify(vulnerable).takeDmg(10f);
 	}
 
@@ -90,6 +92,8 @@ public class ExplosionTest
 	public void explosionIgnitesIgnitableInRange()
 	{
 		explosion.setActors(actors);
+
+		explosion.launched();
 
 		verify(ignitable).ignite(5f, 2000l);
 	}
@@ -100,6 +104,8 @@ public class ExplosionTest
 		doReturn(factory.create(100, 100)).when(ignitable).getPosition();
 
 		explosion.setActors(actors);
+
+		explosion.launched();
 
 		verify(ignitable, times(0)).takeDmg(anyFloat());
 		verify(ignitable, times(0)).ignite(anyFloat(), anyLong());

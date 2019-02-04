@@ -154,8 +154,11 @@ public abstract class Ship extends DrawableActor implements IShip
 	@Override
 	public void setToKill()
 	{
-		isToKill = true;
-		explode();
+		if (!isToKill)
+		{
+			isToKill = true;
+			explode();
+		}
 	}
 
 	@Override
