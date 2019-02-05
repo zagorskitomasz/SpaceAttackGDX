@@ -3,25 +3,16 @@ package spaceattack.game.weapons.missiles;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.interfaces.Ignitable;
 import spaceattack.game.actors.interfaces.Vulnerable;
-import spaceattack.game.animations.IAnimation;
+import spaceattack.game.system.graphics.IAnimation;
 import spaceattack.game.system.graphics.ITexture;
-import spaceattack.game.utils.IUtils;
 
 public class Explosion extends AbstractMissile
 {
 	private Iterable<IGameActor> actors;
 	private IAnimation animation;
-	private IUtils utils;
 	private float dmg;
 	private float fireDmg;
 	private long fireDuration;
-
-	private float elapsed;
-
-	public void setUtils(IUtils utils)
-	{
-		this.utils = utils;
-	}
 
 	@Override
 	public void setActors(Iterable<IGameActor> actors)
@@ -60,8 +51,7 @@ public class Explosion extends AbstractMissile
 		if (animation == null)
 			return null;
 
-		elapsed += utils.getDeltaTime();
-		return animation.getKeyFrame(elapsed);
+		return animation.getFrame();
 	}
 
 	public void setAnimation(IAnimation animation)

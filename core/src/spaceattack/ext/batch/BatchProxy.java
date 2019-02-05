@@ -1,11 +1,11 @@
 package spaceattack.ext.batch;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import spaceattack.ext.actor.GdxLabel;
+import spaceattack.ext.texture.IRegionHolder;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.system.graphics.ITexture;
@@ -24,7 +24,7 @@ class BatchProxy implements IBatch
 	@Override
 	public void draw(ITexture texture,float drawingX,float drawingY)
 	{
-		realBatch.draw((Texture) texture, drawingX, drawingY);
+		realBatch.draw(((IRegionHolder) texture).getTextureRegion(), drawingX, drawingY);
 	}
 
 	@Override

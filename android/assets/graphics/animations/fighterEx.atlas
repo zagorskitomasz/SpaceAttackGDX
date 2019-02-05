@@ -1,0 +1,124 @@
+fighterEx.png
+size: 426, 1200
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frame
+  rotate: false
+  xy: 0, 0
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 1
+frame
+  rotate: false
+  xy: 142, 0
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 2
+frame
+  rotate: false
+  xy: 284, 0
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 3
+frame
+  rotate: false
+  xy: 0, 200
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 4
+frame
+  rotate: false
+  xy: 142, 200
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 5
+frame
+  rotate: false
+  xy: 284, 200
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 6
+frame
+  rotate: false
+  xy: 0, 400
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 7
+frame
+  rotate: false
+  xy: 142, 400
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 8
+frame
+  rotate: false
+  xy: 284, 400
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 9
+frame
+  rotate: false
+  xy: 0, 600
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 10
+frame
+  rotate: false
+  xy: 142, 600
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 11
+frame
+  rotate: false
+  xy: 284, 600
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 12
+frame
+  rotate: false
+  xy: 0, 800
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 13
+frame
+  rotate: false
+  xy: 142, 800
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 14
+frame
+  rotate: false
+  xy: 284, 800
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 15
+frame
+  rotate: false
+  xy: 0, 1000
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 16
+frame
+  rotate: false
+  xy: 142, 1000
+  size: 142, 200
+  orig: 142, 200
+  offset: 0, 0
+  index: 17

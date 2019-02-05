@@ -27,7 +27,7 @@ public enum FighterShipBuilder
 		IWeaponController controller = new AIWeaponController();
 		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
 		IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(fighter);
-		Explosion explosion = ExplosionsBuilder.INSTANCE.createShipExplosion(stage, 10);
+		Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 
 		IPool energyPool = new Pool(10, 10, 10, 2);
 		IPool hpPool = new HpPool(50, 10, 5, 1);

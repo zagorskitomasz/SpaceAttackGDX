@@ -1,10 +1,11 @@
 package spaceattack.game;
 
-import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.GameStageFactory;
+import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.system.GameLoader;
+import spaceattack.game.system.graphics.Animations;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.IUtils;
@@ -59,6 +60,7 @@ class Game implements IGame
 		{
 			Textures.loadForTest();
 			Sounds.loadForTest();
+			Animations.loadForTest();
 		}
 		else
 		{
