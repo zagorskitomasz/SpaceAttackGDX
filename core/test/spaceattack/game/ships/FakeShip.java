@@ -19,6 +19,7 @@ public class FakeShip implements IShip
 	private float x;
 	private float y;
 	private float radius;
+	private IPool hpPool;
 
 	@Override
 	public void notify(GameProgress state)
@@ -179,14 +180,13 @@ public class FakeShip implements IShip
 	@Override
 	public void setHpPool(IPool pool)
 	{
-		// do nothing
+		hpPool = pool;
 	}
 
 	@Override
 	public IPool getHpPool()
 	{
-		// do nothing
-		return null;
+		return hpPool;
 	}
 
 	@Override

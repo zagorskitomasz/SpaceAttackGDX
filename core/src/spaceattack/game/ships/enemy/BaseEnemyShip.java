@@ -7,10 +7,11 @@ import spaceattack.game.ai.MoverAI;
 import spaceattack.game.ai.ShooterAI;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.PossibleAttacks;
+import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.Ship;
 import spaceattack.game.weapons.IWeaponController;
 
-public class Fighter extends Ship implements IEnemyShip
+public class BaseEnemyShip extends Ship implements IEnemyShip
 {
 	@SuppressWarnings("unused")
 	private RadarVisible playerShip;
@@ -18,6 +19,8 @@ public class Fighter extends Ship implements IEnemyShip
 	private MoverAI mover;
 	private ShooterAI shooter;
 	private IWeaponController controller;
+
+	private EnemyBar bar;
 
 	@Override
 	public void act(float delta)
@@ -78,8 +81,23 @@ public class Fighter extends Ship implements IEnemyShip
 	}
 
 	@Override
+	public void setBar(EnemyBar bar)
+	{
+		this.bar = bar;
+	}
+
+	@Override
 	public MoverType getMoverType()
 	{
 		return mover.getType();
+	}
+
+	@Override
+	public void draw(IBatch batch,float alpha)
+	{
+		super.draw(batch, alpha);
+
+		if (bar != null)
+			bar.draw(batch);
 	}
 }

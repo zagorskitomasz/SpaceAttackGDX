@@ -9,6 +9,7 @@ import spaceattack.ext.texture.IRegionHolder;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.system.graphics.ITexture;
+import spaceattack.game.utils.Rect;
 
 class BatchProxy implements IBatch
 {
@@ -34,19 +35,23 @@ class BatchProxy implements IBatch
 	}
 
 	@Override
-	public void setColor(float r,float g,float b,int alpha)
-	{
-		renderer.setColor(r, g, b, alpha);
-	}
-
-	@Override
-	public void rect(float x,float y,float width,float height)
+	public void rect(Rect...rects)
 	{
 		realBatch.end();
 		renderer.setProjectionMatrix(realBatch.getProjectionMatrix());
 		renderer.begin(ShapeType.Filled);
-		renderer.rect(x, y, width, height);
+
+		for (Rect rect : rects)
+		{
+			setColor(rect.getRed(), rect.getGreen(), rect.getBlue(), 0);
+			renderer.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+		}
 		renderer.end();
 		realBatch.begin();
+	}
+
+	private void setColor(float r,float g,float b,int alpha)
+	{
+		renderer.setColor(r, g, b, alpha);
 	}
 }

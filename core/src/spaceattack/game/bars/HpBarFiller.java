@@ -14,16 +14,20 @@ public class HpBarFiller extends AbstractBarFiller
 
 		label.setAlignment(Consts.Align.topLeft);
 		label.setPosition(30, Sizes.GAME_HEIGHT - 10);
+
+		rect.setRed(0.6f);
+		rect.setGreen(0.1f);
+		rect.setBlue(0.1f);
+
+		rect.setX(22);
+		rect.setY(Sizes.GAME_HEIGHT - 9 - Sizes.HP_ENE_BAR_WIDTH);
+		rect.setHeight(Sizes.HP_ENE_BAR_WIDTH);
 	}
 
 	@Override
 	public void drawRect(IBatch batch)
 	{
-		batch.setColor(0.6f, 0.1f, 0.1f, 1);
-		batch.rect( //
-				22, //
-				Sizes.GAME_HEIGHT - 9 - Sizes.HP_ENE_BAR_WIDTH, //
-				(Sizes.GAME_WIDTH * 0.5f - 22) * percent, //
-				Sizes.HP_ENE_BAR_WIDTH);
+		rect.setWidth((Sizes.GAME_WIDTH * 0.5f - 22) * percent);
+		batch.rect(rect);
 	}
 }

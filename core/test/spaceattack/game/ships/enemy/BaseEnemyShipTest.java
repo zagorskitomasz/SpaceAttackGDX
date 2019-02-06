@@ -15,12 +15,13 @@ import org.mockito.MockitoAnnotations;
 import spaceattack.game.ai.MoverAI;
 import spaceattack.game.ai.ShooterAI;
 import spaceattack.game.ai.shooters.PossibleAttacks;
+import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.weapons.IWeaponController;
 
-public class FighterTest
+public class BaseEnemyShipTest
 {
-	private Fighter fighter;
+	private BaseEnemyShip fighter;
 
 	@Mock
 	private IWeaponController controller;
@@ -34,16 +35,23 @@ public class FighterTest
 	@Mock
 	private IEngine engine;
 
+	@Mock
+	private IBatch batch;
+
+	@Mock
+	private EnemyBar bar;
+
 	@Before
 	public void setUp()
 	{
 		MockitoAnnotations.initMocks(this);
 
-		fighter = new Fighter();
+		fighter = new BaseEnemyShip();
 		fighter.setMover(mover);
 		fighter.setShooter(shooter);
 		fighter.setWeaponController(controller);
 		fighter.setShipEngine(engine);
+		fighter.setBar(bar);
 	}
 
 	@Test
@@ -78,5 +86,12 @@ public class FighterTest
 		fighter.act(0);
 
 		verify(controller, times(0)).performAttack(any(PossibleAttacks.class));
+	}
+
+	@Test
+	public void barIsDrawn()
+	{
+		fighter.draw(batch, 0);
+		verify(bar).draw(batch);
 	}
 }

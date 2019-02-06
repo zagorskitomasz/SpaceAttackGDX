@@ -22,4 +22,6 @@ public interface IEnemyShip extends IShip
 	public void setWeaponController(IWeaponController controller);
 
 	public MoverType getMoverType();
+
+	public void setBar(EnemyBar bar);
 }

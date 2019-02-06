@@ -22,7 +22,7 @@ public enum FighterShipBuilder
 
 	public IEnemyShip build(GameplayStage stage)
 	{
-		IEnemyShip fighter = new Fighter();
+		IEnemyShip fighter = new BaseEnemyShip();
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
 		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
@@ -46,6 +46,7 @@ public enum FighterShipBuilder
 		fighter.setWeaponController(controller);
 		fighter.setMissilesLauncher(launcher);
 		fighter.setExplosion(explosion);
+		fighter.setBar(new EnemyBar(fighter));
 
 		return fighter;
 	}
