@@ -6,6 +6,7 @@ import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.system.notifiers.ValueObserver;
 import spaceattack.game.utils.IUtils;
+import spaceattack.game.utils.Rect;
 
 public abstract class AbstractBarFiller
 {
@@ -17,6 +18,8 @@ public abstract class AbstractBarFiller
 
 	protected ILabel label;
 
+	protected Rect rect;
+
 	public AbstractBarFiller(IPool pool,IUtils utils)
 	{
 		this.pool = pool;
@@ -25,6 +28,7 @@ public abstract class AbstractBarFiller
 		pool.registerObserver(observer);
 
 		label = utils.createBarLabel();
+		rect = new Rect();
 	}
 
 	public void valueChanged(float percent)

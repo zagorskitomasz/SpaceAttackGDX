@@ -4,6 +4,7 @@ import spaceattack.game.actors.IActorFactory;
 import spaceattack.game.buttons.ITextButtonFactory;
 import spaceattack.game.buttons.weapon.IImageButtonFactory;
 import spaceattack.game.stages.IStageFactory;
+import spaceattack.game.system.graphics.IAnimationFactory;
 import spaceattack.game.system.graphics.ITextureFactory;
 import spaceattack.game.system.sound.ISoundFactory;
 import spaceattack.game.utils.IUtilsFactory;
@@ -19,6 +20,7 @@ public class Factories
 	private static IVectorFactory vectorFactory;
 	private static ITextButtonFactory textButtonFactory;
 	private static IImageButtonFactory imageButtonFactory;
+	private static IAnimationFactory animationFactory;
 
 	public static void setSoundFactory(ISoundFactory factory)
 	{
@@ -98,5 +100,15 @@ public class Factories
 	public static void setImageButtonFactory(IImageButtonFactory factory)
 	{
 		imageButtonFactory = factory;
+	}
+
+	public static IAnimationFactory getAnimationFactory()
+	{
+		return animationFactory;
+	}
+
+	public static void setAnimationFactory(IAnimationFactory factory)
+	{
+		animationFactory = factory;
 	}
 }

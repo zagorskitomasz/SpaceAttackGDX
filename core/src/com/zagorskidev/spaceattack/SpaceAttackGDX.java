@@ -3,6 +3,7 @@ package com.zagorskidev.spaceattack;
 import com.badlogic.gdx.ApplicationAdapter;
 
 import spaceattack.ext.actor.ExtActorFactory;
+import spaceattack.ext.animation.ExtAnimationFactory;
 import spaceattack.ext.button.ExtTextButtonsFactory;
 import spaceattack.ext.button.image.ExtImageButtonFactory;
 import spaceattack.ext.sound.ExtSoundFactory;
@@ -36,6 +37,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 		Factories.setTextButtonFactory(ExtTextButtonsFactory.INSTANCE);
 		Factories.setImageButtonFactory(ExtImageButtonFactory.INSTANCE);
+		Factories.setAnimationFactory(ExtAnimationFactory.INSTANCE);
 	}
 
 	@Override

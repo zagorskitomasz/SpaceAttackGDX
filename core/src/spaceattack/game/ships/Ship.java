@@ -5,12 +5,15 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.DrawableActor;
+import spaceattack.game.actors.IActor;
+import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
+import spaceattack.game.weapons.MissilesLauncher;
 
 public abstract class Ship extends DrawableActor implements IShip
 {
@@ -23,6 +26,9 @@ public abstract class Ship extends DrawableActor implements IShip
 	private IPool hpPool;
 
 	private boolean isToKill;
+
+	private MissilesLauncher launcher;
+	private Launchable explosion;
 
 	@Override
 	public void setTexture(ITexture texture)
@@ -148,7 +154,11 @@ public abstract class Ship extends DrawableActor implements IShip
 	@Override
 	public void setToKill()
 	{
-		isToKill = true;
+		if (!isToKill)
+		{
+			isToKill = true;
+			explode();
+		}
 	}
 
 	@Override
@@ -179,5 +189,35 @@ public abstract class Ship extends DrawableActor implements IShip
 	public void notify(GameProgress state)
 	{
 		setLevel(state.getLevel());
+	}
+
+	@Override
+	public void setMissilesLauncher(MissilesLauncher launcher)
+	{
+		this.launcher = launcher;
+	}
+
+	@Override
+	public void explode()
+	{
+		if (launcher == null || explosion == null)
+			return;
+
+		IActor actor = getActor();
+		explosion.getActor().setPosition(actor.getX(), actor.getY());
+		launcher.launch(explosion);
+	}
+
+	@Override
+	public void setExplosion(Launchable explosion)
+	{
+		this.explosion = explosion;
+	}
+
+	@Override
+	public void ignite(float fireDmg,long fireDuration)
+	{
+		// TODO Auto-generated method stub
+
 	}
 }

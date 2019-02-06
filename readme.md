@@ -10,8 +10,6 @@ During early development I'm using desktop launcher, so it will require more or 
 
 # TODO:
 
--> explosions (ships and some sort of missiles);
-
 -> fire & burning mechanics;
 
 -> power ups (hp, battery, special weapons);

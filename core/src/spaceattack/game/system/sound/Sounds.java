@@ -5,7 +5,13 @@ import spaceattack.game.system.ResourceNotLoadedException;
 
 public enum Sounds
 {
-	RED_LASER("sound/redShot.mp3"),TURBO_LASER("sound/greenShot.mp3");
+	// shots
+	RED_LASER("sound/redShot.mp3"), //
+	TURBO_LASER("sound/greenShot.mp3"), //
+
+	// explosions
+	SMALL_SHIP_EXPLOSION("sound/exShip.mp3"), //
+	BOSS_EXPLOSION("sound/exBoss.mp3");
 
 	private String path;
 	private ISound sound;

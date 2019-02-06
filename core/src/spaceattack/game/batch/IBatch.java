@@ -2,6 +2,7 @@ package spaceattack.game.batch;
 
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.system.graphics.ITexture;
+import spaceattack.game.utils.Rect;
 
 public interface IBatch
 {
@@ -9,7 +10,5 @@ public interface IBatch
 
 	public void draw(ILabel label,float alpha);
 
-	public void setColor(float r,float g,float b,int alpha);
-
-	public void rect(float x,float y,float width,float height);
+	public void rect(Rect...rects);
 }

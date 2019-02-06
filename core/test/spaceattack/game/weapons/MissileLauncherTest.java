@@ -52,6 +52,6 @@ public class MissileLauncherTest
 	public void playingSoundAfterShot()
 	{
 		launcher.launch(missile);
-		verify(missile).playSound();
+		verify(missile).launched();
 	}
 }
