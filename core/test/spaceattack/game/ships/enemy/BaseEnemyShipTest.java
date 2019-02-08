@@ -18,6 +18,7 @@ import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.weapons.IWeaponController;
+import spaceattack.game.weapons.missiles.Burner;
 
 public class BaseEnemyShipTest
 {
@@ -41,6 +42,9 @@ public class BaseEnemyShipTest
 	@Mock
 	private EnemyBar bar;
 
+	@Mock
+	private Burner burner;
+
 	@Before
 	public void setUp()
 	{
@@ -52,6 +56,7 @@ public class BaseEnemyShipTest
 		fighter.setWeaponController(controller);
 		fighter.setShipEngine(engine);
 		fighter.setBar(bar);
+		fighter.setBurner(burner);
 	}
 
 	@Test

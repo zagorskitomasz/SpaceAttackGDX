@@ -13,6 +13,7 @@ import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.missiles.Burner;
 
 public class FakeShip implements IShip
 {
@@ -211,5 +212,23 @@ public class FakeShip implements IShip
 	public void ignite(float fireDmg,long fireDuration)
 	{
 		// do nothing
+	}
+
+	@Override
+	public void setBurner(Burner burner)
+	{
+		// do nothing
+	}
+
+	@Override
+	public float getDrawingX()
+	{
+		return x;
+	}
+
+	@Override
+	public float getDrawingY()
+	{
+		return y;
 	}
 }

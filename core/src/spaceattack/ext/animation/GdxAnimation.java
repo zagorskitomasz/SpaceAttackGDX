@@ -2,6 +2,7 @@ package spaceattack.ext.animation;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -14,10 +15,10 @@ public class GdxAnimation implements IAnimation
 	private Animation<TextureRegion> gdxAnimation;
 	float elapsed = 0;
 
-	public GdxAnimation(String path)
+	public GdxAnimation(String path,boolean loop)
 	{
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(path));
-		gdxAnimation = new Animation<>(0.1f, atlas.getRegions());
+		gdxAnimation = new Animation<>(0.1f, atlas.getRegions(), loop ? PlayMode.LOOP : PlayMode.NORMAL);
 	}
 
 	@Override

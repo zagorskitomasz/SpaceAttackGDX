@@ -7,17 +7,20 @@ public enum Animations
 	//@formatter:off
 	
 	// explosions
-	FIGHTER_EX("graphics/animations/fighterEx.atlas"),
-	BOSS_EX("graphics/animations/bossEx.atlas");
+	FIGHTER_EX("graphics/animations/fighterEx.atlas",false),
+	BOSS_EX("graphics/animations/bossEx.atlas",false),
+	FIRE("graphics/animations/fire.atlas",true);
 	//@formatter:on
 
 	private String path;
+	private boolean loop;
 
 	private static boolean isTest;
 
-	Animations(String path)
+	Animations(String path,boolean loop)
 	{
 		this.path = path;
+		this.loop = loop;
 	}
 
 	/**
@@ -34,6 +37,9 @@ public enum Animations
 	{
 		if (isTest)
 			return null;
+
+		if (loop)
+			return Factories.getAnimationFactory().createLooping(path);
 
 		return Factories.getAnimationFactory().create(path);
 	}

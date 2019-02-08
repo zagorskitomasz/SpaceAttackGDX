@@ -10,6 +10,12 @@ public enum ExtAnimationFactory implements IAnimationFactory
 	@Override
 	public IAnimation create(String path)
 	{
-		return new GdxAnimation(path);
+		return new GdxAnimation(path, false);
+	}
+
+	@Override
+	public IAnimation createLooping(String path)
+	{
+		return new GdxAnimation(path, true);
 	}
 }

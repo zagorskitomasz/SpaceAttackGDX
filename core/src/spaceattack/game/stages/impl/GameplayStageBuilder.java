@@ -27,6 +27,8 @@ import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
 import spaceattack.game.weapons.WeaponsFactory;
+import spaceattack.game.weapons.missiles.Burner;
+import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 
@@ -128,6 +130,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	{
 		IEngine engine = ShipEngineBuilder.INSTANCE.createPlayersEngine(playersShip);
 		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion(stage);
+		Burner burner = BurnerBuilder.INSTANCE.build(playersShip);
 
 		gameProgress.registerObserver(playersShip);
 		playersShip.notify(gameProgress);
@@ -142,6 +145,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		playersShip.setLevel(gameProgress.getLevel());
 		playersShip.setMissilesLauncher(missilesLauncher);
 		playersShip.setExplosion(explosion);
+		playersShip.setBurner(burner);
 	}
 
 	private void initPools()

@@ -31,4 +31,10 @@ public class FrameController
 		}
 		return false;
 	}
+
+	public void reset(float checksPerSecond)
+	{
+		this.checksPerSecond = checksPerSecond;
+		lastFrameTime = utils.getCurrentTime();
+	}
 }

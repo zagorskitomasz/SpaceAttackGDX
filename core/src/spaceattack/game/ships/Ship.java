@@ -7,6 +7,7 @@ import spaceattack.game.GameProgress;
 import spaceattack.game.actors.DrawableActor;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.interfaces.Launchable;
+import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.pools.IPool;
@@ -14,6 +15,7 @@ import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.missiles.Burner;
 
 public abstract class Ship extends DrawableActor implements IShip
 {
@@ -29,6 +31,8 @@ public abstract class Ship extends DrawableActor implements IShip
 
 	private MissilesLauncher launcher;
 	private Launchable explosion;
+
+	private Burner burner;
 
 	@Override
 	public void setTexture(ITexture texture)
@@ -68,13 +72,22 @@ public abstract class Ship extends DrawableActor implements IShip
 	}
 
 	@Override
+	public void setBurner(Burner burner)
+	{
+		this.burner = burner;
+	}
+
+	@Override
 	public void act(float delta)
 	{
 		if (energyPool != null)
 			energyPool.update();
 
 		if (hpPool != null)
+		{
 			hpPool.update();
+			burner.burn(delta);
+		}
 
 		if (engine != null)
 			fly();
@@ -215,9 +228,15 @@ public abstract class Ship extends DrawableActor implements IShip
 	}
 
 	@Override
-	public void ignite(float fireDmg,long fireDuration)
+	public void draw(IBatch batch,float alpha)
 	{
-		// TODO Auto-generated method stub
+		super.draw(batch, alpha);
+		burner.draw(batch);
+	}
 
+	@Override
+	public void ignite(float burningDPS,long fireDuration)
+	{
+		burner.ignite(burningDPS, fireDuration);
 	}
 }

@@ -17,10 +17,10 @@ public enum ExplosionsBuilder
 
 		explosion.setActor(Factories.getActorFactory().create(explosion));
 		explosion.setAnimation(Animations.FIGHTER_EX.getAnimation());
-		explosion.setDmg(strength * 10);
-		explosion.setFireDmg(strength * 2);
-		explosion.setFireDuration(strength * 500);
-		explosion.setRadius(1500);
+		explosion.setDmg(strength * 20);
+		explosion.setFireDmg(10 + strength * 2);
+		explosion.setFireDuration(4000 + strength * 500);
+		explosion.setRadius(150);
 		explosion.setSound(Sounds.SMALL_SHIP_EXPLOSION);
 		explosion.setActors(stage.getActors());
 
@@ -35,7 +35,7 @@ public enum ExplosionsBuilder
 		explosion.setAnimation(Animations.BOSS_EX.getAnimation());
 		explosion.setDmg(0);
 		explosion.setFireDmg(0);
-		explosion.setFireDuration(0);
+		explosion.setFireDuration(1000);
 		explosion.setRadius(0);
 		explosion.setSound(Sounds.BOSS_EXPLOSION);
 		explosion.setActors(stage.getActors());
