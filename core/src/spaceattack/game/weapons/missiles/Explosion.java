@@ -1,5 +1,7 @@
 package spaceattack.game.weapons.missiles;
 
+import java.util.List;
+
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.interfaces.Ignitable;
 import spaceattack.game.actors.interfaces.Vulnerable;
@@ -15,7 +17,7 @@ public class Explosion extends AbstractMissile
 	private long fireDuration;
 
 	@Override
-	public void setActors(Iterable<IGameActor> actors)
+	public void setActors(List<IGameActor> actors)
 	{
 		this.actors = actors;
 	}

@@ -62,5 +62,6 @@ public class Consts
 		public static final double FIGHTER_ENE_UP_CHANCE = 0.5;
 
 		public static final float POOL_INCREASE_PERCENT = 0.5f;
+		public static final int POWER_UP_SPEED = 7;
 	}
 }

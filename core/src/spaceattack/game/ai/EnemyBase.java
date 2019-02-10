@@ -78,7 +78,7 @@ public class EnemyBase extends InvisibleActor
 
 		MoverAI mover = chooseMover(fighter);
 		ShooterAI shooter = chooseShooter(fighter);
-		IPowerUp powerUp = choosePowerUp();
+		IPowerUp powerUp = choosePowerUp(fighter);
 
 		fighter.setPlayerShip(radar.getPlayerShip());
 		fighter.setMover(mover);
@@ -179,7 +179,7 @@ public class EnemyBase extends InvisibleActor
 		enemyShips = radar.getEnemyShips();
 	}
 
-	private IPowerUp choosePowerUp()
+	private IPowerUp choosePowerUp(IEnemyShip fighter)
 	{
 		IPowerUp powerUp = null;
 

@@ -35,7 +35,8 @@ public enum Sounds
 		if (sound == null && !isTest)
 			throw new ResourceNotLoadedException(name());
 
-		sound.play();
+		if (sound != null)
+			sound.play();
 	}
 
 	/**

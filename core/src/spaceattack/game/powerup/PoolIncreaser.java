@@ -4,22 +4,22 @@ import spaceattack.game.ships.pools.IPool;
 
 public class PoolIncreaser extends AbstractPowerUp implements IPowerUp
 {
+	private IPool pool;
+	private float regenPercent;
+
 	@Override
 	public void consumed()
 	{
-		// TODO Auto-generated method stub
-
+		pool.regen(pool.getMaxAmount() * regenPercent);
 	}
 
-	public void setPool(IPool hpPool)
+	public void setPool(IPool pool)
 	{
-		// TODO Auto-generated method stub
-
+		this.pool = pool;
 	}
 
-	public void setIncreasePercent(float poolIncreasePercent)
+	public void setIncreasePercent(float regenPercent)
 	{
-		// TODO Auto-generated method stub
-
+		this.regenPercent = regenPercent;
 	}
 }

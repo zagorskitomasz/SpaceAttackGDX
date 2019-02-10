@@ -1,5 +1,6 @@
 package spaceattack.game.stages;
 
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -20,7 +21,7 @@ public interface IGameStage
 
 	public void draw();
 
-	public Iterable<IGameActor> getActors();
+	public List<IGameActor> getActors();
 
 	public void setType(Stages type);
 

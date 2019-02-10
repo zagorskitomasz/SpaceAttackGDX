@@ -12,12 +12,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.ext.actor.ExtActorFactory;
 import spaceattack.game.ai.MoverAI;
 import spaceattack.game.ai.ShooterAI;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
+import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.weapons.IWeaponController;
+import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
 
 public class BaseEnemyShipTest
@@ -45,6 +48,12 @@ public class BaseEnemyShipTest
 	@Mock
 	private Burner burner;
 
+	@Mock
+	private MissilesLauncher launcher;
+
+	@Mock
+	private IPowerUp powerUp;
+
 	@Before
 	public void setUp()
 	{
@@ -57,6 +66,9 @@ public class BaseEnemyShipTest
 		fighter.setShipEngine(engine);
 		fighter.setBar(bar);
 		fighter.setBurner(burner);
+		fighter.setMissilesLauncher(launcher);
+		fighter.setPowerUp(powerUp);
+		fighter.setActor(ExtActorFactory.INSTANCE.create(fighter));
 	}
 
 	@Test
@@ -98,5 +110,13 @@ public class BaseEnemyShipTest
 	{
 		fighter.draw(batch, 0);
 		verify(bar).draw(batch);
+	}
+
+	@Test
+	public void powerUpIsLaunchedWhenShipDestroyed()
+	{
+		fighter.setToKill();
+
+		verify(launcher).launch(powerUp);
 	}
 }

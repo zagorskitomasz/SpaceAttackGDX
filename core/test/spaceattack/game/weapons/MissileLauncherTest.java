@@ -4,6 +4,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,7 +23,7 @@ public class MissileLauncherTest
 	private Missile missile;
 
 	@Mock
-	private Iterable<IGameActor> actors;
+	private List<IGameActor> actors;
 
 	private MissilesLauncher launcher;
 

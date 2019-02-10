@@ -115,6 +115,11 @@ public class BaseEnemyShip extends Ship implements IEnemyShip
 		super.setToKill();
 
 		if (powerUp != null)
+		{
+			powerUp.setX(getX());
+			powerUp.setY(getY());
+
 			launcher.launch(powerUp);
+		}
 	}
 }

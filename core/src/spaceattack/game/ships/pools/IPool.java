@@ -15,4 +15,6 @@ public interface IPool extends INotifier<Float>
 	public void update();
 
 	public void destroy();
+
+	public void regen(float amount);
 }
