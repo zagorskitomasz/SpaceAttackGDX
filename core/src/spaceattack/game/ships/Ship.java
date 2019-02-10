@@ -29,7 +29,7 @@ public abstract class Ship extends DrawableActor implements IShip
 
 	private boolean isToKill;
 
-	private MissilesLauncher launcher;
+	protected MissilesLauncher launcher;
 	private Launchable explosion;
 
 	private Burner burner;

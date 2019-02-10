@@ -166,6 +166,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		enemyBase.setShipsFactory(EnemyShipsFactory.INSTANCE);
 		enemyBase.setActor(Factories.getActorFactory().create(enemyBase));
 		enemyBase.setRadar(new Radar(stage.getActors()));
+		enemyBase.setHpPool(hpPool);
+		enemyBase.setEnergyPool(energyPool);
 	}
 
 	private void setTimeLabels()

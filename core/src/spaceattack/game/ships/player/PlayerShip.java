@@ -5,12 +5,14 @@ import java.util.Map;
 
 import spaceattack.consts.Sizes;
 import spaceattack.game.actors.IActor;
+import spaceattack.game.actors.interfaces.PowerUpConsumer;
 import spaceattack.game.actors.interfaces.RequiredOnStage;
+import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.Ship;
 import spaceattack.game.system.graphics.ITexture;
 
-public class PlayerShip extends Ship implements RequiredOnStage
+public class PlayerShip extends Ship implements RequiredOnStage,PowerUpConsumer
 {
 	private Map<IShip.Turn, ITexture> textures;
 
@@ -38,5 +40,11 @@ public class PlayerShip extends Ship implements RequiredOnStage
 
 		if (textures != null)
 			currentTexture = textures.get(turn);
+	}
+
+	@Override
+	public void consume(IPowerUp powerUp)
+	{
+		powerUp.consumed();
 	}
 }
