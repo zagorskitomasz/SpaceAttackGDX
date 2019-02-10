@@ -23,6 +23,7 @@ import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.missiles.Burner;
 
 public class PlayerShipTest
 {
@@ -52,6 +53,12 @@ public class PlayerShipTest
 	@Mock
 	private IActor explosionActor;
 
+	@Mock
+	private IBatch batch;
+
+	@Mock
+	private Burner burner;
+
 	@Before
 	public void setUp()
 	{
@@ -75,6 +82,7 @@ public class PlayerShipTest
 		ship.setTexture(texture);
 		ship.setExplosion(explosion);
 		ship.setMissilesLauncher(launcher);
+		ship.setBurner(burner);
 	}
 
 	@Test
@@ -143,5 +151,21 @@ public class PlayerShipTest
 
 		assertEquals(360, explosionActor.getX(), 0);
 		assertEquals(400, explosionActor.getY(), 0);
+	}
+
+	@Test
+	public void burnIsDrawn()
+	{
+		ship.draw(batch, 0);
+
+		verify(burner).draw(batch);
+	}
+
+	@Test
+	public void burningWhenActing()
+	{
+		ship.act(0);
+
+		verify(burner).burn(0);
 	}
 }

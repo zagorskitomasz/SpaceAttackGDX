@@ -28,12 +28,12 @@ public abstract class DrawableActor implements IGameActor
 			batch.draw(getTexture(), getDrawingX(), getDrawingY());
 	}
 
-	private float getDrawingX()
+	public float getDrawingX()
 	{
 		return actor.getX() - getTexture().getWidth() * 0.5f;
 	}
 
-	private float getDrawingY()
+	public float getDrawingY()
 	{
 		return actor.getY() - getTexture().getHeight() * 0.5f;
 	}
