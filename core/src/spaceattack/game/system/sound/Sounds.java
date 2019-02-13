@@ -7,12 +7,14 @@ public enum Sounds
 {
 	// shots
 	RED_LASER("sound/redShot.mp3"), //
+	ROCKET_MISSILE("sound/missileFly.mp3"), //
 	TURBO_LASER("sound/greenShot.mp3"), //
 	POWER_UP("sound/powerUp.mp3"), //
 
 	// explosions
 	SMALL_SHIP_EXPLOSION("sound/exShip.mp3"), //
-	BOSS_EXPLOSION("sound/exBoss.mp3");
+	BOSS_EXPLOSION("sound/exBoss.mp3"), //
+	MISSILE_EXPLOSION("sound/exMissile.mp3");
 
 	private String path;
 	private ISound sound;

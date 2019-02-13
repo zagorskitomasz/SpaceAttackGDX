@@ -1,7 +1,7 @@
 package spaceattack.game.weapons.missiles;
 
 import spaceattack.game.factories.Factories;
-import spaceattack.game.stages.impl.GameplayStage;
+import spaceattack.game.stages.IGameStage;
 import spaceattack.game.system.graphics.Animations;
 import spaceattack.game.system.sound.Sounds;
 
@@ -9,7 +9,7 @@ public enum ExplosionsBuilder
 {
 	INSTANCE;
 
-	public Explosion createFighterExplosion(GameplayStage stage)
+	public Explosion createFighterExplosion(IGameStage stage)
 	{
 		int strength = stage.getGameProgress().getMission();
 
@@ -20,14 +20,13 @@ public enum ExplosionsBuilder
 		explosion.setDmg(strength * 20);
 		explosion.setFireDmg(10 + strength * 2);
 		explosion.setFireDuration(4000 + strength * 500);
-		explosion.setRadius(150);
+		explosion.setRadius(75);
 		explosion.setSound(Sounds.SMALL_SHIP_EXPLOSION);
-		explosion.setActors(stage.getActors());
 
 		return explosion;
 	}
 
-	public Explosion createBossExplosion(GameplayStage stage)
+	public Explosion createBossExplosion()
 	{
 		Explosion explosion = new Explosion();
 
@@ -38,7 +37,21 @@ public enum ExplosionsBuilder
 		explosion.setFireDuration(1000);
 		explosion.setRadius(0);
 		explosion.setSound(Sounds.BOSS_EXPLOSION);
-		explosion.setActors(stage.getActors());
+
+		return explosion;
+	}
+
+	public Explosion createMissileExplosion(int strength)
+	{
+		Explosion explosion = new Explosion();
+
+		explosion.setActor(Factories.getActorFactory().create(explosion));
+		explosion.setAnimation(Animations.MISSILE_EX.getAnimation());
+		explosion.setDmg(strength * 20);
+		explosion.setFireDmg(10 + strength * 2);
+		explosion.setFireDuration(4000 + strength * 500);
+		explosion.setRadius(100);
+		explosion.setSound(Sounds.MISSILE_EXPLOSION);
 
 		return explosion;
 	}

@@ -8,14 +8,14 @@ public enum ExtAnimationFactory implements IAnimationFactory
 	INSTANCE;
 
 	@Override
-	public IAnimation create(String path)
+	public IAnimation create(String path,float fps)
 	{
-		return new GdxAnimation(path, false);
+		return new GdxAnimation(path, false, fps);
 	}
 
 	@Override
-	public IAnimation createLooping(String path)
+	public IAnimation createLooping(String path,float fps)
 	{
-		return new GdxAnimation(path, true);
+		return new GdxAnimation(path, true, fps);
 	}
 }

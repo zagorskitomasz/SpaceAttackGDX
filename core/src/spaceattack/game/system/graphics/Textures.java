@@ -39,6 +39,7 @@ public enum Textures
 	// weapons
 	RED_LASER("graphics/weapons/laserNS.png"),
 	TURBO_LASER("graphics/weapons/turbo.png"), 
+	ROCKET_MISSILE("graphics/weapons/missileP.png"), 
 	
 	// power ups
 	HP_POWER_UP("graphics/powerups/hpPU.png"),

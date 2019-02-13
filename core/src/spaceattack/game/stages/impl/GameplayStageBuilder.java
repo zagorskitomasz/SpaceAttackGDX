@@ -129,7 +129,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private void buildShip()
 	{
 		IEngine engine = ShipEngineBuilder.INSTANCE.createPlayersEngine(playersShip);
-		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion(stage);
+		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 		Burner burner = BurnerBuilder.INSTANCE.build(playersShip);
 
 		gameProgress.registerObserver(playersShip);

@@ -31,7 +31,11 @@ public class Consts
 		public static final float GREEN_LASER_BASE_COST = 20;
 		public static final float GREEN_LASER_COST_PER_LEVEL = 3;
 
-		public static final float LASER_RADIUS = 10;
+		public static final int ROCKET_BASE_COST = 20;
+		public static final int ROCKET_COST_PER_LEVEL = 3;
+
+		public static final float LASER_RADIUS = 8;
+		public static final float ROCKET_RADIUS = 10;
 	}
 
 	public class Gameplay
