@@ -12,6 +12,7 @@ import spaceattack.game.actors.InvisibleActor;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.DirectShooter;
+import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.powerup.PowerUpBuilder;
 import spaceattack.game.ships.enemy.IEnemyShip;
@@ -20,6 +21,7 @@ import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
+import spaceattack.game.weapons.IWeaponController;
 
 public class EnemyBase extends InvisibleActor
 {
@@ -30,6 +32,8 @@ public class EnemyBase extends InvisibleActor
 	private RadarVisible playerShip;
 	private IPool hpPool;
 	private IPool energyPool;
+	private ComplexFireButton fireButton;
+	private IWeaponController controller;
 
 	private FrameController fighterTimer;
 
@@ -61,6 +65,16 @@ public class EnemyBase extends InvisibleActor
 	public void setEnergyPool(IPool energyPool)
 	{
 		this.energyPool = energyPool;
+	}
+
+	public void setComplexFireButton(ComplexFireButton button)
+	{
+		fireButton = button;
+	}
+
+	public void setWeaponController(IWeaponController controller)
+	{
+		this.controller = controller;
 	}
 
 	@Override
@@ -191,6 +205,8 @@ public class EnemyBase extends InvisibleActor
 				powerUp = PowerUpBuilder.INSTANCE.hp(hpPool);
 			else if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE + Consts.AI.FIGHTER_ENE_UP_CHANCE)
 				powerUp = PowerUpBuilder.INSTANCE.energy(energyPool);
+			else
+				powerUp = PowerUpBuilder.INSTANCE.rocketMissileHolder(controller, fireButton, stage);
 		}
 		return powerUp;
 	}

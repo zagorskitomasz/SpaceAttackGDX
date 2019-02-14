@@ -7,6 +7,7 @@ import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.ai.Radar;
 import spaceattack.game.bars.Bar;
 import spaceattack.game.bars.BarBuilder;
+import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.buttons.weapon.FireButtonsBuilder;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.engines.IEngine;
@@ -44,7 +45,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private IWeapon redLaser;
 	private IWeapon greenLaser;
 	private IFireButton primaryFireButton;
-	private IFireButton secondaryFireButton;
+	private ComplexFireButton secondaryFireButton;
 	private IPool expPool;
 	private IPool hpPool;
 	private IPool energyPool;
@@ -168,6 +169,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		enemyBase.setRadar(new Radar(stage.getActors()));
 		enemyBase.setHpPool(hpPool);
 		enemyBase.setEnergyPool(energyPool);
+		enemyBase.setComplexFireButton(secondaryFireButton);
+		enemyBase.setWeaponController(weaponController);
 	}
 
 	private void setTimeLabels()

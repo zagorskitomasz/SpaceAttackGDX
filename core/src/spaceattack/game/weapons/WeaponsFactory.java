@@ -18,7 +18,7 @@ public enum WeaponsFactory
 		return GreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher);
 	}
 
-	public IWeapon createRocketMissile(PlayerWeaponController weaponController,MissilesLauncher missilesLauncher)
+	public IWeapon createRocketMissile(IWeaponController weaponController,MissilesLauncher missilesLauncher)
 	{
 		return RocketMissileBuilder.INSTANCE.build(weaponController, missilesLauncher);
 	}

@@ -14,6 +14,7 @@ public class ComplexFireButton extends FireButton
 	private ITexture specialDrawableDown;
 
 	private IWeapon mainWeapon;
+	int ammo;
 
 	private IWeaponController controller;
 
@@ -39,5 +40,31 @@ public class ComplexFireButton extends FireButton
 	public IWeapon getMainWeapon()
 	{
 		return mainWeapon;
+	}
+
+	public void setSpecialWeapon(IWeapon weapon,int ammo)
+	{
+		setWeapon(weapon);
+		this.ammo = ammo;
+		button.setDown(specialDrawableDown);
+		button.setUp(specialDrawableUp);
+	}
+
+	@Override
+	protected void fire()
+	{
+		super.fire();
+
+		if (mainWeapon != getWeapon())
+		{
+			ammo--;
+
+			if (ammo <= 0)
+			{
+				setWeapon(mainWeapon);
+				button.setDown(drawableDown);
+				button.setUp(drawableUp);
+			}
+		}
 	}
 }
