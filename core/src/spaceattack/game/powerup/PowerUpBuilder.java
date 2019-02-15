@@ -47,6 +47,7 @@ public enum PowerUpBuilder
 		holder.setTexture(Textures.ROCKET_POWER_UP);
 		holder.setActor(Factories.getActorFactory().create(holder));
 		holder.setWeapon(rocketMissile);
+		holder.setWeaponIcon(Textures.ROCKET_ICON.getTexture());
 
 		return holder;
 	}

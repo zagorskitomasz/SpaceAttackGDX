@@ -21,6 +21,7 @@ public class FireButton implements IObserver<Float>,IFireButton
 	public void setImageButton(IImageButton imageButton)
 	{
 		button = imageButton;
+		button.setGameActor(this);
 	}
 
 	@Override

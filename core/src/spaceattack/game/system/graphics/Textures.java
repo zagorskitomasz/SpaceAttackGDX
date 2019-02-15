@@ -44,7 +44,8 @@ public enum Textures
 	// power ups
 	HP_POWER_UP("graphics/powerups/hpPU.png"),
 	ENERGY_POWER_UP("graphics/powerups/energyPU.png"), 
-	ROCKET_POWER_UP("graphics/powerups/rocketPU.png");
+	ROCKET_POWER_UP("graphics/powerups/rocketPU.png"),
+	ROCKET_ICON("graphics/powerups/rocketIcon.png");
 	//@formatter:on
 
 	private String path;

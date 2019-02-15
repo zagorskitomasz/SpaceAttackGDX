@@ -10,10 +10,6 @@ During early development I'm using desktop launcher, so it will require more or 
 
 # TODO:
 
--> power ups (special weapon);
-
--> special weapon implementation;
-
 -> other ships implementations;
 
 -> boss ship;

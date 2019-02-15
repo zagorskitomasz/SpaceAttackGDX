@@ -1,5 +1,7 @@
 package spaceattack.game.buttons.weapon;
 
+import spaceattack.consts.Sizes;
+import spaceattack.game.batch.IBatch;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeapon;
@@ -13,8 +15,10 @@ public class ComplexFireButton extends FireButton
 	private ITexture specialDrawableUp;
 	private ITexture specialDrawableDown;
 
+	private ITexture weaponIcon;
+
 	private IWeapon mainWeapon;
-	int ammo;
+	private int ammo;
 
 	private IWeaponController controller;
 
@@ -42,10 +46,11 @@ public class ComplexFireButton extends FireButton
 		return mainWeapon;
 	}
 
-	public void setSpecialWeapon(IWeapon weapon,int ammo)
+	public void setSpecialWeapon(IWeapon weapon,int ammo,ITexture weaponIcon)
 	{
 		setWeapon(weapon);
 		this.ammo = ammo;
+		this.weaponIcon = weaponIcon;
 		button.setDown(specialDrawableDown);
 		button.setUp(specialDrawableUp);
 	}
@@ -64,7 +69,23 @@ public class ComplexFireButton extends FireButton
 				setWeapon(mainWeapon);
 				button.setDown(drawableDown);
 				button.setUp(drawableUp);
+				weaponIcon = null;
 			}
+		}
+	}
+
+	@Override
+	public void draw(IBatch batch,float alpha)
+	{
+		super.draw(batch, alpha);
+
+		if (weaponIcon == null)
+			return;
+
+		for (int i = 0; i < ammo; i++)
+		{
+			batch.draw(weaponIcon, Sizes.GAME_WIDTH * 0.1f,
+					Sizes.GAME_HEIGHT - Sizes.GAME_HEIGHT * 0.15f - (i * weaponIcon.getHeight() * 0.5f));
 		}
 	}
 }

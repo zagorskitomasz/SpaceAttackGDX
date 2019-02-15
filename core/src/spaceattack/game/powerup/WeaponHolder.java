@@ -1,6 +1,7 @@
 package spaceattack.game.powerup;
 
 import spaceattack.game.buttons.weapon.ComplexFireButton;
+import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.weapons.IWeapon;
 
 public class WeaponHolder extends AbstractPowerUp
@@ -8,6 +9,7 @@ public class WeaponHolder extends AbstractPowerUp
 	private IWeapon weapon;
 	private ComplexFireButton button;
 	private int ammo;
+	private ITexture weaponIcon;
 
 	public void setWeapon(IWeapon weapon)
 	{
@@ -29,14 +31,14 @@ public class WeaponHolder extends AbstractPowerUp
 		this.ammo = ammo;
 	}
 
-	public int getAmmo()
+	public void setWeaponIcon(ITexture weaponIcon)
 	{
-		return ammo;
+		this.weaponIcon = weaponIcon;
 	}
 
 	@Override
 	public void consumed()
 	{
-		button.setSpecialWeapon(weapon, ammo);
+		button.setSpecialWeapon(weapon, ammo, weaponIcon);
 	}
 }
