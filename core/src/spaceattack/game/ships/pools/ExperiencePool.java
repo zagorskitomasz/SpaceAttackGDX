@@ -2,7 +2,6 @@ package spaceattack.game.ships.pools;
 
 import spaceattack.consts.Experience;
 import spaceattack.game.GameProgress;
-import spaceattack.game.ships.pools.AbstractPool;
 
 public class ExperiencePool extends AbstractPool
 {

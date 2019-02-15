@@ -40,4 +40,22 @@ public class HpPoolTest
 
 		assertEquals(0, pool.getAmount(), 0);
 	}
+
+	@Test
+	public void regenIsAddingAmount()
+	{
+		pool.take(30);
+		pool.regen(20);
+
+		assertEquals(40f, pool.getAmount(), 0);
+	}
+
+	@Test
+	public void wontRegenOverMaxAmount()
+	{
+		pool.take(30);
+		pool.regen(40);
+
+		assertEquals(50f, pool.getAmount(), 0);
+	}
 }

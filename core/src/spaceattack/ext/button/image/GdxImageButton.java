@@ -1,22 +1,37 @@
 package spaceattack.ext.button.image;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import spaceattack.ext.batch.BatchProxyHolder;
+import spaceattack.ext.texture.GdxTexture;
 import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.actors.IGameActor;
 import spaceattack.game.buttons.IImageButton;
 import spaceattack.game.input.InputType;
+import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 
 public class GdxImageButton extends Button implements IImageButton
 {
+	private IGameActor gameActor;
+
 	public GdxImageButton(Drawable drawableUp,Drawable drawableDown,Drawable drawableDisabled)
 	{
 		super(drawableUp, drawableDown);
 		getStyle().disabled = drawableDisabled;
+	}
+
+	@Override
+	public void setGameActor(IGameActor gameActor)
+	{
+		this.gameActor = gameActor;
 	}
 
 	@Override
@@ -54,5 +69,32 @@ public class GdxImageButton extends Button implements IImageButton
 	{
 		setDisabled(!enabled);
 		setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
+	}
+
+	@Override
+	public void setDown(ITexture texture)
+	{
+		getStyle().down = createDrawable(texture);
+	}
+
+	@Override
+	public void setUp(ITexture texture)
+	{
+		getStyle().up = createDrawable(texture);
+	}
+
+	private Drawable createDrawable(ITexture texture)
+	{
+		TextureRegion region = new TextureRegion((GdxTexture) texture);
+		return new TextureRegionDrawable(region);
+	}
+
+	@Override
+	public void draw(Batch batch,float alpha)
+	{
+		super.draw(batch, alpha);
+
+		if (gameActor != null)
+			gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
 	}
 }

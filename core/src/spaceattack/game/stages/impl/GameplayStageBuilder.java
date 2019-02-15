@@ -7,6 +7,7 @@ import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.ai.Radar;
 import spaceattack.game.bars.Bar;
 import spaceattack.game.bars.BarBuilder;
+import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.buttons.weapon.FireButtonsBuilder;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.engines.IEngine;
@@ -44,7 +45,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private IWeapon redLaser;
 	private IWeapon greenLaser;
 	private IFireButton primaryFireButton;
-	private IFireButton secondaryFireButton;
+	private ComplexFireButton secondaryFireButton;
 	private IPool expPool;
 	private IPool hpPool;
 	private IPool energyPool;
@@ -129,7 +130,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private void buildShip()
 	{
 		IEngine engine = ShipEngineBuilder.INSTANCE.createPlayersEngine(playersShip);
-		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion(stage);
+		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 		Burner burner = BurnerBuilder.INSTANCE.build(playersShip);
 
 		gameProgress.registerObserver(playersShip);
@@ -166,6 +167,10 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		enemyBase.setShipsFactory(EnemyShipsFactory.INSTANCE);
 		enemyBase.setActor(Factories.getActorFactory().create(enemyBase));
 		enemyBase.setRadar(new Radar(stage.getActors()));
+		enemyBase.setHpPool(hpPool);
+		enemyBase.setEnergyPool(energyPool);
+		enemyBase.setComplexFireButton(secondaryFireButton);
+		enemyBase.setWeaponController(weaponController);
 	}
 
 	private void setTimeLabels()

@@ -1,5 +1,7 @@
 package spaceattack.game.weapons.missiles;
 
+import java.util.List;
+
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.interfaces.Killable;
 import spaceattack.game.actors.interfaces.Vulnerable;
@@ -17,7 +19,7 @@ public class Missile extends AbstractMissile implements Killable
 	private IVector movement;
 
 	@Override
-	public void setActors(Iterable<IGameActor> iterable)
+	public void setActors(List<IGameActor> iterable)
 	{
 		this.actors = iterable;
 	}

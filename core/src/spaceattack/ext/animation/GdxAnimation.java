@@ -15,10 +15,10 @@ public class GdxAnimation implements IAnimation
 	private Animation<TextureRegion> gdxAnimation;
 	float elapsed = 0;
 
-	public GdxAnimation(String path,boolean loop)
+	public GdxAnimation(String path,boolean loop,float fps)
 	{
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(path));
-		gdxAnimation = new Animation<>(0.1f, atlas.getRegions(), loop ? PlayMode.LOOP : PlayMode.NORMAL);
+		gdxAnimation = new Animation<>(1 / fps, atlas.getRegions(), loop ? PlayMode.LOOP : PlayMode.NORMAL);
 	}
 
 	@Override

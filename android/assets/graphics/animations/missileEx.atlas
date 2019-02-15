@@ -1,0 +1,89 @@
+missileEx.png
+size: 400, 1200
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frame_00_delay-0.08s
+  rotate: false
+  xy: 0, 0
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_01_delay-0.08s
+  rotate: false
+  xy: 200, 0
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_02_delay-0.08s
+  rotate: false
+  xy: 0, 200
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_03_delay-0.08s
+  rotate: false
+  xy: 200, 200
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_04_delay-0.08s
+  rotate: false
+  xy: 0, 400
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_05_delay-0.08s
+  rotate: false
+  xy: 200, 400
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_06_delay-0.08s
+  rotate: false
+  xy: 0, 600
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_07_delay-0.08s
+  rotate: false
+  xy: 200, 600
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_08_delay-0.08s
+  rotate: false
+  xy: 0, 800
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_09_delay-0.08s
+  rotate: false
+  xy: 200, 800
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_10_delay-0.08s
+  rotate: false
+  xy: 0, 1000
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+frame_11_delay-0.08s
+  rotate: false
+  xy: 200, 1000
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1

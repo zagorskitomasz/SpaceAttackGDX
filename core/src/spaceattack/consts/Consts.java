@@ -31,7 +31,11 @@ public class Consts
 		public static final float GREEN_LASER_BASE_COST = 20;
 		public static final float GREEN_LASER_COST_PER_LEVEL = 3;
 
-		public static final float LASER_RADIUS = 10;
+		public static final int ROCKET_BASE_COST = 20;
+		public static final int ROCKET_COST_PER_LEVEL = 3;
+
+		public static final float LASER_RADIUS = 8;
+		public static final float ROCKET_RADIUS = 10;
 	}
 
 	public class Gameplay
@@ -56,5 +60,12 @@ public class Consts
 	public class AI
 	{
 		public static final float FIGHTERS_PER_SECOND = 0.15f;
+
+		public static final double FIGHTER_POWER_UP_CHANCE = 0.6;
+		public static final double FIGHTER_HP_UP_CHANCE = 0.3;
+		public static final double FIGHTER_ENE_UP_CHANCE = 0.4;
+
+		public static final float POOL_INCREASE_PERCENT = 0.5f;
+		public static final int POWER_UP_SPEED = 7;
 	}
 }

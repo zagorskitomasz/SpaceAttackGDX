@@ -8,6 +8,7 @@ import spaceattack.game.ai.ShooterAI;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.batch.IBatch;
+import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.ships.Ship;
 import spaceattack.game.weapons.IWeaponController;
 
@@ -16,6 +17,7 @@ public class BaseEnemyShip extends Ship implements IEnemyShip
 	@SuppressWarnings("unused")
 	private RadarVisible playerShip;
 
+	private IPowerUp powerUp;
 	private MoverAI mover;
 	private ShooterAI shooter;
 	private IWeaponController controller;
@@ -99,5 +101,25 @@ public class BaseEnemyShip extends Ship implements IEnemyShip
 
 		if (bar != null)
 			bar.draw(batch);
+	}
+
+	@Override
+	public void setPowerUp(IPowerUp powerUp)
+	{
+		this.powerUp = powerUp;
+	}
+
+	@Override
+	public void setToKill()
+	{
+		super.setToKill();
+
+		if (powerUp != null)
+		{
+			powerUp.setX(getX());
+			powerUp.setY(getY());
+
+			launcher.launch(powerUp);
+		}
 	}
 }

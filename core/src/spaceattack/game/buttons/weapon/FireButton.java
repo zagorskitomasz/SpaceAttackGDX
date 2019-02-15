@@ -14,13 +14,14 @@ public class FireButton implements IObserver<Float>,IFireButton
 {
 	private IWeapon weapon;
 	private IPool energyPool;
-	private IImageButton button;
+	protected IImageButton button;
 
 	private IVector buttonCenter;
 
 	public void setImageButton(IImageButton imageButton)
 	{
 		button = imageButton;
+		button.setGameActor(this);
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class FireButton implements IObserver<Float>,IFireButton
 		if (touch(screenX, screenY, InputType.TOUCH_UP))
 		{
 			if (weapon != null)
-				weapon.use();
+				fire();
 			return true;
 		}
 		return false;
@@ -72,6 +73,11 @@ public class FireButton implements IObserver<Float>,IFireButton
 			button.fire(type);
 		}
 		return false;
+	}
+
+	protected void fire()
+	{
+		weapon.use();
 	}
 
 	private boolean touched(int screenX,int screenY)

@@ -4,6 +4,7 @@ import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.MoverAI;
 import spaceattack.game.ai.ShooterAI;
 import spaceattack.game.ai.movers.MoverType;
+import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.weapons.IWeaponController;
 
@@ -24,4 +25,6 @@ public interface IEnemyShip extends IShip
 	public MoverType getMoverType();
 
 	public void setBar(EnemyBar bar);
+
+	public void setPowerUp(IPowerUp powerUp);
 }

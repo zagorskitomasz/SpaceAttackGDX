@@ -3,7 +3,6 @@ package spaceattack.game.ships.pools;
 import java.util.HashSet;
 import java.util.Set;
 
-import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.notifiers.IObserver;
 
 public abstract class AbstractPool implements IPool
@@ -54,5 +53,11 @@ public abstract class AbstractPool implements IPool
 	public float getMaxAmount()
 	{
 		return maxAmount;
+	}
+
+	@Override
+	public void regen(float amount)
+	{
+		this.amount = Math.min(this.amount + amount, maxAmount);
 	}
 }

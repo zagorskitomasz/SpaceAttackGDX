@@ -10,14 +10,8 @@ During early development I'm using desktop launcher, so it will require more or 
 
 # TODO:
 
--> power ups (hp, battery, special weapons);
-
--> special weapons implementations;
-
 -> other ships implementations;
 
 -> boss ship;
 
--> improving AI module;
-
--> more stages;
+-> other ships AI;
