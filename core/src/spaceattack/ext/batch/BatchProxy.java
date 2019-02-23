@@ -50,6 +50,12 @@ class BatchProxy implements IBatch
 		realBatch.begin();
 	}
 
+	@Override
+	public void draw(ITexture texture, float x, float y, float width, float height)
+	{
+		realBatch.draw(((IRegionHolder) texture).getTextureRegion(), x, y, width, height);
+	}
+
 	private void setColor(float r,float g,float b,int alpha)
 	{
 		renderer.setColor(r, g, b, alpha);

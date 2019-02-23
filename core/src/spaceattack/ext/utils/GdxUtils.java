@@ -139,7 +139,7 @@ enum GdxUtils implements IGdxUtils
 		BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
 		Label.LabelStyle style = new Label.LabelStyle(font, new Color(color));
 		GdxLabel label = new GdxLabel(text, style);
-		label.setPosition((Sizes.GAME_WIDTH - label.getWidth()) * 0.5f, Sizes.GAME_HEIGHT * 0.7f);
+		label.setPosition((Sizes.GAME_WIDTH - label.getWidth() * Sizes.X_FACTOR) * 0.5f, Sizes.GAME_HEIGHT * 0.7f);
 
 		return label;
 	}

@@ -11,4 +11,6 @@ public interface IBatch
 	public void draw(ILabel label,float alpha);
 
 	public void rect(Rect...rects);
+
+    public void draw(ITexture texture, float x, float y, float width, float height);
 }

@@ -14,8 +14,8 @@ public class DesktopLauncher
 
 		config.title = "Space Attack";
 		config.useGL30 = true;
-		config.height = Sizes.GAME_HEIGHT;
-		config.width = Sizes.GAME_WIDTH;
+		config.height = Math.round(Sizes.GAME_HEIGHT);
+		config.width = Math.round(Sizes.GAME_WIDTH);
 
 		new LwjglApplication(new SpaceAttackGDX(), config);
 	}

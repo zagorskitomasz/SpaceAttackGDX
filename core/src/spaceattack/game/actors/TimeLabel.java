@@ -20,8 +20,8 @@ public class TimeLabel implements IGameActor
 	@Override
 	public void draw(IBatch batch,float alpha)
 	{
-		if (isVisible())
-			drawLabel(batch, alpha);
+		if (!isVisible())
+			label.disableDrawing();
 	}
 
 	private void drawLabel(IBatch batch,float alpha)
@@ -31,6 +31,7 @@ public class TimeLabel implements IGameActor
 
 	public void show()
 	{
+		label.enableDawing();
 		showed = utils.millis();
 	}
 
@@ -48,6 +49,7 @@ public class TimeLabel implements IGameActor
 	public void setLabel(ILabel label)
 	{
 		this.label = label;
+		label.setGameActor(this);
 	}
 
 	@Override

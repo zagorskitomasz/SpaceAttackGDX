@@ -24,8 +24,9 @@ public abstract class DrawableActor implements IGameActor
 	@Override
 	public void draw(IBatch batch,float alpha)
 	{
-		if (getTexture() != null)
-			batch.draw(getTexture(), getDrawingX(), getDrawingY());
+		ITexture texture = getTexture();
+		if (texture != null)
+			batch.draw(texture, getDrawingX(), getDrawingY(), texture.getWidth(), texture.getHeight());
 	}
 
 	public float getDrawingX()

@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "28.0.3"
-    compileSdkVersion 28
+    buildToolsVersion "27.0.3"
+    compileSdkVersion 27
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -16,18 +16,27 @@ android {
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
     defaultConfig {
         applicationId "com.zagorskidev.spaceattack"
         minSdkVersion 9
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+        useJack true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -100,12 +109,12 @@ eclipse {
     }
 
     jdt {
-        sourceCompatibility = 1.6
-        targetCompatibility = 1.6
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
     classpath {
-        plusConfigurations += [ project.configurations.compile ]        
+        plusConfigurations += [ project.configurations.implementation ]
         containers 'com.android.ide.eclipse.adt.ANDROID_FRAMEWORK', 'com.android.ide.eclipse.adt.LIBRARIES'       
     }
 
@@ -124,7 +133,7 @@ eclipse {
 idea {
     module {
         sourceDirs += file("src");
-        scopes = [ COMPILE: [plus:[project.configurations.compile]]]        
+        scopes = [ COMPILE: [plus:[project.configurations.implementation]]]
 
         iml {
             withXml {

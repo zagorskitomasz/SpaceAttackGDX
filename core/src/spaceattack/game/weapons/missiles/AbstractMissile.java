@@ -1,5 +1,6 @@
 package spaceattack.game.weapons.missiles;
 
+import spaceattack.consts.Sizes;
 import spaceattack.game.actors.DrawableActor;
 import spaceattack.game.actors.interfaces.Killable;
 import spaceattack.game.actors.interfaces.Launchable;
@@ -25,7 +26,7 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
 
 	public float getRadius()
 	{
-		return radius;
+		return radius * Sizes.RADIUS_FACTOR;
 	}
 
 	public void setRadius(float radius)

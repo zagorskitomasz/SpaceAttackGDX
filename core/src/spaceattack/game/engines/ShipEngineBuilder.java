@@ -1,5 +1,6 @@
 package spaceattack.game.engines;
 
+import spaceattack.consts.Sizes;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.enemy.IEnemyShip;
@@ -12,10 +13,10 @@ public enum ShipEngineBuilder
 	{
 		IEngine engine = new ShipEngine(ship, Factories.getUtilsFactory().create());
 
-		engine.setBaseSpeed(1f);
-		engine.setAcceleration(1f);
-		engine.setBraking(1f);
-		engine.setAgility(2f);
+		engine.setBaseSpeed(1f * Sizes.RADIUS_FACTOR);
+		engine.setAcceleration(1f * Sizes.RADIUS_FACTOR);
+		engine.setBraking(1f * Sizes.RADIUS_FACTOR);
+		engine.setAgility(2f * Sizes.RADIUS_FACTOR);
 
 		return engine;
 	}
@@ -24,10 +25,10 @@ public enum ShipEngineBuilder
 	{
 		IEngine engine = new FighterEngine(fighter, Factories.getUtilsFactory().create());
 
-		engine.setBaseSpeed(0.3f + (float) Math.random() * 1f);
-		engine.setAcceleration(1f);
-		engine.setBraking(1f);
-		engine.setAgility(1f);
+		engine.setBaseSpeed((0.3f + (float) Math.random() * 1f)  * Sizes.RADIUS_FACTOR);
+		engine.setAcceleration(1f * Sizes.RADIUS_FACTOR);
+		engine.setBraking(1f * Sizes.RADIUS_FACTOR);
+		engine.setAgility(1f * Sizes.RADIUS_FACTOR);
 
 		return engine;
 	}

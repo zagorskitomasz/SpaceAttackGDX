@@ -13,21 +13,21 @@ public class Consts
 		public static final int FPS = 20;
 	}
 
-	public class Weapons
+	public static class Weapons
 	{
 		public static final int LASER_ATTACKS_PER_SECOND = 4;
 
 		public static final float RED_LASER_BASE_DMG = 10;
 		public static final float RED_LASER_DMG_PER_LEVEL = 3;
-		public static final float RED_LASER_BASE_SPEED = 15;
-		public static final float RED_LASER_SPEED_PER_LEVEL = 2;
+		public static final float RED_LASER_BASE_SPEED = 15 * Sizes.Y_FACTOR;
+		public static final float RED_LASER_SPEED_PER_LEVEL = 2 * Sizes.Y_FACTOR;
 		public static final float RED_LASER_BASE_COST = 10;
 		public static final float RED_LASER_COST_PER_LEVEL = 2;
 
 		public static final float GREEN_LASER_BASE_DMG = 20;
 		public static final float GREEN_LASER_DMG_PER_LEVEL = 5;
-		public static final float GREEN_LASER_BASE_SPEED = 10;
-		public static final float GREEN_LASER_SPEED_PER_LEVEL = 1.5f;
+		public static final float GREEN_LASER_BASE_SPEED = 10 * Sizes.Y_FACTOR;
+		public static final float GREEN_LASER_SPEED_PER_LEVEL = 1.5f * Sizes.Y_FACTOR;
 		public static final float GREEN_LASER_BASE_COST = 20;
 		public static final float GREEN_LASER_COST_PER_LEVEL = 3;
 
@@ -57,7 +57,7 @@ public class Consts
 		static public final int bottomRight = bottom | right;
 	}
 
-	public class AI
+	public static class AI
 	{
 		public static final float FIGHTERS_PER_SECOND = 0.15f;
 
@@ -66,6 +66,6 @@ public class Consts
 		public static final double FIGHTER_ENE_UP_CHANCE = 0.4;
 
 		public static final float POOL_INCREASE_PERCENT = 0.5f;
-		public static final int POWER_UP_SPEED = 7;
+		public static final float POWER_UP_SPEED = 7 * Sizes.Y_FACTOR;
 	}
 }

@@ -30,7 +30,7 @@ public class ExperienceBar extends Bar
 	@Override
 	protected void drawTexture(IBatch batch)
 	{
-		batch.draw(texture, Sizes.GAME_WIDTH - texture.getWidth(), (Sizes.GAME_HEIGHT - texture.getHeight()) * 0.5f);
+		batch.draw(texture, Sizes.GAME_WIDTH - texture.getWidth(), Sizes.GAME_HEIGHT - 900 * Sizes.Y_FACTOR);
 	}
 
 	@Override

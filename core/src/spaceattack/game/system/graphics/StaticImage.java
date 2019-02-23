@@ -9,10 +9,10 @@ public class StaticImage implements IGameActor
 {
 	private IActor actor;
 
-	private float x;
-	private float y;
+	protected float x;
+	protected float y;
 
-	private ITexture texture;
+	protected ITexture texture;
 
 	StaticImage(ITexture texture,float x,float y)
 	{
@@ -36,7 +36,7 @@ public class StaticImage implements IGameActor
 	@Override
 	public void draw(IBatch batch,float alpha)
 	{
-		batch.draw(texture, x, y);
+		batch.draw(texture, x, y, texture.getWidth(), texture.getHeight());
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import spaceattack.game.actors.interfaces.Ignitable;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.system.graphics.IAnimation;
+import spaceattack.game.system.graphics.ITexture;
 
 public class Burner
 {
@@ -52,7 +53,10 @@ public class Burner
 	public void draw(IBatch batch)
 	{
 		if (isBurning)
-			batch.draw(burningAnimation.getFrame(), ignitable.getDrawingX(), ignitable.getDrawingY());
+		{
+			ITexture texture = burningAnimation.getFrame();
+			batch.draw(texture, ignitable.getDrawingX(), ignitable.getDrawingY(), texture.getWidth(), texture.getWidth());
+		}
 	}
 
 	public void ignite(float burningDPS,long fireDuration)

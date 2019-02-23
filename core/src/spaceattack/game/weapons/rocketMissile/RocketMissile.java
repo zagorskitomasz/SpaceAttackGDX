@@ -1,6 +1,7 @@
 package spaceattack.game.weapons.rocketMissile;
 
 import spaceattack.consts.Consts;
+import spaceattack.consts.Sizes;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.Sounds;
@@ -40,8 +41,8 @@ public class RocketMissile extends AbstractWeapon
 		missile.setActor(Factories.getActorFactory().create(missile));
 		missile.setTexture(Textures.ROCKET_MISSILE.getTexture());
 		missile.setDmg(0);
-		missile.setSpeed(2);
-		missile.setAcceleration(0.2f);
+		missile.setSpeed(2 * Sizes.Y_FACTOR);
+		missile.setAcceleration(0.2f * Sizes.Y_FACTOR);
 		missile.setMovement(controller.getWeaponMovement());
 		missile.setPosition(controller.getPrimaryWeaponUsePlacement());
 		missile.setRadius(Consts.Weapons.ROCKET_RADIUS);

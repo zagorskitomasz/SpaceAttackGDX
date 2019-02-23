@@ -15,15 +15,15 @@ public class ExperienceBarFiller extends AbstractBarFiller
 		rect.setGreen(0.1f);
 		rect.setBlue(0.6f);
 
-		rect.setX(Sizes.GAME_WIDTH - 9 - Sizes.EXP_BAR_WIDTH);
-		rect.setY(Sizes.GAME_HEIGHT - 900 + 22);
+		rect.setX(Sizes.GAME_WIDTH - 9 * Sizes.X_FACTOR - Sizes.EXP_BAR_WIDTH);
+		rect.setY(Sizes.GAME_HEIGHT - 900 * Sizes.Y_FACTOR + 22 * Sizes.Y_FACTOR);
 		rect.setWidth(Sizes.EXP_BAR_WIDTH);
 	}
 
 	@Override
 	public void drawRect(IBatch batch)
 	{
-		rect.setHeight((800 - 44) * percent);
+		rect.setHeight((800 - 44) * Sizes.Y_FACTOR * percent);
 		batch.rect(rect);
 	}
 }

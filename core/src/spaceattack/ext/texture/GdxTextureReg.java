@@ -2,6 +2,7 @@ package spaceattack.ext.texture;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import spaceattack.consts.Sizes;
 import spaceattack.game.system.graphics.ITexture;
 
 public class GdxTextureReg extends TextureRegion implements ITexture,IRegionHolder
@@ -14,13 +15,13 @@ public class GdxTextureReg extends TextureRegion implements ITexture,IRegionHold
 	@Override
 	public int getWidth()
 	{
-		return getRegionWidth();
+		return Math.round(getRegionWidth() * Sizes.X_FACTOR);
 	}
 
 	@Override
 	public int getHeight()
 	{
-		return getRegionHeight();
+		return Math.round(getRegionHeight() * Sizes.Y_FACTOR);
 	}
 
 	@Override
