@@ -30,21 +30,24 @@ public class TimeLabelTest
 	}
 
 	@Test
-	public void afterShowIsDrawed()
+	public void afterShowDrawingIsEnabling()
 	{
 		timeLabel.show();
 		timeLabel.draw(null, 0);
 
-		verify(label).draw(null, 0);
+		verify(label).enableDawing();
 	}
 
 	@Test
-	public void dissapearsAfter300Millis() throws InterruptedException
+	public void drawingDisabledAfter300Millis() throws InterruptedException
 	{
 		timeLabel.show();
-		Thread.sleep(Consts.Gameplay.LABEL_SHOW_TIME + 1);
 		timeLabel.draw(null, 0);
+		verify(label,times(0)).disableDrawing();
+		
+		Thread.sleep(Consts.Gameplay.LABEL_SHOW_TIME + 1);
 
-		verify(label, times(0)).draw(null, 0);
+		timeLabel.draw(null, 0);
+		verify(label).disableDrawing();
 	}
 }

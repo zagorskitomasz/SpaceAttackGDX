@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 
 import spaceattack.consts.Consts;
+import spaceattack.consts.Sizes;
 
 public class GdxDialog extends Dialog
 {

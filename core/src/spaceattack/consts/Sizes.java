@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 
 public class Sizes
 {
-	public static final float GAME_WIDTH = Gdx.graphics.getWidth();
-	public static final float GAME_HEIGHT = Gdx.graphics.getHeight();
+	public static final float GAME_WIDTH = Gdx.graphics == null ? 720 : Gdx.graphics.getWidth();
+	public static final float GAME_HEIGHT = Gdx.graphics == null ? 1280 : Gdx.graphics.getHeight();
 	public static final float X_FACTOR = GAME_WIDTH / 720;
 	public static final float Y_FACTOR = GAME_HEIGHT / 1280;
 	public static final float RADIUS_FACTOR = (X_FACTOR + Y_FACTOR) / 2;

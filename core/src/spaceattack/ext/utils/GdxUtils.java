@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -100,11 +101,22 @@ enum GdxUtils implements IGdxUtils
 	public void confirmDialog(String caption,String question,IStage stage,Consumer<Boolean> resultProcessor)
 	{
 		GdxDialog dialog = new GdxDialog(caption);
-		dialog.text(question);
-		dialog.button("Yes", true);
-		dialog.button("No", false);
+
+		TextButton yesButton = new TextButton("Yes", getUiSkin().get(TextButton.TextButtonStyle.class));
+		TextButton noButton = new TextButton("No", getUiSkin().get(TextButton.TextButtonStyle.class));
+		Label questionLabel = new Label(question, getUiSkin().get(Label.LabelStyle.class));
+
+		yesButton.getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+		noButton.getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+		questionLabel.setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+
+		dialog.text(questionLabel);
+		dialog.button(yesButton, true);
+		dialog.button(noButton, false);
 		dialog.key(Keys.ENTER, true);
 		dialog.setResultProcessor(resultProcessor);
+
+		dialog.getTitleLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
 
 		dialog.show((GdxStage) stage);
 	}

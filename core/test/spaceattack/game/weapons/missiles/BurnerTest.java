@@ -74,7 +74,7 @@ public class BurnerTest
 		burner.ignite(10, 1000);
 		burner.draw(batch);
 
-		verify(batch).draw(frame, 0, 0);
+		verify(batch).draw(frame, 0, 0, 0, 0);
 	}
 
 	@Test

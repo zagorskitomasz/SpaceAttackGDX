@@ -24,11 +24,6 @@ public class TimeLabel implements IGameActor
 			label.disableDrawing();
 	}
 
-	private void drawLabel(IBatch batch,float alpha)
-	{
-		label.draw(batch, alpha);
-	}
-
 	public void show()
 	{
 		label.enableDawing();

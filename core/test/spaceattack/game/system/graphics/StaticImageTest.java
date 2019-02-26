@@ -37,6 +37,6 @@ public class StaticImageTest
 
 		image.draw(batch, 0);
 
-		verify(batch).draw(texture, 10, Sizes.GAME_HEIGHT - 480);
+		verify(batch).draw(texture, 10, Sizes.GAME_HEIGHT - 480, 0, 0);
 	}
 }

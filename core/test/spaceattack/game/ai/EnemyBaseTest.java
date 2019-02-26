@@ -13,15 +13,18 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.ext.actor.ExtActorFactory;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.actors.FakeActor;
 import spaceattack.game.ai.movers.DirectChaser;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.movers.RightSideChaser;
 import spaceattack.game.ai.shooters.DirectShooter;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
 import spaceattack.game.stages.impl.GameplayStage;
+import spaceattack.game.system.graphics.Textures;
 
 public class EnemyBaseTest
 {
@@ -49,6 +52,8 @@ public class EnemyBaseTest
 	public void setUp()
 	{
 		MockitoAnnotations.initMocks(this);
+		Factories.setActorFactory(ExtActorFactory.INSTANCE);
+		Textures.loadForTest();
 		doReturn(fighter).when(factory).createFighter(stage);
 
 		base = new EnemyBase(ExtUtilsFactory.INSTANCE.create());

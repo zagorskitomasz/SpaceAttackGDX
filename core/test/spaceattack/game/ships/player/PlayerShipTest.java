@@ -92,7 +92,7 @@ public class PlayerShipTest
 
 		ship.draw(batch, 0);
 
-		verify(batch).draw(texture, 310f, 300f);
+		verify(batch).draw(texture, 310, 412, 100, 200);
 	}
 
 	@Test
@@ -150,7 +150,7 @@ public class PlayerShipTest
 		ship.setToKill();
 
 		assertEquals(360, explosionActor.getX(), 0);
-		assertEquals(400, explosionActor.getY(), 0);
+		assertEquals(512, explosionActor.getY(), 0);
 	}
 
 	@Test

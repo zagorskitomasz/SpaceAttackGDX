@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import spaceattack.consts.Consts;
+import spaceattack.consts.Sizes;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.buttons.IButton;
@@ -17,6 +18,7 @@ public class GdxButton extends TextButton implements IButton
 	public GdxButton(String text)
 	{
 		super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), Consts.DEFAULT);
+		getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
 	}
 
 	public GdxButton(String text,String styleName)
