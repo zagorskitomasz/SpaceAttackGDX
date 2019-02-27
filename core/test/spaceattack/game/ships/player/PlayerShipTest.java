@@ -2,7 +2,7 @@ package spaceattack.game.ships.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -142,6 +142,15 @@ public class PlayerShipTest
 		ship.setToKill();
 
 		verify(launcher).launch(explosion);
+	}
+	
+	@Test
+	public void wontExplodeOutOfScreen()
+	{
+		ship.setX(-100);
+		ship.setToKill();
+
+		verify(launcher,times(0)).launch(explosion);
 	}
 
 	@Test

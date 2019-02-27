@@ -18,6 +18,8 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
 
 	protected boolean checkCollision(Vulnerable vulnerable)
 	{
+		disappearIfNeeded();
+		
 		IVector missileCenter = Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
 		IVector vulnerableCenter = vulnerable.getPosition();
 

@@ -3,7 +3,6 @@ package spaceattack.game.ships;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import spaceattack.consts.Sizes;
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.DrawableActor;
 import spaceattack.game.actors.IActor;
@@ -171,7 +170,8 @@ public abstract class Ship extends DrawableActor implements IShip
 		if (!isToKill)
 		{
 			isToKill = true;
-			explode();
+			if(!isOutOfScreen())
+				explode();
 		}
 	}
 

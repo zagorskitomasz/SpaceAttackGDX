@@ -36,7 +36,7 @@ public class ExplosiveMissile extends Missile implements Explosive
 	@Override
 	public void setToKill()
 	{
-		if (!isToKill())
+		if (!isToKill() && !isOutOfScreen())
 			explode();
 
 		super.setToKill();

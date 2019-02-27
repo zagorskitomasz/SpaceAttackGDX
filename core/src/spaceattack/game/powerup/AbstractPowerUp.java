@@ -60,6 +60,8 @@ public abstract class AbstractPowerUp extends DrawableActor implements IPowerUp
 
 	private boolean checkCollision(PowerUpConsumer consumer)
 	{
+		disappearIfNeeded();
+		
 		IVector powerUpCenter = Factories.getVectorFactory().create(getX(), getY());
 		IVector consumerCenter = Factories.getVectorFactory().create(consumer.getX(), consumer.getY());
 

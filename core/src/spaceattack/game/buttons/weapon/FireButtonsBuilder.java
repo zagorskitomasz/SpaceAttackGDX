@@ -39,7 +39,7 @@ public enum FireButtonsBuilder
 		ComplexFireButton button = new ComplexFireButton();
 		button.setImageButton(imageButton);
 		button.setMainWeapon(weapon);
-		button.setPosition(Sizes.GAME_WIDTH * 0.20f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.27f);
+		button.setPosition(Sizes.GAME_WIDTH * 0.75f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.09f);
 		button.setWeaponController(controller);
 
 		return button;

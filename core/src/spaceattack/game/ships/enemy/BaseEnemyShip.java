@@ -30,6 +30,7 @@ public class BaseEnemyShip extends Ship implements IEnemyShip
 		super.act(delta);
 		mover.updateDirection();
 		performAttack();
+		disappearIfNeeded();
 	}
 
 	void performAttack()
@@ -121,5 +122,11 @@ public class BaseEnemyShip extends Ship implements IEnemyShip
 
 			launcher.launch(powerUp);
 		}
+	}
+
+	@Override
+	public boolean isToKill()
+	{
+		return super.isToKill();
 	}
 }
