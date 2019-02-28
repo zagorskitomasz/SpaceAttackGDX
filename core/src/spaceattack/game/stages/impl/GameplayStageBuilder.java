@@ -1,5 +1,6 @@
 package spaceattack.game.stages.impl;
 
+import spaceattack.consts.Sizes;
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.actors.TimeLabel;
@@ -23,6 +24,7 @@ import spaceattack.game.ships.pools.Pool;
 import spaceattack.game.stages.IGameStage;
 import spaceattack.game.system.GameLoaderFactory;
 import spaceattack.game.system.GameSaverFactory;
+import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
@@ -197,6 +199,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	{
 		stage.setMissileLauncher(missilesLauncher);
 		stage.addActorBeforeGUI(playersShip);
+		stage.addActor(StaticImageFactory.INSTANCE.create(Textures.COCKPIT_PANEL.getTexture(),0, Sizes.GAME_HEIGHT - 360 * Sizes.Y_FACTOR));
 		stage.addActor(primaryFireButton);
 		stage.addActor(secondaryFireButton);
 		stage.addActor(expBar);
