@@ -8,6 +8,8 @@ import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.ai.Radar;
 import spaceattack.game.bars.Bar;
 import spaceattack.game.bars.BarBuilder;
+import spaceattack.game.buttons.Accelerator;
+import spaceattack.game.buttons.AcceleratorFactory;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.buttons.weapon.FireButtonsBuilder;
 import spaceattack.game.buttons.weapon.IFireButton;
@@ -41,6 +43,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 
 	private GameProgress gameProgress;
 	private PlayerShip playersShip;
+	private IEngine engine;
 	private MissionInputHandler processor;
 	private PlayerWeaponController weaponController;
 	private MissilesLauncher missilesLauncher;
@@ -48,6 +51,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private IWeapon greenLaser;
 	private IFireButton primaryFireButton;
 	private ComplexFireButton secondaryFireButton;
+	private Accelerator accelerator;
 	private IPool expPool;
 	private IPool hpPool;
 	private IPool energyPool;
@@ -100,6 +104,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	protected void initComponents()
 	{
 		playersShip = new PlayerShip();
+		engine = ShipEngineBuilder.INSTANCE.createPlayersEngine(playersShip);
 		processor = new MissionInputHandler();
 		weaponController = new PlayerWeaponController();
 		missilesLauncher = new MissilesLauncher(stage);
@@ -107,14 +112,17 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
 		primaryFireButton = FireButtonsBuilder.INSTANCE.primary(redLaser);
 		secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
+		accelerator = AcceleratorFactory.INSTANCE.create(engine);
 		enemyBase = new EnemyBase(Factories.getUtilsFactory().create());
 	}
 
 	private void configureInputProcessor()
 	{
+		processor.setUtils(Factories.getUtilsFactory().create());
 		processor.registerFireButton(primaryFireButton);
 		processor.registerFireButton(secondaryFireButton);
 		processor.registerShip(playersShip);
+		accelerator.setInputProcessor(processor);
 		Factories.getUtilsFactory().create().setInputProcessor(processor);
 	}
 
@@ -131,7 +139,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 
 	private void buildShip()
 	{
-		IEngine engine = ShipEngineBuilder.INSTANCE.createPlayersEngine(playersShip);
+		
 		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 		Burner burner = BurnerBuilder.INSTANCE.build(playersShip);
 
@@ -202,6 +210,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		stage.addActor(StaticImageFactory.INSTANCE.create(Textures.COCKPIT_PANEL.getTexture(),0, Sizes.GAME_HEIGHT - 360 * Sizes.Y_FACTOR));
 		stage.addActor(primaryFireButton);
 		stage.addActor(secondaryFireButton);
+		stage.addActor(accelerator);
 		stage.addActor(expBar);
 		stage.addActor(hpEnergyBar);
 		stage.addActor(enemyBase);

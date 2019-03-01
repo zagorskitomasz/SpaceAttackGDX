@@ -12,7 +12,6 @@ import spaceattack.game.batch.IBatch;
 public class GdxLabel extends Label implements ILabel
 {
 	private IGameActor gameActor;
-	private Batch realBatch;
 	private boolean draw;
 
 	public GdxLabel(CharSequence text,LabelStyle style)

@@ -8,15 +8,24 @@ import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.pools.IPool;
+import spaceattack.game.utils.IUtils;
+import spaceattack.game.utils.vector.IVector;
 
 public class MissionInputHandler implements IGameplayInput
 {
 	private IShip ship;
 	private Set<IFireButton> buttons;
+	private IUtils utils;
 
 	public MissionInputHandler()
 	{
 		buttons = new HashSet<>();
+	}
+	
+	@Override
+	public void setUtils(IUtils utils)
+	{
+		this.utils = utils;
 	}
 
 	@Override
@@ -59,5 +68,11 @@ public class MissionInputHandler implements IGameplayInput
 			ship.setDestination(Factories.getVectorFactory().create(screenX, Sizes.GAME_HEIGHT - screenY));
 
 		return true;
+	}
+
+	@Override
+	public IVector getTouch() 
+	{
+		return utils.getTouch();
 	}
 }
