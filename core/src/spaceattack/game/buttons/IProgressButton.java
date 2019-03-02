@@ -13,4 +13,10 @@ public interface IProgressButton extends IActor
 	public void setGameActor(IGameActor gameActor);
 
 	public boolean isOver();
+
+	public boolean wasNotReleased();
+
+	public void keep();
+
+	public void release();
 }

@@ -3,9 +3,7 @@ package spaceattack.game.input;
 import java.util.HashSet;
 import java.util.Set;
 
-import spaceattack.consts.Sizes;
 import spaceattack.game.buttons.weapon.IFireButton;
-import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.utils.IUtils;
@@ -13,7 +11,6 @@ import spaceattack.game.utils.vector.IVector;
 
 public class MissionInputHandler implements IGameplayInput
 {
-	private IShip ship;
 	private Set<IFireButton> buttons;
 	private IUtils utils;
 
@@ -31,7 +28,6 @@ public class MissionInputHandler implements IGameplayInput
 	@Override
 	public void registerShip(IShip ship)
 	{
-		this.ship = ship;
 		IPool pool = ship.getEnergyPool();
 
 		for (IFireButton button : buttons)
@@ -63,10 +59,6 @@ public class MissionInputHandler implements IGameplayInput
 			if (fireButton.touchUp(screenX, screenY))
 				return true;
 		}
-
-		if (ship != null)
-			ship.setDestination(Factories.getVectorFactory().create(screenX, Sizes.GAME_HEIGHT - screenY));
-
 		return true;
 	}
 

@@ -6,11 +6,16 @@ import spaceattack.game.batch.IBatch;
 import spaceattack.game.input.IGameplayInput;
 import spaceattack.game.utils.vector.IVector;
 
-public class Accelerator implements IGameActor 
+public class Accelerator implements IGameActor, IAccelerator 
 {
 	private IProgressButton button;
 	private IGameplayInput processor;
 	private float percent;
+	
+	public Accelerator() 
+	{
+		percent = 50;
+	}
 	
 	@Override
 	public IActor getActor() 
@@ -21,12 +26,6 @@ public class Accelerator implements IGameActor
 	public void setProgressButton(IProgressButton progressButton) 
 	{
 		button = progressButton;
-	}
-
-	public void setPosition(float x, float y) 
-	{
-		button.setX(x);
-		button.setY(y);
 	}
 
 	public void setInputProcessor(IGameplayInput processor) 
@@ -41,12 +40,15 @@ public class Accelerator implements IGameActor
 		if(touch == null)
 		{
 			percent = 50;
+			button.release();
 		}
 		else
 		{
 			IVector screenTouch = button.screenToStageCoordinates(touch);
 			if(isButtonPressed(screenTouch))
 				percent = (screenTouch.getY() - button.getY()) * 100 / button.getHeight();
+			else if(button.wasNotReleased())
+				percent = screenTouch.getY() <= button.getY() ? 0 : 100;
 			else
 				percent = 50;
 		}
@@ -55,10 +57,16 @@ public class Accelerator implements IGameActor
 
 	private boolean isButtonPressed(IVector screenTouch) 
 	{
-		return screenTouch.getX() >= button.getX() && screenTouch.getX() <= button.getX() + button.getWidth() && screenTouch.getY() >= button.getY() && screenTouch.getY() <= button.getY() + button.getHeight();
+		boolean touched = screenTouch.getX() >= button.getX() && screenTouch.getX() <= button.getX() + button.getWidth() && screenTouch.getY() >= button.getY() && screenTouch.getY() <= button.getY() + button.getHeight();
+		
+		if(touched)
+			button.keep();
+		
+		return touched;
 	}
 	
-	public float getAcceleration()
+	@Override
+	public float getVerticalAcceleration()
 	{
 		return percent * 2 - 100;
 	}

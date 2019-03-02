@@ -104,7 +104,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	protected void initComponents()
 	{
 		playersShip = new PlayerShip();
-		engine = ShipEngineBuilder.INSTANCE.createPlayersEngine(playersShip);
+		accelerator = AcceleratorFactory.INSTANCE.create();
+		engine = ShipEngineBuilder.INSTANCE.createInputEngine(playersShip, accelerator);
 		processor = new MissionInputHandler();
 		weaponController = new PlayerWeaponController();
 		missilesLauncher = new MissilesLauncher(stage);
@@ -112,7 +113,6 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
 		primaryFireButton = FireButtonsBuilder.INSTANCE.primary(redLaser);
 		secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
-		accelerator = AcceleratorFactory.INSTANCE.create(engine);
 		enemyBase = new EnemyBase(Factories.getUtilsFactory().create());
 	}
 

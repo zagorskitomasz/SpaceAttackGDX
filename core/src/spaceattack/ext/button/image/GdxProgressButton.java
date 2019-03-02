@@ -18,6 +18,8 @@ public class GdxProgressButton extends Button implements IProgressButton
 	private float maxSlide;
 	private float slidePercent;
 	
+	private boolean keepTouch;
+	
 	public GdxProgressButton(Drawable background,Texture slider)
 	{
 		super(background);
@@ -60,5 +62,23 @@ public class GdxProgressButton extends Button implements IProgressButton
 	{
 		super.act(delta);
 		gameActor.act(delta);
+	}
+
+	@Override
+	public boolean wasNotReleased() 
+	{
+		return keepTouch;
+	}
+
+	@Override
+	public void keep() 
+	{
+		keepTouch = true;
+	}
+
+	@Override
+	public void release() 
+	{
+		keepTouch = false;
 	}
 }
