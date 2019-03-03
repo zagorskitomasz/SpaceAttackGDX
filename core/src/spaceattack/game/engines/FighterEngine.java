@@ -4,7 +4,7 @@ import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.IShip.Turn;
 import spaceattack.game.utils.IUtils;
 
-public class FighterEngine extends ShipEngine
+public class FighterEngine extends DestinationShipEngine
 {
 	public FighterEngine(IShip ship,IUtils utils)
 	{

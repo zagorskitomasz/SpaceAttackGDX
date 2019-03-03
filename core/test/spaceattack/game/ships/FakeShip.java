@@ -179,6 +179,11 @@ public class FakeShip implements IShip
 	}
 
 	@Override
+	public boolean exploded() {
+		return false;
+	}
+
+	@Override
 	public void setHpPool(IPool pool)
 	{
 		hpPool = pool;

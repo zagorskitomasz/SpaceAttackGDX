@@ -17,7 +17,7 @@ public class ShipEngineTest
 {
 	private IShip ship;
 
-	private ShipEngine engine;
+	private DestinationShipEngine engine;
 
 	@Before
 	public void setUp()
@@ -29,7 +29,7 @@ public class ShipEngineTest
 		ship.setX(10);
 		ship.setY(20);
 
-		engine = new ShipEngine(ship, ExtUtilsFactory.INSTANCE.create());
+		engine = new DestinationShipEngine(ship, ExtUtilsFactory.INSTANCE.create());
 		engine.setBaseSpeed(2);
 		engine.setAcceleration(1);
 		engine.setBraking(1);

@@ -20,9 +20,11 @@ import spaceattack.consts.Sizes;
 import spaceattack.ext.actor.GdxLabel;
 import spaceattack.ext.stage.GdxStage;
 import spaceattack.game.actors.ILabel;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.input.IInputProcessor;
 import spaceattack.game.stages.IStage;
 import spaceattack.game.system.IFileHandle;
+import spaceattack.game.utils.vector.IVector;
 
 enum GdxUtils implements IGdxUtils
 {
@@ -89,6 +91,15 @@ enum GdxUtils implements IGdxUtils
 	public void setInputProcessor(IInputProcessor inputProcessor)
 	{
 		Gdx.input.setInputProcessor(new GdxInput(inputProcessor));
+	}
+	
+	@Override
+	public IVector getTouch()
+	{
+		if(!Gdx.input.isTouched())
+			return null;
+
+		return Factories.getVectorFactory().create(Gdx.input.getX(), Gdx.input.getY());
 	}
 
 	@Override
@@ -162,5 +173,11 @@ enum GdxUtils implements IGdxUtils
 		BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.GAMEPLAY_FONT));
 		Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
 		return new GdxLabel("", style);
+	}
+
+	@Override
+	public float getAccelerometrX()
+	{
+		return Gdx.input.getAccelerometerX();
 	}
 }

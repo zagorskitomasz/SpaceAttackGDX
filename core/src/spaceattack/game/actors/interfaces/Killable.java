@@ -4,7 +4,7 @@ import spaceattack.consts.Sizes;
 
 public interface Killable
 {
-	public static final float MARGIN = 50;
+	public static final float MARGIN = 100;
 
 	public void setToKill();
 

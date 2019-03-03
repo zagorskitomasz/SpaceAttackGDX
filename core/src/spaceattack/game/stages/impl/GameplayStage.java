@@ -93,7 +93,7 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 				actorsToKill.add(actor);
 				if (actor instanceof RequiredOnStage)
 					lose();
-				if (actor instanceof IEnemyShip)
+				if (actor instanceof IEnemyShip && ((IEnemyShip)actor).exploded())
 					getGameProgress().addExperience((long) ((IShip) actor).getHpPool().getMaxAmount());
 			}
 		});

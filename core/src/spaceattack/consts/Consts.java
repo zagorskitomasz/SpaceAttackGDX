@@ -11,6 +11,8 @@ public class Consts
 		public static final int MISSIONS_IN_ACT = 3;
 		public static final int ACTS_NUMBER = 3;
 		public static final int FPS = 20;
+        public static final float ACCELEROMETR_THRESHOLD = 0.4f;
+		public static final float ACCELEROMETR_MAX = 5f;
 	}
 
 	public static class Weapons
@@ -41,6 +43,7 @@ public class Consts
 	public class Gameplay
 	{
 		public static final long LABEL_SHOW_TIME = 4500;
+		public static final float SHIP_TURN_THRESHOLD = 2.5f;
 	}
 
 	public class Align
@@ -59,7 +62,7 @@ public class Consts
 
 	public static class AI
 	{
-		public static final float FIGHTERS_PER_SECOND = 0.15f;
+		public static final float FIGHTERS_PER_SECOND = 0.1f;
 
 		public static final double FIGHTER_POWER_UP_CHANCE = 0.6;
 		public static final double FIGHTER_HP_UP_CHANCE = 0.3;

@@ -54,7 +54,7 @@ public class ExplosiveMissileTest
 	@Test
 	public void wontExplodeOutOfScreen()
 	{
-		missile.setX(-100);
+		missile.setX(-200);
 		missile.setToKill();
 
 		verify(launcher,times(0)).launch(explosion);
@@ -63,7 +63,7 @@ public class ExplosiveMissileTest
 	@Test
 	public void willDissapearIfOutOfScreen()
 	{
-		missile.setX(-100);
+		missile.setX(-200);
 		missile.checkCollision(vulnerable);
 
 		assertTrue(missile.isToKill());

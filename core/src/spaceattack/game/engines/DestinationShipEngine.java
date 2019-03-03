@@ -3,79 +3,27 @@ package spaceattack.game.engines;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.IShip.Turn;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.vector.IVector;
-import spaceattack.game.utils.vector.IVectorFactory;
 
-public class ShipEngine implements IEngine
+public class DestinationShipEngine extends AbstractShipEngine
 {
 	private IUtils utils;
-	private IVectorFactory vectorFactory;
-
-	protected IShip ship;
-
-	private float factorSpeed;
-	private float factorAcceleration;
-	private float factorBraking;
-	private float factorAgility;
-
-	protected float baseSpeed;
-	private float acceleration;
-	private float braking;
-	private float agility;
-
+	
 	protected IVector destination;
 	private IVector nextDestination;
-	private float currentSpeed;
 
 	private boolean isTurning;
 
 	private Lock lock;
 
-	ShipEngine(IShip ship,IUtils utils)
+	DestinationShipEngine(IShip ship,IUtils utils)
 	{
-		this.ship = ship;
+		super(ship);
 		this.utils = utils;
-		vectorFactory = Factories.getVectorFactory();
 		lock = new ReentrantLock();
-	}
-
-	@Override
-	public void setBaseSpeed(float factorSpeed)
-	{
-		this.factorSpeed = factorSpeed;
-	}
-
-	@Override
-	public void setAcceleration(float acceleration)
-	{
-		this.factorAcceleration = acceleration;
-	}
-
-	@Override
-	public void setBraking(float braking)
-	{
-		this.factorBraking = braking;
-	}
-
-	@Override
-	public void setAgility(float agility)
-	{
-		this.factorAgility = agility;
-	}
-
-	@Override
-	public void setLevel(int level)
-	{
-		baseSpeed = factorSpeed * (0.8f + 0.2f * level);
-		acceleration = factorAcceleration * (0.8f + 0.2f * level);
-		braking = factorBraking * (0.8f + 0.2f * level);
-		agility = factorAgility * (0.8f + 0.2f * level);
-
-		currentSpeed = baseSpeed;
 	}
 
 	@Override

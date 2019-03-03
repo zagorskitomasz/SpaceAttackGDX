@@ -16,7 +16,7 @@ import spaceattack.game.weapons.IWeapon;
 
 public interface IShip extends IObserver<GameProgress>,Ignitable,IGameActor,RadarVisible,Explosive
 {
-	public enum Turn
+    public enum Turn
 	{
 		FRONT,LEFT,RIGHT;
 	}
@@ -56,4 +56,6 @@ public interface IShip extends IObserver<GameProgress>,Ignitable,IGameActor,Rada
 	public IPool getEnergyPool();
 
 	public void setTexture(ITexture texture);
+
+	public boolean exploded();
 }

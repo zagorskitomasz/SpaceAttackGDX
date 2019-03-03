@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import spaceattack.ext.texture.GdxTexture;
 import spaceattack.game.buttons.IImageButton;
+import spaceattack.game.buttons.IProgressButton;
 import spaceattack.game.buttons.weapon.IImageButtonFactory;
 import spaceattack.game.system.graphics.ITexture;
 
@@ -27,5 +28,13 @@ public enum ExtImageButtonFactory implements IImageButtonFactory
 	{
 		TextureRegion region = new TextureRegion((GdxTexture) texture);
 		return new TextureRegionDrawable(region);
+	}
+
+	@Override
+	public IProgressButton create(ITexture background, ITexture slider) 
+	{
+		Drawable drawableBackground = createDrawable(background);
+		
+		return new GdxProgressButton(drawableBackground, (GdxTexture)slider);
 	}
 }

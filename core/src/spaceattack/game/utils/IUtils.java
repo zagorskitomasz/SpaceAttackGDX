@@ -7,6 +7,7 @@ import spaceattack.game.actors.ILabel;
 import spaceattack.game.input.IInputProcessor;
 import spaceattack.game.stages.IStage;
 import spaceattack.game.system.IFileHandle;
+import spaceattack.game.utils.vector.IVector;
 
 public interface IUtils
 {
@@ -43,4 +44,8 @@ public interface IUtils
 	public ILabel createTimeLabel(String text,int color);
 
 	public ILabel createBarLabel();
+
+	public IVector getTouch();
+
+    public float getAccelerometrX();
 }
