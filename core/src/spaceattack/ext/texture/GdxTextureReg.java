@@ -25,6 +25,12 @@ public class GdxTextureReg extends TextureRegion implements ITexture,IRegionHold
 	}
 
 	@Override
+	public void dispose()
+	{
+		getTexture().dispose();
+	}
+
+	@Override
 	public TextureRegion getTextureRegion()
 	{
 		return this;

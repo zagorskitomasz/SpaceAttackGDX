@@ -17,4 +17,5 @@ public class Sizes
 	public static final float POWER_UP_RADIUS = 40 * RADIUS_FACTOR;
 	public static final float DOWN_MARGIN = 250 * Y_FACTOR;
 	public static final float UPPER_MARGIN = 50 * Y_FACTOR;
+    public static final float SIDE_MARGIN = 40 * Y_FACTOR;
 }

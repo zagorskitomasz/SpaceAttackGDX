@@ -146,4 +146,119 @@ public class InputShipEngineTest
 
 		assertEquals(-9, engine.currentSpeedVertical, 0);
 	}
+
+	@Test
+	public void shipIsMovedRight()
+	{
+		ship.setX(400);
+		doReturn(100f).when(accelerator).getHorizontalAcceleration();
+
+		engine.fly();
+
+		assertEquals(401, ship.getX(), 0);
+
+		engine.fly();
+		engine.fly();
+
+		assertEquals(406, ship.getX(), 0);
+	}
+
+	@Test
+	public void shipIsAcceleratedRightBy100Percent()
+	{
+		ship.setX(400);
+		doReturn(100f).when(accelerator).getHorizontalAcceleration();
+
+		for(int i = 0; i < 15; i++)
+			engine.fly();
+
+		assertEquals(10, engine.currentSpeedHorizontal, 0);
+	}
+
+	@Test
+	public void shipIsAcceleratedRightBy50Percent()
+	{
+		ship.setX(400);
+		doReturn(50f).when(accelerator).getHorizontalAcceleration();
+
+		for(int i = 0; i < 15; i++)
+			engine.fly();
+
+		assertEquals(5, engine.currentSpeedHorizontal, 0);
+	}
+
+	@Test
+	public void shipIsAcceleratedLeft()
+	{
+		ship.setX(400);
+		doReturn(-100f).when(accelerator).getHorizontalAcceleration();
+
+		engine.fly();
+		engine.fly();
+
+		assertEquals(-2, engine.currentSpeedHorizontal, 0);
+	}
+
+	@Test
+	public void slowDownNearRightEdgeOfScreen()
+	{
+		engine.currentSpeedHorizontal = 10;
+		ship.setX(Sizes.GAME_WIDTH - 20);
+		doReturn(100f).when(accelerator).getHorizontalAcceleration();
+
+		engine.fly();
+
+		assertEquals(9, engine.currentSpeedHorizontal, 0);
+	}
+
+	@Test
+	public void slowDownWhenFlyingRightButNoAcceleratorInput()
+	{
+		engine.currentSpeedHorizontal = 10;
+		ship.setX(40);
+		doReturn(0f).when(accelerator).getHorizontalAcceleration();
+
+		engine.fly();
+
+		assertEquals(9, engine.currentSpeedHorizontal, 0);
+	}
+
+	@Test
+    public void whenFlyingStraightTurnIsFront()
+    {
+        ship.setX(200);
+        doReturn(0f).when(accelerator).getHorizontalAcceleration();
+
+        assertEquals(IShip.Turn.FRONT, engine.fly());
+    }
+
+	@Test
+	public void whenFlyingRightTurnIsRight()
+	{
+		engine.currentSpeedHorizontal = 5;
+		ship.setX(200);
+		doReturn(50f).when(accelerator).getHorizontalAcceleration();
+
+		assertEquals(IShip.Turn.RIGHT, engine.fly());
+	}
+
+	@Test
+	public void whenFlyingLeftTurnIsLeft()
+	{
+		engine.currentSpeedHorizontal = -5;
+		ship.setX(200);
+		doReturn(-50f).when(accelerator).getHorizontalAcceleration();
+
+		assertEquals(IShip.Turn.LEFT, engine.fly());
+	}
+
+	@Test
+	public void turniUnderThresholdIsBypassed()
+	{
+		engine.currentSpeedHorizontal = 1;
+		ship.setX(200);
+		doReturn(15f).when(accelerator).getHorizontalAcceleration();
+
+		assertEquals(IShip.Turn.FRONT, engine.fly());
+	}
 }

@@ -1,5 +1,6 @@
 package spaceattack.game.buttons;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.batch.IBatch;
@@ -10,11 +11,12 @@ public class Accelerator implements IGameActor, IAccelerator
 {
 	private IProgressButton button;
 	private IGameplayInput processor;
-	private float percent;
+	private float acceleratorControlPercent;
+	private float acceleratorXAxis;
 	
 	public Accelerator() 
 	{
-		percent = 50;
+		acceleratorControlPercent = 50;
 	}
 	
 	@Override
@@ -36,29 +38,30 @@ public class Accelerator implements IGameActor, IAccelerator
 	@Override
 	public void act(float delta) 
 	{
+		acceleratorXAxis = processor.getAccelerometrX();
 		IVector touch = processor.getTouch();
 		if(touch == null)
 		{
-			percent = 50;
+			acceleratorControlPercent = 50;
 			button.release();
 		}
 		else
 		{
 			IVector screenTouch = button.screenToStageCoordinates(touch);
 			if(isButtonPressed(screenTouch))
-				percent = (screenTouch.getY() - button.getY()) * 100 / button.getHeight();
+				acceleratorControlPercent = (screenTouch.getY() - button.getY()) * 100 / button.getHeight();
 			else if(button.wasNotReleased())
-				percent = screenTouch.getY() <= button.getY() ? 0 : 100;
+				acceleratorControlPercent = screenTouch.getY() <= button.getY() ? 0 : 100;
 			else
-				percent = 50;
+				acceleratorControlPercent = 50;
 		}
-		button.setPercent(percent);
+		button.setPercent(acceleratorControlPercent);
 	}
 
 	private boolean isButtonPressed(IVector screenTouch) 
 	{
 		boolean touched = screenTouch.getX() >= button.getX() && screenTouch.getX() <= button.getX() + button.getWidth() && screenTouch.getY() >= button.getY() && screenTouch.getY() <= button.getY() + button.getHeight();
-		
+
 		if(touched)
 			button.keep();
 		
@@ -68,7 +71,24 @@ public class Accelerator implements IGameActor, IAccelerator
 	@Override
 	public float getVerticalAcceleration()
 	{
-		return percent * 2 - 100;
+		return acceleratorControlPercent * 2 - 100;
+	}
+
+	@Override
+	public float getHorizontalAcceleration()
+	{
+		if(Math.abs(acceleratorXAxis) < Consts.Metagame.ACCELEROMETR_THRESHOLD)
+			return 0;
+
+		float turnPercent = acceleratorXAxis * 100 / Consts.Metagame.ACCELEROMETR_MAX * -1;
+
+		if(turnPercent < -100)
+			return -100;
+
+		if(turnPercent > 100)
+			return 100;
+
+		return turnPercent;
 	}
 
 	@Override

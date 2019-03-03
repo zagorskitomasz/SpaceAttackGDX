@@ -1,5 +1,6 @@
 package spaceattack.game.engines;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.buttons.IAccelerator;
 import spaceattack.game.ships.IShip;
@@ -12,7 +13,8 @@ public class InputShipEngine extends AbstractShipEngine
 	private float factorMaxSpeed;
 	
 	private IAccelerator accelerator;
-	
+
+	float currentSpeedHorizontal;
 	float currentSpeedVertical;
 	
 	public InputShipEngine(IShip ship) 
@@ -33,15 +35,80 @@ public class InputShipEngine extends AbstractShipEngine
 	@Override
 	public Turn fly() 
 	{
-		float targetSpeed = calculateTargetSpeed();
+		computeHorizontalSpeed();
+		computeVerticalSpeed();
+		move();
 		
+		return calculateTurn();
+	}
+
+	private void computeHorizontalSpeed()
+	{
+		float targetSpeed = calculateTargetSpeed(accelerator.getHorizontalAcceleration());
+		if(targetSpeed > 0)
+		{
+			if(isNearRightEdge())
+				slowDownRight();
+			else
+				accelerateRight(targetSpeed);
+
+		}
+		else if(targetSpeed < 0)
+		{
+			if(isNearLeftEdge())
+				slowDownLeft();
+			else
+				accelerateLeft(targetSpeed);
+		}
+		else
+		{
+			if(currentSpeedHorizontal > 0)
+				slowDownRight();
+			else if (currentSpeedHorizontal < 0)
+				slowDownLeft();
+		}
+	}
+
+	private boolean isNearRightEdge()
+	{
+		return Sizes.GAME_WIDTH - Sizes.SIDE_MARGIN - ship.getX() <= brakingWay(currentSpeedHorizontal);
+	}
+
+	private void slowDownRight()
+	{
+		currentSpeedHorizontal = Math.max(currentSpeedHorizontal - acceleration, 0);
+	}
+
+	private boolean isNearLeftEdge()
+	{
+		return ship.getX() - Sizes.SIDE_MARGIN <= brakingWay(-1 * currentSpeedHorizontal);
+	}
+
+	private void slowDownLeft()
+	{
+		currentSpeedHorizontal = Math.min(currentSpeedHorizontal + acceleration, 0);
+	}
+
+	private void accelerateRight(float targetSpeed)
+	{
+		currentSpeedHorizontal = Math.min(currentSpeedHorizontal + acceleration, targetSpeed);
+	}
+
+	private void accelerateLeft(float targetSpeed)
+	{
+		currentSpeedHorizontal  = Math.max(currentSpeedHorizontal - acceleration, targetSpeed);
+	}
+
+	private void computeVerticalSpeed()
+	{
+		float targetSpeed = calculateTargetSpeed(accelerator.getVerticalAcceleration());
 		if(targetSpeed > 0)
 		{
 			if(isNearUpperEdge())
 				slowDownForward();
 			else
 				accelerateForward(targetSpeed);
-				
+
 		}
 		else if(targetSpeed < 0)
 		{
@@ -57,19 +124,16 @@ public class InputShipEngine extends AbstractShipEngine
 			else if (currentSpeedVertical < 0)
 				slowDownBackward();
 		}
-		move();
-		
-		return calculateTurn();
 	}
 
-	private float calculateTargetSpeed() 
+	private float calculateTargetSpeed(float acceleration)
 	{
-		return accelerator.getVerticalAcceleration() * maxSpeed / 100;
+		return acceleration * maxSpeed / 100;
 	}
 
 	private boolean isNearUpperEdge() 
 	{
-		return Sizes.GAME_HEIGHT - Sizes.UPPER_MARGIN - ship.getY() <= brakeingWay(currentSpeedVertical);
+		return Sizes.GAME_HEIGHT - Sizes.UPPER_MARGIN - ship.getY() <= brakingWay(currentSpeedVertical);
 	}
 
 	private void slowDownForward() 
@@ -79,7 +143,7 @@ public class InputShipEngine extends AbstractShipEngine
 
 	private boolean isNearLowerEdge() 
 	{
-		return ship.getY() - Sizes.DOWN_MARGIN <= brakeingWay(-1 * currentSpeedVertical);
+		return ship.getY() - Sizes.DOWN_MARGIN <= brakingWay(-1 * currentSpeedVertical);
 	}
 
 	private void slowDownBackward() 
@@ -99,15 +163,22 @@ public class InputShipEngine extends AbstractShipEngine
 
 	private Turn calculateTurn() 
 	{
+		if(currentSpeedHorizontal > Consts.Gameplay.SHIP_TURN_THRESHOLD)
+			return Turn.RIGHT;
+
+		if(currentSpeedHorizontal < -1 * Consts.Gameplay.SHIP_TURN_THRESHOLD)
+			return Turn.LEFT;
+
 		return Turn.FRONT;
 	}
 
 	private void move() 
 	{
 		ship.setY(ship.getY() + currentSpeedVertical);
+		ship.setX(ship.getX() + currentSpeedHorizontal);
 	}
 
-	private float brakeingWay(float currentSpeed)
+	private float brakingWay(float currentSpeed)
 	{
 		float brakingWay = 0;
 		float tempSpeed = currentSpeed;

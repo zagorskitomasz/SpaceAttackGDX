@@ -28,6 +28,7 @@ public abstract class Ship extends DrawableActor implements IShip
 	private IPool hpPool;
 
 	private boolean isToKill;
+	private boolean exploded;
 
 	protected MissilesLauncher launcher;
 	private Launchable explosion;
@@ -217,6 +218,7 @@ public abstract class Ship extends DrawableActor implements IShip
 		if (launcher == null || explosion == null)
 			return;
 
+		exploded = true;
 		IActor actor = getActor();
 		explosion.getActor().setPosition(actor.getX(), actor.getY());
 		launcher.launch(explosion);
@@ -239,5 +241,11 @@ public abstract class Ship extends DrawableActor implements IShip
 	public void ignite(float burningDPS,long fireDuration)
 	{
 		burner.ignite(burningDPS, fireDuration);
+	}
+
+	@Override
+	public boolean exploded()
+	{
+		return exploded;
 	}
 }

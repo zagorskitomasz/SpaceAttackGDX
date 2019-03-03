@@ -174,4 +174,10 @@ enum GdxUtils implements IGdxUtils
 		Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
 		return new GdxLabel("", style);
 	}
+
+	@Override
+	public float getAccelerometrX()
+	{
+		return Gdx.input.getAccelerometerX();
+	}
 }

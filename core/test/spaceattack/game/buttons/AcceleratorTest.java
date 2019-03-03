@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.consts.Consts;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.IGameplayInput;
@@ -104,5 +105,32 @@ public class AcceleratorTest
 		
 		accelerator.act(0);
 		verify(button).release();
+	}
+
+	@Test
+	public void inputBelowThresholdIsZero()
+	{
+		doReturn(Consts.Metagame.ACCELEROMETR_THRESHOLD * 0.5f).when(processor).getAccelerometrX();
+
+		accelerator.act(0);
+		assertEquals(0f, accelerator.getHorizontalAcceleration(), 0);
+	}
+
+	@Test
+	public void inputOverLimitIsLimited()
+	{
+		doReturn(-1 * (Consts.Metagame.ACCELEROMETR_MAX + 1)).when(processor).getAccelerometrX();
+
+		accelerator.act(0);
+		assertEquals(100f, accelerator.getHorizontalAcceleration(), 0);
+	}
+
+	@Test
+	public void inputIsTransformed()
+	{
+		doReturn(Consts.Metagame.ACCELEROMETR_MAX * 0.3f).when(processor).getAccelerometrX();
+
+		accelerator.act(0);
+		assertEquals(-30f, accelerator.getHorizontalAcceleration(), 0);
 	}
 }

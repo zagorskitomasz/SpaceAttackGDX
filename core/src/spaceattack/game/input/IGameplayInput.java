@@ -14,4 +14,6 @@ public interface IGameplayInput extends IInputProcessor
 	public IVector getTouch();
 
 	public void setUtils(IUtils utils);
+
+    public float getAccelerometrX();
 }
