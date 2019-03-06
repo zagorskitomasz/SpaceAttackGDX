@@ -16,10 +16,14 @@ class BatchProxy implements IBatch
 	private Batch realBatch;
 	private ShapeRenderer renderer;
 
-	public BatchProxy(Batch batch)
+	public BatchProxy()
+	{
+		renderer = new ShapeRenderer();
+	}
+	
+	public void set(Batch batch)
 	{
 		realBatch = batch;
-		renderer = new ShapeRenderer();
 	}
 
 	@Override

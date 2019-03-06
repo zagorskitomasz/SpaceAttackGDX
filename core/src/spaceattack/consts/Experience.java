@@ -9,7 +9,8 @@ public class Experience
 			200,		// 2
 			500,		// 3
 			1000,		// 4
-			1700		// 5
+			1700,		// 5
+			2500		// 6
 	};
 	//@formatter:on
 }
