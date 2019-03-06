@@ -6,7 +6,7 @@ import spaceattack.game.utils.vector.IVector;
 
 public interface IProgressButton extends IActor
 {
-	public void setPercent(float percent);
+	public void setJoystickPosition(float percentX, float percentY);
 
 	public IVector screenToStageCoordinates(IVector touch);
 

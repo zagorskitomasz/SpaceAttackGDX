@@ -8,8 +8,8 @@ public enum AcceleratorFactory {
 
 	public Accelerator create() 
 	{
-		IProgressButton progressButton = Factories.getImageButtonsFactory().create(Textures.SPEED_BAR.getTexture(), Textures.LEVER.getTexture());
-		progressButton.setPosition(0, 0);
+		IProgressButton progressButton = Factories.getImageButtonsFactory().create(Textures.JOYSTICK_BG.getTexture(), Textures.JOYSTICK_HEAD.getTexture());
+		progressButton.setPosition(60, 80);
 
 		Accelerator accelerator = new Accelerator();
 		accelerator.setProgressButton(progressButton);

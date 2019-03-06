@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import spaceattack.consts.Consts;
+import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.IGameplayInput;
@@ -37,12 +37,13 @@ public class AcceleratorTest
 	@Before
 	public void setUp()
 	{
+		factory = ExtVectorFactory.INSTANCE;
+		Factories.setVectorFactory(factory);
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+		
 		accelerator = new Accelerator();
 		MockitoAnnotations.initMocks(this);
 		
-		factory = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(factory);
-
 		doReturn(0f).when(button).getX();
 		doReturn(0f).when(button).getY();
 		doReturn(100f).when(button).getWidth();
@@ -106,31 +107,46 @@ public class AcceleratorTest
 		accelerator.act(0);
 		verify(button).release();
 	}
-
+	
 	@Test
-	public void inputBelowThresholdIsZero()
+	public void touchedLeftPartOfButton()
 	{
-		doReturn(Consts.Metagame.ACCELEROMETR_THRESHOLD * 0.5f).when(processor).getAccelerometrX();
-
+		doReturn(vector).when(processor).getTouch();
+		doReturn(factory.create(25, 70)).when(button).screenToStageCoordinates(nullable(IVector.class));
+		
 		accelerator.act(0);
-		assertEquals(0f, accelerator.getHorizontalAcceleration(), 0);
+		assertEquals(-50, accelerator.getHorizontalAcceleration(), 0);
 	}
-
+	
 	@Test
-	public void inputOverLimitIsLimited()
+	public void keepingOutOfButton()
 	{
-		doReturn(-1 * (Consts.Metagame.ACCELEROMETR_MAX + 1)).when(processor).getAccelerometrX();
-
+		doReturn(vector).when(processor).getTouch();
+		doReturn(factory.create(140, 50)).when(button).screenToStageCoordinates(nullable(IVector.class));
+		doReturn(true).when(button).wasNotReleased();
+		
 		accelerator.act(0);
-		assertEquals(100f, accelerator.getHorizontalAcceleration(), 0);
+		assertEquals(100, accelerator.getHorizontalAcceleration(), 0);
 	}
-
+	
 	@Test
-	public void inputIsTransformed()
+	public void cornerIsNormalized()
 	{
-		doReturn(Consts.Metagame.ACCELEROMETR_MAX * 0.3f).when(processor).getAccelerometrX();
-
+		doReturn(vector).when(processor).getTouch();
+		doReturn(factory.create(0, 0)).when(button).screenToStageCoordinates(nullable(IVector.class));
+		
 		accelerator.act(0);
-		assertEquals(-30f, accelerator.getHorizontalAcceleration(), 0);
+		assertEquals(-71, accelerator.getHorizontalAcceleration(), 1);
+	}
+	
+	@Test
+	public void randomLongVectorsAreNormalized()
+	{
+		doReturn(vector).when(processor).getTouch();
+		doReturn(factory.create(95, 85)).when(button).screenToStageCoordinates(nullable(IVector.class));
+		
+		accelerator.act(0);
+		assertEquals(79, accelerator.getHorizontalAcceleration(), 1);
+		assertEquals(61, accelerator.getVerticalAcceleration(), 1);
 	}
 }

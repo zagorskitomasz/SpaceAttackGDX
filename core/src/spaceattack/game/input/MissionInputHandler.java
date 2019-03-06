@@ -67,10 +67,4 @@ public class MissionInputHandler implements IGameplayInput
 	{
 		return utils.getTouch();
 	}
-
-	@Override
-	public float getAccelerometrX()
-	{
-		return utils.getAccelerometrX();
-	}
 }
