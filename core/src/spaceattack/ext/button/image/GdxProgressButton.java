@@ -14,19 +14,19 @@ import spaceattack.game.utils.vector.IVector;
 public class GdxProgressButton extends Button implements IProgressButton
 {
 	private IGameActor gameActor;
-	private Texture slider;
-	private float maxSlide;
-	private float slidePercent;
+	private Texture joystick;
+	private float joystickX;
+	private float joystickY;
 	
 	private boolean keepTouch;
 	
-	public GdxProgressButton(Drawable background,Texture slider)
+	public GdxProgressButton(Drawable background,Texture joystick)
 	{
 		super(background);
-		this.slider = slider;
+		this.joystick = joystick;
 		
-		maxSlide = getHeight() - slider.getHeight();
-		slidePercent = 50;
+		joystickX = 0;
+		joystickY = 0;
 	}
 
 	@Override
@@ -36,16 +36,17 @@ public class GdxProgressButton extends Button implements IProgressButton
 	}
 	
 	@Override 
-	public void setPercent(float percent)
+	public void setJoystickPosition(float x, float y)
 	{
-		slidePercent = percent;
+		joystickX = x;
+		joystickY = y;
 	}
 	
 	@Override
 	public void draw(Batch batch,float alpha)
 	{
 		super.draw(batch, alpha);
-		batch.draw(slider, getX(), getY() + slidePercent * maxSlide / 100);
+		batch.draw(joystick, joystickX - joystick.getWidth() / 2, joystickY - joystick.getHeight() / 2);
 	}
 
 	@Override

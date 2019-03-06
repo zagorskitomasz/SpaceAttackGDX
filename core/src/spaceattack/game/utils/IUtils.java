@@ -46,6 +46,4 @@ public interface IUtils
 	public ILabel createBarLabel();
 
 	public IVector getTouch();
-
-    public float getAccelerometrX();
 }

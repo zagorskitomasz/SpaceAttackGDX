@@ -1,22 +1,26 @@
 package spaceattack.game.buttons;
 
-import spaceattack.consts.Consts;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.batch.IBatch;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.input.IGameplayInput;
+import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;
+import spaceattack.game.utils.vector.IVectorFactory;
 
 public class Accelerator implements IGameActor, IAccelerator 
 {
+	private IVectorFactory factory;
 	private IProgressButton button;
 	private IGameplayInput processor;
-	private float acceleratorControlPercent;
-	private float acceleratorXAxis;
+	private float acceleratorYPercent;
+	private float acceleratorXPercent;
+	private IVector center;
 	
 	public Accelerator() 
 	{
-		acceleratorControlPercent = 50;
+		factory = Factories.getVectorFactory();
 	}
 	
 	@Override
@@ -28,6 +32,7 @@ public class Accelerator implements IGameActor, IAccelerator
 	public void setProgressButton(IProgressButton progressButton) 
 	{
 		button = progressButton;
+		center = factory.create(0, 0);
 	}
 
 	public void setInputProcessor(IGameplayInput processor) 
@@ -38,24 +43,43 @@ public class Accelerator implements IGameActor, IAccelerator
 	@Override
 	public void act(float delta) 
 	{
-		acceleratorXAxis = processor.getAccelerometrX();
 		IVector touch = processor.getTouch();
 		if(touch == null)
 		{
-			acceleratorControlPercent = 50;
+			acceleratorYPercent = 0;
+			acceleratorXPercent = 0;
 			button.release();
 		}
 		else
 		{
 			IVector screenTouch = button.screenToStageCoordinates(touch);
-			if(isButtonPressed(screenTouch))
-				acceleratorControlPercent = (screenTouch.getY() - button.getY()) * 100 / button.getHeight();
-			else if(button.wasNotReleased())
-				acceleratorControlPercent = screenTouch.getY() <= button.getY() ? 0 : 100;
+			if(isButtonPressed(screenTouch) || button.wasNotReleased())
+			{
+				acceleratorYPercent = ((screenTouch.getY() - button.getY()) * 100 / button.getHeight()) * 2 - 100;
+				acceleratorXPercent = ((screenTouch.getX() - button.getX()) * 100 / button.getWidth()) * 2 - 100;
+				normalize();
+			}
 			else
-				acceleratorControlPercent = 50;
+			{
+				acceleratorYPercent = 0;
+				acceleratorXPercent = 0;
+			}
 		}
-		button.setPercent(acceleratorControlPercent);
+		float buttonX = (acceleratorXPercent * button.getWidth()) / 200 + button.getX() + button.getWidth() / 2;
+		float buttonY = (acceleratorYPercent * button.getHeight()) / 200 + button.getY() + button.getHeight() / 2;
+		button.setJoystickPosition(buttonX, buttonY);
+	}
+
+	private void normalize() 
+	{
+		double vectorLength = NumbersUtils.distance(center,factory.create(acceleratorXPercent, acceleratorYPercent));
+		
+		if(vectorLength > 100)
+		{
+			double factor = vectorLength / 100;
+			acceleratorXPercent /= factor;
+			acceleratorYPercent /= factor;
+		}
 	}
 
 	private boolean isButtonPressed(IVector screenTouch) 
@@ -71,24 +95,13 @@ public class Accelerator implements IGameActor, IAccelerator
 	@Override
 	public float getVerticalAcceleration()
 	{
-		return acceleratorControlPercent * 2 - 100;
+		return acceleratorYPercent;
 	}
 
 	@Override
 	public float getHorizontalAcceleration()
 	{
-		if(Math.abs(acceleratorXAxis) < Consts.Metagame.ACCELEROMETR_THRESHOLD)
-			return 0;
-
-		float turnPercent = acceleratorXAxis * 100 / Consts.Metagame.ACCELEROMETR_MAX * -1;
-
-		if(turnPercent < -100)
-			return -100;
-
-		if(turnPercent > 100)
-			return 100;
-
-		return turnPercent;
+		return acceleratorXPercent;
 	}
 
 	@Override

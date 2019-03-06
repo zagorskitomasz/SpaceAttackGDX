@@ -26,8 +26,8 @@ public enum Textures
 	YELLOW_BUTTON_DOWN("graphics/gui/yellowPressed.png"),
 	FIRE_BUTTON_DISABLED("graphics/gui/disabled.png"),
 	COCKPIT_PANEL("graphics/gui/cockpitPanel.png"),
-	SPEED_BAR("graphics/gui/speedBar.png"),
-	LEVER("graphics/gui/lever.png"),
+	JOYSTICK_BG("graphics/gui/joystickBg.png"),
+	JOYSTICK_HEAD("graphics/gui/joystickHead.png"),
 	
 	HP_ENE_BAR("graphics/gui/barHp.png"),
 	EXP_BAR("graphics/gui/barExp.png"),

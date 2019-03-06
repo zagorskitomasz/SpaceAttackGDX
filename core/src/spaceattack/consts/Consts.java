@@ -11,8 +11,6 @@ public class Consts
 		public static final int MISSIONS_IN_ACT = 3;
 		public static final int ACTS_NUMBER = 3;
 		public static final int FPS = 20;
-        public static final float ACCELEROMETR_THRESHOLD = 0.4f;
-		public static final float ACCELEROMETR_MAX = 5f;
 	}
 
 	public static class Weapons
