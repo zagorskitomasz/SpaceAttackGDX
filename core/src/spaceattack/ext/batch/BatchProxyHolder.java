@@ -8,7 +8,12 @@ public enum BatchProxyHolder
 {
 	INSTANCE;
 
-	private IBatch batchProxy;
+	private BatchProxy batchProxy;
+	
+	BatchProxyHolder()
+	{
+		batchProxy = new BatchProxy();
+	}
 
 	public IBatch get()
 	{
@@ -17,6 +22,6 @@ public enum BatchProxyHolder
 
 	public void set(Batch batch)
 	{
-		batchProxy = new BatchProxy(batch);
+		batchProxy.set(batch);
 	}
 }
