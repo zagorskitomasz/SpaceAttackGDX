@@ -66,6 +66,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		{
 			gameProgress = progress;
 			stage = new GameplayStage();
+			setMissionNumber();
 			buildStage();
 			return stage;
 		}
@@ -214,5 +215,10 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		stage.addActor(expBar);
 		stage.addActor(hpEnergyBar);
 		stage.addActor(enemyBase);
+	}
+
+	public void setMissionNumber() {
+		// TODO Auto-generated method stub
+		
 	}
 }

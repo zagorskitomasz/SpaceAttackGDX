@@ -11,4 +11,10 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory
 	{
 		return FighterShipBuilder.INSTANCE.build(stage);
 	}
+
+	@Override
+	public IEnemyShip createChaser(GameplayStage stage) 
+	{
+		return ChaserShipBuilder.INSTANCE.build(stage);
+	}
 }

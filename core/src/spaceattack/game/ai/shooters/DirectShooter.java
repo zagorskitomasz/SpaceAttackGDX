@@ -1,16 +1,27 @@
 package spaceattack.game.ai.shooters;
 
+import java.util.List;
+
+import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.utils.vector.IVector;
 
 public class DirectShooter extends AbstractShooter
 {
-	boolean canPrimary;
-	boolean canSecondary;
+	private boolean canPrimary;
+	private boolean canSecondary;
 
-	IVector playerPosition;
-	IVector primaryWeaponPlacement;
-	IVector secondaryWeaponPlacement;
+	private IVector playerPosition;
+	private IVector primaryWeaponPlacement;
+	private IVector secondaryWeaponPlacement;
+	
+	private List<? extends RadarVisible> friends;
 
+	@Override
+	public void setFriends(List<? extends RadarVisible> friends)
+	{
+		this.friends = friends;
+	}
+	
 	@Override
 	public ShooterType getType()
 	{
@@ -47,7 +58,23 @@ public class DirectShooter extends AbstractShooter
 
 	private boolean inHorizontalRange(float ownerX,float weaponRadius)
 	{
+		return isTargetBelow(ownerX, weaponRadius) && !isFriendBetweenOwnerAndTarget(ownerX, weaponRadius);
+	}
+
+	private boolean isTargetBelow(float ownerX, float weaponRadius) 
+	{
 		return Math.abs(playerPosition.getX() - ownerX) < playerShip.getRadius() + weaponRadius;
+	}
+
+	private boolean isFriendBetweenOwnerAndTarget(float ownerX,float weaponRadius) 
+	{
+		return friends //
+				.stream() //
+				.filter(friend -> Math.abs(ownerX - friend.getX()) <= friend.getRadius() + weaponRadius) //
+				.filter(friend -> friend.getY() < owner.getY()) //
+				.filter(friend -> friend.getY() > playerShip.getY()) //
+				.findAny() //
+				.isPresent();
 	}
 
 	private void checkVertical()

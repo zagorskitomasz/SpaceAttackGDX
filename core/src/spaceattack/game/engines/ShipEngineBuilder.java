@@ -14,10 +14,10 @@ public enum ShipEngineBuilder
 	{
 		IEngine engine = new DestinationShipEngine(ship, Factories.getUtilsFactory().create());
 
-		engine.setBaseSpeed(1f * Sizes.RADIUS_FACTOR);
-		engine.setAcceleration(1f * Sizes.RADIUS_FACTOR);
+		engine.setBaseSpeed(3f * Sizes.RADIUS_FACTOR);
+		engine.setAcceleration(3f * Sizes.RADIUS_FACTOR);
 		engine.setBraking(1f * Sizes.RADIUS_FACTOR);
-		engine.setAgility(2f * Sizes.RADIUS_FACTOR);
+		engine.setAgility(3f * Sizes.RADIUS_FACTOR);
 
 		return engine;
 	}

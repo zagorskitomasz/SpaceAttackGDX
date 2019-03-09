@@ -1,5 +1,7 @@
 package spaceattack.game.ai;
 
+import java.util.List;
+
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.ai.shooters.ShooterType;
@@ -7,11 +9,13 @@ import spaceattack.game.ships.enemy.IEnemyShip;
 
 public interface ShooterAI
 {
-	public ShooterType getType();
+	ShooterType getType();
 
-	public void setPlayerShip(RadarVisible playerShip);
+	void setPlayerShip(RadarVisible playerShip);
 
-	public void setOwner(IEnemyShip fighter);
+	void setOwner(IEnemyShip fighter);
 
-	public PossibleAttacks checkShot();
+	PossibleAttacks checkShot();
+
+	void setFriends(List<? extends RadarVisible> friends);
 }

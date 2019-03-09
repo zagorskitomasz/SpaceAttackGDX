@@ -12,47 +12,50 @@ import spaceattack.game.weapons.AIWeaponController;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.greenLaser.GreenLaserBuilder;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 
-public enum FighterShipBuilder
+public enum ChaserShipBuilder 
 {
 	INSTANCE;
 
 	public IEnemyShip build(GameplayStage stage)
 	{
-		IEnemyShip fighter = new BaseEnemyShip();
+		IEnemyShip chaser = new BaseEnemyShip();
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
+		IWeapon greenLaser = GreenLaserBuilder.INSTANCE.build(controller, launcher);
 		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
-		IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(fighter);
+		IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(chaser);
 		Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 
-		Burner burner = BurnerBuilder.INSTANCE.build(fighter);
+		Burner burner = BurnerBuilder.INSTANCE.build(chaser);
 
-		IPool energyPool = new Pool(20, 10, 10, 2);
-		IPool hpPool = new HpPool(50, 10, 5, 1);
+		IPool energyPool = new Pool(30, 15, 10, 2);
+		IPool hpPool = new HpPool(30, 6, 5, 1);
 
 		controller.setPrimaryWeapon(redLaser);
-		controller.setSecondaryWeapon(redLaser);
-		controller.setShip(fighter);
+		controller.setSecondaryWeapon(greenLaser);
+		controller.setShip(chaser);
 
-		fighter.setActor(Factories.getActorFactory().create(fighter));
-		fighter.setTexture(Textures.FIGHTER1.getTexture());
-		fighter.setShipEngine(engine);
-		fighter.addWeapon(redLaser);
-		fighter.setEnergyPool(energyPool);
-		fighter.setHpPool(hpPool);
-		fighter.setLevel(stage.getCurrentMission() * 2);
-		fighter.setWeaponController(controller);
-		fighter.setMissilesLauncher(launcher);
-		fighter.setExplosion(explosion);
-		fighter.setBar(new EnemyBar(fighter));
-		fighter.setBurner(burner);
+		chaser.setActor(Factories.getActorFactory().create(chaser));
+		chaser.setTexture(Textures.CHASER1.getTexture());
+		chaser.setShipEngine(engine);
+		chaser.addWeapon(redLaser);
+		chaser.addWeapon(greenLaser);
+		chaser.setEnergyPool(energyPool);
+		chaser.setHpPool(hpPool);
+		chaser.setLevel(stage.getCurrentMission() * 2);
+		chaser.setWeaponController(controller);
+		chaser.setMissilesLauncher(launcher);
+		chaser.setExplosion(explosion);
+		chaser.setBar(new EnemyBar(chaser));
+		chaser.setBurner(burner);
 
-		return fighter;
+		return chaser;
 	}
 }
