@@ -36,10 +36,12 @@ public class EnemyBase extends InvisibleActor
 	private IWeaponController controller;
 
 	private FrameController fighterTimer;
+	private FrameController chaserTimer;
 
 	public EnemyBase(IUtils utils)
 	{
 		fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, 3000);
+		chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, 10000);
 	}
 
 	public void setStage(GameplayStage stage)
@@ -82,6 +84,9 @@ public class EnemyBase extends InvisibleActor
 	{
 		if (fighterTimer.check())
 			addFighter();
+
+		if (chaserTimer.check())
+			addChaser();
 	}
 
 	private void addFighter()
@@ -100,6 +105,27 @@ public class EnemyBase extends InvisibleActor
 		fighter.setPowerUp(powerUp);
 
 		stage.addActorBeforeGUI(fighter);
+	}
+
+	private void addChaser()
+	{
+		updateRadar();
+
+		IEnemyShip chaser = shipsFactory.createChaser(stage);
+
+		MoverAI mover = MoverType.FRONT_CHASER.create();
+		ShooterAI shooter = createDirectShooter(chaser);
+		IPowerUp powerUp = choosePowerUp(chaser);
+
+		mover.setPlayerShip(playerShip);
+		mover.setOwner(chaser);
+		
+		chaser.setPlayerShip(radar.getPlayerShip());
+		chaser.setMover(mover);
+		chaser.setShooter(shooter);
+		chaser.setPowerUp(powerUp);
+
+		stage.addActorBeforeGUI(chaser);
 	}
 
 	private MoverAI chooseMover(IEnemyShip fighter)
@@ -169,14 +195,14 @@ public class EnemyBase extends InvisibleActor
 
 	private ShooterAI chooseShooter(IEnemyShip fighter)
 	{
-		ShooterAI shooter = null;
+		return createDirectShooter(fighter);
+	}
 
-		if (enemyShips.isEmpty())
-			shooter = new DirectShooter();
-
-		// for tests
+	private ShooterAI createDirectShooter(IEnemyShip fighter) {
+		ShooterAI shooter;
 		shooter = new DirectShooter();
 
+		shooter.setFriends(enemyShips);
 		shooter.setPlayerShip(playerShip);
 		shooter.setOwner(fighter);
 

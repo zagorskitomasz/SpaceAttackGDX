@@ -33,7 +33,11 @@ public class DestinationShipEngine extends AbstractShipEngine
 		{
 			lock.lock();
 
-			if (this.destination == null || isDestinationReached())
+			if(this.destination != null && this.nextDestination != null)
+			{
+				return;
+			}
+			else if (this.destination == null || isDestinationReached())
 			{
 				this.destination = destination;
 			}
@@ -52,7 +56,7 @@ public class DestinationShipEngine extends AbstractShipEngine
 	@Override
 	public boolean isDestinationReached()
 	{
-		return ship.getX() == destination.getX() && ship.getY() == destination.getY();
+		return ship != null && destination != null && ship.getX() == destination.getX() && ship.getY() == destination.getY();
 	}
 
 	@Override

@@ -38,6 +38,8 @@ public enum Textures
 	PLAYER_SHIP_L("graphics/ships/player/form1L.png"),
 
 	FIGHTER1("graphics/ships/fighter/form1.png"),
+
+	CHASER1("graphics/ships/chaser/form1.png"),
 	
 	// weapons
 	RED_LASER("graphics/weapons/laserNS.png"),

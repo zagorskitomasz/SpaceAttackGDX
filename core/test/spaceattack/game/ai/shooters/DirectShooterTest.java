@@ -3,6 +3,9 @@ package spaceattack.game.ai.shooters;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -22,6 +25,7 @@ public class DirectShooterTest
 	private ShooterAI shooter;
 
 	private FakeShip playerShip;
+	private List<FakeShip> friends;
 	private IVectorFactory vectors;
 
 	@Mock
@@ -41,8 +45,11 @@ public class DirectShooterTest
 		doReturn(controller).when(owner).getWeaponController();
 		doReturn(vectors.create(105, 400)).when(controller).getPrimaryWeaponUsePlacement();
 		doReturn(vectors.create(105, 400)).when(controller).getSecondaryWeaponUsePlacement();
+		doReturn(105f).when(owner).getX();
+		doReturn(400f).when(owner).getY();
 
 		playerShip = new FakeShip();
+		friends = new LinkedList<>();
 
 		playerShip.setX(100);
 		playerShip.setY(200);
@@ -51,6 +58,7 @@ public class DirectShooterTest
 		shooter = new DirectShooter();
 		shooter.setPlayerShip(playerShip);
 		shooter.setOwner(owner);
+		shooter.setFriends(friends);
 	}
 
 	@Test
@@ -79,5 +87,27 @@ public class DirectShooterTest
 		doReturn(vectors.create(105, 100)).when(controller).getSecondaryWeaponUsePlacement();
 
 		assertEquals(PossibleAttacks.PRIMARY, shooter.checkShot());
+	}
+	
+	@Test
+	public void dontShootAboveFriend()
+	{
+		FakeShip friend = new FakeShip();
+		friend.setX(105);
+		friend.setY(300);
+		friends.add(friend);
+		
+		assertEquals(PossibleAttacks.NONE, shooter.checkShot());
+	}
+	
+	@Test
+	public void shootIfTargetBetweenOwnerAndFriend()
+	{
+		FakeShip friend = new FakeShip();
+		friend.setX(105);
+		friend.setY(100);
+		friends.add(friend);
+		
+		assertEquals(PossibleAttacks.BOTH, shooter.checkShot());
 	}
 }

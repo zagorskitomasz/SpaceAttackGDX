@@ -20,6 +20,7 @@ import spaceattack.game.weapons.MissilesLauncher;
 
 public class GameplayStage extends AbstractStage implements IObserver<GameProgress>
 {
+	private int currentMission;
 	private boolean gameOver;
 	private boolean won;
 
@@ -158,5 +159,15 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 	public MissilesLauncher getMissilesLauncher()
 	{
 		return missilesLauncher;
+	}
+	
+	public void setCurrentMission(int mission)
+	{
+		currentMission = mission;
+	}
+
+	public int getCurrentMission() 
+	{
+		return currentMission;
 	}
 }
