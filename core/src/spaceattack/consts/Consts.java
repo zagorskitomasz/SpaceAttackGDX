@@ -62,6 +62,7 @@ public class Consts
 	{
 		public static final float FIGHTERS_PER_SECOND = 0.1f;
 		public static final float CHASERS_PER_SECOND = 0.07f;
+		public static final float TANKS_PER_SECOND = 0.05f;
 
 		public static final double FIGHTER_POWER_UP_CHANCE = 0.6;
 		public static final double FIGHTER_HP_UP_CHANCE = 0.3;

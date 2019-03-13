@@ -39,7 +39,7 @@ public class RocketMissile extends AbstractWeapon
 		ExplosiveMissile missile = new ExplosiveMissile();
 
 		missile.setActor(Factories.getActorFactory().create(missile));
-		missile.setTexture(Textures.ROCKET_MISSILE.getTexture());
+		missile.setTexture(controller.isPlayer() ? Textures.ROCKET_MISSILE_P.getTexture() : Textures.ROCKET_MISSILE_E.getTexture());
 		missile.setDmg(0);
 		missile.setSpeed(2 * Sizes.Y_FACTOR);
 		missile.setAcceleration(0.2f * Sizes.Y_FACTOR);
@@ -49,6 +49,7 @@ public class RocketMissile extends AbstractWeapon
 		missile.setSound(Sounds.ROCKET_MISSILE);
 		missile.setExplosion(ExplosionsBuilder.INSTANCE.createMissileExplosion(level));
 		missile.setMissilesLauncher(launcher);
+		missile.setPlayersAttack(controller.isPlayer());
 
 		return missile;
 	}

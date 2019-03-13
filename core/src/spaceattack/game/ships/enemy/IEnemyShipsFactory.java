@@ -4,7 +4,11 @@ import spaceattack.game.stages.impl.GameplayStage;
 
 public interface IEnemyShipsFactory
 {
-	public IEnemyShip createFighter(GameplayStage stage);
+	IEnemyShip createFighter(GameplayStage stage);
 
-	public IEnemyShip createChaser(GameplayStage stage);
+	IEnemyShip createChaser(GameplayStage stage);
+
+	IEnemyShip createTank(GameplayStage stage);
+
+	IEnemyShip createSuperTank(GameplayStage stage);
 }

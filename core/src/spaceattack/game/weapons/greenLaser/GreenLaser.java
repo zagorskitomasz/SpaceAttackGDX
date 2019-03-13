@@ -35,6 +35,7 @@ public class GreenLaser extends Laser
 		missile.setMovement(controller.getWeaponMovement());
 		missile.setPosition(controller.getSecondaryWeaponUsePlacement());
 		missile.setSound(Sounds.TURBO_LASER);
+		missile.setPlayersAttack(controller.isPlayer());
 
 		return missile;
 	}

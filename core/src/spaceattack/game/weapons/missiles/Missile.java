@@ -5,6 +5,8 @@ import java.util.List;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.interfaces.Killable;
 import spaceattack.game.actors.interfaces.Vulnerable;
+import spaceattack.game.ships.enemy.IEnemyShip;
+import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 
@@ -34,9 +36,14 @@ public class Missile extends AbstractMissile implements Killable
 
 		for (IGameActor actor : actors)
 		{
-			if (actor instanceof Vulnerable)
+			if (actor instanceof Vulnerable && differentFraction(actor))
 				collision((Vulnerable) actor);
 		}
+	}
+
+	private boolean differentFraction(IGameActor actor) 
+	{
+		return (isPlayersAttack && actor instanceof IEnemyShip) || (!isPlayersAttack && actor instanceof PlayerShip);
 	}
 
 	private void move()

@@ -34,14 +34,18 @@ public class EnemyBase extends InvisibleActor
 	private IPool energyPool;
 	private ComplexFireButton fireButton;
 	private IWeaponController controller;
+	
+	private int tanksPool;
 
 	private FrameController fighterTimer;
 	private FrameController chaserTimer;
+	private FrameController tankTimer;
 
 	public EnemyBase(IUtils utils)
 	{
 		fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, 3000);
 		chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, 10000);
+		tankTimer = new FrameController(utils, Consts.AI.TANKS_PER_SECOND, 23000);
 	}
 
 	public void setStage(GameplayStage stage)
@@ -78,6 +82,11 @@ public class EnemyBase extends InvisibleActor
 	{
 		this.controller = controller;
 	}
+	
+	public void setTanksPool(int pool)
+	{
+		tanksPool = pool;
+	}
 
 	@Override
 	public void act(float delta)
@@ -87,6 +96,9 @@ public class EnemyBase extends InvisibleActor
 
 		if (chaserTimer.check())
 			addChaser();
+
+		if (tankTimer.check())
+			addTank();
 	}
 
 	private void addFighter()
@@ -126,6 +138,40 @@ public class EnemyBase extends InvisibleActor
 		chaser.setPowerUp(powerUp);
 
 		stage.addActorBeforeGUI(chaser);
+	}
+
+	private void addTank()
+	{
+		updateRadar();
+
+		IEnemyShip tank = createTank();
+
+		MoverAI mover = MoverType.SLOW_DOWNER.create();
+		ShooterAI shooter = createDirectShooter(tank);
+		IPowerUp powerUp = choosePowerUp(tank);
+
+		mover.setPlayerShip(playerShip);
+		mover.setOwner(tank);
+		
+		tank.setPlayerShip(radar.getPlayerShip());
+		tank.setMover(mover);
+		tank.setShooter(shooter);
+		tank.setPowerUp(powerUp);
+
+		stage.addActorBeforeGUI(tank);
+	}
+
+	private IEnemyShip createTank() 
+	{
+		IEnemyShip tank;
+		
+		if(tanksPool > 1)
+			tank = shipsFactory.createTank(stage);
+		else
+			tank = shipsFactory.createSuperTank(stage);
+		
+		tanksPool--;
+		return tank;
 	}
 
 	private MoverAI chooseMover(IEnemyShip fighter)

@@ -68,9 +68,11 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 			stage = new GameplayStage();
 			setMissionNumber();
 			buildStage();
+			setTanks(enemyBase);
 			return stage;
 		}
 	}
+	protected abstract void setTanks(EnemyBase enemyBase);
 
 	protected void buildStage()
 	{
@@ -189,6 +191,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		ILabel levelUpILabel = Factories.getUtilsFactory().create().createTimeLabel("LEVEL UP!", 0xdaa520ff);
 		TimeLabel levelUpLabel = new TimeLabel();
 		levelUpLabel.setLabel(levelUpILabel);
+		levelUpILabel.setPosition((Sizes.GAME_WIDTH - levelUpILabel.getWidth() * Sizes.X_FACTOR) * 0.5f, Sizes.GAME_HEIGHT * 0.4f);
 
 		ILabel failedILabel = Factories.getUtilsFactory().create().createTimeLabel("MISSION\nFAILED!", 0xff0000ff);
 		TimeLabel failedLabel = new TimeLabel();
