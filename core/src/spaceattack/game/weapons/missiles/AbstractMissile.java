@@ -15,6 +15,7 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
 	private boolean isToKill;
 	private Sounds sound;
 	private float radius;
+	protected boolean isPlayersAttack;
 
 	protected boolean checkCollision(Vulnerable vulnerable)
 	{
@@ -71,5 +72,10 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
 			getActor().setX(position.getX());
 			getActor().setY(position.getY());
 		}
+	}
+	
+	public void setPlayersAttack(boolean isPlayer)
+	{
+		isPlayersAttack = isPlayer;
 	}
 }

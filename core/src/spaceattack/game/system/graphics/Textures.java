@@ -40,11 +40,14 @@ public enum Textures
 	FIGHTER1("graphics/ships/fighter/form1.png"),
 
 	CHASER1("graphics/ships/chaser/form1.png"),
+
+	TANK1("graphics/ships/tank/form1.png"),
 	
 	// weapons
 	RED_LASER("graphics/weapons/laserNS.png"),
 	TURBO_LASER("graphics/weapons/turbo.png"), 
-	ROCKET_MISSILE("graphics/weapons/missileP.png"), 
+	ROCKET_MISSILE_P("graphics/weapons/missileP.png"), 
+	ROCKET_MISSILE_E("graphics/weapons/missileE.png"), 
 	
 	// power ups
 	HP_POWER_UP("graphics/powerups/hpPU.png"),

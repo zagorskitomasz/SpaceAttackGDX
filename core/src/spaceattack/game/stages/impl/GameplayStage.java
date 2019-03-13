@@ -12,6 +12,7 @@ import spaceattack.game.actors.interfaces.RequiredOnStage;
 import spaceattack.game.input.IInputProcessor;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.enemy.IEnemyShip;
+import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.AbstractStage;
 import spaceattack.game.stages.Stages;
@@ -93,12 +94,26 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 			{
 				actorsToKill.add(actor);
 				if (actor instanceof RequiredOnStage)
-					lose();
+					finishMission(actor);
 				if (actor instanceof IEnemyShip && ((IEnemyShip)actor).exploded())
 					getGameProgress().addExperience((long) ((IShip) actor).getHpPool().getMaxAmount());
 			}
 		});
 		actorsToKill.forEach(actor->stage.removeActor(actor));
+	}
+
+	private void finishMission(IGameActor actor) 
+	{
+		if(actor instanceof PlayerShip)
+			lose();
+		else
+			win();
+	}
+
+	private void win() 
+	{
+		gameOver = true;
+		won = true;
 	}
 
 	void lose()

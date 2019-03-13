@@ -7,7 +7,8 @@ public enum MoverType
 	DIRECT_CHASER(DirectChaser.class), //
 	LEFT_SIDE_CHASER(LeftSideChaser.class), //
 	RIGHT_SIDE_CHASER(RightSideChaser.class), // 
-	FRONT_CHASER(FrontChaser.class);
+	FRONT_CHASER(FrontChaser.class), //
+	SLOW_DOWNER(SlowDowner.class);
 
 	private Class<? extends MoverAI> type;
 

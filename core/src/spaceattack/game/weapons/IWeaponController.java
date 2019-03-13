@@ -27,4 +27,6 @@ public interface IWeaponController
 	public float getSecondaryWeaponRadius();
 
 	public void performAttack(PossibleAttacks possibleAttack);
+
+	public boolean isPlayer();
 }

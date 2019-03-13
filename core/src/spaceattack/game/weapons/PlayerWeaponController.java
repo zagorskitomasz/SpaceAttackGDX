@@ -53,4 +53,10 @@ public class PlayerWeaponController extends AbstractWeaponController
 	{
 		// do nothing
 	}
+
+	@Override
+	public boolean isPlayer() 
+	{
+		return true;
+	}
 }

@@ -1,5 +1,6 @@
 package spaceattack.game.stages.impl;
 
+import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
@@ -17,5 +18,11 @@ public class Mission1StageBuilder extends GameplayStageBuilder
 	{
 		StaticImage background = StaticImageFactory.INSTANCE.create(Textures.M1_BACKGROUND.getTexture(), 0, 0);
 		stage.addBackground(background);
+	}
+
+	@Override
+	protected void setTanks(EnemyBase enemyBase) 
+	{
+		enemyBase.setTanksPool(10);
 	}
 }

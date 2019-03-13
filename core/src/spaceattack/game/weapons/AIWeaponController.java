@@ -50,4 +50,10 @@ public class AIWeaponController extends AbstractWeaponController
 	{
 		return weapon.use();
 	}
+
+	@Override
+	public boolean isPlayer() 
+	{
+		return false;
+	}
 }

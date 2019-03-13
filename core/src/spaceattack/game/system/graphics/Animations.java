@@ -10,6 +10,7 @@ public enum Animations
 	FIGHTER_EX("graphics/animations/fighterEx.atlas",false,10),
 	BOSS_EX("graphics/animations/bossEx.atlas",false,10),
 	MISSILE_EX("graphics/animations/missileEx.atlas",false,10),
+	TANK_EX("graphics/animations/tankEx.atlas",false,10),
 	FIRE("graphics/animations/fire.atlas",true,10);
 	//@formatter:on
 
