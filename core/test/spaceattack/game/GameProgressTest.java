@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import spaceattack.consts.Experience;
-import spaceattack.game.GameProgress;
 import spaceattack.game.system.notifiers.IObserver;
 
 public class GameProgressTest
@@ -69,5 +68,23 @@ public class GameProgressTest
 	{
 		GameProgress otherProgress = progress.clone();
 		assertEquals(progress, otherProgress);
+	}
+	
+	@Test
+	public void notifingAboutMissionCompletionUpdatesState()
+	{
+		progress.setMission(2);
+		progress.missionCompleted(3);
+		
+		assertEquals(4, (int)progress.getMission());
+	}
+	
+	@Test
+	public void notifingAboutCompletionOfAlreadyCompletedMissionDoesntChangeState()
+	{
+		progress.setMission(4);
+		progress.missionCompleted(3);
+		
+		assertEquals(4, (int)progress.getMission());
 	}
 }

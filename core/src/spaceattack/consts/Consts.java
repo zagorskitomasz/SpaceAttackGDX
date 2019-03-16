@@ -16,6 +16,7 @@ public class Consts
 	public static class Weapons
 	{
 		public static final int LASER_ATTACKS_PER_SECOND = 4;
+		public static final int ROCKET_ATTACKS_PER_SECOND = 1;
 
 		public static final float RED_LASER_BASE_DMG = 10;
 		public static final float RED_LASER_DMG_PER_LEVEL = 3;
@@ -61,8 +62,8 @@ public class Consts
 	public static class AI
 	{
 		public static final float FIGHTERS_PER_SECOND = 0.1f;
-		public static final float CHASERS_PER_SECOND = 0.07f;
-		public static final float TANKS_PER_SECOND = 0.05f;
+		public static final float CHASERS_PER_SECOND = 0.06f;
+		public static final float TANKS_PER_SECOND = 0.03f;
 
 		public static final double FIGHTER_POWER_UP_CHANCE = 0.6;
 		public static final double FIGHTER_HP_UP_CHANCE = 0.3;

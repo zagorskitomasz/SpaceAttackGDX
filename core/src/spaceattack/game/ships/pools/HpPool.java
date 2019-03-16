@@ -1,7 +1,5 @@
 package spaceattack.game.ships.pools;
 
-import spaceattack.game.ships.pools.Pool;
-
 public class HpPool extends Pool
 {
 	public HpPool(float baseAmount,float increasePerLevel,float baseRegen,float regenPerLevel)

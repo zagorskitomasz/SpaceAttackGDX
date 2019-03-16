@@ -9,7 +9,7 @@ public abstract class AbstractWeapon implements IWeapon
 {
 	@SuppressWarnings("unused")
 	private IUtils utils;
-	private FrameController frameController;
+	protected FrameController frameController;
 	protected IWeaponController controller;
 	protected MissilesLauncher launcher;
 

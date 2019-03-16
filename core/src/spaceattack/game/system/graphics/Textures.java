@@ -16,6 +16,7 @@ public enum Textures
 	// backgrounds	
 	MENU_BACKGROUND("graphics/menuBackground.jpg"),
 	M1_BACKGROUND("graphics/m1Background.jpg"),
+	M2_BACKGROUND("graphics/m2Background.jpg"),
 	
 	// UI
 	RED_BUTTON_UP("graphics/gui/redActive.png"),

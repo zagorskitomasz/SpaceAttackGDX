@@ -5,6 +5,7 @@ import spaceattack.consts.Sizes;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.Sounds;
+import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.AbstractWeapon;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.missiles.ExplosiveMissile;
@@ -17,7 +18,7 @@ public class RocketMissile extends AbstractWeapon
 	@Override
 	public float getWeaponsMovementFactor()
 	{
-		return 1f;
+		return 0.7f;
 	}
 
 	@Override
@@ -31,6 +32,13 @@ public class RocketMissile extends AbstractWeapon
 	{
 		this.level = level;
 		energyCost = Consts.Weapons.ROCKET_BASE_COST + (level - 1) * Consts.Weapons.ROCKET_COST_PER_LEVEL;
+	}
+	
+	@Override
+	public void setUtils(IUtils utils)
+	{
+		super.setUtils(utils);
+		frameController.reset(Consts.Weapons.ROCKET_ATTACKS_PER_SECOND);
 	}
 
 	@Override

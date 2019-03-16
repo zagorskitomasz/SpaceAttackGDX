@@ -40,6 +40,9 @@ public class EnemyBase extends InvisibleActor
 	private FrameController fighterTimer;
 	private FrameController chaserTimer;
 	private FrameController tankTimer;
+	
+	private IEnemyShip boss;
+	private boolean isBossOnField;
 
 	public EnemyBase(IUtils utils)
 	{
@@ -87,6 +90,11 @@ public class EnemyBase extends InvisibleActor
 	{
 		tanksPool = pool;
 	}
+	
+	public void setBoss(IEnemyShip boss)
+	{
+		this.boss = boss;
+	}
 
 	@Override
 	public void act(float delta)
@@ -99,6 +107,12 @@ public class EnemyBase extends InvisibleActor
 
 		if (tankTimer.check())
 			addTank();
+		
+		if(tanksPool == 0 && boss != null && !isBossOnField)
+		{
+			addBoss();
+			isBossOnField = true;
+		}
 	}
 
 	private void addFighter()
@@ -145,6 +159,8 @@ public class EnemyBase extends InvisibleActor
 		updateRadar();
 
 		IEnemyShip tank = createTank();
+		if(tank == null)
+			return;
 
 		MoverAI mover = MoverType.SLOW_DOWNER.create();
 		ShooterAI shooter = createDirectShooter(tank);
@@ -161,13 +177,30 @@ public class EnemyBase extends InvisibleActor
 		stage.addActorBeforeGUI(tank);
 	}
 
+	private void addBoss()
+	{
+		updateRadar();
+
+		MoverAI mover = MoverType.FRONT_CHASER.create();
+		ShooterAI shooter = createDirectShooter(boss);
+
+		mover.setPlayerShip(playerShip);
+		mover.setOwner(boss);
+		
+		boss.setPlayerShip(radar.getPlayerShip());
+		boss.setMover(mover);
+		boss.setShooter(shooter);
+
+		stage.addActorBeforeGUI(boss);
+	}
+
 	private IEnemyShip createTank() 
 	{
-		IEnemyShip tank;
+		IEnemyShip tank = null;
 		
-		if(tanksPool > 1)
+		if(tanksPool > 0)
 			tank = shipsFactory.createTank(stage);
-		else
+		else if(boss == null)
 			tank = shipsFactory.createSuperTank(stage);
 		
 		tanksPool--;

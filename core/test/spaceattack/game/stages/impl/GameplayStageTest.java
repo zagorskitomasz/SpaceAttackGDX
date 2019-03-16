@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
@@ -140,6 +141,8 @@ public class GameplayStageTest
 	@Test
 	public void ifGameOverAndWonCompletedLabelIsShown()
 	{
+		GameProgress progress = new GameProgress();
+		stage.setGameProgress(progress);
 		stage.setGameOver(true);
 		stage.setWon(true);
 		stage.act(0);
@@ -172,5 +175,18 @@ public class GameplayStageTest
 		stage.act(0);
 
 		verify(saver).save(eq(progress));
+	}
+	
+	@Test
+	public void ifWonThenProgressIsNotifiedAboutMissionCompletion()
+	{
+		GameProgress progress = mock(GameProgress.class);
+		stage.setCurrentMission(3);
+		stage.setGameProgress(progress);
+		stage.setGameOver(true);
+		stage.setWon(true);
+		stage.act(0);
+
+		verify(progress).missionCompleted(3);
 	}
 }

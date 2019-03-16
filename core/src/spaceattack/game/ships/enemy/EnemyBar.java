@@ -7,9 +7,9 @@ import spaceattack.game.utils.Rect;
 
 public class EnemyBar
 {
-	private IShip ship;
-	private Rect background;
-	private Rect bar;
+	protected IShip ship;
+	protected Rect background;
+	protected Rect bar;
 
 	public EnemyBar(IShip ship)
 	{
