@@ -50,4 +50,16 @@ public abstract class AbstractWeaponController implements IWeaponController
 	{
 		return secondaryWeapon.getCollisionRadius();
 	}
+
+	@Override
+	public float getShipsWidth() 
+	{
+		return ship.getWidth();
+	}
+
+	@Override
+	public float getShipsHeight() 
+	{
+		return ship.getHeight();
+	}
 }

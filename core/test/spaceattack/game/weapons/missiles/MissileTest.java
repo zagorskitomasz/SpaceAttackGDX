@@ -20,7 +20,7 @@ import spaceattack.game.actors.FakeActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
-import spaceattack.game.ships.IShip;
+import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.vector.IVectorFactory;
@@ -35,7 +35,7 @@ public class MissileTest
 	private ITexture texture;
 
 	@Mock
-	private IShip ship;
+	private PlayerShip ship;
 
 	@Mock
 	private IFireButton button;

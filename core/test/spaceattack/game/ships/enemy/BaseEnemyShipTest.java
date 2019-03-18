@@ -3,6 +3,8 @@ package spaceattack.game.ships.enemy;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -13,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import spaceattack.ext.actor.ExtActorFactory;
+import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.MoverAI;
 import spaceattack.game.ai.ShooterAI;
 import spaceattack.game.ai.shooters.PossibleAttacks;
@@ -92,7 +95,7 @@ public class BaseEnemyShipTest
 
 		fighter.act(0);
 
-		verify(controller).performAttack(PossibleAttacks.BOTH);
+		verify(controller).performAttack(eq(PossibleAttacks.BOTH),nullable(RadarVisible.class));
 	}
 
 	@Test
@@ -102,7 +105,7 @@ public class BaseEnemyShipTest
 
 		fighter.act(0);
 
-		verify(controller, times(0)).performAttack(any(PossibleAttacks.class));
+		verify(controller, times(0)).performAttack(any(PossibleAttacks.class),nullable(RadarVisible.class));
 	}
 
 	@Test

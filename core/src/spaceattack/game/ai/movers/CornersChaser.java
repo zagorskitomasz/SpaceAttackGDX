@@ -4,7 +4,7 @@ import spaceattack.consts.Consts;
 import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;
 
-public class FrontChaser extends AbstractMover
+public class CornersChaser extends AbstractMover
 {
 	@Override
 	public MoverType getType()
@@ -21,7 +21,9 @@ public class FrontChaser extends AbstractMover
 		if (owner.isMoving())
 			return;
 
-		IVector destination = vectors.create(playerShip.getX(), playerShip.getY() + Consts.AI.FRONT_CHASER_DISTANCE);
+		int factor = Math.random() < 0.5 ? -1 : 1;
+		
+		IVector destination = vectors.create(playerShip.getX() + factor * Consts.AI.FRONT_CHASER_DISTANCE, playerShip.getY() + Consts.AI.FRONT_CHASER_DISTANCE);
 
 		if (isInRadius(destination))
 			return;

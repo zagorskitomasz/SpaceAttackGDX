@@ -1,5 +1,6 @@
 package spaceattack.game.ships.enemy;
 
+import spaceattack.game.ships.IBoss;
 import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.Acts;
 
@@ -13,5 +14,5 @@ public interface IEnemyShipsFactory
 
 	IEnemyShip createSuperTank(GameplayStage stage);
 
-	IEnemyShip createMinorBoss(Acts act, GameplayStage stage);
+	IBoss createMinorBoss(Acts act, GameplayStage stage);
 }

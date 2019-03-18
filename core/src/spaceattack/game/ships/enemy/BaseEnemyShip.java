@@ -14,7 +14,6 @@ import spaceattack.game.weapons.IWeaponController;
 
 public class BaseEnemyShip extends Ship implements IEnemyShip
 {
-	@SuppressWarnings("unused")
 	private RadarVisible playerShip;
 
 	private IPowerUp powerUp;
@@ -37,7 +36,7 @@ public class BaseEnemyShip extends Ship implements IEnemyShip
 	{
 		PossibleAttacks possibleAttack = shooter.checkShot();
 		if (!PossibleAttacks.NONE.equals(possibleAttack))
-			controller.performAttack(possibleAttack);
+			controller.performAttack(possibleAttack,playerShip);
 	}
 
 	@Override

@@ -12,9 +12,11 @@ import spaceattack.game.actors.InvisibleActor;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.DirectShooter;
+import spaceattack.game.ai.shooters.InstantPrimaryDirectShooter;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.powerup.PowerUpBuilder;
+import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
 import spaceattack.game.ships.pools.IPool;
@@ -41,7 +43,7 @@ public class EnemyBase extends InvisibleActor
 	private FrameController chaserTimer;
 	private FrameController tankTimer;
 	
-	private IEnemyShip boss;
+	private IBoss boss;
 	private boolean isBossOnField;
 
 	public EnemyBase(IUtils utils)
@@ -91,7 +93,7 @@ public class EnemyBase extends InvisibleActor
 		tanksPool = pool;
 	}
 	
-	public void setBoss(IEnemyShip boss)
+	public void setBoss(IBoss boss)
 	{
 		this.boss = boss;
 	}
@@ -181,8 +183,8 @@ public class EnemyBase extends InvisibleActor
 	{
 		updateRadar();
 
-		MoverAI mover = MoverType.FRONT_CHASER.create();
-		ShooterAI shooter = createDirectShooter(boss);
+		MoverAI mover = boss.getDefaultMoverType().create();
+		ShooterAI shooter = createInstantPrimaryShooter(boss);
 
 		mover.setPlayerShip(playerShip);
 		mover.setOwner(boss);
@@ -280,6 +282,17 @@ public class EnemyBase extends InvisibleActor
 	private ShooterAI createDirectShooter(IEnemyShip fighter) {
 		ShooterAI shooter;
 		shooter = new DirectShooter();
+
+		shooter.setFriends(enemyShips);
+		shooter.setPlayerShip(playerShip);
+		shooter.setOwner(fighter);
+
+		return shooter;
+	}
+
+	private ShooterAI createInstantPrimaryShooter(IEnemyShip fighter) {
+		ShooterAI shooter;
+		shooter = new InstantPrimaryDirectShooter();
 
 		shooter.setFriends(enemyShips);
 		shooter.setPlayerShip(playerShip);

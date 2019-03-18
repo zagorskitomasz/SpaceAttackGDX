@@ -6,9 +6,9 @@ public class Experience
 	public static final long[] nextLevelReq =
 	{
 			0, 			// 1
-			1000,		// 2
-			2500,		// 3
-			4500,		// 4
+			1500,		// 2
+			3000,		// 3
+			5000,		// 4
 			7500,		// 5
 			11500,		// 6
 			17000,		// 7

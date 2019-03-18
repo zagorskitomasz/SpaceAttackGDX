@@ -1,5 +1,6 @@
 package spaceattack.game.ships.enemy;
 
+import spaceattack.game.ships.IBoss;
 import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.Acts;
 
@@ -32,7 +33,7 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory
 	}
 
 	@Override
-	public IEnemyShip createMinorBoss(Acts act, GameplayStage stage) 
+	public IBoss createMinorBoss(Acts act, GameplayStage stage) 
 	{
 		return MinorBossShipBuilder.INSTANCE.build(act,stage);
 	}

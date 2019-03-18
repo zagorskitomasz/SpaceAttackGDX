@@ -6,7 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,10 +14,9 @@ import org.mockito.MockitoAnnotations;
 
 import spaceattack.ext.actor.ExtActorFactory;
 import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.game.GameProgress;
 import spaceattack.game.actors.FakeActor;
 import spaceattack.game.ai.movers.DirectChaser;
-import spaceattack.game.ai.movers.MoverType;
-import spaceattack.game.ai.movers.RightSideChaser;
 import spaceattack.game.ai.shooters.DirectShooter;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.enemy.IEnemyShip;
@@ -55,6 +53,7 @@ public class EnemyBaseTest
 		Factories.setActorFactory(ExtActorFactory.INSTANCE);
 		Textures.loadForTest();
 		doReturn(fighter).when(factory).createFighter(stage);
+		doReturn(new GameProgress()).when(stage).getGameProgress();
 
 		base = new EnemyBase(ExtUtilsFactory.INSTANCE.create());
 		base.setActor(new FakeActor());
@@ -93,18 +92,5 @@ public class EnemyBaseTest
 		base.act(0);
 
 		verify(factory, times(0)).createFighter(any());
-	}
-
-	@Test
-	public void nextFighterHasMoverWithMinOccurencesOnBattlefield() throws InterruptedException
-	{
-		doReturn(MoverType.DIRECT_CHASER).when(directMover).getMoverType();
-		doReturn(MoverType.LEFT_SIDE_CHASER).when(leftMover).getMoverType();
-		doReturn(Arrays.asList(directMover, leftMover)).when(radar).getEnemyShips();
-
-		Thread.sleep(3000);
-		base.act(0);
-
-		verify(fighter).setMover(any(RightSideChaser.class));
 	}
 }

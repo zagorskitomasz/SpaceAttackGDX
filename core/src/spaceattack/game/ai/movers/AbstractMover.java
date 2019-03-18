@@ -27,5 +27,6 @@ public abstract class AbstractMover implements MoverAI
 	public void setOwner(IEnemyShip owner)
 	{
 		this.owner = owner;
+		owner.setDestination(vectors.create(owner.getX(), owner.getY()));
 	}
 }

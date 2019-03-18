@@ -45,7 +45,10 @@ public enum Textures
 	TANK1("graphics/ships/tank/form1.png"),
 	
 	// weapons
-	RED_LASER("graphics/weapons/laserNS.png"),
+	RED_LASER_NS("graphics/weapons/laserNS.png"),
+	RED_LASER_WE("graphics/weapons/laserWE.png"),
+	RED_LASER_S1("graphics/weapons/laserS1.png"),
+	RED_LASER_S2("graphics/weapons/laserS2.png"),
 	TURBO_LASER("graphics/weapons/turbo.png"), 
 	ROCKET_MISSILE_P("graphics/weapons/missileP.png"), 
 	ROCKET_MISSILE_E("graphics/weapons/missileE.png"), 
