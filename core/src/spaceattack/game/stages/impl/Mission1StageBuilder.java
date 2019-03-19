@@ -23,6 +23,6 @@ public class Mission1StageBuilder extends GameplayStageBuilder
 	@Override
 	protected void setTanks(EnemyBase enemyBase) 
 	{
-		enemyBase.setTanksPool(7);
+		enemyBase.setTanksPool(8);
 	}
 }

@@ -19,7 +19,6 @@ import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
-import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 
 public enum MinorBossShipBuilder 
@@ -37,7 +36,6 @@ public enum MinorBossShipBuilder
 	{
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
-		IWeapon rocketLauncher = RocketMissileBuilder.INSTANCE.build(controller, launcher);
 		IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
 		IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
@@ -48,13 +46,12 @@ public enum MinorBossShipBuilder
 		IPool hpPool = new HpPool(200, 50, 0, 0);
 
 		controller.setPrimaryWeapon(targetedRedLaser);
-		controller.setSecondaryWeapon(rocketLauncher);
+		controller.setSecondaryWeapon(targetedRedLaser);
 		controller.setShip(boss);
 
 		boss.setActor(Factories.getActorFactory().create(boss));
 		boss.setTexture(Textures.TANK1.getTexture());
 		boss.setShipEngine(engine);
-		boss.addWeapon(rocketLauncher);
 		boss.addWeapon(targetedRedLaser);
 		boss.setEnergyPool(energyPool);
 		boss.setHpPool(hpPool);

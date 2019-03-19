@@ -23,7 +23,7 @@ public class CornersChaser extends AbstractMover
 
 		int factor = Math.random() < 0.5 ? -1 : 1;
 		
-		IVector destination = vectors.create(playerShip.getX() + factor * Consts.AI.FRONT_CHASER_DISTANCE, playerShip.getY() + Consts.AI.FRONT_CHASER_DISTANCE);
+		IVector destination = vectors.create(playerShip.getX() + factor * Consts.AI.FRONT_CHASER_DISTANCE * 0.7f, playerShip.getY() + Consts.AI.FRONT_CHASER_DISTANCE * 0.7f);
 
 		if (isInRadius(destination))
 			return;

@@ -58,4 +58,13 @@ public class HpPoolTest
 
 		assertEquals(50f, pool.getAmount(), 0);
 	}
+	
+	@Test
+	public void immunePoolDoesntTakeDmg()
+	{
+		pool.setImmunityChecker(() -> true);
+		pool.take(30);
+		
+		assertEquals(50f, pool.getAmount(), 0);
+	}
 }

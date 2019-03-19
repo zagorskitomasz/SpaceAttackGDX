@@ -101,16 +101,16 @@ public class EnemyBase extends InvisibleActor
 	@Override
 	public void act(float delta)
 	{
-		if (fighterTimer.check())
+		if (fighterTimer.check() && !isBossOnField)
 			addFighter();
 
-		if (chaserTimer.check())
+		if (chaserTimer.check() && !isBossOnField)
 			addChaser();
 
-		if (tankTimer.check())
+		if (tanksPool > 0 && tankTimer.check() && !isBossOnField)
 			addTank();
 		
-		if(tanksPool == 0 && boss != null && !isBossOnField)
+		if(tanksPool <= 0 && boss != null && tankTimer.check() && !isBossOnField)
 		{
 			addBoss();
 			isBossOnField = true;
@@ -161,8 +161,6 @@ public class EnemyBase extends InvisibleActor
 		updateRadar();
 
 		IEnemyShip tank = createTank();
-		if(tank == null)
-			return;
 
 		MoverAI mover = MoverType.SLOW_DOWNER.create();
 		ShooterAI shooter = createDirectShooter(tank);
@@ -200,9 +198,9 @@ public class EnemyBase extends InvisibleActor
 	{
 		IEnemyShip tank = null;
 		
-		if(tanksPool > 0)
+		if(tanksPool > 1 || boss != null)
 			tank = shipsFactory.createTank(stage);
-		else if(boss == null)
+		else
 			tank = shipsFactory.createSuperTank(stage);
 		
 		tanksPool--;
@@ -254,6 +252,7 @@ public class EnemyBase extends InvisibleActor
 		countedMovers //
 				.entrySet() //
 				.stream() //
+				.filter(entry -> !entry.getKey().isSpecial()) //
 				.forEach(entry->
 				{
 					if (entry.getValue() < minOccurs.get())
@@ -268,6 +267,7 @@ public class EnemyBase extends InvisibleActor
 		List<MoverType> lessFrequentMovers = countedMovers //
 				.entrySet() //
 				.stream() //
+				.filter(entry -> !entry.getKey().isSpecial()) //
 				.filter(entry->entry.getValue().equals(minOccurs.get()))//
 				.map(entry->entry.getKey()) //
 				.collect(Collectors.toList());

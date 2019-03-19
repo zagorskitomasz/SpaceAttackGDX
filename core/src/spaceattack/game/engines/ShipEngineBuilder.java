@@ -16,8 +16,8 @@ public enum ShipEngineBuilder
 
 		engine.setBaseSpeed(0.5f * Sizes.RADIUS_FACTOR);
 		engine.setAcceleration(0.2f * Sizes.RADIUS_FACTOR);
-		engine.setBraking(1f * Sizes.RADIUS_FACTOR);
-		engine.setAgility(0.5f * Sizes.RADIUS_FACTOR);
+		engine.setBraking(0.5f * Sizes.RADIUS_FACTOR);
+		engine.setAgility(0.2f * Sizes.RADIUS_FACTOR);
 
 		return engine;
 	}
