@@ -105,4 +105,10 @@ public class GameProgress implements INotifier<GameProgress>
 
 		return newProgress;
 	}
+
+	public void missionCompleted(int currentMission) 
+	{
+		if(currentMission + 1 > getMission())
+			setMission(currentMission + 1);
+	}
 }

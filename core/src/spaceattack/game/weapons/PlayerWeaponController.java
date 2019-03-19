@@ -1,5 +1,6 @@
 package spaceattack.game.weapons;
 
+import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
@@ -49,7 +50,7 @@ public class PlayerWeaponController extends AbstractWeaponController
 	}
 
 	@Override
-	public void performAttack(PossibleAttacks possibleAttack)
+	public void performAttack(PossibleAttacks possibleAttack, RadarVisible target)
 	{
 		// do nothing
 	}
@@ -58,5 +59,11 @@ public class PlayerWeaponController extends AbstractWeaponController
 	public boolean isPlayer() 
 	{
 		return true;
+	}
+
+	@Override
+	public IVector getTargetedWeaponMovement() 
+	{
+		return getWeaponMovement();
 	}
 }

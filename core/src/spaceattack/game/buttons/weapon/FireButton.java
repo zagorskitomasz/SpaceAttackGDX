@@ -75,9 +75,9 @@ public class FireButton implements IObserver<Float>,IFireButton
 		return false;
 	}
 
-	protected void fire()
+	protected boolean fire()
 	{
-		weapon.use();
+		return weapon.use();
 	}
 
 	private boolean touched(int screenX,int screenY)

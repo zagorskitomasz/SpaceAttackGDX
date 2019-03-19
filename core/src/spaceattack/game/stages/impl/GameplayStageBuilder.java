@@ -53,7 +53,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private ComplexFireButton secondaryFireButton;
 	private Accelerator accelerator;
 	private IPool expPool;
-	private IPool hpPool;
+	private HpPool hpPool;
 	private IPool energyPool;
 	private Bar expBar;
 	private Bar hpEnergyBar;
@@ -166,7 +166,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	{
 		expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
 		energyPool = new Pool(80, 20, 20, 4);
-		hpPool = new HpPool(50, 10, 5, 1);
+		hpPool = new HpPool(80, 12, 10, 1f);
+		hpPool.setImmunityChecker(stage::isGameOver);
 
 		expBar = BarBuilder.INSTANCE.experienceBar(expPool);
 		hpEnergyBar = BarBuilder.INSTANCE.hpEnergyBar(hpPool, energyPool);

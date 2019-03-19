@@ -3,6 +3,7 @@ package spaceattack.game.stages;
 import spaceattack.game.stages.impl.IStageBuilder;
 import spaceattack.game.stages.impl.MainMenuStageBuilder;
 import spaceattack.game.stages.impl.Mission1StageBuilder;
+import spaceattack.game.stages.impl.Mission2StageBuilder;
 import spaceattack.game.stages.impl.MissionsStageBuilder;
 
 public enum Stages
@@ -11,7 +12,7 @@ public enum Stages
 	MAIN_MENU(MainMenuStageBuilder.class),
 	MISSIONS(MissionsStageBuilder.class),
 	MISSION_1(Mission1StageBuilder.class),
-	MISSION_2(Mission1StageBuilder.class),
+	MISSION_2(Mission2StageBuilder.class),
 	MISSION_3(Mission1StageBuilder.class);
 	// TODO missions 2-3
 	//@formatter:on

@@ -56,7 +56,7 @@ public class Missile extends AbstractMissile implements Killable
 
 	private void collision(Vulnerable vulnerable)
 	{
-		if (checkCollision(vulnerable))
+		if (!isToKill() && checkCollision(vulnerable))
 		{
 			vulnerable.takeDmg(dmg);
 			setToKill();

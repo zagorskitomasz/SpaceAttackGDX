@@ -28,7 +28,7 @@ public class RedLaser extends Laser
 		Missile missile = new Missile();
 
 		missile.setActor(Factories.getActorFactory().create(missile));
-		missile.setTexture(Textures.RED_LASER.getTexture());
+		missile.setTexture(Textures.RED_LASER_NS.getTexture());
 		missile.setDmg(dmg);
 		missile.setSpeed(speed);
 		missile.setAcceleration(0);

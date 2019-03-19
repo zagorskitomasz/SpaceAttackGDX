@@ -54,7 +54,7 @@ public class DirectChaserTest
 
 		mover.updateDirection();
 
-		verify(owner, times(0)).setDestination(any(IVector.class));
+		verify(owner, times(1)).setDestination(any(IVector.class));
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class DirectChaserTest
 
 		mover.updateDirection();
 
-		verify(owner).setDestination(eq(vectors.create(100, 200)));
+		verify(owner, times(1)).setDestination(eq(vectors.create(100, 200)));
 	}
 
 	@Test
@@ -76,6 +76,6 @@ public class DirectChaserTest
 
 		mover.updateDirection();
 
-		verify(owner, times(0)).setDestination(any(IVector.class));
+		verify(owner, times(1)).setDestination(any(IVector.class));
 	}
 }

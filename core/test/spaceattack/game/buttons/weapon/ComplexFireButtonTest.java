@@ -2,6 +2,7 @@ package spaceattack.game.buttons.weapon;
 
 import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -44,6 +45,8 @@ public class ComplexFireButtonTest
 		button = new ComplexFireButton();
 		button.setImageButton(imageButton);
 		button.setMainWeapon(mainWeapon);
+		doReturn(true).when(mainWeapon).use();
+		doReturn(true).when(specialWeapon).use();
 	}
 
 	@Test

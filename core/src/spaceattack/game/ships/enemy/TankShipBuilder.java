@@ -17,6 +17,7 @@ import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
+import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 
 public enum TankShipBuilder 
@@ -42,16 +43,17 @@ public enum TankShipBuilder
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
 		IWeapon rocketLauncher = RocketMissileBuilder.INSTANCE.build(controller, launcher);
+		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
 		IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(tank);
 		engine.setBaseSpeed(1f * Sizes.RADIUS_FACTOR);
 		Explosion explosion = ExplosionsBuilder.INSTANCE.createTankExplosion(stage);
 
 		Burner burner = BurnerBuilder.INSTANCE.build(tank);
 
-		IPool energyPool = new Pool(20, 10, 15, 3);
-		IPool hpPool = new HpPool(100, 35, 10, 2);
+		IPool energyPool = new Pool(30, 15, 15, 3);
+		IPool hpPool = new HpPool(80, 35, 5, 1);
 
-		controller.setPrimaryWeapon(rocketLauncher);
+		controller.setPrimaryWeapon(redLaser);
 		controller.setSecondaryWeapon(rocketLauncher);
 		controller.setShip(tank);
 
@@ -59,6 +61,7 @@ public enum TankShipBuilder
 		tank.setTexture(Textures.TANK1.getTexture());
 		tank.setShipEngine(engine);
 		tank.addWeapon(rocketLauncher);
+		tank.addWeapon(redLaser);
 		tank.setEnergyPool(energyPool);
 		tank.setHpPool(hpPool);
 		tank.setLevel(stage.getCurrentMission() * 2);

@@ -56,11 +56,11 @@ public class ComplexFireButton extends FireButton
 	}
 
 	@Override
-	protected void fire()
+	protected boolean fire()
 	{
-		super.fire();
+		boolean fired = super.fire();
 
-		if (mainWeapon != getWeapon())
+		if (fired && mainWeapon != getWeapon())
 		{
 			ammo--;
 
@@ -72,6 +72,7 @@ public class ComplexFireButton extends FireButton
 				weaponIcon = null;
 			}
 		}
+		return fired;
 	}
 
 	@Override

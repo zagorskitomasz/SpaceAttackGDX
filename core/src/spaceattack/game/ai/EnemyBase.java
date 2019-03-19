@@ -12,9 +12,11 @@ import spaceattack.game.actors.InvisibleActor;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.DirectShooter;
+import spaceattack.game.ai.shooters.InstantPrimaryDirectShooter;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.powerup.PowerUpBuilder;
+import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
 import spaceattack.game.ships.pools.IPool;
@@ -40,6 +42,9 @@ public class EnemyBase extends InvisibleActor
 	private FrameController fighterTimer;
 	private FrameController chaserTimer;
 	private FrameController tankTimer;
+	
+	private IBoss boss;
+	private boolean isBossOnField;
 
 	public EnemyBase(IUtils utils)
 	{
@@ -87,18 +92,29 @@ public class EnemyBase extends InvisibleActor
 	{
 		tanksPool = pool;
 	}
+	
+	public void setBoss(IBoss boss)
+	{
+		this.boss = boss;
+	}
 
 	@Override
 	public void act(float delta)
 	{
-		if (fighterTimer.check())
+		if (fighterTimer.check() && !isBossOnField)
 			addFighter();
 
-		if (chaserTimer.check())
+		if (chaserTimer.check() && !isBossOnField)
 			addChaser();
 
-		if (tankTimer.check())
+		if (tanksPool > 0 && tankTimer.check() && !isBossOnField)
 			addTank();
+		
+		if(tanksPool <= 0 && boss != null && tankTimer.check() && !isBossOnField)
+		{
+			addBoss();
+			isBossOnField = true;
+		}
 	}
 
 	private void addFighter()
@@ -161,11 +177,28 @@ public class EnemyBase extends InvisibleActor
 		stage.addActorBeforeGUI(tank);
 	}
 
+	private void addBoss()
+	{
+		updateRadar();
+
+		MoverAI mover = boss.getDefaultMoverType().create();
+		ShooterAI shooter = createInstantPrimaryShooter(boss);
+
+		mover.setPlayerShip(playerShip);
+		mover.setOwner(boss);
+		
+		boss.setPlayerShip(radar.getPlayerShip());
+		boss.setMover(mover);
+		boss.setShooter(shooter);
+
+		stage.addActorBeforeGUI(boss);
+	}
+
 	private IEnemyShip createTank() 
 	{
-		IEnemyShip tank;
+		IEnemyShip tank = null;
 		
-		if(tanksPool > 1)
+		if(tanksPool > 1 || boss != null)
 			tank = shipsFactory.createTank(stage);
 		else
 			tank = shipsFactory.createSuperTank(stage);
@@ -219,6 +252,7 @@ public class EnemyBase extends InvisibleActor
 		countedMovers //
 				.entrySet() //
 				.stream() //
+				.filter(entry -> !entry.getKey().isSpecial()) //
 				.forEach(entry->
 				{
 					if (entry.getValue() < minOccurs.get())
@@ -233,6 +267,7 @@ public class EnemyBase extends InvisibleActor
 		List<MoverType> lessFrequentMovers = countedMovers //
 				.entrySet() //
 				.stream() //
+				.filter(entry -> !entry.getKey().isSpecial()) //
 				.filter(entry->entry.getValue().equals(minOccurs.get()))//
 				.map(entry->entry.getKey()) //
 				.collect(Collectors.toList());
@@ -247,6 +282,17 @@ public class EnemyBase extends InvisibleActor
 	private ShooterAI createDirectShooter(IEnemyShip fighter) {
 		ShooterAI shooter;
 		shooter = new DirectShooter();
+
+		shooter.setFriends(enemyShips);
+		shooter.setPlayerShip(playerShip);
+		shooter.setOwner(fighter);
+
+		return shooter;
+	}
+
+	private ShooterAI createInstantPrimaryShooter(IEnemyShip fighter) {
+		ShooterAI shooter;
+		shooter = new InstantPrimaryDirectShooter();
 
 		shooter.setFriends(enemyShips);
 		shooter.setPlayerShip(playerShip);

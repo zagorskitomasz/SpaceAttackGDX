@@ -4,7 +4,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import spaceattack.game.factories.Factories;
-import spaceattack.game.ships.pools.AbstractPool;
 import spaceattack.game.system.FrameController;
 
 public class Pool extends AbstractPool

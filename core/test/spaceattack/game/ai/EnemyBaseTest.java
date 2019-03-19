@@ -6,21 +6,23 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import spaceattack.ext.actor.ExtActorFactory;
 import spaceattack.ext.utils.ExtUtilsFactory;
+import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.GameProgress;
 import spaceattack.game.actors.FakeActor;
 import spaceattack.game.ai.movers.DirectChaser;
 import spaceattack.game.ai.movers.MoverType;
-import spaceattack.game.ai.movers.RightSideChaser;
 import spaceattack.game.ai.shooters.DirectShooter;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
 import spaceattack.game.stages.impl.GameplayStage;
@@ -47,14 +49,22 @@ public class EnemyBaseTest
 
 	@Mock
 	private IEnemyShip leftMover;
+	
+	@Mock
+	private IBoss boss;
 
 	@Before
 	public void setUp()
 	{
 		MockitoAnnotations.initMocks(this);
 		Factories.setActorFactory(ExtActorFactory.INSTANCE);
+		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 		Textures.loadForTest();
 		doReturn(fighter).when(factory).createFighter(stage);
+		doReturn(0f).when(fighter).getX();
+		doReturn(0f).when(fighter).getY();
+		doReturn(new GameProgress()).when(stage).getGameProgress();
 
 		base = new EnemyBase(ExtUtilsFactory.INSTANCE.create());
 		base.setActor(new FakeActor());
@@ -94,17 +104,18 @@ public class EnemyBaseTest
 
 		verify(factory, times(0)).createFighter(any());
 	}
-
+	
 	@Test
-	public void nextFighterHasMoverWithMinOccurencesOnBattlefield() throws InterruptedException
+	@Ignore
+	public void bossIsReleasedWhenTankShipsAreGone()
 	{
-		doReturn(MoverType.DIRECT_CHASER).when(directMover).getMoverType();
-		doReturn(MoverType.LEFT_SIDE_CHASER).when(leftMover).getMoverType();
-		doReturn(Arrays.asList(directMover, leftMover)).when(radar).getEnemyShips();
-
-		Thread.sleep(3000);
+		doReturn(MoverType.CORNERS_CHASER).when(boss).getDefaultMoverType();
+		doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
+		base.setTanksPool(0);
+		base.setBoss(boss);
+		
 		base.act(0);
-
-		verify(fighter).setMover(any(RightSideChaser.class));
+		
+		verify(stage).addActorBeforeGUI(boss);
 	}
 }

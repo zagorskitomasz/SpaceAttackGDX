@@ -112,8 +112,11 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
 	private void win() 
 	{
-		gameOver = true;
-		won = true;
+		if(!gameOver)
+		{
+			gameOver = true;
+			won = true;
+		}
 	}
 
 	void lose()
@@ -142,6 +145,7 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
 		if (won)
 		{
+			getGameProgress().missionCompleted(currentMission);
 			result.setGameProgress(getGameProgress());
 		}
 		else
