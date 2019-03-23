@@ -102,8 +102,7 @@ class PlayableMusic
 			return;
 		
 		new Thread(() -> {
-			
-			for(float i = music.getVolume() * 100; i >= 0; i--)
+			for(float i = MAX_VOLUME; i >= 0; i--)
 			{
 				music.setVolume(i / 100);
 				try 
