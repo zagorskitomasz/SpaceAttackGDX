@@ -11,6 +11,7 @@ import spaceattack.game.system.GameSaverFactory;
 import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
+import spaceattack.game.system.sound.MusicPlayer;
 
 public class MainMenuStageBuilder implements IStageBuilder
 {
@@ -42,6 +43,8 @@ public class MainMenuStageBuilder implements IStageBuilder
 		stage.addActor(exitGameButton);
 
 		stage.updateControls();
+		
+		MusicPlayer.INSTANCE.playMenu();
 
 		return stage;
 	}
