@@ -166,7 +166,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	{
 		expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
 		energyPool = new Pool(80, 20, 20, 4);
-		hpPool = new HpPool(8000, 12, 10, 1f);
+		hpPool = new HpPool(80, 12, 10, 1f);
 		hpPool.setImmunityChecker(stage::isGameOver);
 
 		expBar = BarBuilder.INSTANCE.experienceBar(expPool);
