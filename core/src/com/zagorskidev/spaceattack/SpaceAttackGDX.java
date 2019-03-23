@@ -6,6 +6,7 @@ import spaceattack.ext.actor.ExtActorFactory;
 import spaceattack.ext.animation.ExtAnimationFactory;
 import spaceattack.ext.button.ExtTextButtonsFactory;
 import spaceattack.ext.button.image.ExtImageButtonFactory;
+import spaceattack.ext.sound.ExtMusicFactory;
 import spaceattack.ext.sound.ExtSoundFactory;
 import spaceattack.ext.stage.ExtStageFactory;
 import spaceattack.ext.texture.ExtTextureFactory;
@@ -38,6 +39,7 @@ public class SpaceAttackGDX extends ApplicationAdapter
 		Factories.setTextButtonFactory(ExtTextButtonsFactory.INSTANCE);
 		Factories.setImageButtonFactory(ExtImageButtonFactory.INSTANCE);
 		Factories.setAnimationFactory(ExtAnimationFactory.INSTANCE);
+		Factories.setMusicFactory(ExtMusicFactory.INSTANCE);
 	}
 
 	@Override

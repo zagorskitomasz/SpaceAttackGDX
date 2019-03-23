@@ -12,6 +12,7 @@ import spaceattack.game.system.GameSaverFactory;
 import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
+import spaceattack.game.system.sound.MusicPlayer;
 
 public class MissionsStageBuilder implements IStageBuilder
 {
@@ -59,6 +60,8 @@ public class MissionsStageBuilder implements IStageBuilder
 		stage.addActor(nextActButton);
 
 		stage.updateControls();
+		
+		MusicPlayer.INSTANCE.playMenu();
 
 		return stage;
 	}

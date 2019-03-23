@@ -13,43 +13,43 @@ import spaceattack.game.system.graphics.StaticImage;
 
 public interface IGameStage
 {
-	public Stages getType();
+	Stages getType();
 
-	public boolean isCompleted();
+	boolean isCompleted();
 
-	public void act(float delta);
+	void act(float delta);
 
-	public void draw();
+	void draw();
 
-	public List<IGameActor> getActors();
+	List<IGameActor> getActors();
 
-	public void setType(Stages type);
+	void setType(Stages type);
 
-	public StageResult getResult();
+	StageResult getResult();
 
-	public void setResult(StageResult result);
+	void setResult(StageResult result);
 
-	public GameProgress getGameProgress();
+	GameProgress getGameProgress();
 
-	public void setGameProgress(GameProgress gameProgress);
+	void setGameProgress(GameProgress gameProgress);
 
-	public IInputProcessor getInputProcessor();
+	IInputProcessor getInputProcessor();
 
-	public void addActor(IGameActor actor);
+	void addActor(IGameActor actor);
 
-	public void addActorBeforeGUI(IGameActor actor);
+	void addActorBeforeGUI(IGameActor actor);
 
-	public void updateViewport(int width,int height,boolean b);
+	void updateViewport(int width,int height,boolean b);
 
-	public IStage getStage();
+	IStage getStage();
 
-	public void updateControls();
+	void updateControls();
 
-	public void addButtonsEnabledPredicate(IButton button,Predicate<IButton> predicate);
+	void addButtonsEnabledPredicate(IButton button,Predicate<IButton> predicate);
 
-	public void addButtonsVisiblePredicate(IButton button,Predicate<IButton> predicate);
+	void addButtonsVisiblePredicate(IButton button,Predicate<IButton> predicate);
 
-	public void addButtonsTextFunction(IButton button,Function<IButton, String> predicate);
+	void addButtonsTextFunction(IButton button,Function<IButton, String> predicate);
 
-	public void addBackground(StaticImage background);
+	void addBackground(StaticImage background);
 }
