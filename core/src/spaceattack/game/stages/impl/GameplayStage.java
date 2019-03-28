@@ -16,11 +16,13 @@ import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.AbstractStage;
 import spaceattack.game.stages.Stages;
+import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.weapons.MissilesLauncher;
 
-public class GameplayStage extends AbstractStage implements IObserver<GameProgress>
+public class GameplayStage extends AbstractStage implements IObserver<GameProgress>, INotifier<GameplayStage>
 {
+	private List<IObserver<GameplayStage>> observers;
 	private int currentMission;
 	private boolean gameOver;
 	private boolean won;
@@ -183,10 +185,33 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 	public void setCurrentMission(int mission)
 	{
 		currentMission = mission;
+		notifyObservers();
 	}
 
 	public int getCurrentMission() 
 	{
 		return currentMission;
+	}
+
+	@Override
+	public void registerObserver(IObserver<GameplayStage> observer) 
+	{
+		if(observers == null)
+			observers = new LinkedList<>();
+		
+		observers.add(observer);
+	}
+
+	@Override
+	public void unregisterObserver(IObserver<GameplayStage> observer) 
+	{
+		if(observers != null)
+			observers.remove(observer);
+	}
+
+	private void notifyObservers() 
+	{
+		if(observers != null)
+			observers.forEach(observer -> observer.notify(this));
 	}
 }

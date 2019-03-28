@@ -1,5 +1,6 @@
 package spaceattack.game.stages.impl;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.ILabel;
@@ -28,6 +29,7 @@ import spaceattack.game.system.GameLoaderFactory;
 import spaceattack.game.system.GameSaverFactory;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
+import spaceattack.game.utils.GameplayLabel;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
@@ -58,6 +60,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private Bar expBar;
 	private Bar hpEnergyBar;
 	private EnemyBase enemyBase;
+	private GameplayLabel missionLabel;
+	private GameplayLabel levelLabel;
 
 	@Override
 	public IGameStage build(GameProgress progress)
@@ -66,13 +70,16 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		{
 			gameProgress = progress;
 			stage = new GameplayStage();
-			setMissionNumber();
 			buildStage();
 			setTanks(enemyBase);
+			setMissionNumber();
+			gameProgress.notifyObservers();
 			return stage;
 		}
 	}
 	protected abstract void setTanks(EnemyBase enemyBase);
+
+	protected abstract void setMissionNumber();
 
 	protected void buildStage()
 	{
@@ -85,6 +92,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		configureInputProcessor();
 		configureWeapons();
 		setTimeLabels();
+		createLabels();
 		addBackground();
 		addComponents();
 	}
@@ -207,6 +215,23 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		stage.setFailedLabel(failedLabel);
 		stage.setCompletedLabel(completedLabel);
 	}
+	
+	private void createLabels()
+	{
+		ILabel levelILabel = Factories.getUtilsFactory().create().createBarLabel();
+		levelILabel.setAlignment(Consts.Align.topRight);
+		levelILabel.setPosition(Sizes.GAME_WIDTH - 60 * Sizes.X_FACTOR, 350 * Sizes.Y_FACTOR);
+		
+		levelLabel = new GameplayLabel(levelILabel);
+		gameProgress.registerObserver(state -> levelLabel.setText("Ship level: " + state.getLevel()));
+		
+		ILabel missionILabel = Factories.getUtilsFactory().create().createBarLabel();
+		missionILabel.setAlignment(Consts.Align.topRight);
+		missionILabel.setPosition(Sizes.GAME_WIDTH - 60 * Sizes.X_FACTOR, 310 * Sizes.Y_FACTOR);
+		
+		missionLabel = new GameplayLabel(missionILabel);
+		stage.registerObserver(state -> missionLabel.setText("Mission: " + state.getCurrentMission()));
+	}
 
 	private void addComponents()
 	{
@@ -219,10 +244,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		stage.addActor(expBar);
 		stage.addActor(hpEnergyBar);
 		stage.addActor(enemyBase);
-	}
-
-	public void setMissionNumber() {
-		// TODO Auto-generated method stub
-		
+		stage.addActor(levelLabel);
+		stage.addActor(missionLabel);
 	}
 }
