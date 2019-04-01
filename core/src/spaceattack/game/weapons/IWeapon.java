@@ -2,13 +2,13 @@ package spaceattack.game.weapons;
 
 public interface IWeapon
 {
-	public void setLevel(int level);
+	void setLevel(int level);
 
-	public boolean use();
+	boolean use();
 
-	public float getWeaponsMovementFactor();
+	float getWeaponsMovementFactor();
 
-	public float getEnergyCost();
+	float getEnergyCost();
 
-	public float getCollisionRadius();
+	float getCollisionRadius();
 }

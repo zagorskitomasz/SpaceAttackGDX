@@ -1,7 +1,6 @@
 package spaceattack.game.ai.movers;
 
 import spaceattack.consts.Consts;
-import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;
 
 public class CornersChaser extends AbstractMover
@@ -9,7 +8,7 @@ public class CornersChaser extends AbstractMover
 	@Override
 	public MoverType getType()
 	{
-		return MoverType.FRONT_CHASER;
+		return MoverType.CORNERS_CHASER;
 	}
 
 	@Override
@@ -29,10 +28,5 @@ public class CornersChaser extends AbstractMover
 			return;
 
 		owner.setDestination(destination);
-	}
-
-	private boolean isInRadius(IVector destination)
-	{
-		return NumbersUtils.distance(owner.getPosition(), destination) < playerShip.getRadius();
 	}
 }

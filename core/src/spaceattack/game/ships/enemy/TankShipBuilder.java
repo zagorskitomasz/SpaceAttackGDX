@@ -4,6 +4,7 @@ import spaceattack.consts.Sizes;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.enemy.boss.SuperBaseEnemyShip;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;

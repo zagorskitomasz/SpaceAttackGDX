@@ -51,14 +51,14 @@ public class MusicPlayerTest
 		doReturn(menuMusic).when(factory).create(MenuMusic.MENU.getPath());
 		
 		player.playMenu();
-		Thread.sleep(1400);
+		Thread.sleep(2000);
 		
 		verify(menuMusic).play();
-		verify(menuMusic,times(41)).setVolume(anyFloat());
+		verify(menuMusic,times(71)).setVolume(anyFloat());
 		doReturn(true).when(menuMusic).isPlaying();
 		
 		player.playAct(Acts.I);
-		Thread.sleep(1400);
+		Thread.sleep(2000);
 		
 		verify(menuMusic).pause();
 		verify(actMusic).play();
@@ -66,7 +66,7 @@ public class MusicPlayerTest
 		doReturn(true).when(actMusic).isPlaying();
 		
 		player.playMenu();
-		Thread.sleep(1400);
+		Thread.sleep(2000);
 		
 		verify(actMusic).pause();
 		verify(menuMusic,times(2)).play();

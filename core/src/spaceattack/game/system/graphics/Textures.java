@@ -17,6 +17,7 @@ public enum Textures
 	MENU_BACKGROUND("graphics/menuBackground.jpg"),
 	M1_BACKGROUND("graphics/m1Background.jpg"),
 	M2_BACKGROUND("graphics/m2Background.jpg"),
+	M3_BACKGROUND("graphics/m3Background.jpg"),
 	
 	// UI
 	RED_BUTTON_UP("graphics/gui/redActive.png"),
@@ -43,6 +44,8 @@ public enum Textures
 	CHASER1("graphics/ships/chaser/form1.png"),
 
 	TANK1("graphics/ships/tank/form1.png"),
+
+	BOSS1("graphics/ships/boss/form1.png"),
 	
 	// weapons
 	RED_LASER_NS("graphics/weapons/laserNS.png"),

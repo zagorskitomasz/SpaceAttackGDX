@@ -1,16 +1,17 @@
-package spaceattack.game.ships.enemy;
+package spaceattack.game.ships.enemy.boss;
 
 import spaceattack.game.actors.interfaces.RequiredOnStage;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.ships.IBoss;
+import spaceattack.game.ships.enemy.BaseEnemyShip;
 
-public class SuperBaseEnemyShip extends BaseEnemyShip implements RequiredOnStage, IBoss
+public class Act1MajorBossShip extends BaseEnemyShip implements RequiredOnStage, IBoss
 {
 	@Override
 	public MoverType getDefaultMoverType() 
 	{
-		return MoverType.CORNERS_CHASER;
+		return MoverType.ALL_CORNERS_CHASER;
 	}
 
 	@Override

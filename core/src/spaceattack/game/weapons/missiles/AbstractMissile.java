@@ -62,7 +62,8 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
 	@Override
 	public void playSound()
 	{
-		sound.play();
+		if(sound != null)
+			sound.play();
 	}
 
 	public void setPosition(IVector position)
