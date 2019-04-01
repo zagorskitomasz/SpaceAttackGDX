@@ -1,10 +1,12 @@
-package spaceattack.game.ships.enemy;
+package spaceattack.game.ships.enemy.boss;
 
 import spaceattack.consts.Sizes;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IBoss;
+import spaceattack.game.ships.enemy.BigEnemyBar;
+import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;

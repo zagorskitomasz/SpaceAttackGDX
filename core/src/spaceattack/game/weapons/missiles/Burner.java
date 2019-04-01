@@ -55,7 +55,10 @@ public class Burner
 		if (isBurning)
 		{
 			ITexture texture = burningAnimation.getFrame();
-			batch.draw(texture, ignitable.getDrawingX(), ignitable.getDrawingY(), texture.getWidth(), texture.getWidth());
+			batch.draw(texture, 
+					ignitable.getDrawingX() + ignitable.getRadius() - texture.getWidth() / 2, 
+					ignitable.getDrawingY() + ignitable.getRadius() - texture.getHeight() / 2, 
+					texture.getWidth(), texture.getWidth());
 		}
 	}
 

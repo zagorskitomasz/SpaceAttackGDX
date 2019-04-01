@@ -71,8 +71,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 			gameProgress = progress;
 			stage = new GameplayStage();
 			buildStage();
-			setTanks(enemyBase);
 			setMissionNumber();
+			setTanks(enemyBase);
 			gameProgress.notifyObservers();
 			return stage;
 		}

@@ -18,4 +18,6 @@ public class Sizes
 	public static final float DOWN_MARGIN = 250 * Y_FACTOR;
 	public static final float UPPER_MARGIN = 50 * Y_FACTOR;
     public static final float SIDE_MARGIN = 40 * Y_FACTOR;
+	public static final float MULTI_MISSILES_X_DISTANCE = 50 * X_FACTOR;
+	public static final float MULTI_MISSILES_Y_DISTANCE = 20 * Y_FACTOR;
 }
