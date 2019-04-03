@@ -6,18 +6,32 @@ import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.BaseEnemyShip;
 
-public class Act1MajorBossShip extends BaseEnemyShip implements RequiredOnStage, IBoss
+public class MajorBossShip extends BaseEnemyShip implements RequiredOnStage, IBoss
 {
+	private MoverType moverType;
+	private ShooterType shooterType;
+	
 	@Override
 	public MoverType getDefaultMoverType() 
 	{
-		return MoverType.ALL_CORNERS_CHASER;
+		return moverType;
 	}
 
 	@Override
 	public ShooterType getDefaultShooterType() 
 	{
-		return ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER;
+		return shooterType;
 	}
 
+	@Override
+	public void setDefaultMoverType(MoverType type)
+	{
+		moverType = type;
+	}
+	
+	@Override
+	public void setDefaultShooterType(ShooterType type)
+	{
+		shooterType = type;
+	}
 }

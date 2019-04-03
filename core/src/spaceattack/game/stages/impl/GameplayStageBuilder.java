@@ -25,11 +25,13 @@ import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
 import spaceattack.game.stages.IGameStage;
+import spaceattack.game.system.Acts;
 import spaceattack.game.system.GameLoaderFactory;
 import spaceattack.game.system.GameSaverFactory;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.utils.GameplayLabel;
+import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
@@ -124,9 +126,11 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
 		primaryFireButton = FireButtonsBuilder.INSTANCE.primary(redLaser);
 		secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
-		enemyBase = new EnemyBase(Factories.getUtilsFactory().create());
+		enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
 	}
 
+	protected abstract EnemyBase createEnemyBase(IUtils utils);
+	
 	private void configureInputProcessor()
 	{
 		processor.setUtils(Factories.getUtilsFactory().create());
@@ -173,8 +177,16 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	private void initPools()
 	{
 		expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
-		energyPool = new Pool(80, 20, 20, 4);
-		hpPool = new HpPool(80, 12, 10, 1f);
+		energyPool = new Pool(
+				Consts.POOLS.PLAYER_ENERGY_BASE_AMOUNT, 
+				Consts.POOLS.PLAYER_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.POOLS.PLAYER_ENERGY_BASE_REGEN, 
+				Consts.POOLS.PLAYER_ENERGY_REGEN_PER_LEVEL);
+		hpPool = new HpPool(
+				Consts.POOLS.PLAYER_HP_BASE_AMOUNT, 
+				Consts.POOLS.PLAYER_HP_INCREASE_PER_LEVEL, 
+				Consts.POOLS.PLAYER_HP_BASE_REGEN, 
+				Consts.POOLS.PLAYER_HP_REGEN_PER_LEVEL);
 		hpPool.setImmunityChecker(stage::isGameOver);
 
 		expBar = BarBuilder.INSTANCE.experienceBar(expPool);
@@ -195,6 +207,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		enemyBase.setWeaponController(weaponController);
 	}
 
+	protected abstract Acts getAct();
+	
 	private void setTimeLabels()
 	{
 		ILabel levelUpILabel = Factories.getUtilsFactory().create().createTimeLabel("LEVEL UP!", 0xdaa520ff);

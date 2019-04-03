@@ -1,5 +1,6 @@
 package spaceattack.game.ships.enemy;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
@@ -23,7 +24,12 @@ public enum ChaserShipBuilder
 {
 	INSTANCE;
 
-	public IEnemyShip build(GameplayStage stage)
+	public IEnemyShip buildActI(GameplayStage stage)
+	{
+		return build(stage);
+	}
+
+	private IEnemyShip build(GameplayStage stage) 
 	{
 		IEnemyShip chaser = new BaseEnemyShip();
 		MissilesLauncher launcher = stage.getMissilesLauncher();
@@ -35,8 +41,16 @@ public enum ChaserShipBuilder
 
 		Burner burner = BurnerBuilder.INSTANCE.build(chaser);
 
-		IPool energyPool = new Pool(30, 15, 10, 2);
-		IPool hpPool = new HpPool(30, 6, 5, 1);
+		IPool energyPool = new Pool(
+				Consts.POOLS.CHASER_ENERGY_BASE_AMOUNT, 
+				Consts.POOLS.CHASER_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.POOLS.CHASER_ENERGY_BASE_REGEN,
+				Consts.POOLS.CHASER_ENERGY_REGEN_PER_LEVEL);
+		IPool hpPool = new HpPool(
+				Consts.POOLS.CHASER_HP_BASE_AMOUNT, 
+				Consts.POOLS.CHASER_HP_INCREASE_PER_LEVEL, 
+				Consts.POOLS.CHASER_HP_BASE_REGEN,
+				Consts.POOLS.CHASER_HP_REGEN_PER_LEVEL);
 
 		controller.setPrimaryWeapon(redLaser);
 		controller.setSecondaryWeapon(greenLaser);

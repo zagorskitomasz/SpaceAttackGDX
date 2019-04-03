@@ -1,12 +1,14 @@
 package spaceattack.game.ships.enemy.boss;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
+import spaceattack.game.ai.movers.MoverType;
+import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.BigEnemyBar;
-import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
@@ -23,19 +25,20 @@ import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
-public enum MajorAct1BossShipBuilder 
+public enum MajorBossShipBuilder 
 {
 	INSTANCE;
 
-	public IBoss build(GameplayStage stage)
+	public IBoss buildActI(GameplayStage stage)
 	{
-		IBoss boss = new Act1MajorBossShip();
-		buildShip(stage, boss);
-		return boss;
+		return build(stage);
 	}
 
-	private IEnemyShip buildShip(GameplayStage stage, IBoss boss)
+	private IBoss build(GameplayStage stage)
 	{
+		IBoss boss = new MajorBossShip();
+		boss.setDefaultMoverType(MoverType.ALL_CORNERS_CHASER);
+		boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
 		IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
@@ -45,8 +48,16 @@ public enum MajorAct1BossShipBuilder
 
 		Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-		IPool energyPool = new Pool(100, 20, 40, 10);
-		IPool hpPool = new HpPool(400, 100, 0, 0);
+		IPool energyPool = new Pool(
+				Consts.POOLS.MAJOR_BOSS_ENERGY_BASE_AMOUNT, 
+				Consts.POOLS.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.POOLS.MAJOR_BOSS_ENERGY_BASE_REGEN,
+				Consts.POOLS.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+		IPool hpPool = new HpPool(
+				Consts.POOLS.MAJOR_BOSS_HP_BASE_AMOUNT, 
+				Consts.POOLS.MAJOR_BOSS_HP_INCREASE_PER_LEVEL, 
+				Consts.POOLS.MAJOR_BOSS_HP_BASE_REGEN,
+				Consts.POOLS.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
 
 		controller.setPrimaryWeapon(targetedRedLaser);
 		controller.setSecondaryWeapon(tripleGreenLaser);

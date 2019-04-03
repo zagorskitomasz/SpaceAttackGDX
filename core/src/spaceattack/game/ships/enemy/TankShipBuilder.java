@@ -1,5 +1,6 @@
 package spaceattack.game.ships.enemy;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
@@ -25,21 +26,19 @@ public enum TankShipBuilder
 {
 	INSTANCE;
 
-	public IEnemyShip build(GameplayStage stage)
+	public IEnemyShip buildActI(GameplayStage stage, boolean required)
 	{
-		IEnemyShip tank = new BaseEnemyShip();
-		buildShip(stage, tank);
+		IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+		buildShipActI(stage, tank);
 		return tank;
 	}
 
-	public IEnemyShip buildRequired(GameplayStage stage) 
+	private IEnemyShip buildShipActI(GameplayStage stage, IEnemyShip tank)
 	{
-		IEnemyShip tank = new SuperBaseEnemyShip();
-		buildShip(stage, tank);
-		return tank;
+		return buildShip(stage, tank);
 	}
 
-	private IEnemyShip buildShip(GameplayStage stage, IEnemyShip tank)
+	private IEnemyShip buildShip(GameplayStage stage, IEnemyShip tank) 
 	{
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
@@ -51,8 +50,16 @@ public enum TankShipBuilder
 
 		Burner burner = BurnerBuilder.INSTANCE.build(tank);
 
-		IPool energyPool = new Pool(30, 15, 15, 3);
-		IPool hpPool = new HpPool(80, 35, 5, 1);
+		IPool energyPool = new Pool(
+				Consts.POOLS.TANK_ENERGY_BASE_AMOUNT, 
+				Consts.POOLS.TANK_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.POOLS.TANK_ENERGY_BASE_REGEN,
+				Consts.POOLS.TANK_ENERGY_REGEN_PER_LEVEL);
+		IPool hpPool = new HpPool(
+				Consts.POOLS.TANK_HP_BASE_AMOUNT, 
+				Consts.POOLS.TANK_HP_INCREASE_PER_LEVEL, 
+				Consts.POOLS.TANK_HP_BASE_REGEN,
+				Consts.POOLS.TANK_HP_REGEN_PER_LEVEL);
 
 		controller.setPrimaryWeapon(redLaser);
 		controller.setSecondaryWeapon(rocketLauncher);

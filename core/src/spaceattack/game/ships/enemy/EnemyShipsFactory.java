@@ -1,7 +1,7 @@
 package spaceattack.game.ships.enemy;
 
 import spaceattack.game.ships.IBoss;
-import spaceattack.game.ships.enemy.boss.MajorAct1BossShipBuilder;
+import spaceattack.game.ships.enemy.boss.MajorBossShipBuilder;
 import spaceattack.game.ships.enemy.boss.MinorBossShipBuilder;
 import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.Acts;
@@ -11,37 +11,85 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory
 	INSTANCE;
 
 	@Override
-	public IEnemyShip createFighter(GameplayStage stage)
+	public IEnemyShip createFighter(Acts act, GameplayStage stage)
 	{
-		return FighterShipBuilder.INSTANCE.build(stage);
+		switch(act)
+		{
+		case I:
+			return FighterShipBuilder.INSTANCE.buildActI(stage);
+		case II:
+			return null;
+		default:
+			return null;
+		}
 	}
 
 	@Override
-	public IEnemyShip createChaser(GameplayStage stage) 
+	public IEnemyShip createChaser(Acts act, GameplayStage stage) 
 	{
-		return ChaserShipBuilder.INSTANCE.build(stage);
+		switch(act)
+		{
+		case I:
+			return ChaserShipBuilder.INSTANCE.buildActI(stage);
+		case II:
+			return null;
+		default:
+			return null;
+		}
 	}
 
 	@Override
-	public IEnemyShip createTank(GameplayStage stage) 
+	public IEnemyShip createTank(Acts act, GameplayStage stage) 
 	{
-		return TankShipBuilder.INSTANCE.build(stage);
+		switch(act)
+		{
+		case I:
+			return TankShipBuilder.INSTANCE.buildActI(stage, false);
+		case II:
+			return null;
+		default:
+			return null;
+		}
 	}
 
 	@Override
-	public IEnemyShip createSuperTank(GameplayStage stage) 
+	public IEnemyShip createSuperTank(Acts act, GameplayStage stage) 
 	{
-		return TankShipBuilder.INSTANCE.buildRequired(stage);
+		switch(act)
+		{
+		case I:
+			return TankShipBuilder.INSTANCE.buildActI(stage, true);
+		case II:
+			return null;
+		default:
+			return null;
+		}
 	}
 
 	@Override
 	public IBoss createMinorBoss(Acts act, GameplayStage stage) 
 	{
-		return MinorBossShipBuilder.INSTANCE.build(act,stage);
+		switch(act)
+		{
+		case I:
+			return MinorBossShipBuilder.INSTANCE.buildActI(stage);
+		case II:
+			return null;
+		default:
+			return null;
+		}
 	}
 
-	public IBoss createMajorAct1Boss(GameplayStage stage) 
+	public IBoss createMajorBoss(Acts act, GameplayStage stage) 
 	{
-		return MajorAct1BossShipBuilder.INSTANCE.build(stage);
+		switch(act)
+		{
+		case I:
+			return MajorBossShipBuilder.INSTANCE.buildActI(stage);
+		case II:
+			return null;
+		default:
+			return null;
+		}
 	}
 }

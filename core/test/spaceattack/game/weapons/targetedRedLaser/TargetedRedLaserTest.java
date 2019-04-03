@@ -56,8 +56,9 @@ public class TargetedRedLaserTest
 	}
 
 	@Test
-	public void dontUseEnergy()
+	public void dontUseEnergy() throws InterruptedException
 	{
+		Thread.sleep(500);
 		doReturn(ExtVectorFactory.INSTANCE.create(1, 1)).when(controller).getTargetedWeaponMovement();
 		laser.use();
 		verify(controller).takeEnergy(0f);

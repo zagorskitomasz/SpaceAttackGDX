@@ -4,6 +4,7 @@ import spaceattack.consts.Consts;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.Sounds;
+import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.laser.Laser;
 import spaceattack.game.weapons.missiles.Missile;
@@ -21,11 +22,18 @@ public class TargetedRedLaser extends Laser
 	{
 		// do nothing
 	}
+	
+	@Override
+	public void setUtils(IUtils utils)
+	{
+		super.setUtils(utils);
+		frameController.reset(Consts.Weapons.TARGETED_LASER_ATTACKS_PER_SECOND);
+	}
 
 	@Override
 	public void setLevel(int level)
 	{
-		dmg = Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL;
+		dmg = (Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL) * 0.75f;
 		speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;
 		energyCost = 0;
 	}
