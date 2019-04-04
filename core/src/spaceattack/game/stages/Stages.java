@@ -14,8 +14,10 @@ public enum Stages
 	MISSIONS(MissionsStageBuilder.class),
 	MISSION_1(Mission1StageBuilder.class),
 	MISSION_2(Mission2StageBuilder.class),
-	MISSION_3(Mission3StageBuilder.class);
-	// TODO missions 2-3
+	MISSION_3(Mission3StageBuilder.class),
+	MISSION_4(Mission3StageBuilder.class),
+	MISSION_5(Mission3StageBuilder.class),
+	MISSION_6(Mission3StageBuilder.class);
 	//@formatter:on
 
 	private static final String MISSION_STAGE_PREFIX = "MISSION_";

@@ -42,6 +42,9 @@ public enum MusicPlayer
 
 	public void playAct(Acts act) 
 	{
+		if(!actMusic.containsKey(act))
+			return;
+		
 		actMusic.values().forEach(music -> music.fadeOut());
 		menuMusic.fadeOut();
 		actMusic.get(act).fadeIn();

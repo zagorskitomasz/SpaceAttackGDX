@@ -15,9 +15,9 @@ public class Consts
 
 	public static class Weapons
 	{
-		public static final int LASER_ATTACKS_PER_SECOND = 4;
-		public static final int TARGETED_LASER_ATTACKS_PER_SECOND = 2;
-		public static final int ROCKET_ATTACKS_PER_SECOND = 1;
+		public static final float LASER_ATTACKS_PER_SECOND = 4;
+		public static final float TARGETED_LASER_ATTACKS_PER_SECOND = 3.2f;
+		public static final float ROCKET_ATTACKS_PER_SECOND = 1;
 
 		public static final float RED_LASER_BASE_DMG = 10;
 		public static final float RED_LASER_DMG_PER_LEVEL = 3;
@@ -81,7 +81,7 @@ public class Consts
 	
 	public static class POOLS
 	{
-		public static final int PLAYER_HP_BASE_AMOUNT = 60;
+		public static final int PLAYER_HP_BASE_AMOUNT = 80;
 		public static final int PLAYER_HP_INCREASE_PER_LEVEL = 15;
 		public static final int PLAYER_HP_BASE_REGEN = 10;
 		public static final int PLAYER_HP_REGEN_PER_LEVEL = 2;

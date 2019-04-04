@@ -18,6 +18,9 @@ public enum Textures
 	M1_BACKGROUND("graphics/m1Background.jpg"),
 	M2_BACKGROUND("graphics/m2Background.jpg"),
 	M3_BACKGROUND("graphics/m3Background.jpg"),
+	M4_BACKGROUND("graphics/m4Background.jpg"),
+	M5_BACKGROUND("graphics/m5Background.jpg"),
+	M6_BACKGROUND("graphics/m6Background.jpg"),
 	
 	// UI
 	RED_BUTTON_UP("graphics/gui/redActive.png"),
@@ -35,17 +38,25 @@ public enum Textures
 	EXP_BAR("graphics/gui/barExp.png"),
 	
 	// ships
-	PLAYER_SHIP_F("graphics/ships/player/form1.png"),
-	PLAYER_SHIP_R("graphics/ships/player/form1R.png"),
-	PLAYER_SHIP_L("graphics/ships/player/form1L.png"),
+	PLAYER_SHIP1_F("graphics/ships/player/form1.png"),
+	PLAYER_SHIP1_R("graphics/ships/player/form1R.png"),
+	PLAYER_SHIP1_L("graphics/ships/player/form1L.png"),
+
+	PLAYER_SHIP2_F("graphics/ships/player/form2.png"),
+	PLAYER_SHIP2_R("graphics/ships/player/form2R.png"),
+	PLAYER_SHIP2_L("graphics/ships/player/form2L.png"),
 
 	FIGHTER1("graphics/ships/fighter/form1.png"),
+	FIGHTER2("graphics/ships/fighter/form2.png"),
 
 	CHASER1("graphics/ships/chaser/form1.png"),
+	CHASER2("graphics/ships/chaser/form2.png"),
 
 	TANK1("graphics/ships/tank/form1.png"),
+	TANK2("graphics/ships/tank/form2.png"),
 
 	BOSS1("graphics/ships/boss/form1.png"),
+	BOSS2("graphics/ships/boss/form2.png"),
 	
 	// weapons
 	RED_LASER_NS("graphics/weapons/laserNS.png"),
@@ -60,6 +71,7 @@ public enum Textures
 	HP_POWER_UP("graphics/powerups/hpPU.png"),
 	ENERGY_POWER_UP("graphics/powerups/energyPU.png"), 
 	ROCKET_POWER_UP("graphics/powerups/rocketPU.png"),
+	POWER_UP("graphics/powerups/rocketPU.png"),
 	ROCKET_ICON("graphics/powerups/rocketIcon.png");
 	//@formatter:on
 

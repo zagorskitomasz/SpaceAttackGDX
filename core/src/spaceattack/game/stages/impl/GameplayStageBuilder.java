@@ -161,8 +161,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		gameProgress.registerObserver(playersShip);
 		playersShip.notify(gameProgress);
 		playersShip.setActor(Factories.getActorFactory().create(playersShip));
-		playersShip.loadComplexGraphics(Textures.PLAYER_SHIP_F.getTexture(), Textures.PLAYER_SHIP_R.getTexture(),
-				Textures.PLAYER_SHIP_L.getTexture());
+		playersShip.loadComplexGraphics(Textures.PLAYER_SHIP1_F.getTexture(), Textures.PLAYER_SHIP1_R.getTexture(),
+				Textures.PLAYER_SHIP1_L.getTexture());
 		playersShip.setShipEngine(engine);
 		playersShip.addWeapon(redLaser);
 		playersShip.addWeapon(greenLaser);
