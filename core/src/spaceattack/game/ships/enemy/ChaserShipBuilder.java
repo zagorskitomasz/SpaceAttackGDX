@@ -19,6 +19,7 @@ import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
+import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum ChaserShipBuilder 
 {
@@ -26,16 +27,51 @@ public enum ChaserShipBuilder
 
 	public IEnemyShip buildActI(GameplayStage stage)
 	{
-		return build(stage);
+		IEnemyShip ship = build(stage);
+		ship.setTexture(Textures.CHASER1.getTexture());
+		
+		IWeaponController controller = new AIWeaponController();
+		MissilesLauncher launcher = stage.getMissilesLauncher();
+		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
+		IWeapon greenLaser = GreenLaserBuilder.INSTANCE.build(controller, launcher);
+
+		controller.setPrimaryWeapon(redLaser);
+		controller.setSecondaryWeapon(greenLaser);
+		controller.setShip(ship);
+		ship.addWeapon(redLaser);
+		ship.addWeapon(greenLaser);
+		ship.setWeaponController(controller);
+		ship.setMissilesLauncher(launcher);
+		ship.setLevel(stage.getCurrentMission() * 2);
+		
+		return ship;
+	}
+
+	public IEnemyShip buildActII(GameplayStage stage)
+	{
+		IEnemyShip ship = build(stage);
+		ship.setTexture(Textures.CHASER2.getTexture());
+		
+		IWeaponController controller = new AIWeaponController();
+		MissilesLauncher launcher = stage.getMissilesLauncher();
+		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
+		IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+
+		controller.setPrimaryWeapon(redLaser);
+		controller.setSecondaryWeapon(tripleGreenLaser);
+		controller.setShip(ship);
+		ship.addWeapon(redLaser);
+		ship.addWeapon(tripleGreenLaser);
+		ship.setWeaponController(controller);
+		ship.setMissilesLauncher(launcher);
+		ship.setLevel(stage.getCurrentMission() * 2);
+		
+		return ship;
 	}
 
 	private IEnemyShip build(GameplayStage stage) 
 	{
 		IEnemyShip chaser = new BaseEnemyShip();
-		MissilesLauncher launcher = stage.getMissilesLauncher();
-		IWeaponController controller = new AIWeaponController();
-		IWeapon greenLaser = GreenLaserBuilder.INSTANCE.build(controller, launcher);
-		IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
 		IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(chaser);
 		Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 
@@ -52,20 +88,10 @@ public enum ChaserShipBuilder
 				Consts.POOLS.CHASER_HP_BASE_REGEN,
 				Consts.POOLS.CHASER_HP_REGEN_PER_LEVEL);
 
-		controller.setPrimaryWeapon(redLaser);
-		controller.setSecondaryWeapon(greenLaser);
-		controller.setShip(chaser);
-
 		chaser.setActor(Factories.getActorFactory().create(chaser));
-		chaser.setTexture(Textures.CHASER1.getTexture());
 		chaser.setShipEngine(engine);
-		chaser.addWeapon(redLaser);
-		chaser.addWeapon(greenLaser);
 		chaser.setEnergyPool(energyPool);
 		chaser.setHpPool(hpPool);
-		chaser.setLevel(stage.getCurrentMission() * 2);
-		chaser.setWeaponController(controller);
-		chaser.setMissilesLauncher(launcher);
 		chaser.setExplosion(explosion);
 		chaser.setBar(new EnemyBar(chaser));
 		chaser.setBurner(burner);

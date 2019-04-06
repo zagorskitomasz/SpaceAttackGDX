@@ -18,6 +18,7 @@ public enum MusicPlayer
 		
 		actMusic = new HashMap<>();
 		actMusic.put(Acts.I, new PlayableMusic(Acts.I, Act1Music.values(), null, this::updateActMusic));
+		actMusic.put(Acts.II, new PlayableMusic(Acts.II, Act2Music.values(), null, this::updateActMusic));
 	}
 	
 	public void updateMenuMusic(PlayableMusic song)

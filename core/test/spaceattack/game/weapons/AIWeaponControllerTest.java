@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.factories.Factories;
@@ -38,6 +39,7 @@ public class AIWeaponControllerTest
 	{
 		vectors = ExtVectorFactory.INSTANCE;
 		Factories.setVectorFactory(vectors);
+		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 		ship = new FakeShip();
 		target = new FakeShip();
 		MockitoAnnotations.initMocks(this);
@@ -55,24 +57,24 @@ public class AIWeaponControllerTest
 	}
 
 	@Test
-	public void whenBothPossibleAndCanUsePrimaryUsePrimary()
+	public void whenBothPossibleAndCanUseSecondaryUseSecondary()
 	{
-		doReturn(true).when(weapon1).use();
-
-		controller.performAttack(PossibleAttacks.BOTH,null);
-
-		verify(weapon1).use();
-		verify(weapon2, times(0)).use();
-	}
-
-	@Test
-	public void whenBothPossibleAndCantUsePrimaryUseSecond()
-	{
-		doReturn(false).when(weapon1).use();
+		doReturn(true).when(weapon2).use();
 
 		controller.performAttack(PossibleAttacks.BOTH,null);
 
 		verify(weapon2).use();
+		verify(weapon1, times(0)).use();
+	}
+
+	@Test
+	public void whenBothPossibleAndCantUseSecondaryUsePrimary()
+	{
+		doReturn(false).when(weapon2).use();
+
+		controller.performAttack(PossibleAttacks.BOTH,null);
+
+		verify(weapon1).use();
 	}
 
 	@Test

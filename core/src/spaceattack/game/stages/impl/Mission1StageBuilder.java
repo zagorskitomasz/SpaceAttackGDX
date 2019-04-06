@@ -1,15 +1,11 @@
 package spaceattack.game.stages.impl;
 
-import spaceattack.game.ai.Act1EnemyBase;
 import spaceattack.game.ai.EnemyBase;
-import spaceattack.game.system.Acts;
 import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
-import spaceattack.game.system.sound.MusicPlayer;
-import spaceattack.game.utils.IUtils;
 
-public class Mission1StageBuilder extends GameplayStageBuilder
+public class Mission1StageBuilder extends Act1StageBuilder
 {
 	@Override
 	public void setMissionNumber()
@@ -22,24 +18,11 @@ public class Mission1StageBuilder extends GameplayStageBuilder
 	{
 		StaticImage background = StaticImageFactory.INSTANCE.create(Textures.M1_BACKGROUND.getTexture(), 0, 0);
 		stage.addBackground(background);
-		MusicPlayer.INSTANCE.playAct(getAct());
 	}
 
 	@Override
 	protected void setTanks(EnemyBase enemyBase) 
 	{
 		enemyBase.setTanksPool(8);
-	}
-
-	@Override
-	protected Acts getAct() 
-	{
-		return Acts.I;
-	}
-
-	@Override
-	protected EnemyBase createEnemyBase(IUtils utils) 
-	{
-		return new Act1EnemyBase(utils);
 	}
 }

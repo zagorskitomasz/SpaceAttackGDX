@@ -76,10 +76,4 @@ public class TripleGreenLaser extends GreenLaser
 
 		return missile;
 	}
-	
-	@Override
-	public float getWeaponsMovementFactor()
-	{
-		return 0f;
-	}
 }

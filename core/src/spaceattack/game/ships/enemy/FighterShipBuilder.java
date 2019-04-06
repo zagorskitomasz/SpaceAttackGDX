@@ -25,7 +25,16 @@ public enum FighterShipBuilder
 
 	public IEnemyShip buildActI(GameplayStage stage)
 	{
-		return build(stage);
+		IEnemyShip ship = build(stage);
+		ship.setTexture(Textures.FIGHTER1.getTexture());
+		return ship;
+	}
+
+	public IEnemyShip buildActII(GameplayStage stage)
+	{
+		IEnemyShip ship = build(stage);
+		ship.setTexture(Textures.FIGHTER2.getTexture());
+		return ship;
 	}
 
 	private IEnemyShip build(GameplayStage stage) 
@@ -55,7 +64,6 @@ public enum FighterShipBuilder
 		controller.setShip(fighter);
 
 		fighter.setActor(Factories.getActorFactory().create(fighter));
-		fighter.setTexture(Textures.FIGHTER1.getTexture());
 		fighter.setShipEngine(engine);
 		fighter.addWeapon(redLaser);
 		fighter.setEnergyPool(energyPool);

@@ -1,16 +1,12 @@
 package spaceattack.game.stages.impl;
 
-import spaceattack.game.ai.Act1EnemyBase;
 import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.ships.enemy.EnemyShipsFactory;
-import spaceattack.game.system.Acts;
 import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
-import spaceattack.game.system.sound.MusicPlayer;
-import spaceattack.game.utils.IUtils;
 
-public class Mission2StageBuilder extends GameplayStageBuilder
+public class Mission2StageBuilder extends Act1StageBuilder
 {
 	@Override
 	public void setMissionNumber()
@@ -23,7 +19,6 @@ public class Mission2StageBuilder extends GameplayStageBuilder
 	{
 		StaticImage background = StaticImageFactory.INSTANCE.create(Textures.M2_BACKGROUND.getTexture(), 0, 0);
 		stage.addBackground(background);
-		MusicPlayer.INSTANCE.playAct(getAct());
 	}
 
 	@Override
@@ -31,17 +26,5 @@ public class Mission2StageBuilder extends GameplayStageBuilder
 	{
 		enemyBase.setTanksPool(7);
 		enemyBase.setBoss(EnemyShipsFactory.INSTANCE.createMinorBoss(getAct(), stage));
-	}
-
-	@Override
-	protected Acts getAct() 
-	{
-		return Acts.I;
-	}
-
-	@Override
-	protected EnemyBase createEnemyBase(IUtils utils) 
-	{
-		return new Act1EnemyBase(utils);
 	}
 }

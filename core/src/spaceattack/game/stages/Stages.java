@@ -5,6 +5,7 @@ import spaceattack.game.stages.impl.MainMenuStageBuilder;
 import spaceattack.game.stages.impl.Mission1StageBuilder;
 import spaceattack.game.stages.impl.Mission2StageBuilder;
 import spaceattack.game.stages.impl.Mission3StageBuilder;
+import spaceattack.game.stages.impl.Mission4StageBuilder;
 import spaceattack.game.stages.impl.MissionsStageBuilder;
 
 public enum Stages
@@ -15,7 +16,7 @@ public enum Stages
 	MISSION_1(Mission1StageBuilder.class),
 	MISSION_2(Mission2StageBuilder.class),
 	MISSION_3(Mission3StageBuilder.class),
-	MISSION_4(Mission3StageBuilder.class),
+	MISSION_4(Mission4StageBuilder.class),
 	MISSION_5(Mission3StageBuilder.class),
 	MISSION_6(Mission3StageBuilder.class);
 	//@formatter:on
