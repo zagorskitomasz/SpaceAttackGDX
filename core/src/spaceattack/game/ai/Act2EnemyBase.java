@@ -23,6 +23,6 @@ public class Act2EnemyBase extends EnemyBase
 	@Override
 	protected IPowerUp choosePowerUp() 
 	{
-		return PowerUpBuilder.INSTANCE.rocketMissileHolder(controller, fireButton, stage);
+		return PowerUpBuilder.INSTANCE.mineHolder(controller, fireButton, stage);
 	}
 }

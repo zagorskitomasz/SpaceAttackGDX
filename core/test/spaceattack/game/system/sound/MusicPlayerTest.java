@@ -37,6 +37,11 @@ public class MusicPlayerTest
 		doReturn(actMusic).when(factory).create(Act1Music.SONG_3.getPath());
 		doReturn(actMusic).when(factory).create(Act1Music.SONG_4.getPath());
 		doReturn(actMusic).when(factory).create(Act1Music.SONG_5.getPath());
+		doReturn(actMusic).when(factory).create(Act2Music.SONG_1.getPath());
+		doReturn(actMusic).when(factory).create(Act2Music.SONG_2.getPath());
+		doReturn(actMusic).when(factory).create(Act2Music.SONG_3.getPath());
+		doReturn(actMusic).when(factory).create(Act2Music.SONG_4.getPath());
+		doReturn(actMusic).when(factory).create(Act2Music.SONG_5.getPath());
 		
 		Factories.setMusicFactory(factory);
 		player = MusicPlayer.INSTANCE;
@@ -68,7 +73,7 @@ public class MusicPlayerTest
 		player.playMenu();
 		Thread.sleep(2000);
 		
-		verify(actMusic).pause();
+		verify(actMusic,times(2)).pause();
 		verify(menuMusic,times(2)).play();
 	}
 }

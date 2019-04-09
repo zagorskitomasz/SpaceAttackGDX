@@ -66,13 +66,15 @@ public enum Textures
 	TURBO_LASER("graphics/weapons/turbo.png"), 
 	ROCKET_MISSILE_P("graphics/weapons/missileP.png"), 
 	ROCKET_MISSILE_E("graphics/weapons/missileE.png"), 
+	MINE("graphics/weapons/mine.png"), 
 	
 	// power ups
 	HP_POWER_UP("graphics/powerups/hpPU.png"),
 	ENERGY_POWER_UP("graphics/powerups/energyPU.png"), 
 	ROCKET_POWER_UP("graphics/powerups/rocketPU.png"),
-	POWER_UP("graphics/powerups/rocketPU.png"),
-	ROCKET_ICON("graphics/powerups/rocketIcon.png");
+	MINE_POWER_UP("graphics/powerups/minePU.png"),
+	ROCKET_ICON("graphics/powerups/rocketIcon.png"),
+	MINE_ICON("graphics/powerups/mineIcon.png");
 	//@formatter:on
 
 	private String path;

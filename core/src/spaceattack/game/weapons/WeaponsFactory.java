@@ -2,6 +2,7 @@ package spaceattack.game.weapons;
 
 import spaceattack.game.weapons.doubleRedLaser.DoubleRedLaserBuilder;
 import spaceattack.game.weapons.greenLaser.GreenLaserBuilder;
+import spaceattack.game.weapons.miner.MinerBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 
@@ -27,5 +28,10 @@ public enum WeaponsFactory
 	public IWeapon createDoubleRedLaser(PlayerWeaponController weaponController, MissilesLauncher missilesLauncher) 
 	{
 		return DoubleRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher);
+	}
+
+	public IWeapon createMine(IWeaponController weaponController, MissilesLauncher missilesLauncher) 
+	{
+		return MinerBuilder.INSTANCE.build(weaponController, missilesLauncher);
 	}
 }

@@ -18,6 +18,7 @@ public class Consts
 		public static final float LASER_ATTACKS_PER_SECOND = 4;
 		public static final float TARGETED_LASER_ATTACKS_PER_SECOND = 3.2f;
 		public static final float ROCKET_ATTACKS_PER_SECOND = 1;
+		public static final float MINE_ATTACKS_PER_SECOND = 1;
 
 		public static final float RED_LASER_BASE_DMG = 10;
 		public static final float RED_LASER_DMG_PER_LEVEL = 3;
@@ -36,8 +37,13 @@ public class Consts
 		public static final int ROCKET_BASE_COST = 20;
 		public static final int ROCKET_COST_PER_LEVEL = 3;
 
+		public static final int MINE_BASE_COST = 20;
+		public static final int MINE_COST_PER_LEVEL = 3;
+
 		public static final float LASER_RADIUS = 8;
 		public static final float ROCKET_RADIUS = 10;
+		public static final float MINE_RADIUS = 15;
+		public static final long MINE_DELAY = 5000;
 	}
 
 	public static class Gameplay

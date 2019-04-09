@@ -8,6 +8,7 @@ public enum Sounds
 	// shots
 	RED_LASER("sound/redShot.mp3"), //
 	ROCKET_MISSILE("sound/missileFly.mp3"), //
+	MINE("sound/mine.mp3"), //
 	TURBO_LASER("sound/greenShot.mp3"), //
 	POWER_UP("sound/powerUp.mp3"), //
 
