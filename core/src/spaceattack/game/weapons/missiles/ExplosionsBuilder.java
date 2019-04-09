@@ -1,5 +1,6 @@
 package spaceattack.game.weapons.missiles;
 
+import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.graphics.Animations;
@@ -41,7 +42,7 @@ public enum ExplosionsBuilder
 		return explosion;
 	}
 
-	public Explosion createMissileExplosion(int strength)
+	public Launchable createMissileExplosion(int strength)
 	{
 		Explosion explosion = new Explosion();
 
@@ -68,6 +69,21 @@ public enum ExplosionsBuilder
 		explosion.setFireDuration(4000 + strength * 500);
 		explosion.setRadius(130);
 		explosion.setSound(Sounds.SMALL_SHIP_EXPLOSION);
+
+		return explosion;
+	}
+
+	public Launchable createMineExplosion(int strength) 
+	{
+		Explosion explosion = new Explosion();
+
+		explosion.setActor(Factories.getActorFactory().create(explosion));
+		explosion.setAnimation(Animations.MISSILE_EX.getAnimation());
+		explosion.setDmg(strength * 20);
+		explosion.setFireDmg(10 + strength * 2);
+		explosion.setFireDuration(4000 + strength * 500);
+		explosion.setRadius(100);
+		explosion.setSound(Sounds.MISSILE_EXPLOSION);
 
 		return explosion;
 	}

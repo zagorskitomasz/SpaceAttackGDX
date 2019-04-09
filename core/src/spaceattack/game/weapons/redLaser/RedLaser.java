@@ -9,7 +9,7 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class RedLaser extends Laser
 {
-	RedLaser()
+	protected RedLaser()
 	{
 		// do nothing
 	}

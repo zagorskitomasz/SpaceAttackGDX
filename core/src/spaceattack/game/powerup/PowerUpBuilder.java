@@ -51,4 +51,20 @@ public enum PowerUpBuilder
 
 		return holder;
 	}
+
+	public IPowerUp mineHolder(IWeaponController controller, ComplexFireButton button, GameplayStage stage) 
+	{
+		IWeapon mine = WeaponsFactory.INSTANCE.createMine(controller, stage.getMissilesLauncher());
+		mine.setLevel(stage.getGameProgress().getLevel());
+
+		WeaponHolder holder = new WeaponHolder();
+		holder.setFireButton(button);
+		holder.setAmmo(5);
+		holder.setTexture(Textures.MINE_POWER_UP);
+		holder.setActor(Factories.getActorFactory().create(holder));
+		holder.setWeapon(mine);
+		holder.setWeaponIcon(Textures.MINE_ICON.getTexture());
+
+		return holder;
+	}
 }

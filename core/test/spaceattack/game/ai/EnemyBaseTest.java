@@ -1,6 +1,7 @@
 package spaceattack.game.ai;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -26,6 +27,7 @@ import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
 import spaceattack.game.stages.impl.GameplayStage;
+import spaceattack.game.system.Acts;
 import spaceattack.game.system.graphics.Textures;
 
 public class EnemyBaseTest
@@ -61,12 +63,12 @@ public class EnemyBaseTest
 		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 		Textures.loadForTest();
-		doReturn(fighter).when(factory).createFighter(stage);
+		doReturn(fighter).when(factory).createFighter(Acts.I,stage);
 		doReturn(0f).when(fighter).getX();
 		doReturn(0f).when(fighter).getY();
 		doReturn(new GameProgress()).when(stage).getGameProgress();
 
-		base = new EnemyBase(ExtUtilsFactory.INSTANCE.create());
+		base = new Act1EnemyBase(ExtUtilsFactory.INSTANCE.create());
 		base.setActor(new FakeActor());
 		base.setRadar(radar);
 		base.setShipsFactory(factory);
@@ -102,7 +104,7 @@ public class EnemyBaseTest
 
 		base.act(0);
 
-		verify(factory, times(0)).createFighter(any());
+		verify(factory, times(0)).createFighter(eq(Acts.I),any());
 	}
 	
 	@Test

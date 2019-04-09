@@ -8,4 +8,14 @@ public interface IBoss extends IEnemyShip
 {
 	MoverType getDefaultMoverType();
 	ShooterType getDefaultShooterType();
+	
+	default void setDefaultMoverType(MoverType type)
+	{
+		// do nothing;
+	}
+	
+	default void setDefaultShooterType(ShooterType type)
+	{
+		// do nothing;
+	}
 }

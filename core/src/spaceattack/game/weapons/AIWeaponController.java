@@ -1,8 +1,10 @@
 package spaceattack.game.weapons;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.utils.vector.IVectorFactory;
 
@@ -11,9 +13,13 @@ public class AIWeaponController extends AbstractWeaponController
 	private RadarVisible target;
 	private IVectorFactory vectors;
 	
+	private FrameController attacksInterval;
+	private boolean shot;
+	
 	public AIWeaponController()
 	{
 		vectors = Factories.getVectorFactory();
+		attacksInterval = new FrameController(Factories.getUtilsFactory().create(), 1);
 	}
 	
 	@Override
@@ -39,11 +45,14 @@ public class AIWeaponController extends AbstractWeaponController
 	@Override
 	public void performAttack(PossibleAttacks possibleAttack, RadarVisible target)
 	{
+		if(shot && !attacksInterval.check())
+			return;
+		
 		switch (possibleAttack)
 		{
 			case BOTH:
-				if (!tryUse(primaryWeapon))
-					tryUse(secondaryWeapon);
+				if (!tryUse(secondaryWeapon))
+					tryUse(primaryWeapon);
 				break;
 			case PRIMARY:
 				tryUse(primaryWeapon);
@@ -59,7 +68,12 @@ public class AIWeaponController extends AbstractWeaponController
 
 	private boolean tryUse(IWeapon weapon)
 	{
-		return weapon.use();
+		shot = weapon.use();
+		
+		if(shot)
+			attacksInterval.reset(Consts.Weapons.LASER_ATTACKS_PER_SECOND);
+		
+		return shot;
 	}
 
 	@Override

@@ -6,13 +6,13 @@ import spaceattack.game.system.Acts;
 
 public interface IEnemyShipsFactory
 {
-	IEnemyShip createFighter(GameplayStage stage);
+	IEnemyShip createFighter(Acts act, GameplayStage stage);
 
-	IEnemyShip createChaser(GameplayStage stage);
+	IEnemyShip createChaser(Acts act, GameplayStage stage);
 
-	IEnemyShip createTank(GameplayStage stage);
+	IEnemyShip createTank(Acts act, GameplayStage stage);
 
-	IEnemyShip createSuperTank(GameplayStage stage);
+	IEnemyShip createSuperTank(Acts act, GameplayStage stage);
 
 	IBoss createMinorBoss(Acts act, GameplayStage stage);
 }

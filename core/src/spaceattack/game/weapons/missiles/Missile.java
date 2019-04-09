@@ -46,7 +46,7 @@ public class Missile extends AbstractMissile implements Killable
 		return (isPlayersAttack && actor instanceof IEnemyShip) || (!isPlayersAttack && actor instanceof PlayerShip);
 	}
 
-	private void move()
+	protected void move()
 	{
 		getActor().setX(getActor().getX() + movement.getX() * speed);
 		getActor().setY(getActor().getY() + movement.getY() * speed);

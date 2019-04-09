@@ -21,21 +21,23 @@ import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.IEnemyShipsFactory;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.impl.GameplayStage;
+import spaceattack.game.system.Acts;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeaponController;
 
-public class EnemyBase extends InvisibleActor
+public abstract class EnemyBase extends InvisibleActor
 {
-	private GameplayStage stage;
+	protected GameplayStage stage;
+	private Acts act;
 	private IEnemyShipsFactory shipsFactory;
 	private Radar radar;
 	private List<IEnemyShip> enemyShips;
 	private RadarVisible playerShip;
 	private IPool hpPool;
 	private IPool energyPool;
-	private ComplexFireButton fireButton;
-	private IWeaponController controller;
+	protected ComplexFireButton fireButton;
+	protected IWeaponController controller;
 	
 	private int tanksPool;
 
@@ -48,9 +50,9 @@ public class EnemyBase extends InvisibleActor
 
 	public EnemyBase(IUtils utils)
 	{
-		fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, 3000);
-		chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, 10000);
-		tankTimer = new FrameController(utils, Consts.AI.TANKS_PER_SECOND, 23000);
+		fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, Consts.AI.FIRST_FIGHTER_AFTER_MILLIS);
+		chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, Consts.AI.FIRST_CHASER_AFTER_MILLIS);
+		tankTimer = new FrameController(utils, Consts.AI.TANKS_PER_SECOND, Consts.AI.FIRST_TANK_AFTER_MILLIS);
 	}
 
 	public void setStage(GameplayStage stage)
@@ -97,6 +99,11 @@ public class EnemyBase extends InvisibleActor
 	{
 		this.boss = boss;
 	}
+	
+	protected void setAct(Acts act)
+	{
+		this.act = act;
+	}
 
 	@Override
 	public void act(float delta)
@@ -121,7 +128,7 @@ public class EnemyBase extends InvisibleActor
 	{
 		updateRadar();
 
-		IEnemyShip fighter = shipsFactory.createFighter(stage);
+		IEnemyShip fighter = shipsFactory.createFighter(act, stage);
 
 		MoverAI mover = chooseMover(fighter);
 		ShooterAI shooter = chooseShooter(fighter);
@@ -139,7 +146,7 @@ public class EnemyBase extends InvisibleActor
 	{
 		updateRadar();
 
-		IEnemyShip chaser = shipsFactory.createChaser(stage);
+		IEnemyShip chaser = shipsFactory.createChaser(act, stage);
 
 		MoverAI mover = MoverType.FRONT_CHASER.create();
 		ShooterAI shooter = createDirectShooter(chaser);
@@ -163,7 +170,7 @@ public class EnemyBase extends InvisibleActor
 		IEnemyShip tank = createTank();
 
 		MoverAI mover = MoverType.SLOW_DOWNER.create();
-		ShooterAI shooter = createDirectShooter(tank);
+		ShooterAI shooter = createTankShooter(tank);
 		IPowerUp powerUp = choosePowerUp(tank);
 
 		mover.setPlayerShip(playerShip);
@@ -176,6 +183,8 @@ public class EnemyBase extends InvisibleActor
 
 		stage.addActorBeforeGUI(tank);
 	}
+
+	protected abstract ShooterAI createTankShooter(IEnemyShip tank);
 
 	private void addBoss()
 	{
@@ -199,9 +208,9 @@ public class EnemyBase extends InvisibleActor
 		IEnemyShip tank = null;
 		
 		if(tanksPool > 1 || boss != null)
-			tank = shipsFactory.createTank(stage);
+			tank = shipsFactory.createTank(act, stage);
 		else
-			tank = shipsFactory.createSuperTank(stage);
+			tank = shipsFactory.createSuperTank(act, stage);
 		
 		tanksPool--;
 		return tank;
@@ -279,7 +288,7 @@ public class EnemyBase extends InvisibleActor
 		return createDirectShooter(fighter);
 	}
 
-	private ShooterAI createDirectShooter(IEnemyShip fighter) {
+	protected ShooterAI createDirectShooter(IEnemyShip fighter) {
 		ShooterAI shooter;
 		shooter = new DirectShooter();
 
@@ -290,7 +299,7 @@ public class EnemyBase extends InvisibleActor
 		return shooter;
 	}
 
-	private ShooterAI createInstantPrimaryShooter(IEnemyShip fighter) {
+	protected ShooterAI createInstantPrimaryShooter(IEnemyShip fighter) {
 		ShooterAI shooter;
 		shooter = new InstantPrimaryDirectShooter();
 
@@ -324,8 +333,10 @@ public class EnemyBase extends InvisibleActor
 			else if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE + Consts.AI.FIGHTER_ENE_UP_CHANCE)
 				powerUp = PowerUpBuilder.INSTANCE.energy(energyPool);
 			else
-				powerUp = PowerUpBuilder.INSTANCE.rocketMissileHolder(controller, fireButton, stage);
+				powerUp = choosePowerUp();
 		}
 		return powerUp;
 	}
+
+	protected abstract IPowerUp choosePowerUp();
 }

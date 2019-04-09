@@ -1,17 +1,16 @@
 package spaceattack.game.ships.enemy.boss;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.BigEnemyBar;
-import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
 import spaceattack.game.stages.impl.GameplayStage;
-import spaceattack.game.system.Acts;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.AIWeaponController;
 import spaceattack.game.weapons.IWeapon;
@@ -27,15 +26,14 @@ public enum MinorBossShipBuilder
 {
 	INSTANCE;
 
-	public IBoss build(Acts act, GameplayStage stage)
+	public IBoss buildActI(GameplayStage stage)
 	{
-		IBoss boss = new SuperBaseEnemyShip();
-		buildShip(stage, boss);
-		return boss;
+		return build(stage);
 	}
 
-	private IEnemyShip buildShip(GameplayStage stage, IBoss boss)
+	private IBoss build(GameplayStage stage)
 	{
+		IBoss boss = new SuperBaseEnemyShip();
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
 		IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
@@ -44,8 +42,16 @@ public enum MinorBossShipBuilder
 
 		Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-		IPool energyPool = new Pool(50, 10, 20, 5);
-		IPool hpPool = new HpPool(200, 50, 0, 0);
+		IPool energyPool = new Pool(
+				Consts.POOLS.MINOR_BOSS_ENERGY_BASE_AMOUNT, 
+				Consts.POOLS.MINOR_BOSS_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.POOLS.MINOR_BOSS_ENERGY_BASE_REGEN,
+				Consts.POOLS.MINOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+		IPool hpPool = new HpPool(
+				Consts.POOLS.MINOR_BOSS_HP_BASE_AMOUNT, 
+				Consts.POOLS.MINOR_BOSS_HP_INCREASE_PER_LEVEL, 
+				Consts.POOLS.MINOR_BOSS_HP_BASE_REGEN,
+				Consts.POOLS.MINOR_BOSS_HP_REGEN_PER_LEVEL);
 
 		controller.setPrimaryWeapon(targetedRedLaser);
 		controller.setSecondaryWeapon(targetedRedLaser);

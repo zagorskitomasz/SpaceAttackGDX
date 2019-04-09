@@ -25,43 +25,42 @@ import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
 import spaceattack.game.stages.IGameStage;
+import spaceattack.game.system.Acts;
 import spaceattack.game.system.GameLoaderFactory;
 import spaceattack.game.system.GameSaverFactory;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
+import spaceattack.game.system.sound.MusicPlayer;
 import spaceattack.game.utils.GameplayLabel;
+import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
 import spaceattack.game.weapons.WeaponsFactory;
-import spaceattack.game.weapons.missiles.Burner;
-import spaceattack.game.weapons.missiles.BurnerBuilder;
-import spaceattack.game.weapons.missiles.Explosion;
-import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 
 public abstract class GameplayStageBuilder implements IStageBuilder
 {
 	protected GameplayStage stage;
 
-	private GameProgress gameProgress;
-	private PlayerShip playersShip;
-	private IEngine engine;
-	private MissionInputHandler processor;
-	private PlayerWeaponController weaponController;
-	private MissilesLauncher missilesLauncher;
-	private IWeapon redLaser;
-	private IWeapon greenLaser;
-	private IFireButton primaryFireButton;
-	private ComplexFireButton secondaryFireButton;
-	private Accelerator accelerator;
-	private IPool expPool;
-	private HpPool hpPool;
-	private IPool energyPool;
-	private Bar expBar;
-	private Bar hpEnergyBar;
-	private EnemyBase enemyBase;
-	private GameplayLabel missionLabel;
-	private GameplayLabel levelLabel;
+	protected GameProgress gameProgress;
+	protected PlayerShip playersShip;
+	protected IEngine engine;
+	protected MissionInputHandler processor;
+	protected PlayerWeaponController weaponController;
+	protected MissilesLauncher missilesLauncher;
+	protected IWeapon primaryWeapon;
+	protected IWeapon greenLaser;
+	protected IFireButton primaryFireButton;
+	protected ComplexFireButton secondaryFireButton;
+	protected Accelerator accelerator;
+	protected IPool expPool;
+	protected HpPool hpPool;
+	protected IPool energyPool;
+	protected Bar expBar;
+	protected Bar hpEnergyBar;
+	protected EnemyBase enemyBase;
+	protected GameplayLabel missionLabel;
+	protected GameplayLabel levelLabel;
 
 	@Override
 	public IGameStage build(GameProgress progress)
@@ -73,6 +72,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 			buildStage();
 			setMissionNumber();
 			setTanks(enemyBase);
+			MusicPlayer.INSTANCE.playAct(getAct());
 			gameProgress.notifyObservers();
 			return stage;
 		}
@@ -97,6 +97,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		addComponents();
 	}
 
+	protected abstract void buildShip();
 	protected abstract void addBackground();
 
 	private void addSystemDependencies()
@@ -120,13 +121,16 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		processor = new MissionInputHandler();
 		weaponController = new PlayerWeaponController();
 		missilesLauncher = new MissilesLauncher(stage);
-		redLaser = WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher);
+		primaryWeapon = createPrimaryWeapon();
 		greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
-		primaryFireButton = FireButtonsBuilder.INSTANCE.primary(redLaser);
+		primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
 		secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
-		enemyBase = new EnemyBase(Factories.getUtilsFactory().create());
+		enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
 	}
 
+	protected abstract IWeapon createPrimaryWeapon();
+	protected abstract EnemyBase createEnemyBase(IUtils utils);
+	
 	private void configureInputProcessor()
 	{
 		processor.setUtils(Factories.getUtilsFactory().create());
@@ -139,7 +143,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 
 	private void configureWeapons()
 	{
-		weaponController.setPrimaryWeapon(redLaser);
+		weaponController.setPrimaryWeapon(primaryWeapon);
 		weaponController.setPrimaryFireButton(primaryFireButton);
 
 		weaponController.setSecondaryWeapon(greenLaser);
@@ -148,33 +152,19 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		weaponController.setShip(playersShip);
 	}
 
-	private void buildShip()
-	{
-		
-		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
-		Burner burner = BurnerBuilder.INSTANCE.build(playersShip);
-
-		gameProgress.registerObserver(playersShip);
-		playersShip.notify(gameProgress);
-		playersShip.setActor(Factories.getActorFactory().create(playersShip));
-		playersShip.loadComplexGraphics(Textures.PLAYER_SHIP_F.getTexture(), Textures.PLAYER_SHIP_R.getTexture(),
-				Textures.PLAYER_SHIP_L.getTexture());
-		playersShip.setShipEngine(engine);
-		playersShip.addWeapon(redLaser);
-		playersShip.addWeapon(greenLaser);
-		playersShip.setEnergyPool(energyPool);
-		playersShip.setHpPool(hpPool);
-		playersShip.setLevel(gameProgress.getLevel());
-		playersShip.setMissilesLauncher(missilesLauncher);
-		playersShip.setExplosion(explosion);
-		playersShip.setBurner(burner);
-	}
-
 	private void initPools()
 	{
 		expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
-		energyPool = new Pool(80, 20, 20, 4);
-		hpPool = new HpPool(80, 12, 10, 1f);
+		energyPool = new Pool(
+				Consts.POOLS.PLAYER_ENERGY_BASE_AMOUNT, 
+				Consts.POOLS.PLAYER_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.POOLS.PLAYER_ENERGY_BASE_REGEN, 
+				Consts.POOLS.PLAYER_ENERGY_REGEN_PER_LEVEL);
+		hpPool = new HpPool(
+				Consts.POOLS.PLAYER_HP_BASE_AMOUNT, 
+				Consts.POOLS.PLAYER_HP_INCREASE_PER_LEVEL, 
+				Consts.POOLS.PLAYER_HP_BASE_REGEN, 
+				Consts.POOLS.PLAYER_HP_REGEN_PER_LEVEL);
 		hpPool.setImmunityChecker(stage::isGameOver);
 
 		expBar = BarBuilder.INSTANCE.experienceBar(expPool);
@@ -195,6 +185,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 		enemyBase.setWeaponController(weaponController);
 	}
 
+	protected abstract Acts getAct();
+	
 	private void setTimeLabels()
 	{
 		ILabel levelUpILabel = Factories.getUtilsFactory().create().createTimeLabel("LEVEL UP!", 0xdaa520ff);
