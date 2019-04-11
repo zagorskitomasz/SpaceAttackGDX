@@ -52,7 +52,7 @@ public class RocketMissile extends AbstractWeapon
 		missile.setSpeed(2 * Sizes.Y_FACTOR);
 		missile.setAcceleration(0.2f * Sizes.Y_FACTOR);
 		missile.setMovement(controller.getWeaponMovement());
-		missile.setPosition(controller.getPrimaryWeaponUsePlacement());
+		missile.setPosition(controller.getSecondaryWeaponUsePlacement());
 		missile.setRadius(Consts.Weapons.ROCKET_RADIUS);
 		missile.setSound(Sounds.ROCKET_MISSILE);
 		missile.setExplosion(ExplosionsBuilder.INSTANCE.createMissileExplosion(level));

@@ -15,8 +15,6 @@ public class Mine extends ExplosiveMissile
 		utils = Factories.getUtilsFactory().create();
 		created = utils.millis();
 		delay = explodeAfterMillis;
-		System.out.println(created);
-		System.out.println(delay);
 	}
 	
 	@Override
@@ -26,7 +24,6 @@ public class Mine extends ExplosiveMissile
 		
 		if(utils.millis() > created + delay)
 		{
-			System.out.println("chuj" + (utils.millis()) + " " + (created + delay));
 			setToKill();
 		}
 	}

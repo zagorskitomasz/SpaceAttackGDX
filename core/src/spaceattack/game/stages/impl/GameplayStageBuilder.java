@@ -156,15 +156,15 @@ public abstract class GameplayStageBuilder implements IStageBuilder
 	{
 		expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
 		energyPool = new Pool(
-				Consts.POOLS.PLAYER_ENERGY_BASE_AMOUNT, 
-				Consts.POOLS.PLAYER_ENERGY_INCREASE_PER_LEVEL, 
-				Consts.POOLS.PLAYER_ENERGY_BASE_REGEN, 
-				Consts.POOLS.PLAYER_ENERGY_REGEN_PER_LEVEL);
+				Consts.Pools.PLAYER_ENERGY_BASE_AMOUNT, 
+				Consts.Pools.PLAYER_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.Pools.PLAYER_ENERGY_BASE_REGEN, 
+				Consts.Pools.PLAYER_ENERGY_REGEN_PER_LEVEL);
 		hpPool = new HpPool(
-				Consts.POOLS.PLAYER_HP_BASE_AMOUNT, 
-				Consts.POOLS.PLAYER_HP_INCREASE_PER_LEVEL, 
-				Consts.POOLS.PLAYER_HP_BASE_REGEN, 
-				Consts.POOLS.PLAYER_HP_REGEN_PER_LEVEL);
+				Consts.Pools.PLAYER_HP_BASE_AMOUNT, 
+				Consts.Pools.PLAYER_HP_INCREASE_PER_LEVEL, 
+				Consts.Pools.PLAYER_HP_BASE_REGEN, 
+				Consts.Pools.PLAYER_HP_REGEN_PER_LEVEL);
 		hpPool.setImmunityChecker(stage::isGameOver);
 
 		expBar = BarBuilder.INSTANCE.experienceBar(expPool);

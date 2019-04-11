@@ -49,15 +49,15 @@ public enum MajorBossShipBuilder
 		Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
 		IPool energyPool = new Pool(
-				Consts.POOLS.MAJOR_BOSS_ENERGY_BASE_AMOUNT, 
-				Consts.POOLS.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL, 
-				Consts.POOLS.MAJOR_BOSS_ENERGY_BASE_REGEN,
-				Consts.POOLS.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+				Consts.Pools.MAJOR_BOSS_ENERGY_BASE_AMOUNT, 
+				Consts.Pools.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.Pools.MAJOR_BOSS_ENERGY_BASE_REGEN,
+				Consts.Pools.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
 		IPool hpPool = new HpPool(
-				Consts.POOLS.MAJOR_BOSS_HP_BASE_AMOUNT, 
-				Consts.POOLS.MAJOR_BOSS_HP_INCREASE_PER_LEVEL, 
-				Consts.POOLS.MAJOR_BOSS_HP_BASE_REGEN,
-				Consts.POOLS.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+				Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT, 
+				Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL, 
+				Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
+				Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
 
 		controller.setPrimaryWeapon(targetedRedLaser);
 		controller.setSecondaryWeapon(tripleGreenLaser);

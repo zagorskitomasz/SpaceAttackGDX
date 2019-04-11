@@ -2,9 +2,9 @@ package spaceattack.game.weapons.missiles;
 
 import spaceattack.consts.Sizes;
 import spaceattack.game.actors.DrawableActor;
+import spaceattack.game.actors.interfaces.Collisionable;
 import spaceattack.game.actors.interfaces.Killable;
 import spaceattack.game.actors.interfaces.Launchable;
-import spaceattack.game.actors.interfaces.Vulnerable;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.NumbersUtils;
@@ -17,14 +17,14 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
 	private float radius;
 	protected boolean isPlayersAttack;
 
-	protected boolean checkCollision(Vulnerable vulnerable)
+	protected boolean checkCollision(Collisionable collisionable)
 	{
 		disappearIfNeeded();
 		
 		IVector missileCenter = Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
-		IVector vulnerableCenter = vulnerable.getPosition();
+		IVector vulnerableCenter = collisionable.getPosition();
 
-		return NumbersUtils.distance(missileCenter, vulnerableCenter) <= vulnerable.getRadius() + getRadius();
+		return NumbersUtils.distance(missileCenter, vulnerableCenter) <= collisionable.getRadius() + getRadius();
 	}
 
 	public float getRadius()

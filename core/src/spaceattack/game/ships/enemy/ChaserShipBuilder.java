@@ -78,15 +78,15 @@ public enum ChaserShipBuilder
 		Burner burner = BurnerBuilder.INSTANCE.build(chaser);
 
 		IPool energyPool = new Pool(
-				Consts.POOLS.CHASER_ENERGY_BASE_AMOUNT, 
-				Consts.POOLS.CHASER_ENERGY_INCREASE_PER_LEVEL, 
-				Consts.POOLS.CHASER_ENERGY_BASE_REGEN,
-				Consts.POOLS.CHASER_ENERGY_REGEN_PER_LEVEL);
+				Consts.Pools.CHASER_ENERGY_BASE_AMOUNT, 
+				Consts.Pools.CHASER_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.Pools.CHASER_ENERGY_BASE_REGEN,
+				Consts.Pools.CHASER_ENERGY_REGEN_PER_LEVEL);
 		IPool hpPool = new HpPool(
-				Consts.POOLS.CHASER_HP_BASE_AMOUNT, 
-				Consts.POOLS.CHASER_HP_INCREASE_PER_LEVEL, 
-				Consts.POOLS.CHASER_HP_BASE_REGEN,
-				Consts.POOLS.CHASER_HP_REGEN_PER_LEVEL);
+				Consts.Pools.CHASER_HP_BASE_AMOUNT, 
+				Consts.Pools.CHASER_HP_INCREASE_PER_LEVEL, 
+				Consts.Pools.CHASER_HP_BASE_REGEN,
+				Consts.Pools.CHASER_HP_REGEN_PER_LEVEL);
 
 		chaser.setActor(Factories.getActorFactory().create(chaser));
 		chaser.setShipEngine(engine);

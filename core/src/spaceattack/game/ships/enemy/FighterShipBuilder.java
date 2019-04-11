@@ -49,15 +49,15 @@ public enum FighterShipBuilder
 		Burner burner = BurnerBuilder.INSTANCE.build(fighter);
 
 		IPool energyPool = new Pool(
-				Consts.POOLS.FIGHTER_ENERGY_BASE_AMOUNT, 
-				Consts.POOLS.FIGHTER_ENERGY_INCREASE_PER_LEVEL, 
-				Consts.POOLS.FIGHTER_ENERGY_BASE_REGEN,
-				Consts.POOLS.FIGHTER_ENERGY_REGEN_PER_LEVEL);
+				Consts.Pools.FIGHTER_ENERGY_BASE_AMOUNT, 
+				Consts.Pools.FIGHTER_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.Pools.FIGHTER_ENERGY_BASE_REGEN,
+				Consts.Pools.FIGHTER_ENERGY_REGEN_PER_LEVEL);
 		IPool hpPool = new HpPool(
-				Consts.POOLS.FIGHTER_HP_BASE_AMOUNT, 
-				Consts.POOLS.FIGHTER_HP_INCREASE_PER_LEVEL, 
-				Consts.POOLS.FIGHTER_HP_BASE_REGEN,
-				Consts.POOLS.FIGHTER_HP_REGEN_PER_LEVEL);
+				Consts.Pools.FIGHTER_HP_BASE_AMOUNT, 
+				Consts.Pools.FIGHTER_HP_INCREASE_PER_LEVEL, 
+				Consts.Pools.FIGHTER_HP_BASE_REGEN,
+				Consts.Pools.FIGHTER_HP_REGEN_PER_LEVEL);
 
 		controller.setPrimaryWeapon(redLaser);
 		controller.setSecondaryWeapon(redLaser);

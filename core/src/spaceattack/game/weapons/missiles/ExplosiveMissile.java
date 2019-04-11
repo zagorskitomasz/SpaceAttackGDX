@@ -1,11 +1,12 @@
 package spaceattack.game.weapons.missiles;
 
 import spaceattack.game.actors.IActor;
+import spaceattack.game.actors.interfaces.ExplosionDestroyable;
 import spaceattack.game.actors.interfaces.Explosive;
 import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.weapons.MissilesLauncher;
 
-public class ExplosiveMissile extends Missile implements Explosive
+public class ExplosiveMissile extends Missile implements Explosive, ExplosionDestroyable
 {
 	private Launchable explosion;
 	private MissilesLauncher launcher;
@@ -37,8 +38,9 @@ public class ExplosiveMissile extends Missile implements Explosive
 	public void setToKill()
 	{
 		if (!isToKill() && !isOutOfScreen())
+		{
+			super.setToKill();
 			explode();
-
-		super.setToKill();
+		}
 	}
 }

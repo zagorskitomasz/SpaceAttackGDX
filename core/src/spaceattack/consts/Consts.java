@@ -42,7 +42,7 @@ public class Consts
 
 		public static final float LASER_RADIUS = 8;
 		public static final float ROCKET_RADIUS = 10;
-		public static final float MINE_RADIUS = 15;
+		public static final float MINE_RADIUS = 20;
 		public static final long MINE_DELAY = 5000;
 	}
 
@@ -85,7 +85,7 @@ public class Consts
 		public static final float FRONT_CHASER_DISTANCE = 380 * Sizes.Y_FACTOR;
 	}
 	
-	public static class POOLS
+	public static class Pools
 	{
 		public static final int PLAYER_HP_BASE_AMOUNT = 80;
 		public static final int PLAYER_HP_INCREASE_PER_LEVEL = 15;
@@ -146,6 +146,36 @@ public class Consts
 		public static final int MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL = 20;
 		public static final int MAJOR_BOSS_ENERGY_BASE_REGEN = 40;
 		public static final int MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL = 10;
+	}
+	
+	public static class Explosions
+	{
+		public static final float FIGHTER_EX_DMG = 20;
+		public static final float FIGHTER_EX_FIRE_BASE_DMG = 10;
+		public static final float FIGHTER_EX_FIRE_DMG_PER_STRENGTH = 2;
+		public static final float FIGHTER_EX_RADIUS = 75;
+
+		public static final float TANK_EX_DMG = 40;
+		public static final float TANK_EX_FIRE_BASE_DMG = 20;
+		public static final float TANK_EX_FIRE_DMG_PER_STRENGTH = 4;
+		public static final float TANK_EX_RADIUS = 125;
+
+		public static final float BOSS_EX_DMG = 0;
+		public static final float BOSS_EX_FIRE_BASE_DMG = 0;
+		public static final float BOSS_EX_FIRE_DMG_PER_STRENGTH = 0;
+		public static final float BOSS_EX_RADIUS = 0;
+
+		public static final float MISSILE_EX_DMG = 20;
+		public static final float MISSILE_EX_FIRE_BASE_DMG = 10;
+		public static final float MISSILE_EX_FIRE_DMG_PER_STRENGTH = 2;
+		public static final float MISSILE_EX_RADIUS = 100;
+
+		public static final float MINE_EX_DMG = 20;
+		public static final float MINE_EX_FIRE_BASE_DMG = 10;
+		public static final float MINE_EX_FIRE_DMG_PER_STRENGTH = 2;
+		public static final float MINE_EX_RADIUS = 150;
 		
+		public static final long FIRE_BASE_DURATION = 4000;
+		public static final long FIRE_DURATION_PER_STRENGTH = 20;
 	}
 }

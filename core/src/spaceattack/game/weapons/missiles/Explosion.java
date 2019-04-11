@@ -3,6 +3,7 @@ package spaceattack.game.weapons.missiles;
 import java.util.List;
 
 import spaceattack.game.actors.IGameActor;
+import spaceattack.game.actors.interfaces.ExplosionDestroyable;
 import spaceattack.game.actors.interfaces.Ignitable;
 import spaceattack.game.actors.interfaces.Vulnerable;
 import spaceattack.game.system.graphics.IAnimation;
@@ -34,6 +35,9 @@ public class Explosion extends AbstractMissile
 		{
 			if (actor instanceof Vulnerable)
 				collision((Vulnerable) actor);
+
+			if (actor instanceof ExplosionDestroyable)
+				collision((ExplosionDestroyable) actor);
 		}
 	}
 
@@ -44,6 +48,14 @@ public class Explosion extends AbstractMissile
 			vulnerable.takeDmg(dmg);
 			if (vulnerable instanceof Ignitable)
 				((Ignitable) vulnerable).ignite(fireDmg, fireDuration);
+		}
+	}
+
+	private void collision(ExplosionDestroyable destroyable) 
+	{
+		if (checkCollision(destroyable))
+		{
+			destroyable.setToKill();
 		}
 	}
 

@@ -96,15 +96,15 @@ public enum TankShipBuilder
 		Burner burner = BurnerBuilder.INSTANCE.build(tank);
 
 		IPool energyPool = new Pool(
-				Consts.POOLS.TANK_ENERGY_BASE_AMOUNT, 
-				Consts.POOLS.TANK_ENERGY_INCREASE_PER_LEVEL, 
-				Consts.POOLS.TANK_ENERGY_BASE_REGEN,
-				Consts.POOLS.TANK_ENERGY_REGEN_PER_LEVEL);
+				Consts.Pools.TANK_ENERGY_BASE_AMOUNT, 
+				Consts.Pools.TANK_ENERGY_INCREASE_PER_LEVEL, 
+				Consts.Pools.TANK_ENERGY_BASE_REGEN,
+				Consts.Pools.TANK_ENERGY_REGEN_PER_LEVEL);
 		IPool hpPool = new HpPool(
-				Consts.POOLS.TANK_HP_BASE_AMOUNT, 
-				Consts.POOLS.TANK_HP_INCREASE_PER_LEVEL, 
-				Consts.POOLS.TANK_HP_BASE_REGEN,
-				Consts.POOLS.TANK_HP_REGEN_PER_LEVEL);
+				Consts.Pools.TANK_HP_BASE_AMOUNT, 
+				Consts.Pools.TANK_HP_INCREASE_PER_LEVEL, 
+				Consts.Pools.TANK_HP_BASE_REGEN,
+				Consts.Pools.TANK_HP_REGEN_PER_LEVEL);
 
 		tank.setActor(Factories.getActorFactory().create(tank));
 		tank.setShipEngine(engine);
