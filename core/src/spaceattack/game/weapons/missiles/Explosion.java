@@ -3,8 +3,8 @@ package spaceattack.game.weapons.missiles;
 import java.util.List;
 
 import spaceattack.game.actors.IGameActor;
-import spaceattack.game.actors.interfaces.ExplosionDestroyable;
 import spaceattack.game.actors.interfaces.Ignitable;
+import spaceattack.game.actors.interfaces.Overheatable;
 import spaceattack.game.actors.interfaces.Vulnerable;
 import spaceattack.game.system.graphics.IAnimation;
 import spaceattack.game.system.graphics.ITexture;
@@ -36,8 +36,8 @@ public class Explosion extends AbstractMissile
 			if (actor instanceof Vulnerable)
 				collision((Vulnerable) actor);
 
-			if (actor instanceof ExplosionDestroyable)
-				collision((ExplosionDestroyable) actor);
+			if (actor instanceof Overheatable)
+				collision((Overheatable) actor);
 		}
 	}
 
@@ -51,11 +51,11 @@ public class Explosion extends AbstractMissile
 		}
 	}
 
-	private void collision(ExplosionDestroyable destroyable) 
+	private void collision(Overheatable destroyable) 
 	{
 		if (checkCollision(destroyable))
 		{
-			destroyable.setToKill();
+			destroyable.overheat();
 		}
 	}
 

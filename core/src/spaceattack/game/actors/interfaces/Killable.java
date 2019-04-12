@@ -14,7 +14,9 @@ public interface Killable
 	public default void disappearIfNeeded()
 	{
 		if(isOutOfScreen())
+		{
 			setToKill();
+		}
 	}
 
 	public default boolean isOutOfScreen() 

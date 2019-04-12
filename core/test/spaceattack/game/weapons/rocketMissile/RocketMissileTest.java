@@ -54,7 +54,7 @@ public class RocketMissileTest
 		doReturn(true).when(checker).check();
 		doReturn(true).when(controller).takeEnergy(anyFloat());
 		doReturn(new FakeActor()).when(actorFactory).create(any(IGameActor.class));
-		doReturn(ExtVectorFactory.INSTANCE.create(10, 10)).when(controller).getPrimaryWeaponUsePlacement();
+		doReturn(ExtVectorFactory.INSTANCE.create(10, 10)).when(controller).getSecondaryWeaponUsePlacement();
 	}
 
 	@Test

@@ -1,12 +1,12 @@
 package spaceattack.game.weapons.missiles;
 
 import spaceattack.game.actors.IActor;
-import spaceattack.game.actors.interfaces.ExplosionDestroyable;
 import spaceattack.game.actors.interfaces.Explosive;
 import spaceattack.game.actors.interfaces.Launchable;
+import spaceattack.game.actors.interfaces.Overheatable;
 import spaceattack.game.weapons.MissilesLauncher;
 
-public class ExplosiveMissile extends Missile implements Explosive, ExplosionDestroyable
+public class ExplosiveMissile extends Missile implements Explosive, Overheatable
 {
 	private Launchable explosion;
 	private MissilesLauncher launcher;
@@ -37,10 +37,18 @@ public class ExplosiveMissile extends Missile implements Explosive, ExplosionDes
 	@Override
 	public void setToKill()
 	{
-		if (!isToKill() && !isOutOfScreen())
+		if (!isToKill())
 		{
 			super.setToKill();
-			explode();
+			
+			if(!isOutOfScreen())
+				explode();
 		}
+	}
+
+	@Override
+	public void overheat() 
+	{
+		setToKill();
 	}
 }

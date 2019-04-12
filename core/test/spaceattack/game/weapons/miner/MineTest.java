@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.consts.Consts;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.actors.FakeActor;
 import spaceattack.game.actors.IActor;
@@ -61,6 +62,15 @@ public class MineTest
 	public void mineExplodeAfterDelay() throws InterruptedException 
 	{
 		Thread.sleep(DELAY);
+		mine.act(0);
+		verify(launcher).launch(explosion);
+	}
+	
+	@Test
+	public void overheatedExplodesSoon() throws InterruptedException
+	{
+		mine.overheat();
+		Thread.sleep(Consts.Weapons.MINE_OVERHEAT_DELAY + 100);
 		mine.act(0);
 		verify(launcher).launch(explosion);
 	}

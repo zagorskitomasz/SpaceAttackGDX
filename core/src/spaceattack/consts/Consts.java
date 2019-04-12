@@ -44,6 +44,7 @@ public class Consts
 		public static final float ROCKET_RADIUS = 10;
 		public static final float MINE_RADIUS = 20;
 		public static final long MINE_DELAY = 5000;
+		public static final long MINE_OVERHEAT_DELAY = 500;
 	}
 
 	public static class Gameplay
