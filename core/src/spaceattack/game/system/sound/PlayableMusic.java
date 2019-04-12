@@ -1,5 +1,6 @@
 package spaceattack.game.system.sound;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -13,9 +14,11 @@ class PlayableMusic
 	private static final int MAX_VOLUME = 70;
 	
 	private IMusic music;
+	private AtomicBoolean isFadingOut;
 	
 	public PlayableMusic(Song[] playlist, Song nowPlaying, Consumer<PlayableMusic> updater) 
 	{
+		isFadingOut = new AtomicBoolean(false);
 		Song song = chooseCurrentSong(playlist, nowPlaying);
 		
 		music = Factories.getMusicFactory().create(song.getPath());
@@ -27,11 +30,14 @@ class PlayableMusic
 			music.dispose();
 			PlayableMusic nextMusic = new PlayableMusic(playlist, song, updater);
 			nextMusic.play();
+			if(isFadingOut.get())
+				nextMusic.fadeOut();
 		});
 	}
 	
 	public PlayableMusic(Acts act, Song[] playlist, Song nowPlaying, BiConsumer<Acts, PlayableMusic> updater) 
 	{
+		isFadingOut = new AtomicBoolean(false);
 		Song song = chooseCurrentSong(playlist, nowPlaying);
 		
 		music = Factories.getMusicFactory().create(song.getPath());
@@ -43,6 +49,8 @@ class PlayableMusic
 			music.dispose();
 			PlayableMusic nextMusic = new PlayableMusic(act, playlist, song, updater);
 			nextMusic.play();
+			if(isFadingOut.get())
+				nextMusic.fadeOut();
 		});
 	}
 
@@ -102,6 +110,7 @@ class PlayableMusic
 			return;
 		
 		new Thread(() -> {
+			isFadingOut.set(true);
 			for(float i = MAX_VOLUME; i >= 0; i--)
 			{
 				music.setVolume(i / 100);
@@ -114,6 +123,7 @@ class PlayableMusic
 					e.printStackTrace();
 				}
 			}
+			isFadingOut.set(false);
 			music.pause();
 			
 		}).start();
