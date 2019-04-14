@@ -11,8 +11,7 @@ import spaceattack.consts.Consts;
 import spaceattack.game.actors.InvisibleActor;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.movers.MoverType;
-import spaceattack.game.ai.shooters.DirectShooter;
-import spaceattack.game.ai.shooters.InstantPrimaryDirectShooter;
+import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.powerup.PowerUpBuilder;
@@ -29,15 +28,16 @@ import spaceattack.game.weapons.IWeaponController;
 public abstract class EnemyBase extends InvisibleActor
 {
 	protected GameplayStage stage;
-	private Acts act;
-	private IEnemyShipsFactory shipsFactory;
-	private Radar radar;
-	private List<IEnemyShip> enemyShips;
-	private RadarVisible playerShip;
-	private IPool hpPool;
-	private IPool energyPool;
+	protected Radar radar;
+	protected List<IEnemyShip> enemyShips;
+	protected RadarVisible playerShip;
 	protected ComplexFireButton fireButton;
 	protected IWeaponController controller;
+	
+	private Acts act;
+	private IEnemyShipsFactory shipsFactory;
+	private IPool hpPool;
+	private IPool energyPool;
 	
 	private int tanksPool;
 
@@ -45,7 +45,7 @@ public abstract class EnemyBase extends InvisibleActor
 	private FrameController chaserTimer;
 	private FrameController tankTimer;
 	
-	private IBoss boss;
+	protected IBoss boss;
 	private boolean isBossOnField;
 
 	public EnemyBase(IUtils utils)
@@ -172,6 +172,10 @@ public abstract class EnemyBase extends InvisibleActor
 		MoverAI mover = MoverType.SLOW_DOWNER.create();
 		ShooterAI shooter = createTankShooter(tank);
 		IPowerUp powerUp = choosePowerUp(tank);
+		
+		shooter.setFriends(enemyShips);
+		shooter.setPlayerShip(playerShip);
+		shooter.setOwner(boss);
 
 		mover.setPlayerShip(playerShip);
 		mover.setOwner(tank);
@@ -184,23 +188,36 @@ public abstract class EnemyBase extends InvisibleActor
 		stage.addActorBeforeGUI(tank);
 	}
 
-	protected abstract ShooterAI createTankShooter(IEnemyShip tank);
-
+	protected abstract ShooterAI createTankShooter(IEnemyShip tank);	
+	
 	private void addBoss()
 	{
 		updateRadar();
 
 		MoverAI mover = boss.getDefaultMoverType().create();
-		ShooterAI shooter = createInstantPrimaryShooter(boss);
+		ShooterAI shooter = createBossShooter(boss);
 
 		mover.setPlayerShip(playerShip);
 		mover.setOwner(boss);
+		mover.registerObserver(shooter);
 		
 		boss.setPlayerShip(radar.getPlayerShip());
 		boss.setMover(mover);
 		boss.setShooter(shooter);
 
 		stage.addActorBeforeGUI(boss);
+	}
+
+	private ShooterAI createBossShooter(IBoss boss) 
+	{
+		ShooterAI shooter;
+		shooter = boss.getDefaultShooterType().create();
+
+		shooter.setFriends(enemyShips);
+		shooter.setPlayerShip(playerShip);
+		shooter.setOwner(boss);
+
+		return shooter;
 	}
 
 	private IEnemyShip createTank() 
@@ -288,9 +305,10 @@ public abstract class EnemyBase extends InvisibleActor
 		return createDirectShooter(fighter);
 	}
 
-	protected ShooterAI createDirectShooter(IEnemyShip fighter) {
+	protected ShooterAI createDirectShooter(IEnemyShip fighter) 
+	{
 		ShooterAI shooter;
-		shooter = new DirectShooter();
+		shooter = ShooterType.DIRECT_SHOOTER.create();
 
 		shooter.setFriends(enemyShips);
 		shooter.setPlayerShip(playerShip);
@@ -299,18 +317,7 @@ public abstract class EnemyBase extends InvisibleActor
 		return shooter;
 	}
 
-	protected ShooterAI createInstantPrimaryShooter(IEnemyShip fighter) {
-		ShooterAI shooter;
-		shooter = new InstantPrimaryDirectShooter();
-
-		shooter.setFriends(enemyShips);
-		shooter.setPlayerShip(playerShip);
-		shooter.setOwner(fighter);
-
-		return shooter;
-	}
-
-	private void updateRadar()
+	protected void updateRadar()
 	{
 		if (radar == null)
 			return;

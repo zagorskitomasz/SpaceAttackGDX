@@ -1,25 +1,11 @@
 package spaceattack.game.ai.shooters;
 
-import java.util.List;
-
-import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.utils.vector.IVector;
 
 public class InstantPrimaryDirectShooter extends AbstractShooter
 {
-	private boolean canPrimary;
-	private boolean canSecondary;
-
 	private IVector playerPosition;
 	private IVector secondaryWeaponPlacement;
-	
-	private List<? extends RadarVisible> friends;
-
-	@Override
-	public void setFriends(List<? extends RadarVisible> friends)
-	{
-		this.friends = friends;
-	}
 	
 	@Override
 	public ShooterType getType()
@@ -81,19 +67,5 @@ public class InstantPrimaryDirectShooter extends AbstractShooter
 	private boolean isAbove(float weaponPlacementY,float weaponRadius)
 	{
 		return weaponPlacementY + weaponRadius > playerShip.getY() - playerShip.getRadius();
-	}
-
-	private PossibleAttacks processResult()
-	{
-		if (canPrimary && canSecondary)
-			return PossibleAttacks.BOTH;
-
-		if (canPrimary)
-			return PossibleAttacks.PRIMARY;
-
-		if (canSecondary)
-			return PossibleAttacks.SECONDARY;
-
-		return PossibleAttacks.NONE;
 	}
 }

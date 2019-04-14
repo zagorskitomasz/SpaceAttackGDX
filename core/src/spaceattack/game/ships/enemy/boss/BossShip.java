@@ -6,7 +6,7 @@ import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.BaseEnemyShip;
 
-public class MajorBossShip extends BaseEnemyShip implements RequiredOnStage, IBoss
+public class BossShip extends BaseEnemyShip implements RequiredOnStage, IBoss
 {
 	private MoverType moverType;
 	private ShooterType shooterType;

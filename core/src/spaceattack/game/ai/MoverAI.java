@@ -3,14 +3,15 @@ package spaceattack.game.ai;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ships.enemy.IEnemyShip;
+import spaceattack.game.system.notifiers.INotifier;
 
-public interface MoverAI
+public interface MoverAI extends INotifier<MoverAI>
 {
-	public MoverType getType();
+	MoverType getType();
 
-	public void setPlayerShip(RadarVisible playerShip);
+	void setPlayerShip(RadarVisible playerShip);
 
-	public void setOwner(IEnemyShip fighter);
+	void setOwner(IEnemyShip fighter);
 
-	public void updateDirection();
+	void updateDirection();
 }

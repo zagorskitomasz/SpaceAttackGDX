@@ -2,6 +2,8 @@ package spaceattack.game.ships.enemy.boss;
 
 import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
+import spaceattack.game.ai.movers.MoverType;
+import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
@@ -16,6 +18,7 @@ import spaceattack.game.weapons.AIWeaponController;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.miner.MinerBuilder;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
@@ -28,15 +31,56 @@ public enum MinorBossShipBuilder
 
 	public IBoss buildActI(GameplayStage stage)
 	{
-		return build(stage);
-	}
-
-	private IBoss build(GameplayStage stage)
-	{
-		IBoss boss = new SuperBaseEnemyShip();
+		IBoss boss = new BossShip();
+		boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
+		boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
+		
+		build(stage,boss);
+		
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
 		IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+
+		controller.setPrimaryWeapon(targetedRedLaser);
+		controller.setSecondaryWeapon(targetedRedLaser);
+		controller.setShip(boss);
+		
+		boss.addWeapon(targetedRedLaser);
+		boss.setWeaponController(controller);
+		boss.setMissilesLauncher(launcher);
+		boss.setLevel(stage.getCurrentMission() * 2);
+		
+		return boss;
+	}
+
+	public IBoss buildActII(GameplayStage stage) 
+	{
+		IBoss boss = new BossShip();
+		boss.setDefaultMoverType(MoverType.CORRECTABLE_JUMPER);
+		boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
+		
+		build(stage,boss);
+		
+		MissilesLauncher launcher = stage.getMissilesLauncher();
+		IWeaponController controller = new AIWeaponController();
+		IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+		IWeapon miner = MinerBuilder.INSTANCE.build(controller, launcher);
+
+		controller.setPrimaryWeapon(targetedRedLaser);
+		controller.setSecondaryWeapon(miner);
+		controller.setShip(boss);
+		
+		boss.addWeapon(targetedRedLaser);
+		boss.addWeapon(miner);
+		boss.setWeaponController(controller);
+		boss.setMissilesLauncher(launcher);
+		boss.setLevel(stage.getCurrentMission() * 2);
+		
+		return boss;
+	}
+
+	private IBoss build(GameplayStage stage, IBoss boss)
+	{
 		IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
@@ -53,19 +97,11 @@ public enum MinorBossShipBuilder
 				Consts.Pools.MINOR_BOSS_HP_BASE_REGEN,
 				Consts.Pools.MINOR_BOSS_HP_REGEN_PER_LEVEL);
 
-		controller.setPrimaryWeapon(targetedRedLaser);
-		controller.setSecondaryWeapon(targetedRedLaser);
-		controller.setShip(boss);
-
 		boss.setActor(Factories.getActorFactory().create(boss));
 		boss.setTexture(Textures.TANK1.getTexture());
 		boss.setShipEngine(engine);
-		boss.addWeapon(targetedRedLaser);
 		boss.setEnergyPool(energyPool);
 		boss.setHpPool(hpPool);
-		boss.setLevel(stage.getCurrentMission() * 2);
-		boss.setWeaponController(controller);
-		boss.setMissilesLauncher(launcher);
 		boss.setExplosion(explosion);
 		boss.setBar(new BigEnemyBar(boss));
 		boss.setBurner(burner);
