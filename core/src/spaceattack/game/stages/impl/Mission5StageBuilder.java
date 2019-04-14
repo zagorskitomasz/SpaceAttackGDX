@@ -11,7 +11,7 @@ public class Mission5StageBuilder extends Act2StageBuilder
 	@Override
 	public void setMissionNumber()
 	{
-		stage.setCurrentMission(4);
+		stage.setCurrentMission(5);
 	}
 	
 	@Override

@@ -6,8 +6,9 @@ import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.ships.enemy.IEnemyShip;
+import spaceattack.game.system.notifiers.IObserver;
 
-public interface ShooterAI
+public interface ShooterAI extends IObserver<MoverAI>
 {
 	ShooterType getType();
 

@@ -84,6 +84,9 @@ public class Consts
 		public static final float POOL_INCREASE_PERCENT = 0.5f;
 		public static final float POWER_UP_SPEED = 7 * Sizes.Y_FACTOR;
 		public static final float FRONT_CHASER_DISTANCE = 380 * Sizes.Y_FACTOR;
+		
+		public static final float JUMPER_CORRECTIONS_PER_SEC = 1;
+		public static final double JUMPER_PLAYER_DISTANCE = 200 * Sizes.Y_FACTOR;
 	}
 	
 	public static class Pools

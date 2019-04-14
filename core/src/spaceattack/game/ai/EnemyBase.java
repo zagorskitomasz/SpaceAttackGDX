@@ -199,6 +199,7 @@ public abstract class EnemyBase extends InvisibleActor
 
 		mover.setPlayerShip(playerShip);
 		mover.setOwner(boss);
+		mover.registerObserver(shooter);
 		
 		boss.setPlayerShip(radar.getPlayerShip());
 		boss.setMover(mover);

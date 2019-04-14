@@ -6,16 +6,24 @@ import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.interfaces.Launchable;
+import spaceattack.game.actors.interfaces.RadarVisible;
+import spaceattack.game.ai.MoverAI;
+import spaceattack.game.ai.ShooterAI;
+import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
+import spaceattack.game.powerup.IPowerUp;
+import spaceattack.game.ships.enemy.EnemyBar;
+import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
+import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
 
-public class FakeShip implements IShip
+public class FakeShip implements IShip, IEnemyShip
 {
 	private float x;
 	private float y;
@@ -235,5 +243,59 @@ public class FakeShip implements IShip
 	public float getDrawingY()
 	{
 		return y;
+	}
+
+	@Override
+	public void setPlayerShip(RadarVisible playerShip)
+	{
+		// do nothing
+	}
+
+	@Override
+	public void setMover(MoverAI mover) 
+	{
+		// do nothing
+	}
+
+	@Override
+	public void setShooter(ShooterAI shooter) 
+	{
+		// do nothing
+	}
+
+	@Override
+	public IWeaponController getWeaponController() 
+	{
+		return null;
+	}
+
+	@Override
+	public boolean isMoving() 
+	{
+		return false;
+	}
+
+	@Override
+	public void setWeaponController(IWeaponController controller) 
+	{
+		// do nothing
+	}
+
+	@Override
+	public MoverType getMoverType() 
+	{
+		return null;
+	}
+
+	@Override
+	public void setBar(EnemyBar bar)
+	{
+		// do nothing
+	}
+
+	@Override
+	public void setPowerUp(IPowerUp powerUp) 
+	{
+		// do nothing
 	}
 }

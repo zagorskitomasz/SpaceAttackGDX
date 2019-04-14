@@ -48,6 +48,7 @@ public enum MinorBossShipBuilder
 		boss.addWeapon(targetedRedLaser);
 		boss.setWeaponController(controller);
 		boss.setMissilesLauncher(launcher);
+		boss.setLevel(stage.getCurrentMission() * 2);
 		
 		return boss;
 	}
@@ -55,8 +56,8 @@ public enum MinorBossShipBuilder
 	public IBoss buildActII(GameplayStage stage) 
 	{
 		IBoss boss = new BossShip();
-		boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
-		boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
+		boss.setDefaultMoverType(MoverType.CORRECTABLE_JUMPER);
+		boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
 		
 		build(stage,boss);
 		
@@ -73,6 +74,7 @@ public enum MinorBossShipBuilder
 		boss.addWeapon(miner);
 		boss.setWeaponController(controller);
 		boss.setMissilesLauncher(launcher);
+		boss.setLevel(stage.getCurrentMission() * 2);
 		
 		return boss;
 	}
@@ -100,7 +102,6 @@ public enum MinorBossShipBuilder
 		boss.setShipEngine(engine);
 		boss.setEnergyPool(energyPool);
 		boss.setHpPool(hpPool);
-		boss.setLevel(stage.getCurrentMission() * 2);
 		boss.setExplosion(explosion);
 		boss.setBar(new BigEnemyBar(boss));
 		boss.setBurner(burner);
