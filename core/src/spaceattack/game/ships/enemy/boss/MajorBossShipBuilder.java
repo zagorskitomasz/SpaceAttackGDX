@@ -36,7 +36,7 @@ public enum MajorBossShipBuilder
 
 	private IBoss build(GameplayStage stage)
 	{
-		IBoss boss = new MajorBossShip();
+		IBoss boss = new BossShip();
 		boss.setDefaultMoverType(MoverType.ALL_CORNERS_CHASER);
 		boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
 		MissilesLauncher launcher = stage.getMissilesLauncher();

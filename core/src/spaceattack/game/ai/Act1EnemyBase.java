@@ -1,5 +1,6 @@
 package spaceattack.game.ai;
 
+import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.powerup.PowerUpBuilder;
 import spaceattack.game.ships.enemy.IEnemyShip;
@@ -17,7 +18,7 @@ public class Act1EnemyBase extends EnemyBase
 	@Override
 	protected ShooterAI createTankShooter(IEnemyShip tank) 
 	{
-		return createDirectShooter(tank);
+		return ShooterType.DIRECT_SHOOTER.create();
 	}
 
 	@Override

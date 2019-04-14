@@ -74,7 +74,7 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory
 		case I:
 			return MinorBossShipBuilder.INSTANCE.buildActI(stage);
 		case II:
-			return null;
+			return MinorBossShipBuilder.INSTANCE.buildActII(stage);
 		default:
 			return null;
 		}
