@@ -51,6 +51,11 @@ public class Consts
 	{
 		public static final long LABEL_SHOW_TIME = 4500;
 		public static final float SHIP_TURN_THRESHOLD = 2.5f;
+		public static final int NO_BOSS_TANKS_POOL = 1;
+		public static final int BOSS_TANKS_POOL = 5;
+		public static final int MAX_EXP_LEVEL = 99;
+		public static final long LEVEL_1_EXP = 1500;
+		public static final double EXP_FACTOR = 0.5;
 	}
 
 	public static class Align
@@ -86,7 +91,7 @@ public class Consts
 		public static final float FRONT_CHASER_DISTANCE = 380 * Sizes.Y_FACTOR;
 		
 		public static final float JUMPER_CORRECTIONS_PER_SEC = 1;
-		public static final double JUMPER_PLAYER_DISTANCE = 200 * Sizes.Y_FACTOR;
+		public static final double JUMPER_PLAYER_DISTANCE = 280 * Sizes.Y_FACTOR;
 	}
 	
 	public static class Pools

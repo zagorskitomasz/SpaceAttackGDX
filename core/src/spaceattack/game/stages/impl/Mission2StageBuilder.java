@@ -1,5 +1,6 @@
 package spaceattack.game.stages.impl;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.ships.enemy.EnemyShipsFactory;
 import spaceattack.game.system.graphics.StaticImage;
@@ -24,7 +25,7 @@ public class Mission2StageBuilder extends Act1StageBuilder
 	@Override
 	protected void setTanks(EnemyBase enemyBase) 
 	{
-		enemyBase.setTanksPool(7);
+		enemyBase.setTanksPool(Consts.Gameplay.BOSS_TANKS_POOL);
 		enemyBase.setBoss(EnemyShipsFactory.INSTANCE.createMinorBoss(getAct(), stage));
 	}
 }

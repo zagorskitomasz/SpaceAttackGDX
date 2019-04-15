@@ -1,5 +1,6 @@
 package spaceattack.game.stages.impl;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
@@ -23,6 +24,6 @@ public class Mission1StageBuilder extends Act1StageBuilder
 	@Override
 	protected void setTanks(EnemyBase enemyBase) 
 	{
-		enemyBase.setTanksPool(8);
+		enemyBase.setTanksPool(Consts.Gameplay.NO_BOSS_TANKS_POOL);
 	}
 }

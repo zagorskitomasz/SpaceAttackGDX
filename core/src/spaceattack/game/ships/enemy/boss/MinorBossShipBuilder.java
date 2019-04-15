@@ -36,6 +36,9 @@ public enum MinorBossShipBuilder
 		boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
 		
 		build(stage,boss);
+		boss.setTexture(Textures.TANK1.getTexture());
+		IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
+		boss.setShipEngine(engine);
 		
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
@@ -60,6 +63,9 @@ public enum MinorBossShipBuilder
 		boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
 		
 		build(stage,boss);
+		boss.setTexture(Textures.TANK2.getTexture());
+		IEngine engine = ShipEngineBuilder.INSTANCE.createFastDestinationEngine(boss);
+		boss.setShipEngine(engine);
 		
 		MissilesLauncher launcher = stage.getMissilesLauncher();
 		IWeaponController controller = new AIWeaponController();
@@ -81,7 +87,6 @@ public enum MinorBossShipBuilder
 
 	private IBoss build(GameplayStage stage, IBoss boss)
 	{
-		IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
 		Burner burner = BurnerBuilder.INSTANCE.build(boss);
@@ -98,8 +103,6 @@ public enum MinorBossShipBuilder
 				Consts.Pools.MINOR_BOSS_HP_REGEN_PER_LEVEL);
 
 		boss.setActor(Factories.getActorFactory().create(boss));
-		boss.setTexture(Textures.TANK1.getTexture());
-		boss.setShipEngine(engine);
 		boss.setEnergyPool(energyPool);
 		boss.setHpPool(hpPool);
 		boss.setExplosion(explosion);

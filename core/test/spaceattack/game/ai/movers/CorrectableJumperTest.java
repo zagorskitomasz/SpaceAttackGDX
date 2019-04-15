@@ -53,45 +53,45 @@ public class CorrectableJumperTest
 		jumper.setPlayerShip(playerShip);
 		jumper.registerObserver(observer);
 		
-		owner.setX(100);
-		owner.setY(100);
+		owner.setX(200);
+		owner.setY(800);
 		
-		playerShip.setX(800);
-		playerShip.setY(800);
+		playerShip.setX(200);
+		playerShip.setY(100);
 	}
 
 	@Test
 	public void jumperIsChasingTarget() 
 	{
 		jumper.updateDirection();
-		verify(owner).setDestination(vectors.create(800, 800));
+		verify(owner).setDestination(vectors.create(200, 100));
 	}
 	
 	@Test
 	public void jumperWillCorrectAfterDelay() throws InterruptedException
 	{
 		jumper.updateDirection();
-		playerShip.setX(850);
-		playerShip.setY(850);
+		playerShip.setX(250);
+		playerShip.setY(250);
 		Thread.sleep((1010));
 		jumper.updateDirection();
-		verify(owner).setDestination(vectors.create(850, 850));
+		verify(owner).setDestination(vectors.create(250, 250));
 	}
 	
 	@Test
 	public void jumperWontCorrectBeforeDelay()
 	{
 		jumper.updateDirection();
-		playerShip.setX(850);
-		playerShip.setY(850);
-		verify(owner,never()).setDestination(vectors.create(850, 850));
+		playerShip.setX(250);
+		playerShip.setY(250);
+		verify(owner,never()).setDestination(vectors.create(250, 250));
 	}
 	
 	@Test
 	public void ifDestinationReachedObserversAreNotified()
 	{
-		playerShip.setX(150);
-		playerShip.setY(150);
+		playerShip.setX(250);
+		playerShip.setY(780);
 		jumper.updateDirection();
 		
 		verify(observer).notify(jumper);
@@ -107,8 +107,8 @@ public class CorrectableJumperTest
 			return null;
 		}).when(owner).setDestination(any(IVector.class));
 		
-		playerShip.setX(150);
-		playerShip.setY(150);
+		playerShip.setX(200);
+		playerShip.setY(750);
 		jumper.updateDirection();
 	}
 	
@@ -116,15 +116,35 @@ public class CorrectableJumperTest
 	public void ifEscapedStartCharging()
 	{
 		playerShip.setX(150);
-		playerShip.setY(150);
+		playerShip.setY(850);
 		jumper.updateDirection();
 		
 		owner.setX(100);
 		owner.setY(1500);
 		playerShip.setX(222);
-		playerShip.setY(222);
+		playerShip.setY(822);
 		jumper.updateDirection();
 		
-		verify(owner).setDestination(vectors.create(222, 222));
+		verify(owner).setDestination(vectors.create(222, 822));
+	}
+	
+	@Test
+	public void ifHasToChargeBackPutMineAndEscape()
+	{
+		doAnswer(invocation -> {
+			IVector destination = invocation.getArgument(0);
+			System.out.println(destination);
+			assertTrue(destination.getY() > 1300);
+			return null;
+		}).when(owner).setDestination(any(IVector.class));
+		
+		owner.setX(200);
+		owner.setY(700);
+		
+		playerShip.setX(600);
+		playerShip.setY(750);
+		
+		jumper.updateDirection();
+		verify(observer).notify(jumper);
 	}
 }

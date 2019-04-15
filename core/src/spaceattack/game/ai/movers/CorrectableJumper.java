@@ -70,7 +70,7 @@ public class CorrectableJumper extends AbstractMover
 	private boolean charged() 
 	{
 		double distanceToPlayer = NumbersUtils.distance(owner.getPosition(), vectors.create(playerShip.getX(), playerShip.getY()));
-		return distanceToPlayer < Consts.AI.JUMPER_PLAYER_DISTANCE;
+		return distanceToPlayer < Consts.AI.JUMPER_PLAYER_DISTANCE || owner.getY() < playerShip.getY();
 	}
 
 	private void escape() 

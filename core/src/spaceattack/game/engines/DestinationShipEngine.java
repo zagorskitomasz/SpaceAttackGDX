@@ -32,12 +32,8 @@ public class DestinationShipEngine extends AbstractShipEngine
 		try
 		{
 			lock.lock();
-/*
-			if(this.destination != null && this.nextDestination != null)
-			{
-				return;
-			}
-			else*/ if (this.destination == null || isDestinationReached())
+
+			if (this.destination == null || isDestinationReached())
 			{
 				this.destination = destination;
 			}
