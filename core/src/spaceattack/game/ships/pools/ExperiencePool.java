@@ -18,8 +18,8 @@ public class ExperiencePool extends AbstractPool
 	@Override
 	public void update()
 	{
-		long nextLevelReq = Experience.nextLevelReq[gameProgress.getLevel()];
-		long thisLevelReq = Experience.nextLevelReq[gameProgress.getLevel() - 1];
+		long nextLevelReq = Experience.INSTANCE.expForLevel(gameProgress.getLevel() + 1);
+		long thisLevelReq = Experience.INSTANCE.expForLevel(gameProgress.getLevel());
 
 		maxAmount = nextLevelReq - thisLevelReq;
 		amount = gameProgress.getExperience() - thisLevelReq;

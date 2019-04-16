@@ -39,8 +39,8 @@ public class ExperiencePoolTest
 	{
 		pool.update();
 
-		assertEquals(Experience.nextLevelReq[LEVEL] - Experience.nextLevelReq[LEVEL - 1], pool.getMaxAmount(), 0);
-		assertEquals(1700 - Experience.nextLevelReq[LEVEL - 1], pool.getAmount(), 0);
+		assertEquals(Experience.INSTANCE.expForLevel(LEVEL + 1) - Experience.INSTANCE.expForLevel(LEVEL), pool.getMaxAmount(), 0);
+		assertEquals(1700 - Experience.INSTANCE.expForLevel(LEVEL), pool.getAmount(), 0);
 	}
 
 	@Test
@@ -50,8 +50,8 @@ public class ExperiencePoolTest
 		pool.destroy();
 		pool.update();
 
-		assertEquals(Experience.nextLevelReq[LEVEL_BACKUP] - Experience.nextLevelReq[LEVEL_BACKUP - 1],
+		assertEquals(Experience.INSTANCE.expForLevel(LEVEL_BACKUP + 1) - Experience.INSTANCE.expForLevel(LEVEL_BACKUP),
 				pool.getMaxAmount(), 0);
-		assertEquals(800 - Experience.nextLevelReq[LEVEL_BACKUP - 1], pool.getAmount(), 0);
+		assertEquals(800 - Experience.INSTANCE.expForLevel(LEVEL_BACKUP), pool.getAmount(), 0);
 	}
 }

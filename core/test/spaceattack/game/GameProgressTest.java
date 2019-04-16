@@ -37,7 +37,7 @@ public class GameProgressTest
 	@Test
 	public void addingExperienceOverBreakpointIsIncreasingLevel()
 	{
-		progress.addExperience(Experience.nextLevelReq[1] + 1);
+		progress.addExperience(Experience.INSTANCE.expForLevel(2) + 1);
 		verify(observer).notify(progress);
 	}
 

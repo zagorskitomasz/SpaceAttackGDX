@@ -1,31 +1,24 @@
 package spaceattack.consts;
 
-import java.util.Arrays;
-
-public class Experience
+public enum Experience
 {
-	public static long[] nextLevelReq = populateExperience();
+	INSTANCE;
 	
-	private static long[] populateExperience()
+	private long[] experience;
+	
+	Experience()
 	{
-		nextLevelReq = new long[Consts.Gameplay.MAX_EXP_LEVEL];
-		
-		for(int i = 0; i < nextLevelReq.length; i++)
+		experience = new long[Consts.Gameplay.MAX_EXP_LEVEL];
+		for(int i = 0; i < experience.length; i++)
 		{
-			nextLevelReq[i] = expForLevel(i);
+			experience[i] =  Math.round(144373000000l + (769.2301 - 144373000000l)/(1 + Math.pow((i/68184.15),1.80433)));
 		}
-		System.out.println(Arrays.toString(nextLevelReq));
-		return nextLevelReq;
+		experience[0] = 0;
+		experience[1] = 0;
 	}
 
-	private static long expForLevel(int level) 
+	public long expForLevel(int level) 
 	{
-		if(level == 0)
-			return 0;
-		
-		if(level == 1)
-			return Consts.Gameplay.LEVEL_1_EXP;
-		
-		return Math.round(nextLevelReq[level - 1] + nextLevelReq[level - 1] * Consts.Gameplay.EXP_FACTOR);
+		return experience[level];
 	}
 }

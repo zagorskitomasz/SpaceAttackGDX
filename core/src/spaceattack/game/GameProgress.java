@@ -60,7 +60,7 @@ public class GameProgress implements INotifier<GameProgress>
 	{
 		experience += amount;
 
-		if (experience >= Experience.nextLevelReq[level])
+		if (experience >= Experience.INSTANCE.expForLevel(level + 1))
 			setLevel(level + 1);
 	}
 
