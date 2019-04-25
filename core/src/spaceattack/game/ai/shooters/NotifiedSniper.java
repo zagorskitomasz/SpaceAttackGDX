@@ -18,7 +18,7 @@ public class NotifiedSniper extends AbstractShooter
 	@Override
 	public ShooterType getType()
 	{
-		return ShooterType.DIRECT_SHOOTER;
+		return ShooterType.NOTIFIED_SNIPER;
 	}
 
 	@Override

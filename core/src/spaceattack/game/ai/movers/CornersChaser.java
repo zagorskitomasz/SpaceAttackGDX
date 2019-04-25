@@ -27,6 +27,7 @@ public class CornersChaser extends AbstractMover
 		if (isInRadius(destination))
 			return;
 
+		notifyObservers();
 		owner.setDestination(destination);
 	}
 }
