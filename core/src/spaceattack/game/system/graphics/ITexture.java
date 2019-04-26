@@ -1,8 +1,8 @@
 package spaceattack.game.system.graphics;
 
-public interface ITexture
-{
-	public int getWidth();
+public interface ITexture {
 
-	public int getHeight();
+    public int getWidth();
+
+    public int getHeight();
 }

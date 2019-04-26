@@ -1,8 +1,8 @@
 package spaceattack.game.buttons;
 
-public interface ITextButtonFactory
-{
-	public IButton create(String text);
+public interface ITextButtonFactory {
 
-	public IButton createAlertButton(String text);
+    public IButton create(String text);
+
+    public IButton createAlertButton(String text);
 }

@@ -12,50 +12,50 @@ import spaceattack.game.ships.FakeShip;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVectorFactory;
 
-public class FighterEngineTest
-{
-	private IShip ship;
-	private IVectorFactory vectors;
+public class FighterEngineTest {
 
-	private FighterEngine engine;
+    private IShip ship;
+    private IVectorFactory vectors;
 
-	@Before
-	public void setUp()
-	{
-		vectors = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(vectors);
+    private FighterEngine engine;
 
-		ship = new FakeShip();
+    @Before
+    public void setUp() {
 
-		ship.setX(20);
-		ship.setY(20);
+        vectors = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(vectors);
 
-		engine = new FighterEngine(ship, ExtUtilsFactory.INSTANCE.create());
-		engine.setBaseSpeed(2);
-		engine.setAcceleration(1);
-		engine.setBraking(1);
-		engine.setAgility(2);
-		engine.setLevel(1);
-	}
+        ship = new FakeShip();
 
-	@Test
-	public void destinationIsOnlyHorizontal()
-	{
-		engine.setDestination(vectors.create(50, 50));
+        ship.setX(20);
+        ship.setY(20);
 
-		engine.fly();
+        engine = new FighterEngine(ship, ExtUtilsFactory.INSTANCE.create());
+        engine.setBaseSpeed(2);
+        engine.setAcceleration(1);
+        engine.setBraking(1);
+        engine.setAgility(2);
+        engine.setLevel(1);
+    }
 
-		assertEquals(vectors.create(50, 20), engine.getDestination());
-	}
+    @Test
+    public void destinationIsOnlyHorizontal() {
 
-	@Test
-	public void shipIsMovingToDestinationAndDownInBaseSpeed()
-	{
-		engine.setLevel(3);
-		engine.setDestination(vectors.create(50, 50));
+        engine.setDestination(vectors.create(50, 50));
 
-		engine.fly();
+        engine.fly();
 
-		assertEquals(vectors.create(24.2f, 17.2f), vectors.create(ship.getX(), ship.getY()));
-	}
+        assertEquals(vectors.create(50, 20), engine.getDestination());
+    }
+
+    @Test
+    public void shipIsMovingToDestinationAndDownInBaseSpeed() {
+
+        engine.setLevel(3);
+        engine.setDestination(vectors.create(50, 50));
+
+        engine.fly();
+
+        assertEquals(vectors.create(24.2f, 17.2f), vectors.create(ship.getX(), ship.getY()));
+    }
 }

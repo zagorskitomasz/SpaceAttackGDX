@@ -2,44 +2,44 @@ package spaceattack.game;
 
 import spaceattack.game.stages.Stages;
 
-public class StageResult
-{
-	private Stages nextStage;
-	private GameProgress gameProgress;
+public class StageResult {
 
-	public StageResult()
-	{
-		nextStage = Stages.MAIN_MENU;
-	}
+    private Stages nextStage;
+    private GameProgress gameProgress;
 
-	public Stages getNextStage()
-	{
-		return nextStage;
-	}
+    public StageResult() {
 
-	public void setNextStage(Stages nextStage)
-	{
-		this.nextStage = nextStage;
-	}
+        nextStage = Stages.MAIN_MENU;
+    }
 
-	public GameProgress getGameProgress()
-	{
-		return gameProgress;
-	}
+    public Stages getNextStage() {
 
-	public void setGameProgress(GameProgress gameProgress)
-	{
-		this.gameProgress = gameProgress;
-	}
+        return nextStage;
+    }
 
-	@Override
-	public boolean equals(Object other)
-	{
-		if (other == null || !(other instanceof StageResult))
-			return false;
+    public void setNextStage(Stages nextStage) {
 
-		StageResult otherResult = (StageResult) other;
+        this.nextStage = nextStage;
+    }
 
-		return otherResult.nextStage == nextStage && otherResult.gameProgress.equals(gameProgress);
-	}
+    public GameProgress getGameProgress() {
+
+        return gameProgress;
+    }
+
+    public void setGameProgress(GameProgress gameProgress) {
+
+        this.gameProgress = gameProgress;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other == null || !(other instanceof StageResult))
+            return false;
+
+        StageResult otherResult = (StageResult) other;
+
+        return otherResult.nextStage == nextStage && otherResult.gameProgress.equals(gameProgress);
+    }
 }

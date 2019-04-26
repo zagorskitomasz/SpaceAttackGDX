@@ -5,53 +5,53 @@ import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.missiles.Missile;
 
-public abstract class AbstractWeapon implements IWeapon
-{
-	@SuppressWarnings("unused")
-	private IUtils utils;
-	protected FrameController frameController;
-	protected IWeaponController controller;
-	protected MissilesLauncher launcher;
+public abstract class AbstractWeapon implements IWeapon {
 
-	protected float dmg;
-	protected float speed;
-	protected float energyCost;
+    @SuppressWarnings("unused")
+    private IUtils utils;
+    protected FrameController frameController;
+    protected IWeaponController controller;
+    protected MissilesLauncher launcher;
 
-	protected abstract Missile buildMissile();
+    protected float dmg;
+    protected float speed;
+    protected float energyCost;
 
-	public void setUtils(IUtils utils)
-	{
-		this.utils = utils;
-		frameController = new FrameController(utils, Consts.Weapons.LASER_ATTACKS_PER_SECOND);
-	}
+    protected abstract Missile buildMissile();
 
-	public void setController(IWeaponController weaponController)
-	{
-		this.controller = weaponController;
-	}
+    public void setUtils(IUtils utils) {
 
-	public void setMissilesLauncher(MissilesLauncher missilesLauncher)
-	{
-		launcher = missilesLauncher;
-	}
+        this.utils = utils;
+        frameController = new FrameController(utils, Consts.Weapons.LASER_ATTACKS_PER_SECOND);
+    }
 
-	@Override
-	public boolean use()
-	{
-		if (!frameController.check())
-			return false;
+    public void setController(IWeaponController weaponController) {
 
-		if (!controller.takeEnergy(energyCost))
-			return false;
+        this.controller = weaponController;
+    }
 
-		Missile missile = buildMissile();
-		launcher.launch(missile);
-		return true;
-	}
+    public void setMissilesLauncher(MissilesLauncher missilesLauncher) {
 
-	@Override
-	public float getEnergyCost()
-	{
-		return energyCost;
-	}
+        launcher = missilesLauncher;
+    }
+
+    @Override
+    public boolean use() {
+
+        if (!frameController.check())
+            return false;
+
+        if (!controller.takeEnergy(energyCost))
+            return false;
+
+        Missile missile = buildMissile();
+        launcher.launch(missile);
+        return true;
+    }
+
+    @Override
+    public float getEnergyCost() {
+
+        return energyCost;
+    }
 }

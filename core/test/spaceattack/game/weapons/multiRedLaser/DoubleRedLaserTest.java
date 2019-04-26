@@ -24,54 +24,55 @@ import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.missiles.FakeLauncher;
 import spaceattack.game.weapons.multiRedLaser.DoubleRedLaser;
 
-public class DoubleRedLaserTest
-{
-	@Mock
-	private IWeaponController controller;
+public class DoubleRedLaserTest {
 
-	private FakeLauncher launcher;
+    @Mock
+    private IWeaponController controller;
 
-	@Mock
-	private IActorFactory factory;
+    private FakeLauncher launcher;
 
-	private DoubleRedLaser laser;
+    @Mock
+    private IActorFactory factory;
 
-	@Before
-	public void setUp()
-	{
-		launcher = new FakeLauncher(null);
-		initMocks(this);
-		Textures.loadForTest();
-		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
-		Factories.setActorFactory(factory);
+    private DoubleRedLaser laser;
 
-		laser = new DoubleRedLaser();
+    @Before
+    public void setUp() {
 
-		laser.setUtils(ExtUtilsFactory.INSTANCE.create());
-		laser.setController(controller);
-		laser.setMissilesLauncher(launcher);
-		laser.setLevel(1);
+        launcher = new FakeLauncher(null);
+        initMocks(this);
+        Textures.loadForTest();
+        Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+        Factories.setActorFactory(factory);
 
-		doReturn(true).when(controller).takeEnergy(anyFloat());
-		doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getPrimaryWeaponUsePlacement();
-		doReturn(new FakeActor()).doReturn(new FakeActor()).doReturn(new FakeActor()).when(factory).create(any(IGameActor.class));
-	}
+        laser = new DoubleRedLaser();
 
-	@Test
-	public void launchingTwoMissiles()
-	{
-		laser.use();
-		assertEquals(2, launcher.getLaunched().size());
-	}
-	
-	@Test
-	public void missilesAreMoved()
-	{
-		laser.use();
-		
-		List<Launchable> launched = launcher.getLaunched();
-		
-		assertEquals(75, launched.get(0).getActor().getX(), 0);
-		assertEquals(125, launched.get(1).getActor().getX(), 0);
-	}
+        laser.setUtils(ExtUtilsFactory.INSTANCE.create());
+        laser.setController(controller);
+        laser.setMissilesLauncher(launcher);
+        laser.setLevel(1);
+
+        doReturn(true).when(controller).takeEnergy(anyFloat());
+        doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getPrimaryWeaponUsePlacement();
+        doReturn(new FakeActor()).doReturn(new FakeActor()).doReturn(new FakeActor()).when(factory)
+                .create(any(IGameActor.class));
+    }
+
+    @Test
+    public void launchingTwoMissiles() {
+
+        laser.use();
+        assertEquals(2, launcher.getLaunched().size());
+    }
+
+    @Test
+    public void missilesAreMoved() {
+
+        laser.use();
+
+        List<Launchable> launched = launcher.getLaunched();
+
+        assertEquals(75, launched.get(0).getActor().getX(), 0);
+        assertEquals(125, launched.get(1).getActor().getX(), 0);
+    }
 }

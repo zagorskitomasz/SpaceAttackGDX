@@ -5,63 +5,63 @@ import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.batch.IBatch;
 
-public class StaticImage implements IGameActor
-{
-	private IActor actor;
+public class StaticImage implements IGameActor {
 
-	protected float x;
-	protected float y;
+    private IActor actor;
 
-	protected ITexture texture;
+    protected float x;
+    protected float y;
 
-	StaticImage(ITexture texture,float x,float y)
-	{
-		this.texture = texture;
-		this.x = x;
-		this.y = Sizes.GAME_HEIGHT - (y + texture.getHeight());
-	}
+    protected ITexture texture;
 
-	@Override
-	public void setActor(IActor actor)
-	{
-		this.actor = actor;
-	}
+    StaticImage(ITexture texture, float x, float y) {
 
-	@Override
-	public IActor getActor()
-	{
-		return actor;
-	}
+        this.texture = texture;
+        this.x = x;
+        this.y = Sizes.GAME_HEIGHT - (y + texture.getHeight());
+    }
 
-	@Override
-	public void draw(IBatch batch,float alpha)
-	{
-		batch.draw(texture, x, y, texture.getWidth(), texture.getHeight());
-	}
+    @Override
+    public void setActor(IActor actor) {
 
-	@Override
-	public void act(float delta)
-	{
-		// do nothing
-	}
+        this.actor = actor;
+    }
 
-	public void setTexture(ITexture newTexture)
-	{
-		texture = newTexture;
-	}
+    @Override
+    public IActor getActor() {
 
-	ITexture getTexture()
-	{
-		return texture;
-	}
+        return actor;
+    }
 
-	float getX()
-	{
-		return x;
-	}
+    @Override
+    public void draw(IBatch batch, float alpha) {
 
-	float getY()
-	{
-		return y;
-	}
+        batch.draw(texture, x, y, texture.getWidth(), texture.getHeight());
+    }
+
+    @Override
+    public void act(float delta) {
+
+        // do nothing
+    }
+
+    public void setTexture(ITexture newTexture) {
+
+        texture = newTexture;
+    }
+
+    ITexture getTexture() {
+
+        return texture;
+    }
+
+    float getX() {
+
+        return x;
+    }
+
+    float getY() {
+
+        return y;
+    }
 }

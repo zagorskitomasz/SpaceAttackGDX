@@ -20,49 +20,49 @@ import spaceattack.game.stages.IStage;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.IUtilsFactory;
 
-public class ExitGameListenerTest
-{
-	@Mock
-	private IGameStage stage;
+public class ExitGameListenerTest {
 
-	@Mock
-	private IUtils utils;
+    @Mock
+    private IGameStage stage;
 
-	@Mock
-	private IUtilsFactory factory;
+    @Mock
+    private IUtils utils;
 
-	private ExitGameListener listener;
+    @Mock
+    private IUtilsFactory factory;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    private ExitGameListener listener;
 
-		doReturn(utils).when(factory).create();
-		Factories.setUtilsFactory(factory);
+    @Before
+    public void setUp() {
 
-		listener = new ExitGameListener(stage);
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void showsDialogWhenClicked()
-	{
-		listener.clicked();
-		verify(utils).confirmDialog(anyString(), anyString(), nullable(IStage.class), any(Consumer.class));
-	}
+        doReturn(utils).when(factory).create();
+        Factories.setUtilsFactory(factory);
 
-	@Test
-	public void ifConfirmedDoExit()
-	{
-		listener.processExitDialogResult(false);
-		verify(utils, times(0)).exit();
-	}
+        listener = new ExitGameListener(stage);
+    }
 
-	@Test
-	public void ifNotConfirmedNotExit()
-	{
-		listener.processExitDialogResult(true);
-		verify(utils).exit();
-	}
+    @SuppressWarnings("unchecked")
+    @Test
+    public void showsDialogWhenClicked() {
+
+        listener.clicked();
+        verify(utils).confirmDialog(anyString(), anyString(), nullable(IStage.class), any(Consumer.class));
+    }
+
+    @Test
+    public void ifConfirmedDoExit() {
+
+        listener.processExitDialogResult(false);
+        verify(utils, times(0)).exit();
+    }
+
+    @Test
+    public void ifNotConfirmedNotExit() {
+
+        listener.processExitDialogResult(true);
+        verify(utils).exit();
+    }
 }

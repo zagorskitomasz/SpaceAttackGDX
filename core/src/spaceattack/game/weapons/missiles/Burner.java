@@ -6,68 +6,64 @@ import spaceattack.game.system.FrameController;
 import spaceattack.game.system.graphics.IAnimation;
 import spaceattack.game.system.graphics.ITexture;
 
-public class Burner
-{
-	private Ignitable ignitable;
-	private IAnimation burningAnimation;
-	private FrameController burningController;
-	private boolean isBurning;
-	private float burningDPS;
+public class Burner {
 
-	Burner()
-	{
-		// do nothing
-	}
+    private Ignitable ignitable;
+    private IAnimation burningAnimation;
+    private FrameController burningController;
+    private boolean isBurning;
+    private float burningDPS;
 
-	public void setBurningAnimation(IAnimation animation)
-	{
-		burningAnimation = animation;
-	}
+    Burner() {
 
-	public void setBurningController(FrameController controller)
-	{
-		burningController = controller;
-	}
+        // do nothing
+    }
 
-	public void setIgnitable(Ignitable ignitable)
-	{
-		this.ignitable = ignitable;
-	}
+    public void setBurningAnimation(IAnimation animation) {
 
-	public void burn(float delta)
-	{
-		if (isBurning)
-		{
-			if (burningController.check())
-			{
-				burningDPS = 0;
-				isBurning = false;
-			}
-			else
-			{
-				ignitable.takeDmg(burningDPS * delta);
-			}
-		}
-	}
+        burningAnimation = animation;
+    }
 
-	public void draw(IBatch batch)
-	{
-		if (isBurning)
-		{
-			ITexture texture = burningAnimation.getFrame();
-			batch.draw(texture, 
-					ignitable.getDrawingX() + ignitable.getRadius() - texture.getWidth() / 2, 
-					ignitable.getDrawingY() + ignitable.getRadius() - texture.getHeight() / 2, 
-					texture.getWidth(), texture.getWidth());
-		}
-	}
+    public void setBurningController(FrameController controller) {
 
-	public void ignite(float burningDPS,long fireDuration)
-	{
-		if (burningDPS > this.burningDPS)
-			this.burningDPS = burningDPS;
+        burningController = controller;
+    }
 
-		burningController.reset(1000 / (float) fireDuration);
-		isBurning = true;
-	}
+    public void setIgnitable(Ignitable ignitable) {
+
+        this.ignitable = ignitable;
+    }
+
+    public void burn(float delta) {
+
+        if (isBurning) {
+            if (burningController.check()) {
+                burningDPS = 0;
+                isBurning = false;
+            }
+            else {
+                ignitable.takeDmg(burningDPS * delta);
+            }
+        }
+    }
+
+    public void draw(IBatch batch) {
+
+        if (isBurning) {
+            ITexture texture = burningAnimation.getFrame();
+            batch.draw(texture,
+                    ignitable.getDrawingX() + ignitable.getRadius() - texture.getWidth() / 2,
+                    ignitable.getDrawingY() + ignitable.getRadius() - texture.getHeight() / 2,
+                    texture.getWidth(), texture.getWidth());
+        }
+    }
+
+    public void ignite(float burningDPS, long fireDuration) {
+
+        if (burningDPS > this.burningDPS)
+            this.burningDPS = burningDPS;
+
+        burningController.reset(1000 / (float) fireDuration);
+        isBurning = true;
+    }
 }

@@ -8,40 +8,39 @@ import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 
-public enum FireButtonsBuilder
-{
-	INSTANCE;
+public enum FireButtonsBuilder {
+    INSTANCE;
 
-	public FireButton primary(IWeapon weapon)
-	{
-		ITexture textureUp = Textures.RED_BUTTON_UP.getTexture();
-		ITexture textureDown = Textures.RED_BUTTON_DOWN.getTexture();
-		ITexture textureDisabled = Textures.FIRE_BUTTON_DISABLED.getTexture();
+    public FireButton primary(IWeapon weapon) {
 
-		IImageButton imageButton = Factories.getImageButtonsFactory().create(textureUp, textureDown, textureDisabled);
+        ITexture textureUp = Textures.RED_BUTTON_UP.getTexture();
+        ITexture textureDown = Textures.RED_BUTTON_DOWN.getTexture();
+        ITexture textureDisabled = Textures.FIRE_BUTTON_DISABLED.getTexture();
 
-		FireButton button = new FireButton();
-		button.setImageButton(imageButton);
-		button.setWeapon(weapon);
-		button.setPosition(Sizes.GAME_WIDTH * 0.54f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.02f);
+        IImageButton imageButton = Factories.getImageButtonsFactory().create(textureUp, textureDown, textureDisabled);
 
-		return button;
-	}
+        FireButton button = new FireButton();
+        button.setImageButton(imageButton);
+        button.setWeapon(weapon);
+        button.setPosition(Sizes.GAME_WIDTH * 0.54f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.02f);
 
-	public ComplexFireButton secondary(IWeaponController controller,IWeapon weapon)
-	{
-		ITexture textureUp = Textures.GREEN_BUTTON_UP.getTexture();
-		ITexture textureDown = Textures.GREEN_BUTTON_DOWN.getTexture();
-		ITexture textureDisabled = Textures.FIRE_BUTTON_DISABLED.getTexture();
+        return button;
+    }
 
-		IImageButton imageButton = Factories.getImageButtonsFactory().create(textureUp, textureDown, textureDisabled);
+    public ComplexFireButton secondary(IWeaponController controller, IWeapon weapon) {
 
-		ComplexFireButton button = new ComplexFireButton();
-		button.setImageButton(imageButton);
-		button.setMainWeapon(weapon);
-		button.setPosition(Sizes.GAME_WIDTH * 0.82f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.02f);
-		button.setWeaponController(controller);
+        ITexture textureUp = Textures.GREEN_BUTTON_UP.getTexture();
+        ITexture textureDown = Textures.GREEN_BUTTON_DOWN.getTexture();
+        ITexture textureDisabled = Textures.FIRE_BUTTON_DISABLED.getTexture();
 
-		return button;
-	}
+        IImageButton imageButton = Factories.getImageButtonsFactory().create(textureUp, textureDown, textureDisabled);
+
+        ComplexFireButton button = new ComplexFireButton();
+        button.setImageButton(imageButton);
+        button.setMainWeapon(weapon);
+        button.setPosition(Sizes.GAME_WIDTH * 0.82f - imageButton.getWidth() * 0.5f, Sizes.GAME_HEIGHT * 0.02f);
+        button.setWeaponController(controller);
+
+        return button;
+    }
 }

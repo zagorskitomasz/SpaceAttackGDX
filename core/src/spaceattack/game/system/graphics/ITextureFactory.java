@@ -1,6 +1,6 @@
 package spaceattack.game.system.graphics;
 
-public interface ITextureFactory
-{
-	public ITexture create(String path);
+public interface ITextureFactory {
+
+    public ITexture create(String path);
 }

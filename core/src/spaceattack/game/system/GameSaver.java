@@ -7,47 +7,45 @@ import spaceattack.consts.Paths;
 import spaceattack.game.GameProgress;
 import spaceattack.game.utils.IUtils;
 
-public class GameSaver
-{
-	private IUtils utils;
-	private IFileHandle file;
+public class GameSaver {
 
-	private Lock lock;
+    private IUtils utils;
+    private IFileHandle file;
 
-	GameSaver()
-	{
-		lock = new ReentrantLock();
-	}
+    private Lock lock;
 
-	void setUtils(IUtils utils)
-	{
-		this.utils = utils;
-	}
+    GameSaver() {
 
-	public void save(GameProgress progress)
-	{
-		try
-		{
-			lock.lock();
+        lock = new ReentrantLock();
+    }
 
-			loadFromFilesystem();
+    void setUtils(IUtils utils) {
 
-			String content = utils.objectToString(progress, GameProgress.class);
-			writeToFile(content);
-		}
-		finally
-		{
-			lock.unlock();
-		}
-	}
+        this.utils = utils;
+    }
 
-	private void loadFromFilesystem()
-	{
-		file = utils.loadFile(Paths.SAVE);
-	}
+    public void save(GameProgress progress) {
 
-	public void writeToFile(String fileContent)
-	{
-		file.writeString(fileContent, false);
-	}
+        try {
+            lock.lock();
+
+            loadFromFilesystem();
+
+            String content = utils.objectToString(progress, GameProgress.class);
+            writeToFile(content);
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    private void loadFromFilesystem() {
+
+        file = utils.loadFile(Paths.SAVE);
+    }
+
+    public void writeToFile(String fileContent) {
+
+        file.writeString(fileContent, false);
+    }
 }

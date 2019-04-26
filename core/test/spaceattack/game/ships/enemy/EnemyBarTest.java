@@ -15,35 +15,35 @@ import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.utils.Rect;
 
-public class EnemyBarTest
-{
-	private EnemyBar bar;
+public class EnemyBarTest {
 
-	@Mock
-	private IBatch batch;
+    private EnemyBar bar;
 
-	@Mock
-	private IPool pool;
+    @Mock
+    private IBatch batch;
 
-	private IShip ship;
+    @Mock
+    private IPool pool;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    private IShip ship;
 
-		ship = new FakeShip();
-		ship.setHpPool(pool);
-		doReturn(10f).when(pool).getAmount();
-		doReturn(20f).when(pool).getMaxAmount();
+    @Before
+    public void setUp() {
 
-		bar = new EnemyBar(ship);
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void twoRectsAreDrawn()
-	{
-		bar.draw(batch);
-		verify(batch).rect(any(Rect.class), any(Rect.class));
-	}
+        ship = new FakeShip();
+        ship.setHpPool(pool);
+        doReturn(10f).when(pool).getAmount();
+        doReturn(20f).when(pool).getMaxAmount();
+
+        bar = new EnemyBar(ship);
+    }
+
+    @Test
+    public void twoRectsAreDrawn() {
+
+        bar.draw(batch);
+        verify(batch).rect(any(Rect.class), any(Rect.class));
+    }
 }

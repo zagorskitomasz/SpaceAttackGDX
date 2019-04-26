@@ -27,87 +27,87 @@ import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.Sounds;
 
-public class PoolIncreaserTest
-{
-	private PoolIncreaser increaser;
+public class PoolIncreaserTest {
 
-	private List<IGameActor> actors;
+    private PoolIncreaser increaser;
 
-	@Mock
-	private PlayerShip playerShip;
+    private List<IGameActor> actors;
 
-	@Mock
-	private IEnemyShip enemyShip;
+    @Mock
+    private PlayerShip playerShip;
 
-	@Mock
-	private IPool pool;
+    @Mock
+    private IEnemyShip enemyShip;
 
-	@Before
-	public void setUp()
-	{
-		Textures.loadForTest();
-		Sounds.loadForTest();
+    @Mock
+    private IPool pool;
 
-		MockitoAnnotations.initMocks(this);
-		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    @Before
+    public void setUp() {
 
-		actors = new LinkedList<>();
-		actors.add(playerShip);
-		actors.add(enemyShip);
+        Textures.loadForTest();
+        Sounds.loadForTest();
 
-		IActor actor = new FakeActor();
-		actor.setPosition(100, 100);
+        MockitoAnnotations.initMocks(this);
+        Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-		increaser = new PoolIncreaser();
-		increaser.setActors(actors);
-		increaser.setActor(actor);
-		increaser.setPool(pool);
-		increaser.setIncreasePercent(0.4f);
+        actors = new LinkedList<>();
+        actors.add(playerShip);
+        actors.add(enemyShip);
 
-		doReturn(120f).when(playerShip).getX();
-		doReturn(120f).when(playerShip).getY();
-		doReturn(100f).when(pool).getMaxAmount();
-	}
+        IActor actor = new FakeActor();
+        actor.setPosition(100, 100);
 
-	@Test
-	public void checksOnlyPowerUpConsumers()
-	{
-		increaser.act(0);
+        increaser = new PoolIncreaser();
+        increaser.setActors(actors);
+        increaser.setActor(actor);
+        increaser.setPool(pool);
+        increaser.setIncreasePercent(0.4f);
 
-		verify(playerShip).getX();
-		verify(enemyShip, times(0)).getX();
-	}
+        doReturn(120f).when(playerShip).getX();
+        doReturn(120f).when(playerShip).getY();
+        doReturn(100f).when(pool).getMaxAmount();
+    }
 
-	@Test
-	public void consumedWhenCollision()
-	{
-		increaser.act(0);
+    @Test
+    public void checksOnlyPowerUpConsumers() {
 
-		verify(playerShip).consume(increaser);
-	}
+        increaser.act(0);
 
-	@Test
-	public void isMovingDown()
-	{
-		increaser.act(0);
+        verify(playerShip).getX();
+        verify(enemyShip, times(0)).getX();
+    }
 
-		assertEquals(100 - Consts.AI.POWER_UP_SPEED, increaser.getY(), 0);
-	}
+    @Test
+    public void consumedWhenCollision() {
 
-	@Test
-	public void destroyedWhenConsumed()
-	{
-		increaser.act(0);
+        increaser.act(0);
 
-		assertTrue(increaser.isToKill());
-	}
+        verify(playerShip).consume(increaser);
+    }
 
-	@Test
-	public void poolIsRegenerated()
-	{
-		increaser.consumed();
+    @Test
+    public void isMovingDown() {
 
-		verify(pool).regen(40f);
-	}
+        increaser.act(0);
+
+        assertEquals(100 - Consts.AI.POWER_UP_SPEED, increaser.getY(), 0);
+    }
+
+    @Test
+    public void destroyedWhenConsumed() {
+
+        increaser.act(0);
+
+        assertTrue(increaser.isToKill());
+    }
+
+    @Test
+    public void poolIsRegenerated() {
+
+        increaser.consumed();
+
+        verify(pool).regen(40f);
+    }
 }

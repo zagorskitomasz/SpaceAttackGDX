@@ -5,13 +5,13 @@ import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.vector.IVector;
 
-public interface IGameplayInput extends IInputProcessor
-{
-	public void registerShip(IShip ship);
+public interface IGameplayInput extends IInputProcessor {
 
-	public void registerFireButton(IFireButton button);
+    public void registerShip(IShip ship);
 
-	public IVector getTouch();
+    public void registerFireButton(IFireButton button);
 
-	public void setUtils(IUtils utils);
+    public IVector getTouch();
+
+    public void setUtils(IUtils utils);
 }

@@ -15,52 +15,52 @@ import spaceattack.game.actors.IGameActor;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.player.PlayerShip;
 
-public class RadarTest
-{
-	private Radar radar;
+public class RadarTest {
 
-	private List<IGameActor> actors;
+    private Radar radar;
 
-	@Mock
-	private PlayerShip playerShip;
+    private List<IGameActor> actors;
 
-	@Mock
-	private IEnemyShip enemyShip;
+    @Mock
+    private PlayerShip playerShip;
 
-	@Mock
-	private IEnemyShip enemyShip2;
+    @Mock
+    private IEnemyShip enemyShip;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    @Mock
+    private IEnemyShip enemyShip2;
 
-		actors = new LinkedList<>();
-		actors.add(playerShip);
-		actors.add(enemyShip);
+    @Before
+    public void setUp() {
 
-		radar = new Radar(actors);
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void playerShipIsVisibleOnRadar()
-	{
-		radar.update();
-		assertEquals(playerShip, radar.getPlayerShip());
-	}
+        actors = new LinkedList<>();
+        actors.add(playerShip);
+        actors.add(enemyShip);
 
-	@Test
-	public void enemyShipIsVisibleOnRadar()
-	{
-		radar.update();
-		assertTrue(radar.getEnemyShips().contains(enemyShip));
-	}
+        radar = new Radar(actors);
+    }
 
-	@Test
-	public void radarUpdateIsCheckingActors()
-	{
-		actors.add(enemyShip2);
-		radar.update();
-		assertTrue(radar.getEnemyShips().contains(enemyShip2));
-	}
+    @Test
+    public void playerShipIsVisibleOnRadar() {
+
+        radar.update();
+        assertEquals(playerShip, radar.getPlayerShip());
+    }
+
+    @Test
+    public void enemyShipIsVisibleOnRadar() {
+
+        radar.update();
+        assertTrue(radar.getEnemyShips().contains(enemyShip));
+    }
+
+    @Test
+    public void radarUpdateIsCheckingActors() {
+
+        actors.add(enemyShip2);
+        radar.update();
+        assertTrue(radar.getEnemyShips().contains(enemyShip2));
+    }
 }

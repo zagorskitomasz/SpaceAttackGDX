@@ -24,50 +24,50 @@ import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.ExplosiveMissile;
 
-public class RocketMissileTest
-{
-	@Mock
-	private MissilesLauncher launcher;
+public class RocketMissileTest {
 
-	@Mock
-	private FrameController checker;
+    @Mock
+    private MissilesLauncher launcher;
 
-	@Mock
-	private IWeaponController controller;
+    @Mock
+    private FrameController checker;
 
-	@Mock
-	private IActorFactory actorFactory;
+    @Mock
+    private IWeaponController controller;
 
-	@InjectMocks
-	private RocketMissile missile;
+    @Mock
+    private IActorFactory actorFactory;
 
-	@Before
-	public void setUp()
-	{
-		Textures.loadForTest();
-		Animations.loadForTest();
+    @InjectMocks
+    private RocketMissile missile;
 
-		missile = new RocketMissile();
-		MockitoAnnotations.initMocks(this);
+    @Before
+    public void setUp() {
 
-		Factories.setActorFactory(actorFactory);
-		doReturn(true).when(checker).check();
-		doReturn(true).when(controller).takeEnergy(anyFloat());
-		doReturn(new FakeActor()).when(actorFactory).create(any(IGameActor.class));
-		doReturn(ExtVectorFactory.INSTANCE.create(10, 10)).when(controller).getSecondaryWeaponUsePlacement();
-	}
+        Textures.loadForTest();
+        Animations.loadForTest();
 
-	@Test
-	public void missileHasNoOwnDamage()
-	{
-		missile.setLevel(10);
-		assertEquals(0, missile.getDmg(), 0);
-	}
+        missile = new RocketMissile();
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void explosiveMissileIsShot()
-	{
-		missile.use();
-		verify(launcher).launch(any(ExplosiveMissile.class));
-	}
+        Factories.setActorFactory(actorFactory);
+        doReturn(true).when(checker).check();
+        doReturn(true).when(controller).takeEnergy(anyFloat());
+        doReturn(new FakeActor()).when(actorFactory).create(any(IGameActor.class));
+        doReturn(ExtVectorFactory.INSTANCE.create(10, 10)).when(controller).getSecondaryWeaponUsePlacement();
+    }
+
+    @Test
+    public void missileHasNoOwnDamage() {
+
+        missile.setLevel(10);
+        assertEquals(0, missile.getDmg(), 0);
+    }
+
+    @Test
+    public void explosiveMissileIsShot() {
+
+        missile.use();
+        verify(launcher).launch(any(ExplosiveMissile.class));
+    }
 }

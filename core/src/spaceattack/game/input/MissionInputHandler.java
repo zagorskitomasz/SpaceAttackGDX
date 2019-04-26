@@ -9,62 +9,60 @@ import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.vector.IVector;
 
-public class MissionInputHandler implements IGameplayInput
-{
-	private Set<IFireButton> buttons;
-	private IUtils utils;
+public class MissionInputHandler implements IGameplayInput {
 
-	public MissionInputHandler()
-	{
-		buttons = new HashSet<>();
-	}
-	
-	@Override
-	public void setUtils(IUtils utils)
-	{
-		this.utils = utils;
-	}
+    private Set<IFireButton> buttons;
+    private IUtils utils;
 
-	@Override
-	public void registerShip(IShip ship)
-	{
-		IPool pool = ship.getEnergyPool();
+    public MissionInputHandler() {
 
-		for (IFireButton button : buttons)
-			button.setEnergyPool(pool);
-	}
+        buttons = new HashSet<>();
+    }
 
-	@Override
-	public void registerFireButton(IFireButton button)
-	{
-		buttons.add(button);
-	}
+    @Override
+    public void setUtils(IUtils utils) {
 
-	@Override
-	public boolean touchDown(int screenX,int screenY,int pointer,int button)
-	{
-		for (IFireButton fireButton : buttons)
-		{
-			fireButton.touchDown(screenX, screenY);
+        this.utils = utils;
+    }
 
-		}
-		return true;
-	}
+    @Override
+    public void registerShip(IShip ship) {
 
-	@Override
-	public boolean touchUp(int screenX,int screenY,int pointer,int button)
-	{
-		for (IFireButton fireButton : buttons)
-		{
-			if (fireButton.touchUp(screenX, screenY))
-				return true;
-		}
-		return true;
-	}
+        IPool pool = ship.getEnergyPool();
 
-	@Override
-	public IVector getTouch() 
-	{
-		return utils.getTouch();
-	}
+        for (IFireButton button : buttons)
+            button.setEnergyPool(pool);
+    }
+
+    @Override
+    public void registerFireButton(IFireButton button) {
+
+        buttons.add(button);
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        for (IFireButton fireButton : buttons) {
+            fireButton.touchDown(screenX, screenY);
+
+        }
+        return true;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+        for (IFireButton fireButton : buttons) {
+            if (fireButton.touchUp(screenX, screenY))
+                return true;
+        }
+        return true;
+    }
+
+    @Override
+    public IVector getTouch() {
+
+        return utils.getTouch();
+    }
 }

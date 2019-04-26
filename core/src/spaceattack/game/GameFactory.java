@@ -7,21 +7,20 @@ import spaceattack.game.system.FrameController;
 import spaceattack.game.system.GameLoaderFactory;
 import spaceattack.game.utils.IUtils;
 
-public enum GameFactory
-{
-	INSTANCE;
+public enum GameFactory {
+    INSTANCE;
 
-	public IGame create()
-	{
-		IUtils utils = Factories.getUtilsFactory().create();
+    public IGame create() {
 
-		Game game = new Game(false);
+        IUtils utils = Factories.getUtilsFactory().create();
 
-		game.setExtUtils(utils);
-		game.setGameLoader(GameLoaderFactory.INSTANCE.create());
-		game.setStageBuilder(GameStageFactory.INSTANCE);
-		game.setFrameController(new FrameController(utils, Consts.Metagame.FPS));
+        Game game = new Game(false);
 
-		return game;
-	}
+        game.setExtUtils(utils);
+        game.setGameLoader(GameLoaderFactory.INSTANCE.create());
+        game.setStageBuilder(GameStageFactory.INSTANCE);
+        game.setFrameController(new FrameController(utils, Consts.Metagame.FPS));
+
+        return game;
+    }
 }

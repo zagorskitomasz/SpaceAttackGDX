@@ -2,49 +2,48 @@ package spaceattack.game.system.graphics;
 
 import spaceattack.game.factories.Factories;
 
-public enum Animations
-{
-	//@formatter:off
-	
-	// explosions
-	FIGHTER_EX("graphics/animations/fighterEx.atlas",false,10),
-	BOSS_EX("graphics/animations/bossEx.atlas",false,10),
-	MISSILE_EX("graphics/animations/missileEx.atlas",false,10),
-	TANK_EX("graphics/animations/tankEx.atlas",false,10),
-	FIRE("graphics/animations/fire.atlas",true,10);
-	//@formatter:on
+public enum Animations {
+    // @formatter:off
 
-	private String path;
-	private boolean loop;
-	private float fps;
+    // explosions
+    FIGHTER_EX("graphics/animations/fighterEx.atlas", false, 10),
+    BOSS_EX("graphics/animations/bossEx.atlas", false, 10),
+    MISSILE_EX("graphics/animations/missileEx.atlas", false, 10),
+    TANK_EX("graphics/animations/tankEx.atlas", false, 10),
+    FIRE("graphics/animations/fire.atlas", true, 10);
+    // @formatter:on
 
-	private static boolean isTest;
+    private String path;
+    private boolean loop;
+    private float fps;
 
-	Animations(String path,boolean loop,float fps)
-	{
-		this.path = path;
-		this.loop = loop;
-		this.fps = fps;
-	}
+    private static boolean isTest;
 
-	/**
-	 * Only for JUnit test purposes! This fake method won't load any real textures.
-	 * It will only suppress TextureNotLoadedException. After fake load
-	 * Textures#getTexture() method will return null!
-	 */
-	public static void loadForTest()
-	{
-		isTest = true;
-	}
+    Animations(String path, boolean loop, float fps) {
 
-	public IAnimation getAnimation()
-	{
-		if (isTest)
-			return null;
+        this.path = path;
+        this.loop = loop;
+        this.fps = fps;
+    }
 
-		if (loop)
-			return Factories.getAnimationFactory().createLooping(path, fps);
+    /**
+     * Only for JUnit test purposes! This fake method won't load any real textures.
+     * It will only suppress TextureNotLoadedException. After fake load
+     * Textures#getTexture() method will return null!
+     */
+    public static void loadForTest() {
 
-		return Factories.getAnimationFactory().create(path, fps);
-	}
+        isTest = true;
+    }
+
+    public IAnimation getAnimation() {
+
+        if (isTest)
+            return null;
+
+        if (loop)
+            return Factories.getAnimationFactory().createLooping(path, fps);
+
+        return Factories.getAnimationFactory().create(path, fps);
+    }
 }

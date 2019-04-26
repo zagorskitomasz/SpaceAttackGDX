@@ -13,35 +13,35 @@ import spaceattack.game.StageResult;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.stages.impl.MissionsStage;
 
-public class LaunchMissionButtonListenerTest
-{
-	private static final int GRID_POSITION = 1;
+public class LaunchMissionButtonListenerTest {
 
-	@Mock
-	private MissionsStage stage;
+    private static final int GRID_POSITION = 1;
 
-	private LaunchMissionButtonListener listener;
+    @Mock
+    private MissionsStage stage;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		listener = new LaunchMissionButtonListener(stage, GRID_POSITION);
-	}
+    private LaunchMissionButtonListener listener;
 
-	@Test
-	public void launchingProperStage()
-	{
-		GameProgress progress = new GameProgress();
-		StageResult result = new StageResult();
-		result.setGameProgress(progress);
-		result.setNextStage(Stages.MISSION_2);
+    @Before
+    public void setUp() {
 
-		doReturn(progress).when(stage).getGameProgress();
-		doReturn(2).when(stage).calculateMission(GRID_POSITION);
+        MockitoAnnotations.initMocks(this);
+        listener = new LaunchMissionButtonListener(stage, GRID_POSITION);
+    }
 
-		listener.clicked();
+    @Test
+    public void launchingProperStage() {
 
-		verify(stage).setResult(result);
-	}
+        GameProgress progress = new GameProgress();
+        StageResult result = new StageResult();
+        result.setGameProgress(progress);
+        result.setNextStage(Stages.MISSION_2);
+
+        doReturn(progress).when(stage).getGameProgress();
+        doReturn(2).when(stage).calculateMission(GRID_POSITION);
+
+        listener.clicked();
+
+        verify(stage).setResult(result);
+    }
 }

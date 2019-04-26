@@ -22,89 +22,89 @@ import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Missile;
 
-public class RedLaserTest
-{
-	@Mock
-	private IWeaponController controller;
+public class RedLaserTest {
 
-	@Mock
-	private MissilesLauncher launcher;
+    @Mock
+    private IWeaponController controller;
 
-	@Mock
-	private IActorFactory factory;
+    @Mock
+    private MissilesLauncher launcher;
 
-	private RedLaser redLaser;
+    @Mock
+    private IActorFactory factory;
 
-	@Before
-	public void setUp()
-	{
-		initMocks(this);
-		Textures.loadForTest();
-		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
-		Factories.setActorFactory(factory);
+    private RedLaser redLaser;
 
-		redLaser = new RedLaser();
+    @Before
+    public void setUp() {
 
-		redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
-		redLaser.setController(controller);
-		redLaser.setMissilesLauncher(launcher);
-		redLaser.setLevel(1);
+        initMocks(this);
+        Textures.loadForTest();
+        Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+        Factories.setActorFactory(factory);
 
-		doReturn(true).when(controller).takeEnergy(anyFloat());
-	}
+        redLaser = new RedLaser();
 
-	@Test
-	public void useIsLaunchingMissile()
-	{
-		redLaser.use();
-		verify(launcher).launch(any(Missile.class));
-	}
+        redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
+        redLaser.setController(controller);
+        redLaser.setMissilesLauncher(launcher);
+        redLaser.setLevel(1);
 
-	@Test
-	public void laserCantBeShootedTooOften()
-	{
-		redLaser.use();
-		redLaser.use();
-		verify(launcher, times(1)).launch(any(Missile.class));
-	}
+        doReturn(true).when(controller).takeEnergy(anyFloat());
+    }
 
-	@Test
-	public void laserCantBeShootedAfterInterval() throws InterruptedException
-	{
-		redLaser.use();
-		Thread.sleep(500);
-		redLaser.use();
-		verify(launcher, times(2)).launch(any(Missile.class));
-	}
+    @Test
+    public void useIsLaunchingMissile() {
 
-	@Test
-	public void buildingRedLaserMissile()
-	{
-		Missile missile = redLaser.buildMissile();
+        redLaser.use();
+        verify(launcher).launch(any(Missile.class));
+    }
 
-		assertEquals(Consts.Weapons.RED_LASER_BASE_DMG, missile.getDmg(), 0);
-		assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED, missile.getSpeed(), 0);
-		assertEquals(0, missile.getAcceleration(), 0);
-	}
+    @Test
+    public void laserCantBeShootedTooOften() {
 
-	@Test
-	public void buildingHigherLevelMissile()
-	{
-		redLaser.setLevel(4);
-		Missile missile = redLaser.buildMissile();
+        redLaser.use();
+        redLaser.use();
+        verify(launcher, times(1)).launch(any(Missile.class));
+    }
 
-		assertEquals(Consts.Weapons.RED_LASER_BASE_DMG + 3 * Consts.Weapons.RED_LASER_DMG_PER_LEVEL, missile.getDmg(),
-				0);
-		assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED + 3 * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL,
-				missile.getSpeed(), 0);
-		assertEquals(0, missile.getAcceleration(), 0);
-	}
+    @Test
+    public void laserCantBeShootedAfterInterval() throws InterruptedException {
 
-	@Test
-	public void cantShotWithoutEnergy()
-	{
-		doReturn(false).when(controller).takeEnergy(anyFloat());
-		redLaser.use();
-		verify(launcher, times(0)).launch(any(Missile.class));
-	}
+        redLaser.use();
+        Thread.sleep(500);
+        redLaser.use();
+        verify(launcher, times(2)).launch(any(Missile.class));
+    }
+
+    @Test
+    public void buildingRedLaserMissile() {
+
+        Missile missile = redLaser.buildMissile();
+
+        assertEquals(Consts.Weapons.RED_LASER_BASE_DMG, missile.getDmg(), 0);
+        assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED, missile.getSpeed(), 0);
+        assertEquals(0, missile.getAcceleration(), 0);
+    }
+
+    @Test
+    public void buildingHigherLevelMissile() {
+
+        redLaser.setLevel(4);
+        Missile missile = redLaser.buildMissile();
+
+        assertEquals(Consts.Weapons.RED_LASER_BASE_DMG + 3 * Consts.Weapons.RED_LASER_DMG_PER_LEVEL, missile.getDmg(),
+                0);
+        assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED + 3 * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL,
+                missile.getSpeed(), 0);
+        assertEquals(0, missile.getAcceleration(), 0);
+    }
+
+    @Test
+    public void cantShotWithoutEnergy() {
+
+        doReturn(false).when(controller).takeEnergy(anyFloat());
+        redLaser.use();
+        verify(launcher, times(0)).launch(any(Missile.class));
+    }
 }

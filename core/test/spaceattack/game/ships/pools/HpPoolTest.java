@@ -8,63 +8,63 @@ import org.junit.Test;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.factories.Factories;
 
-public class HpPoolTest
-{
-	private static final float BASE_AMOUNT = 50;
-	private static final float INCREASE_PER_LEVEL = 20;
-	private static final float BASE_REGEN = 10 * Pool.UPDATES_PER_SECOND;
-	private static final float REGEN_PER_LEVEL = 5 * Pool.UPDATES_PER_SECOND;
+public class HpPoolTest {
 
-	private HpPool pool;
+    private static final float BASE_AMOUNT = 50;
+    private static final float INCREASE_PER_LEVEL = 20;
+    private static final float BASE_REGEN = 10 * Pool.UPDATES_PER_SECOND;
+    private static final float REGEN_PER_LEVEL = 5 * Pool.UPDATES_PER_SECOND;
 
-	@Before
-	public void setUp()
-	{
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-		pool = new HpPool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
-	}
+    private HpPool pool;
 
-	@Test
-	public void ifDrawnedToZeroWontRegen()
-	{
-		pool.take(50);
-		pool.update();
+    @Before
+    public void setUp() {
 
-		assertEquals(0, pool.getAmount(), 0);
-	}
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+        pool = new HpPool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
+    }
 
-	@Test
-	public void ifDrawnedBelowZeroAmountIsZero()
-	{
-		pool.take(100);
+    @Test
+    public void ifDrawnedToZeroWontRegen() {
 
-		assertEquals(0, pool.getAmount(), 0);
-	}
+        pool.take(50);
+        pool.update();
 
-	@Test
-	public void regenIsAddingAmount()
-	{
-		pool.take(30);
-		pool.regen(20);
+        assertEquals(0, pool.getAmount(), 0);
+    }
 
-		assertEquals(40f, pool.getAmount(), 0);
-	}
+    @Test
+    public void ifDrawnedBelowZeroAmountIsZero() {
 
-	@Test
-	public void wontRegenOverMaxAmount()
-	{
-		pool.take(30);
-		pool.regen(40);
+        pool.take(100);
 
-		assertEquals(50f, pool.getAmount(), 0);
-	}
-	
-	@Test
-	public void immunePoolDoesntTakeDmg()
-	{
-		pool.setImmunityChecker(() -> true);
-		pool.take(30);
-		
-		assertEquals(50f, pool.getAmount(), 0);
-	}
+        assertEquals(0, pool.getAmount(), 0);
+    }
+
+    @Test
+    public void regenIsAddingAmount() {
+
+        pool.take(30);
+        pool.regen(20);
+
+        assertEquals(40f, pool.getAmount(), 0);
+    }
+
+    @Test
+    public void wontRegenOverMaxAmount() {
+
+        pool.take(30);
+        pool.regen(40);
+
+        assertEquals(50f, pool.getAmount(), 0);
+    }
+
+    @Test
+    public void immunePoolDoesntTakeDmg() {
+
+        pool.setImmunityChecker(() -> true);
+        pool.take(30);
+
+        assertEquals(50f, pool.getAmount(), 0);
+    }
 }

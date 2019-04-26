@@ -1,8 +1,8 @@
 package spaceattack.game.system.graphics;
 
-public interface IAnimation
-{
-	public ITexture getFrame();
+public interface IAnimation {
 
-	public boolean isCompleted();
+    public ITexture getFrame();
+
+    public boolean isCompleted();
 }

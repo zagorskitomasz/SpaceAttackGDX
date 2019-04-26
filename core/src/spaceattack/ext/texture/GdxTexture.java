@@ -6,31 +6,31 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import spaceattack.consts.Sizes;
 import spaceattack.game.system.graphics.ITexture;
 
-public class GdxTexture extends Texture implements ITexture,IRegionHolder
-{
-	private TextureRegion textureRegion;
+public class GdxTexture extends Texture implements ITexture, IRegionHolder {
 
-	public GdxTexture(String internalPath)
-	{
-		super(internalPath);
-		textureRegion = new TextureRegion(this);
-	}
+    private TextureRegion textureRegion;
 
-	@Override
-	public TextureRegion getTextureRegion()
-	{
-		return textureRegion;
-	}
+    public GdxTexture(String internalPath) {
 
-	@Override
-	public int getWidth()
-	{
-		return Math.round(super.getWidth() * Sizes.X_FACTOR);
-	}
+        super(internalPath);
+        textureRegion = new TextureRegion(this);
+    }
 
-	@Override
-	public int getHeight()
-	{
-		return Math.round(super.getHeight() * Sizes.Y_FACTOR);
-	}
+    @Override
+    public TextureRegion getTextureRegion() {
+
+        return textureRegion;
+    }
+
+    @Override
+    public int getWidth() {
+
+        return Math.round(super.getWidth() * Sizes.X_FACTOR);
+    }
+
+    @Override
+    public int getHeight() {
+
+        return Math.round(super.getHeight() * Sizes.Y_FACTOR);
+    }
 }

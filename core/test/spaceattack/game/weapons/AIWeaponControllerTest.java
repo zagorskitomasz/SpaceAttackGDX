@@ -19,148 +19,148 @@ import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.utils.vector.IVectorFactory;
 
-public class AIWeaponControllerTest
-{
-	private IShip ship;
-	private FakeShip target;
+public class AIWeaponControllerTest {
 
-	@Mock
-	private IWeapon weapon1;
+    private IShip ship;
+    private FakeShip target;
 
-	@Mock
-	private IWeapon weapon2;
+    @Mock
+    private IWeapon weapon1;
 
-	private IWeaponController controller;
-	
-	private IVectorFactory vectors;
+    @Mock
+    private IWeapon weapon2;
 
-	@Before
-	public void setUp()
-	{
-		vectors = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(vectors);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-		ship = new FakeShip();
-		target = new FakeShip();
-		MockitoAnnotations.initMocks(this);
-		controller = new AIWeaponController();
+    private IWeaponController controller;
 
-		controller.setPrimaryWeapon(weapon1);
-		controller.setSecondaryWeapon(weapon2);
-		controller.setShip(ship);
+    private IVectorFactory vectors;
 
-		doReturn(20f).when(weapon1).getEnergyCost();
-		doReturn(10f).when(weapon2).getEnergyCost();
-		
-		ship.setX(100);
-		ship.setY(100);
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void whenBothPossibleAndCanUseSecondaryUseSecondary()
-	{
-		doReturn(true).when(weapon2).use();
+        vectors = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(vectors);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+        ship = new FakeShip();
+        target = new FakeShip();
+        MockitoAnnotations.initMocks(this);
+        controller = new AIWeaponController();
 
-		controller.performAttack(PossibleAttacks.BOTH,null);
+        controller.setPrimaryWeapon(weapon1);
+        controller.setSecondaryWeapon(weapon2);
+        controller.setShip(ship);
 
-		verify(weapon2).use();
-		verify(weapon1, times(0)).use();
-	}
+        doReturn(20f).when(weapon1).getEnergyCost();
+        doReturn(10f).when(weapon2).getEnergyCost();
 
-	@Test
-	public void whenBothPossibleAndCantUseSecondaryUsePrimary()
-	{
-		doReturn(false).when(weapon2).use();
+        ship.setX(100);
+        ship.setY(100);
+    }
 
-		controller.performAttack(PossibleAttacks.BOTH,null);
+    @Test
+    public void whenBothPossibleAndCanUseSecondaryUseSecondary() {
 
-		verify(weapon1).use();
-	}
+        doReturn(true).when(weapon2).use();
 
-	@Test
-	public void whenPrimaryPossibleAndCantUsePrimaryDontTrySecondary()
-	{
-		doReturn(false).when(weapon1).use();
+        controller.performAttack(PossibleAttacks.BOTH, null);
 
-		controller.performAttack(PossibleAttacks.PRIMARY,null);
+        verify(weapon2).use();
+        verify(weapon1, times(0)).use();
+    }
 
-		verify(weapon2, times(0)).use();
-	}
+    @Test
+    public void whenBothPossibleAndCantUseSecondaryUsePrimary() {
 
-	@Test
-	public void whenPrimaryPossibleAndCanUseItDontTrySecondary()
-	{
-		doReturn(true).when(weapon1).use();
+        doReturn(false).when(weapon2).use();
 
-		controller.performAttack(PossibleAttacks.PRIMARY,null);
+        controller.performAttack(PossibleAttacks.BOTH, null);
 
-		verify(weapon2, times(0)).use();
-	}
-	
-	@Test
-	public void calculatingProperTargetedAttackMovement()
-	{
-		IVector movement;
-		controller.performAttack(PossibleAttacks.BOTH, target);
-		
-		target.setX(50);
-		target.setY(40);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(-0.7f, -0.7f), movement);
-		
-		target.setX(50);
-		target.setY(90);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(-1f, 0f), movement);
-		
-		target.setX(50);
-		target.setY(110);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(-1f, 0f), movement);
-		
-		target.setX(50);
-		target.setY(160);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(-0.7f, 0.7f), movement);
-		
-		target.setX(90);
-		target.setY(160);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(0f, 1f), movement);
-		
-		target.setX(110);
-		target.setY(160);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(0f, 1f), movement);
-		
-		target.setX(140);
-		target.setY(160);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(0.7f, 0.7f), movement);
-		
-		target.setX(140);
-		target.setY(110);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(1f, 0f), movement);
-		
-		target.setX(140);
-		target.setY(90);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(1f, 0f), movement);
-		
-		target.setX(140);
-		target.setY(50);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(0.7f, -0.7f), movement);
-		
-		target.setX(110);
-		target.setY(50);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(0f, -1f), movement);
-		
-		target.setX(110);
-		target.setY(40);
-		movement = controller.getTargetedWeaponMovement();
-		assertEquals(vectors.create(0f, -1f), movement);
-	}
+        verify(weapon1).use();
+    }
+
+    @Test
+    public void whenPrimaryPossibleAndCantUsePrimaryDontTrySecondary() {
+
+        doReturn(false).when(weapon1).use();
+
+        controller.performAttack(PossibleAttacks.PRIMARY, null);
+
+        verify(weapon2, times(0)).use();
+    }
+
+    @Test
+    public void whenPrimaryPossibleAndCanUseItDontTrySecondary() {
+
+        doReturn(true).when(weapon1).use();
+
+        controller.performAttack(PossibleAttacks.PRIMARY, null);
+
+        verify(weapon2, times(0)).use();
+    }
+
+    @Test
+    public void calculatingProperTargetedAttackMovement() {
+
+        IVector movement;
+        controller.performAttack(PossibleAttacks.BOTH, target);
+
+        target.setX(50);
+        target.setY(40);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(-0.7f, -0.7f), movement);
+
+        target.setX(50);
+        target.setY(90);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(-1f, 0f), movement);
+
+        target.setX(50);
+        target.setY(110);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(-1f, 0f), movement);
+
+        target.setX(50);
+        target.setY(160);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(-0.7f, 0.7f), movement);
+
+        target.setX(90);
+        target.setY(160);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(0f, 1f), movement);
+
+        target.setX(110);
+        target.setY(160);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(0f, 1f), movement);
+
+        target.setX(140);
+        target.setY(160);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(0.7f, 0.7f), movement);
+
+        target.setX(140);
+        target.setY(110);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(1f, 0f), movement);
+
+        target.setX(140);
+        target.setY(90);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(1f, 0f), movement);
+
+        target.setX(140);
+        target.setY(50);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(0.7f, -0.7f), movement);
+
+        target.setX(110);
+        target.setY(50);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(0f, -1f), movement);
+
+        target.setX(110);
+        target.setY(40);
+        movement = controller.getTargetedWeaponMovement();
+        assertEquals(vectors.create(0f, -1f), movement);
+    }
 }

@@ -11,56 +11,56 @@ import spaceattack.game.actors.IActor;
 import spaceattack.game.buttons.IButton;
 import spaceattack.game.buttons.IListener;
 
-public class GdxButton extends TextButton implements IButton
-{
-	private int columnPosition;
+public class GdxButton extends TextButton implements IButton {
 
-	public GdxButton(String text)
-	{
-		super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), Consts.DEFAULT);
-		getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
-	}
+    private int columnPosition;
 
-	public GdxButton(String text,String styleName)
-	{
-		super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), styleName);
-	}
+    public GdxButton(String text) {
 
-	@Override
-	public IActor getActor()
-	{
-		return this;
-	}
+        super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), Consts.DEFAULT);
+        getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+    }
 
-	@Override
-	public void addListener(IListener listener)
-	{
-		addListener(new ListenerProxy(listener));
-	}
+    public GdxButton(String text, String styleName) {
 
-	@Override
-	public void setEnabled(boolean enabled)
-	{
-		setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
-		setDisabled(!enabled);
-	}
+        super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), styleName);
+    }
 
-	@Override
-	public void setColumnPosition(int position)
-	{
-		columnPosition = position;
-	}
+    @Override
+    public IActor getActor() {
 
-	@Override
-	public void draw(Batch batch,float alpha)
-	{
-		getText();
-		super.draw(batch, alpha);
-	}
+        return this;
+    }
 
-	@Override
-	public int getGridPosition()
-	{
-		return columnPosition;
-	}
+    @Override
+    public void addListener(IListener listener) {
+
+        addListener(new ListenerProxy(listener));
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+
+        setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
+        setDisabled(!enabled);
+    }
+
+    @Override
+    public void setColumnPosition(int position) {
+
+        columnPosition = position;
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha) {
+
+        getText();
+        super.draw(batch, alpha);
+    }
+
+    @Override
+    public int getGridPosition() {
+
+        return columnPosition;
+    }
 }

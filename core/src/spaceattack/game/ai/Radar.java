@@ -9,55 +9,55 @@ import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.player.PlayerShip;
 
-public class Radar
-{
-	private RadarVisible playersShip;
-	private List<IEnemyShip> enemyShips;
+public class Radar {
 
-	private List<IGameActor> actors;
+    private RadarVisible playersShip;
+    private List<IEnemyShip> enemyShips;
 
-	public Radar(List<IGameActor> actors)
-	{
-		this.actors = actors;
-	}
+    private List<IGameActor> actors;
 
-	public RadarVisible getPlayerShip()
-	{
-		return playersShip;
-	}
+    public Radar(List<IGameActor> actors) {
 
-	public List<IEnemyShip> getEnemyShips()
-	{
-		return enemyShips;
-	}
+        this.actors = actors;
+    }
 
-	public void update()
-	{
-		findPlayerShip();
-		findEnemyShips();
-	}
+    public RadarVisible getPlayerShip() {
 
-	private void findPlayerShip()
-	{
-		//@formatter:off
-		Optional<RadarVisible> ship = actors
-				.parallelStream()
-				.filter(actor->actor instanceof PlayerShip)
-				.map(actor -> (RadarVisible)actor)
-				.findFirst();
-		//@formatter:on
+        return playersShip;
+    }
 
-		playersShip = ship.isPresent() ? ship.get() : null;
-	}
+    public List<IEnemyShip> getEnemyShips() {
 
-	private void findEnemyShips()
-	{
-		//@formatter:off
-		enemyShips = actors
-				.parallelStream()
-				.filter(actor -> actor instanceof IEnemyShip)
-				.map(actor -> (IEnemyShip)actor)
-				.collect(Collectors.toList());
-		//@formatter:on
-	}
+        return enemyShips;
+    }
+
+    public void update() {
+
+        findPlayerShip();
+        findEnemyShips();
+    }
+
+    private void findPlayerShip() {
+
+        // @formatter:off
+        Optional<RadarVisible> ship = actors
+                .parallelStream()
+                .filter(actor -> actor instanceof PlayerShip)
+                .map(actor -> (RadarVisible) actor)
+                .findFirst();
+        // @formatter:on
+
+        playersShip = ship.isPresent() ? ship.get() : null;
+    }
+
+    private void findEnemyShips() {
+
+        // @formatter:off
+        enemyShips = actors
+                .parallelStream()
+                .filter(actor -> actor instanceof IEnemyShip)
+                .map(actor -> (IEnemyShip) actor)
+                .collect(Collectors.toList());
+        // @formatter:on
+    }
 }

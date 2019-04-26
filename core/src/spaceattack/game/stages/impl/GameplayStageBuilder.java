@@ -38,205 +38,209 @@ import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
 import spaceattack.game.weapons.WeaponsFactory;
 
-public abstract class GameplayStageBuilder implements IStageBuilder
-{
-	protected GameplayStage stage;
+public abstract class GameplayStageBuilder implements IStageBuilder {
 
-	protected GameProgress gameProgress;
-	protected PlayerShip playersShip;
-	protected IEngine engine;
-	protected MissionInputHandler processor;
-	protected PlayerWeaponController weaponController;
-	protected MissilesLauncher missilesLauncher;
-	protected IWeapon primaryWeapon;
-	protected IWeapon greenLaser;
-	protected IFireButton primaryFireButton;
-	protected ComplexFireButton secondaryFireButton;
-	protected Accelerator accelerator;
-	protected IPool expPool;
-	protected HpPool hpPool;
-	protected IPool energyPool;
-	protected Bar expBar;
-	protected Bar hpEnergyBar;
-	protected EnemyBase enemyBase;
-	protected GameplayLabel missionLabel;
-	protected GameplayLabel levelLabel;
+    protected GameplayStage stage;
 
-	@Override
-	public IGameStage build(GameProgress progress)
-	{
-		synchronized (this)
-		{
-			gameProgress = progress;
-			stage = new GameplayStage();
-			buildStage();
-			setMissionNumber();
-			setTanks(enemyBase);
-			MusicPlayer.INSTANCE.playAct(getAct());
-			gameProgress.notifyObservers();
-			return stage;
-		}
-	}
-	protected abstract void setTanks(EnemyBase enemyBase);
+    protected GameProgress gameProgress;
+    protected PlayerShip playersShip;
+    protected IEngine engine;
+    protected MissionInputHandler processor;
+    protected PlayerWeaponController weaponController;
+    protected MissilesLauncher missilesLauncher;
+    protected IWeapon primaryWeapon;
+    protected IWeapon greenLaser;
+    protected IFireButton primaryFireButton;
+    protected ComplexFireButton secondaryFireButton;
+    protected Accelerator accelerator;
+    protected IPool expPool;
+    protected HpPool hpPool;
+    protected IPool energyPool;
+    protected Bar expBar;
+    protected Bar hpEnergyBar;
+    protected EnemyBase enemyBase;
+    protected GameplayLabel missionLabel;
+    protected GameplayLabel levelLabel;
 
-	protected abstract void setMissionNumber();
+    @Override
+    public IGameStage build(GameProgress progress) {
 
-	protected void buildStage()
-	{
-		addSystemDependencies();
-		addGameProgress();
-		initComponents();
-		initPools();
-		initAI();
-		buildShip();
-		configureInputProcessor();
-		configureWeapons();
-		setTimeLabels();
-		createLabels();
-		addBackground();
-		addComponents();
-	}
+        synchronized (this) {
+            gameProgress = progress;
+            stage = new GameplayStage();
+            buildStage();
+            setMissionNumber();
+            setTanks(enemyBase);
+            MusicPlayer.INSTANCE.playAct(getAct());
+            gameProgress.notifyObservers();
+            return stage;
+        }
+    }
 
-	protected abstract void buildShip();
-	protected abstract void addBackground();
+    protected abstract void setTanks(EnemyBase enemyBase);
 
-	private void addSystemDependencies()
-	{
-		stage.setStage(Factories.getStageFactory().create());
-		stage.setGameSaver(GameSaverFactory.INSTANCE.create());
-		stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
-	}
+    protected abstract void setMissionNumber();
 
-	private void addGameProgress()
-	{
-		gameProgress.registerObserver(stage);
-		stage.setGameProgress(gameProgress);
-	}
+    protected void buildStage() {
 
-	protected void initComponents()
-	{
-		playersShip = new PlayerShip();
-		accelerator = AcceleratorFactory.INSTANCE.create();
-		engine = ShipEngineBuilder.INSTANCE.createInputEngine(playersShip, accelerator);
-		processor = new MissionInputHandler();
-		weaponController = new PlayerWeaponController();
-		missilesLauncher = new MissilesLauncher(stage);
-		primaryWeapon = createPrimaryWeapon();
-		greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
-		primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
-		secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
-		enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
-	}
+        addSystemDependencies();
+        addGameProgress();
+        initComponents();
+        initPools();
+        initAI();
+        buildShip();
+        configureInputProcessor();
+        configureWeapons();
+        setTimeLabels();
+        createLabels();
+        addBackground();
+        addComponents();
+    }
 
-	protected abstract IWeapon createPrimaryWeapon();
-	protected abstract EnemyBase createEnemyBase(IUtils utils);
-	
-	private void configureInputProcessor()
-	{
-		processor.setUtils(Factories.getUtilsFactory().create());
-		processor.registerFireButton(primaryFireButton);
-		processor.registerFireButton(secondaryFireButton);
-		processor.registerShip(playersShip);
-		accelerator.setInputProcessor(processor);
-		Factories.getUtilsFactory().create().setInputProcessor(processor);
-	}
+    protected abstract void buildShip();
 
-	private void configureWeapons()
-	{
-		weaponController.setPrimaryWeapon(primaryWeapon);
-		weaponController.setPrimaryFireButton(primaryFireButton);
+    protected abstract void addBackground();
 
-		weaponController.setSecondaryWeapon(greenLaser);
-		weaponController.setSecondaryFireButton(secondaryFireButton);
+    private void addSystemDependencies() {
 
-		weaponController.setShip(playersShip);
-	}
+        stage.setStage(Factories.getStageFactory().create());
+        stage.setGameSaver(GameSaverFactory.INSTANCE.create());
+        stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
+    }
 
-	private void initPools()
-	{
-		expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
-		energyPool = new Pool(
-				Consts.Pools.PLAYER_ENERGY_BASE_AMOUNT, 
-				Consts.Pools.PLAYER_ENERGY_INCREASE_PER_LEVEL, 
-				Consts.Pools.PLAYER_ENERGY_BASE_REGEN, 
-				Consts.Pools.PLAYER_ENERGY_REGEN_PER_LEVEL);
-		hpPool = new HpPool(
-				Consts.Pools.PLAYER_HP_BASE_AMOUNT, 
-				Consts.Pools.PLAYER_HP_INCREASE_PER_LEVEL, 
-				Consts.Pools.PLAYER_HP_BASE_REGEN, 
-				Consts.Pools.PLAYER_HP_REGEN_PER_LEVEL);
-		hpPool.setImmunityChecker(stage::isGameOver);
+    private void addGameProgress() {
 
-		expBar = BarBuilder.INSTANCE.experienceBar(expPool);
-		hpEnergyBar = BarBuilder.INSTANCE.hpEnergyBar(hpPool, energyPool);
+        gameProgress.registerObserver(stage);
+        stage.setGameProgress(gameProgress);
+    }
 
-		stage.setExpPool(expPool);
-	}
+    protected void initComponents() {
 
-	private void initAI()
-	{
-		enemyBase.setStage(stage);
-		enemyBase.setShipsFactory(EnemyShipsFactory.INSTANCE);
-		enemyBase.setActor(Factories.getActorFactory().create(enemyBase));
-		enemyBase.setRadar(new Radar(stage.getActors()));
-		enemyBase.setHpPool(hpPool);
-		enemyBase.setEnergyPool(energyPool);
-		enemyBase.setComplexFireButton(secondaryFireButton);
-		enemyBase.setWeaponController(weaponController);
-	}
+        playersShip = new PlayerShip();
+        accelerator = AcceleratorFactory.INSTANCE.create();
+        engine = ShipEngineBuilder.INSTANCE.createInputEngine(playersShip, accelerator);
+        processor = new MissionInputHandler();
+        weaponController = new PlayerWeaponController();
+        missilesLauncher = new MissilesLauncher(stage);
+        primaryWeapon = createPrimaryWeapon();
+        greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
+        primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
+        secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
+        enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
+    }
 
-	protected abstract Acts getAct();
-	
-	private void setTimeLabels()
-	{
-		ILabel levelUpILabel = Factories.getUtilsFactory().create().createTimeLabel("LEVEL UP!", 0xdaa520ff);
-		TimeLabel levelUpLabel = new TimeLabel();
-		levelUpLabel.setLabel(levelUpILabel);
-		levelUpILabel.setPosition((Sizes.GAME_WIDTH - levelUpILabel.getWidth() * Sizes.X_FACTOR) * 0.5f, Sizes.GAME_HEIGHT * 0.4f);
+    protected abstract IWeapon createPrimaryWeapon();
 
-		ILabel failedILabel = Factories.getUtilsFactory().create().createTimeLabel("MISSION\nFAILED!", 0xff0000ff);
-		TimeLabel failedLabel = new TimeLabel();
-		failedLabel.setLabel(failedILabel);
+    protected abstract EnemyBase createEnemyBase(IUtils utils);
 
-		ILabel completedILabel = Factories.getUtilsFactory().create().createTimeLabel(" MISSION\nCOMPLETED!",
-				0x00ff00ff);
-		TimeLabel completedLabel = new TimeLabel();
-		completedLabel.setLabel(completedILabel);
+    private void configureInputProcessor() {
 
-		stage.setLevelUpLabel(levelUpLabel);
-		stage.setFailedLabel(failedLabel);
-		stage.setCompletedLabel(completedLabel);
-	}
-	
-	private void createLabels()
-	{
-		ILabel levelILabel = Factories.getUtilsFactory().create().createBarLabel();
-		levelILabel.setAlignment(Consts.Align.topRight);
-		levelILabel.setPosition(Sizes.GAME_WIDTH - 60 * Sizes.X_FACTOR, 350 * Sizes.Y_FACTOR);
-		
-		levelLabel = new GameplayLabel(levelILabel);
-		gameProgress.registerObserver(state -> levelLabel.setText("Ship level: " + state.getLevel()));
-		
-		ILabel missionILabel = Factories.getUtilsFactory().create().createBarLabel();
-		missionILabel.setAlignment(Consts.Align.topRight);
-		missionILabel.setPosition(Sizes.GAME_WIDTH - 60 * Sizes.X_FACTOR, 310 * Sizes.Y_FACTOR);
-		
-		missionLabel = new GameplayLabel(missionILabel);
-		stage.registerObserver(state -> missionLabel.setText("Mission: " + state.getCurrentMission()));
-	}
+        processor.setUtils(Factories.getUtilsFactory().create());
+        processor.registerFireButton(primaryFireButton);
+        processor.registerFireButton(secondaryFireButton);
+        processor.registerShip(playersShip);
+        accelerator.setInputProcessor(processor);
+        Factories.getUtilsFactory().create().setInputProcessor(processor);
+    }
 
-	private void addComponents()
-	{
-		stage.setMissileLauncher(missilesLauncher);
-		stage.addActorBeforeGUI(playersShip);
-		stage.addActor(StaticImageFactory.INSTANCE.create(Textures.COCKPIT_PANEL.getTexture(),0, Sizes.GAME_HEIGHT - 360 * Sizes.Y_FACTOR));
-		stage.addActor(primaryFireButton);
-		stage.addActor(secondaryFireButton);
-		stage.addActor(accelerator);
-		stage.addActor(expBar);
-		stage.addActor(hpEnergyBar);
-		stage.addActor(enemyBase);
-		stage.addActor(levelLabel);
-		stage.addActor(missionLabel);
-	}
+    private void configureWeapons() {
+
+        weaponController.setPrimaryWeapon(primaryWeapon);
+        weaponController.setPrimaryFireButton(primaryFireButton);
+
+        weaponController.setSecondaryWeapon(greenLaser);
+        weaponController.setSecondaryFireButton(secondaryFireButton);
+
+        weaponController.setShip(playersShip);
+    }
+
+    private void initPools() {
+
+        expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
+        energyPool = new Pool(
+                Consts.Pools.PLAYER_ENERGY_BASE_AMOUNT,
+                Consts.Pools.PLAYER_ENERGY_INCREASE_PER_LEVEL,
+                Consts.Pools.PLAYER_ENERGY_BASE_REGEN,
+                Consts.Pools.PLAYER_ENERGY_REGEN_PER_LEVEL);
+        hpPool = new HpPool(
+                Consts.Pools.PLAYER_HP_BASE_AMOUNT,
+                Consts.Pools.PLAYER_HP_INCREASE_PER_LEVEL,
+                Consts.Pools.PLAYER_HP_BASE_REGEN,
+                Consts.Pools.PLAYER_HP_REGEN_PER_LEVEL);
+        hpPool.setImmunityChecker(stage::isGameOver);
+
+        expBar = BarBuilder.INSTANCE.experienceBar(expPool);
+        hpEnergyBar = BarBuilder.INSTANCE.hpEnergyBar(hpPool, energyPool);
+
+        stage.setExpPool(expPool);
+    }
+
+    private void initAI() {
+
+        enemyBase.setStage(stage);
+        enemyBase.setShipsFactory(EnemyShipsFactory.INSTANCE);
+        enemyBase.setActor(Factories.getActorFactory().create(enemyBase));
+        enemyBase.setRadar(new Radar(stage.getActors()));
+        enemyBase.setHpPool(hpPool);
+        enemyBase.setEnergyPool(energyPool);
+        enemyBase.setComplexFireButton(secondaryFireButton);
+        enemyBase.setWeaponController(weaponController);
+    }
+
+    protected abstract Acts getAct();
+
+    private void setTimeLabels() {
+
+        ILabel levelUpILabel = Factories.getUtilsFactory().create().createTimeLabel("LEVEL UP!", 0xdaa520ff);
+        TimeLabel levelUpLabel = new TimeLabel();
+        levelUpLabel.setLabel(levelUpILabel);
+        levelUpILabel.setPosition((Sizes.GAME_WIDTH - levelUpILabel.getWidth() * Sizes.X_FACTOR) * 0.5f,
+                Sizes.GAME_HEIGHT * 0.4f);
+
+        ILabel failedILabel = Factories.getUtilsFactory().create().createTimeLabel("MISSION\nFAILED!", 0xff0000ff);
+        TimeLabel failedLabel = new TimeLabel();
+        failedLabel.setLabel(failedILabel);
+
+        ILabel completedILabel = Factories.getUtilsFactory().create().createTimeLabel(" MISSION\nCOMPLETED!",
+                0x00ff00ff);
+        TimeLabel completedLabel = new TimeLabel();
+        completedLabel.setLabel(completedILabel);
+
+        stage.setLevelUpLabel(levelUpLabel);
+        stage.setFailedLabel(failedLabel);
+        stage.setCompletedLabel(completedLabel);
+    }
+
+    private void createLabels() {
+
+        ILabel levelILabel = Factories.getUtilsFactory().create().createBarLabel();
+        levelILabel.setAlignment(Consts.Align.topRight);
+        levelILabel.setPosition(Sizes.GAME_WIDTH - 60 * Sizes.X_FACTOR, 350 * Sizes.Y_FACTOR);
+
+        levelLabel = new GameplayLabel(levelILabel);
+        gameProgress.registerObserver(state -> levelLabel.setText("Ship level: " + state.getLevel()));
+
+        ILabel missionILabel = Factories.getUtilsFactory().create().createBarLabel();
+        missionILabel.setAlignment(Consts.Align.topRight);
+        missionILabel.setPosition(Sizes.GAME_WIDTH - 60 * Sizes.X_FACTOR, 310 * Sizes.Y_FACTOR);
+
+        missionLabel = new GameplayLabel(missionILabel);
+        stage.registerObserver(state -> missionLabel.setText("Mission: " + state.getCurrentMission()));
+    }
+
+    private void addComponents() {
+
+        stage.setMissileLauncher(missilesLauncher);
+        stage.addActorBeforeGUI(playersShip);
+        stage.addActor(StaticImageFactory.INSTANCE.create(Textures.COCKPIT_PANEL.getTexture(), 0,
+                Sizes.GAME_HEIGHT - 360 * Sizes.Y_FACTOR));
+        stage.addActor(primaryFireButton);
+        stage.addActor(secondaryFireButton);
+        stage.addActor(accelerator);
+        stage.addActor(expBar);
+        stage.addActor(hpEnergyBar);
+        stage.addActor(enemyBase);
+        stage.addActor(levelLabel);
+        stage.addActor(missionLabel);
+    }
 }

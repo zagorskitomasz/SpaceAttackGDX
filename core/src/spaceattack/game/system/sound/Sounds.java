@@ -3,52 +3,51 @@ package spaceattack.game.system.sound;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.ResourceNotLoadedException;
 
-public enum Sounds
-{
-	// shots
-	RED_LASER("sound/redShot.mp3"), //
-	ROCKET_MISSILE("sound/missileFly.mp3"), //
-	MINE("sound/mine.mp3"), //
-	TURBO_LASER("sound/greenShot.mp3"), //
-	POWER_UP("sound/powerUp.mp3"), //
+public enum Sounds {
+    // shots
+    RED_LASER("sound/redShot.mp3"), //
+    ROCKET_MISSILE("sound/missileFly.mp3"), //
+    MINE("sound/mine.mp3"), //
+    TURBO_LASER("sound/greenShot.mp3"), //
+    POWER_UP("sound/powerUp.mp3"), //
 
-	// explosions
-	SMALL_SHIP_EXPLOSION("sound/exShip.mp3"), //
-	BOSS_EXPLOSION("sound/exBoss.mp3"), //
-	MISSILE_EXPLOSION("sound/exMissile.mp3");
+    // explosions
+    SMALL_SHIP_EXPLOSION("sound/exShip.mp3"), //
+    BOSS_EXPLOSION("sound/exBoss.mp3"), //
+    MISSILE_EXPLOSION("sound/exMissile.mp3");
 
-	private String path;
-	private ISound sound;
+    private String path;
+    private ISound sound;
 
-	private static boolean isTest;
+    private static boolean isTest;
 
-	Sounds(String path)
-	{
-		this.path = path;
-	}
+    Sounds(String path) {
 
-	public static void load()
-	{
-		for (Sounds sound : values())
-			sound.sound = Factories.getSoundFactory().create(sound.path);
-	}
+        this.path = path;
+    }
 
-	public void play()
-	{
-		if (sound == null && !isTest)
-			throw new ResourceNotLoadedException(name());
+    public static void load() {
 
-		if (sound != null)
-			sound.play();
-	}
+        for (Sounds sound : values())
+            sound.sound = Factories.getSoundFactory().create(sound.path);
+    }
 
-	/**
-	 * Only for JUnit test purposes! This fake method won't load any real textures.
-	 * It will only suppress TextureNotLoadedException. After fake load
-	 * Textures#getTexture() method will return null!
-	 */
-	public static void loadForTest()
-	{
-		isTest = true;
-	}
+    public void play() {
+
+        if (sound == null && !isTest)
+            throw new ResourceNotLoadedException(name());
+
+        if (sound != null)
+            sound.play();
+    }
+
+    /**
+     * Only for JUnit test purposes! This fake method won't load any real textures.
+     * It will only suppress TextureNotLoadedException. After fake load
+     * Textures#getTexture() method will return null!
+     */
+    public static void loadForTest() {
+
+        isTest = true;
+    }
 }

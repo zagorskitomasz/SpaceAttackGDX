@@ -2,13 +2,13 @@ package spaceattack.game.actors.interfaces;
 
 import spaceattack.game.powerup.IPowerUp;
 
-public interface PowerUpConsumer
-{
-	public void consume(IPowerUp powerUp);
+public interface PowerUpConsumer {
 
-	public float getX();
+    public void consume(IPowerUp powerUp);
 
-	public float getY();
+    public float getX();
 
-	public float getRadius();
+    public float getY();
+
+    public float getRadius();
 }

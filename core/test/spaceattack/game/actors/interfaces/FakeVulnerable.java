@@ -5,74 +5,75 @@ import spaceattack.game.actors.IGameActor;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.utils.vector.IVector;
 
-public class FakeVulnerable implements Vulnerable,IGameActor
-{
-	@Override
-	public void setToKill()
-	{
-		// do nothing
-	}
+public class FakeVulnerable implements Vulnerable, IGameActor {
 
-	@Override
-	public boolean isToKill()
-	{
-		// do nothing
-		return false;
-	}
+    @Override
+    public void setToKill() {
 
-	@Override
-	public float getX() {
-		return 0;
-	}
+        // do nothing
+    }
 
-	@Override
-	public float getY() {
-		return 0;
-	}
+    @Override
+    public boolean isToKill() {
 
-	@Override
-	public IActor getActor()
-	{
-		// do nothing
-		return null;
-	}
+        // do nothing
+        return false;
+    }
 
-	@Override
-	public void setActor(IActor actor)
-	{
-		// do nothing
-	}
+    @Override
+    public float getX() {
 
-	@Override
-	public void act(float delta)
-	{
-		// do nothing
-	}
+        return 0;
+    }
 
-	@Override
-	public void draw(IBatch batch,float alpha)
-	{
-		// do nothing
-	}
+    @Override
+    public float getY() {
 
-	@Override
-	public void takeDmg(float dmg)
-	{
-		// TODO Auto-generated method stub
+        return 0;
+    }
 
-	}
+    @Override
+    public IActor getActor() {
 
-	@Override
-	public float getRadius()
-	{
-		// do nothing
-		return 0;
-	}
+        // do nothing
+        return null;
+    }
 
-	@Override
-	public IVector getPosition()
-	{
-		// do nothing
-		return null;
-	}
+    @Override
+    public void setActor(IActor actor) {
+
+        // do nothing
+    }
+
+    @Override
+    public void act(float delta) {
+
+        // do nothing
+    }
+
+    @Override
+    public void draw(IBatch batch, float alpha) {
+
+        // do nothing
+    }
+
+    @Override
+    public void takeDmg(float dmg) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public float getRadius() {
+
+        // do nothing
+        return 0;
+    }
+
+    @Override
+    public IVector getPosition() {
+
+        // do nothing
+        return null;
+    }
 }

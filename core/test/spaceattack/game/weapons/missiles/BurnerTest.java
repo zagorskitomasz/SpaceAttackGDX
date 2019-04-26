@@ -17,82 +17,82 @@ import spaceattack.game.system.FrameController;
 import spaceattack.game.system.graphics.IAnimation;
 import spaceattack.game.system.graphics.ITexture;
 
-public class BurnerTest
-{
-	@Mock
-	private ITexture frame;
+public class BurnerTest {
 
-	@Mock
-	private IAnimation animation;
+    @Mock
+    private ITexture frame;
 
-	@Mock
-	private Ignitable ignitable;
+    @Mock
+    private IAnimation animation;
 
-	@Mock
-	private IBatch batch;
+    @Mock
+    private Ignitable ignitable;
 
-	private FrameController controller;
+    @Mock
+    private IBatch batch;
 
-	private Burner burner;
+    private FrameController controller;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    private Burner burner;
 
-		controller = new FrameController(ExtUtilsFactory.INSTANCE.create(), 1);
+    @Before
+    public void setUp() {
 
-		burner = new Burner();
-		burner.setIgnitable(ignitable);
-		burner.setBurningController(controller);
-		burner.setBurningAnimation(animation);
+        MockitoAnnotations.initMocks(this);
 
-		doReturn(frame).when(animation).getFrame();
-	}
+        controller = new FrameController(ExtUtilsFactory.INSTANCE.create(), 1);
 
-	@Test
-	public void takesDamageWhenIgnited()
-	{
-		burner.ignite(10, 1000);
-		burner.burn(1);
+        burner = new Burner();
+        burner.setIgnitable(ignitable);
+        burner.setBurningController(controller);
+        burner.setBurningAnimation(animation);
 
-		verify(ignitable).takeDmg(anyFloat());
-	}
+        doReturn(frame).when(animation).getFrame();
+    }
 
-	@Test
-	public void damageIsTakenPartialy()
-	{
-		burner.ignite(30, 1000);
-		burner.burn(0.5f);
+    @Test
+    public void takesDamageWhenIgnited() {
 
-		verify(ignitable).takeDmg(15);
-	}
+        burner.ignite(10, 1000);
+        burner.burn(1);
 
-	@Test
-	public void drawnWhenBurning()
-	{
-		burner.ignite(10, 1000);
-		burner.draw(batch);
+        verify(ignitable).takeDmg(anyFloat());
+    }
 
-		verify(batch).draw(frame, 0, 0, 0, 0);
-	}
+    @Test
+    public void damageIsTakenPartialy() {
 
-	@Test
-	public void notDrawWhenNotBurning()
-	{
-		burner.draw(batch);
+        burner.ignite(30, 1000);
+        burner.burn(0.5f);
 
-		verify(batch, times(0)).draw(frame, 0, 0);
-	}
+        verify(ignitable).takeDmg(15);
+    }
 
-	@Test
-	public void afterDurationNotBurningAnymore() throws InterruptedException
-	{
-		burner.ignite(10, 100);
-		Thread.sleep(101);
+    @Test
+    public void drawnWhenBurning() {
 
-		burner.burn(10);
+        burner.ignite(10, 1000);
+        burner.draw(batch);
 
-		verify(ignitable, times(0)).takeDmg(anyFloat());
-	}
+        verify(batch).draw(frame, 0, 0, 0, 0);
+    }
+
+    @Test
+    public void notDrawWhenNotBurning() {
+
+        burner.draw(batch);
+
+        verify(batch, times(0)).draw(frame, 0, 0);
+    }
+
+    @Test
+    public void afterDurationNotBurningAnymore() throws InterruptedException {
+
+        burner.ignite(10, 100);
+        Thread.sleep(101);
+
+        burner.burn(10);
+
+        verify(ignitable, times(0)).takeDmg(anyFloat());
+    }
 }

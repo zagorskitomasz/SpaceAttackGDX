@@ -12,79 +12,79 @@ import org.mockito.Mock;
 import spaceattack.consts.Experience;
 import spaceattack.game.system.notifiers.IObserver;
 
-public class GameProgressTest
-{
-	@Mock
-	private IObserver<GameProgress> observer;
+public class GameProgressTest {
 
-	private GameProgress progress;
+    @Mock
+    private IObserver<GameProgress> observer;
 
-	@Before
-	public void setUp()
-	{
-		initMocks(this);
-		progress = new GameProgress();
-		progress.registerObserver(observer);
-	}
+    private GameProgress progress;
 
-	@Test
-	public void notifingAboutLevelChange()
-	{
-		progress.setLevel(progress.getLevel() + 1);
-		verify(observer).notify(progress);
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void addingExperienceOverBreakpointIsIncreasingLevel()
-	{
-		progress.addExperience(Experience.INSTANCE.expForLevel(2) + 1);
-		verify(observer).notify(progress);
-	}
+        initMocks(this);
+        progress = new GameProgress();
+        progress.registerObserver(observer);
+    }
 
-	@Test
-	public void equalObjectsHasSameProperties()
-	{
-		progress.setExperience(100l);
-		progress.setLevel(2);
-		progress.setMission(3);
+    @Test
+    public void notifingAboutLevelChange() {
 
-		GameProgress otherProgress = new GameProgress();
-		otherProgress.setExperience(100l);
-		otherProgress.setLevel(2);
-		otherProgress.setMission(3);
+        progress.setLevel(progress.getLevel() + 1);
+        verify(observer).notify(progress);
+    }
 
-		assertEquals(progress, otherProgress);
-	}
+    @Test
+    public void addingExperienceOverBreakpointIsIncreasingLevel() {
 
-	@Test
-	public void cloningIsCreatingNewObject()
-	{
-		GameProgress otherProgress = progress.clone();
-		assertFalse(progress == otherProgress);
-	}
+        progress.addExperience(Experience.INSTANCE.expForLevel(2) + 1);
+        verify(observer).notify(progress);
+    }
 
-	@Test
-	public void cloningIsCreatingEqualObject()
-	{
-		GameProgress otherProgress = progress.clone();
-		assertEquals(progress, otherProgress);
-	}
-	
-	@Test
-	public void notifingAboutMissionCompletionUpdatesState()
-	{
-		progress.setMission(2);
-		progress.missionCompleted(3);
-		
-		assertEquals(4, (int)progress.getMission());
-	}
-	
-	@Test
-	public void notifingAboutCompletionOfAlreadyCompletedMissionDoesntChangeState()
-	{
-		progress.setMission(4);
-		progress.missionCompleted(3);
-		
-		assertEquals(4, (int)progress.getMission());
-	}
+    @Test
+    public void equalObjectsHasSameProperties() {
+
+        progress.setExperience(100l);
+        progress.setLevel(2);
+        progress.setMission(3);
+
+        GameProgress otherProgress = new GameProgress();
+        otherProgress.setExperience(100l);
+        otherProgress.setLevel(2);
+        otherProgress.setMission(3);
+
+        assertEquals(progress, otherProgress);
+    }
+
+    @Test
+    public void cloningIsCreatingNewObject() {
+
+        GameProgress otherProgress = progress.clone();
+        assertFalse(progress == otherProgress);
+    }
+
+    @Test
+    public void cloningIsCreatingEqualObject() {
+
+        GameProgress otherProgress = progress.clone();
+        assertEquals(progress, otherProgress);
+    }
+
+    @Test
+    public void notifingAboutMissionCompletionUpdatesState() {
+
+        progress.setMission(2);
+        progress.missionCompleted(3);
+
+        assertEquals(4, (int) progress.getMission());
+    }
+
+    @Test
+    public void notifingAboutCompletionOfAlreadyCompletedMissionDoesntChangeState() {
+
+        progress.setMission(4);
+        progress.missionCompleted(3);
+
+        assertEquals(4, (int) progress.getMission());
+    }
 }

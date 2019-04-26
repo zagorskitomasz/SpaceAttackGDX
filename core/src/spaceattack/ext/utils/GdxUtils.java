@@ -26,152 +26,151 @@ import spaceattack.game.stages.IStage;
 import spaceattack.game.system.IFileHandle;
 import spaceattack.game.utils.vector.IVector;
 
-enum GdxUtils implements IGdxUtils
-{
-	INSTANCE;
+enum GdxUtils implements IGdxUtils {
+    INSTANCE;
 
-	@Override
-	public void clearScreen()
-	{
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-	}
+    @Override
+    public void clearScreen() {
 
-	@Override
-	public float getDeltaTime()
-	{
-		return Gdx.graphics.getDeltaTime();
-	}
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+    }
 
-	@Override
-	public long getCurrentTime()
-	{
-		return TimeUtils.millis();
-	}
+    @Override
+    public float getDeltaTime() {
 
-	@Override
-	public <T> T streamToObject(Class<T> clazz,InputStream fileContent)
-	{
-		Json json = new Json();
-		return json.fromJson(clazz, fileContent);
-	}
+        return Gdx.graphics.getDeltaTime();
+    }
 
-	@Override
-	public IFileHandle loadFile(String save)
-	{
-		return new GdxFileHandle(Gdx.files.local(Paths.SAVE));
-	}
+    @Override
+    public long getCurrentTime() {
 
-	@Override
-	public double pow(double value,double exponent)
-	{
-		return Math.pow(value, exponent);
-	}
+        return TimeUtils.millis();
+    }
 
-	@Override
-	public double sqrt(double value)
-	{
-		return Math.sqrt(value);
-	}
+    @Override
+    public <T> T streamToObject(Class<T> clazz, InputStream fileContent) {
 
-	@Override
-	public <T> String objectToString(T object,Class<T> clazz)
-	{
-		Json json = new Json();
-		return json.toJson(object, clazz);
-	}
+        Json json = new Json();
+        return json.fromJson(clazz, fileContent);
+    }
 
-	@Override
-	public void setInputProcessor(IStage stage)
-	{
-		Gdx.input.setInputProcessor((GdxStage) stage);
-	}
+    @Override
+    public IFileHandle loadFile(String save) {
 
-	@Override
-	public void setInputProcessor(IInputProcessor inputProcessor)
-	{
-		Gdx.input.setInputProcessor(new GdxInput(inputProcessor));
-	}
-	
-	@Override
-	public IVector getTouch()
-	{
-		if(!Gdx.input.isTouched())
-			return null;
+        return new GdxFileHandle(Gdx.files.local(Paths.SAVE));
+    }
 
-		return Factories.getVectorFactory().create(Gdx.input.getX(), Gdx.input.getY());
-	}
+    @Override
+    public double pow(double value, double exponent) {
 
-	@Override
-	public Skin getUiSkin()
-	{
-		return new Skin(Gdx.files.internal(Paths.UI_STYLE));
-	}
+        return Math.pow(value, exponent);
+    }
 
-	@Override
-	public void confirmDialog(String caption,String question,IStage stage,Consumer<Boolean> resultProcessor)
-	{
-		GdxDialog dialog = new GdxDialog(caption);
+    @Override
+    public double sqrt(double value) {
 
-		TextButton yesButton = new TextButton("Yes", getUiSkin().get(TextButton.TextButtonStyle.class));
-		TextButton noButton = new TextButton("No", getUiSkin().get(TextButton.TextButtonStyle.class));
-		Label questionLabel = new Label(question, getUiSkin().get(Label.LabelStyle.class));
+        return Math.sqrt(value);
+    }
 
-		yesButton.getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
-		noButton.getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
-		questionLabel.setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+    @Override
+    public <T> String objectToString(T object, Class<T> clazz) {
 
-		dialog.text(questionLabel);
-		dialog.button(yesButton, true);
-		dialog.button(noButton, false);
-		dialog.key(Keys.ENTER, true);
-		dialog.setResultProcessor(resultProcessor);
+        Json json = new Json();
+        return json.toJson(object, clazz);
+    }
 
-		dialog.getTitleLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+    @Override
+    public void setInputProcessor(IStage stage) {
 
-		dialog.show((GdxStage) stage);
-	}
+        Gdx.input.setInputProcessor((GdxStage) stage);
+    }
 
-	@Override
-	public void exit()
-	{
-		Gdx.app.exit();
-	}
+    @Override
+    public void setInputProcessor(IInputProcessor inputProcessor) {
 
-	@Override
-	public float atan2(float x,float y)
-	{
-		return MathUtils.atan2(y, x);
-	}
+        Gdx.input.setInputProcessor(new GdxInput(inputProcessor));
+    }
 
-	@Override
-	public float radiansToDegrees()
-	{
-		return MathUtils.radiansToDegrees;
-	}
+    @Override
+    public IVector getTouch() {
 
-	@Override
-	public long millis()
-	{
-		return TimeUtils.millis();
-	}
+        if (!Gdx.input.isTouched())
+            return null;
 
-	@Override
-	public ILabel createTimeLabel(String text,int color)
-	{
-		BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
-		Label.LabelStyle style = new Label.LabelStyle(font, new Color(color));
-		GdxLabel label = new GdxLabel(text, style);
-		label.setPosition((Sizes.GAME_WIDTH - label.getWidth() * Sizes.X_FACTOR) * 0.5f, Sizes.GAME_HEIGHT * 0.7f);
+        return Factories.getVectorFactory().create(Gdx.input.getX(), Gdx.input.getY());
+    }
 
-		return label;
-	}
+    @Override
+    public Skin getUiSkin() {
 
-	@Override
-	public ILabel createBarLabel()
-	{
-		BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.GAMEPLAY_FONT));
-		Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
-		return new GdxLabel("", style);
-	}
+        return new Skin(Gdx.files.internal(Paths.UI_STYLE));
+    }
+
+    @Override
+    public void confirmDialog(String caption, String question, IStage stage, Consumer<Boolean> resultProcessor) {
+
+        GdxDialog dialog = new GdxDialog(caption);
+
+        TextButton yesButton = new TextButton("Yes", getUiSkin().get(TextButton.TextButtonStyle.class));
+        TextButton noButton = new TextButton("No", getUiSkin().get(TextButton.TextButtonStyle.class));
+        Label questionLabel = new Label(question, getUiSkin().get(Label.LabelStyle.class));
+
+        yesButton.getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+        noButton.getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+        questionLabel.setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+
+        dialog.text(questionLabel);
+        dialog.button(yesButton, true);
+        dialog.button(noButton, false);
+        dialog.key(Keys.ENTER, true);
+        dialog.setResultProcessor(resultProcessor);
+
+        dialog.getTitleLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+
+        dialog.show((GdxStage) stage);
+    }
+
+    @Override
+    public void exit() {
+
+        Gdx.app.exit();
+    }
+
+    @Override
+    public float atan2(float x, float y) {
+
+        return MathUtils.atan2(y, x);
+    }
+
+    @Override
+    public float radiansToDegrees() {
+
+        return MathUtils.radiansToDegrees;
+    }
+
+    @Override
+    public long millis() {
+
+        return TimeUtils.millis();
+    }
+
+    @Override
+    public ILabel createTimeLabel(String text, int color) {
+
+        BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
+        Label.LabelStyle style = new Label.LabelStyle(font, new Color(color));
+        GdxLabel label = new GdxLabel(text, style);
+        label.setPosition((Sizes.GAME_WIDTH - label.getWidth() * Sizes.X_FACTOR) * 0.5f, Sizes.GAME_HEIGHT * 0.7f);
+
+        return label;
+    }
+
+    @Override
+    public ILabel createBarLabel() {
+
+        BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.GAMEPLAY_FONT));
+        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+        return new GdxLabel("", style);
+    }
 }

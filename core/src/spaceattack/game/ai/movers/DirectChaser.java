@@ -2,28 +2,28 @@ package spaceattack.game.ai.movers;
 
 import spaceattack.game.utils.vector.IVector;
 
-public class DirectChaser extends AbstractMover
-{
-	@Override
-	public MoverType getType()
-	{
-		return MoverType.DIRECT_CHASER;
-	}
+public class DirectChaser extends AbstractMover {
 
-	@Override
-	public void updateDirection()
-	{
-		if (playerShip == null || owner == null)
-			return;
+    @Override
+    public MoverType getType() {
 
-		if (owner.isMoving())
-			return;
+        return MoverType.DIRECT_CHASER;
+    }
 
-		IVector destination = vectors.create(playerShip.getX(), playerShip.getY());
+    @Override
+    public void updateDirection() {
 
-		if (isInRadius(destination))
-			return;
+        if (playerShip == null || owner == null)
+            return;
 
-		owner.setDestination(destination);
-	}
+        if (owner.isMoving())
+            return;
+
+        IVector destination = vectors.create(playerShip.getX(), playerShip.getY());
+
+        if (isInRadius(destination))
+            return;
+
+        owner.setDestination(destination);
+    }
 }

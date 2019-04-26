@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import spaceattack.game.utils.IUtils;
 
-public interface IGdxUtils extends IUtils
-{
-	public Skin getUiSkin();
+public interface IGdxUtils extends IUtils {
+
+    public Skin getUiSkin();
 }

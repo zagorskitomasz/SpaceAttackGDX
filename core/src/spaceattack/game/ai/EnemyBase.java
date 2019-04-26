@@ -25,325 +25,323 @@ import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeaponController;
 
-public abstract class EnemyBase extends InvisibleActor
-{
-	protected GameplayStage stage;
-	protected Radar radar;
-	protected List<IEnemyShip> enemyShips;
-	protected RadarVisible playerShip;
-	protected ComplexFireButton fireButton;
-	protected IWeaponController controller;
-	
-	private Acts act;
-	private IEnemyShipsFactory shipsFactory;
-	private IPool hpPool;
-	private IPool energyPool;
-	
-	private int tanksPool;
+public abstract class EnemyBase extends InvisibleActor {
 
-	private FrameController fighterTimer;
-	private FrameController chaserTimer;
-	private FrameController tankTimer;
-	
-	protected IBoss boss;
-	private boolean isBossOnField;
+    protected GameplayStage stage;
+    protected Radar radar;
+    protected List<IEnemyShip> enemyShips;
+    protected RadarVisible playerShip;
+    protected ComplexFireButton fireButton;
+    protected IWeaponController controller;
 
-	public EnemyBase(IUtils utils)
-	{
-		fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, Consts.AI.FIRST_FIGHTER_AFTER_MILLIS);
-		chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, Consts.AI.FIRST_CHASER_AFTER_MILLIS);
-		tankTimer = new FrameController(utils, Consts.AI.TANKS_PER_SECOND, Consts.AI.FIRST_TANK_AFTER_MILLIS);
-	}
+    private Acts act;
+    private IEnemyShipsFactory shipsFactory;
+    private IPool hpPool;
+    private IPool energyPool;
 
-	public void setStage(GameplayStage stage)
-	{
-		this.stage = stage;
-	}
+    private int tanksPool;
 
-	public void setShipsFactory(IEnemyShipsFactory factory)
-	{
-		shipsFactory = factory;
-	}
+    private FrameController fighterTimer;
+    private FrameController chaserTimer;
+    private FrameController tankTimer;
 
-	public void setRadar(Radar radar)
-	{
-		this.radar = radar;
-	}
+    protected IBoss boss;
+    private boolean isBossOnField;
 
-	public void setHpPool(IPool hpPool)
-	{
-		this.hpPool = hpPool;
-	}
+    public EnemyBase(IUtils utils) {
 
-	public void setEnergyPool(IPool energyPool)
-	{
-		this.energyPool = energyPool;
-	}
+        fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, Consts.AI.FIRST_FIGHTER_AFTER_MILLIS);
+        chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, Consts.AI.FIRST_CHASER_AFTER_MILLIS);
+        tankTimer = new FrameController(utils, Consts.AI.TANKS_PER_SECOND, Consts.AI.FIRST_TANK_AFTER_MILLIS);
+    }
 
-	public void setComplexFireButton(ComplexFireButton button)
-	{
-		fireButton = button;
-	}
+    public void setStage(GameplayStage stage) {
 
-	public void setWeaponController(IWeaponController controller)
-	{
-		this.controller = controller;
-	}
-	
-	public void setTanksPool(int pool)
-	{
-		tanksPool = pool;
-	}
-	
-	public void setBoss(IBoss boss)
-	{
-		this.boss = boss;
-	}
-	
-	protected void setAct(Acts act)
-	{
-		this.act = act;
-	}
+        this.stage = stage;
+    }
 
-	@Override
-	public void act(float delta)
-	{
-		if (fighterTimer.check() && !isBossOnField)
-			addFighter();
+    public void setShipsFactory(IEnemyShipsFactory factory) {
 
-		if (chaserTimer.check() && !isBossOnField)
-			addChaser();
+        shipsFactory = factory;
+    }
 
-		if (tanksPool > 0 && tankTimer.check() && !isBossOnField)
-			addTank();
-		
-		if(tanksPool <= 0 && boss != null && tankTimer.check() && !isBossOnField)
-		{
-			addBoss();
-			isBossOnField = true;
-		}
-	}
+    public void setRadar(Radar radar) {
 
-	private void addFighter()
-	{
-		updateRadar();
+        this.radar = radar;
+    }
 
-		IEnemyShip fighter = shipsFactory.createFighter(act, stage);
+    public void setHpPool(IPool hpPool) {
 
-		MoverAI mover = chooseMover(fighter);
-		ShooterAI shooter = chooseShooter(fighter);
-		IPowerUp powerUp = choosePowerUp(fighter);
+        this.hpPool = hpPool;
+    }
 
-		fighter.setPlayerShip(radar.getPlayerShip());
-		fighter.setMover(mover);
-		fighter.setShooter(shooter);
-		fighter.setPowerUp(powerUp);
+    public void setEnergyPool(IPool energyPool) {
 
-		stage.addActorBeforeGUI(fighter);
-	}
+        this.energyPool = energyPool;
+    }
 
-	private void addChaser()
-	{
-		updateRadar();
+    public void setComplexFireButton(ComplexFireButton button) {
 
-		IEnemyShip chaser = shipsFactory.createChaser(act, stage);
+        fireButton = button;
+    }
 
-		MoverAI mover = MoverType.FRONT_CHASER.create();
-		ShooterAI shooter = createDirectShooter(chaser);
-		IPowerUp powerUp = choosePowerUp(chaser);
+    public void setWeaponController(IWeaponController controller) {
 
-		mover.setPlayerShip(playerShip);
-		mover.setOwner(chaser);
-		
-		chaser.setPlayerShip(radar.getPlayerShip());
-		chaser.setMover(mover);
-		chaser.setShooter(shooter);
-		chaser.setPowerUp(powerUp);
+        this.controller = controller;
+    }
 
-		stage.addActorBeforeGUI(chaser);
-	}
+    public void setTanksPool(int pool) {
 
-	private void addTank()
-	{
-		updateRadar();
+        tanksPool = pool;
+    }
 
-		IEnemyShip tank = createTank();
+    public void setBoss(IBoss boss) {
 
-		MoverAI mover = MoverType.SLOW_DOWNER.create();
-		ShooterAI shooter = createTankShooter(tank);
-		IPowerUp powerUp = choosePowerUp(tank);
-		
-		shooter.setFriends(enemyShips);
-		shooter.setPlayerShip(playerShip);
-		shooter.setOwner(tank);
+        this.boss = boss;
+    }
 
-		mover.setPlayerShip(playerShip);
-		mover.setOwner(tank);
-		
-		tank.setPlayerShip(radar.getPlayerShip());
-		tank.setMover(mover);
-		tank.setShooter(shooter);
-		tank.setPowerUp(powerUp);
+    protected void setAct(Acts act) {
 
-		stage.addActorBeforeGUI(tank);
-	}
+        this.act = act;
+    }
 
-	protected abstract ShooterAI createTankShooter(IEnemyShip tank);	
-	
-	private void addBoss()
-	{
-		updateRadar();
+    @Override
+    public void act(float delta) {
 
-		MoverAI mover = boss.getDefaultMoverType().create();
-		ShooterAI shooter = createBossShooter(boss);
+        if (fighterTimer.check() && !isBossOnField)
+            addFighter();
 
-		mover.setPlayerShip(playerShip);
-		mover.setOwner(boss);
-		mover.registerObserver(shooter);
-		
-		boss.setPlayerShip(radar.getPlayerShip());
-		boss.setMover(mover);
-		boss.setShooter(shooter);
+        if (chaserTimer.check() && !isBossOnField)
+            addChaser();
 
-		stage.addActorBeforeGUI(boss);
-	}
+        if (tanksPool > 0 && tankTimer.check() && !isBossOnField)
+            addTank();
 
-	private ShooterAI createBossShooter(IBoss boss) 
-	{
-		ShooterAI shooter;
-		shooter = boss.getDefaultShooterType().create();
+        if (tanksPool <= 0 && boss != null && tankTimer.check() && !isBossOnField) {
+            addBoss();
+            isBossOnField = true;
+        }
+    }
 
-		shooter.setFriends(enemyShips);
-		shooter.setPlayerShip(playerShip);
-		shooter.setOwner(boss);
+    private void addFighter() {
 
-		return shooter;
-	}
+        updateRadar();
 
-	private IEnemyShip createTank() 
-	{
-		IEnemyShip tank = null;
-		
-		if(tanksPool > 1 || boss != null)
-			tank = shipsFactory.createTank(act, stage);
-		else
-			tank = shipsFactory.createSuperTank(act, stage);
-		
-		tanksPool--;
-		return tank;
-	}
+        IEnemyShip fighter = shipsFactory.createFighter(act, stage);
 
-	private MoverAI chooseMover(IEnemyShip fighter)
-	{
-		MoverAI mover = null;
+        MoverAI mover = chooseMover(fighter);
+        ShooterAI shooter = chooseShooter(fighter);
+        IPowerUp powerUp = choosePowerUp(fighter);
 
-		if (enemyShips.isEmpty())
-			mover = MoverType.DIRECT_CHASER.create();
-		else
-			mover = chooseMinOccursMover();
+        fighter.setPlayerShip(radar.getPlayerShip());
+        fighter.setMover(mover);
+        fighter.setShooter(shooter);
+        fighter.setPowerUp(powerUp);
 
-		mover.setPlayerShip(playerShip);
-		mover.setOwner(fighter);
+        stage.addActorBeforeGUI(fighter);
+    }
 
-		return mover;
-	}
+    private void addChaser() {
 
-	private MoverAI chooseMinOccursMover()
-	{
-		Map<MoverType, Long> countedMovers = countMovers();
-		AtomicLong minOccurs = getMinOccursNumber(countedMovers);
-		List<MoverType> lessFrequentMovers = getLessFrequentMovers(countedMovers, minOccurs);
+        updateRadar();
 
-		return lessFrequentMovers.get((int) (Math.random() * (lessFrequentMovers.size() - 1))).create();
-	}
+        IEnemyShip chaser = shipsFactory.createChaser(act, stage);
 
-	private Map<MoverType, Long> countMovers()
-	{
-		Map<MoverType, Long> countedMovers = enemyShips //
-				.stream() //
-				.map(ship->ship.getMoverType()) //
-				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        MoverAI mover = MoverType.FRONT_CHASER.create();
+        ShooterAI shooter = createDirectShooter(chaser);
+        IPowerUp powerUp = choosePowerUp(chaser);
 
-		Arrays.asList(MoverType.values()) //
-				.stream() //
-				.filter(type->!countedMovers.containsKey(type)) //
-				.forEach(type->countedMovers.put(type, 0l));
-		return countedMovers;
-	}
+        mover.setPlayerShip(playerShip);
+        mover.setOwner(chaser);
 
-	private AtomicLong getMinOccursNumber(Map<MoverType, Long> countedMovers)
-	{
-		AtomicLong minOccurs = new AtomicLong(Long.MAX_VALUE);
+        chaser.setPlayerShip(radar.getPlayerShip());
+        chaser.setMover(mover);
+        chaser.setShooter(shooter);
+        chaser.setPowerUp(powerUp);
 
-		countedMovers //
-				.entrySet() //
-				.stream() //
-				.filter(entry -> !entry.getKey().isSpecial()) //
-				.forEach(entry->
-				{
-					if (entry.getValue() < minOccurs.get())
-						minOccurs.set(entry.getValue());
+        stage.addActorBeforeGUI(chaser);
+    }
 
-				}); //
-		return minOccurs;
-	}
+    private void addTank() {
 
-	private List<MoverType> getLessFrequentMovers(Map<MoverType, Long> countedMovers,AtomicLong minOccurs)
-	{
-		List<MoverType> lessFrequentMovers = countedMovers //
-				.entrySet() //
-				.stream() //
-				.filter(entry -> !entry.getKey().isSpecial()) //
-				.filter(entry->entry.getValue().equals(minOccurs.get()))//
-				.map(entry->entry.getKey()) //
-				.collect(Collectors.toList());
-		return lessFrequentMovers;
-	}
+        updateRadar();
 
-	private ShooterAI chooseShooter(IEnemyShip fighter)
-	{
-		return createDirectShooter(fighter);
-	}
+        IEnemyShip tank = createTank();
 
-	protected ShooterAI createDirectShooter(IEnemyShip fighter) 
-	{
-		ShooterAI shooter;
-		shooter = ShooterType.DIRECT_SHOOTER.create();
+        MoverAI mover = MoverType.SLOW_DOWNER.create();
+        ShooterAI shooter = createTankShooter(tank);
+        IPowerUp powerUp = choosePowerUp(tank);
 
-		shooter.setFriends(enemyShips);
-		shooter.setPlayerShip(playerShip);
-		shooter.setOwner(fighter);
+        shooter.setFriends(enemyShips);
+        shooter.setPlayerShip(playerShip);
+        shooter.setOwner(tank);
 
-		return shooter;
-	}
+        mover.setPlayerShip(playerShip);
+        mover.setOwner(tank);
 
-	protected void updateRadar()
-	{
-		if (radar == null)
-			return;
+        tank.setPlayerShip(radar.getPlayerShip());
+        tank.setMover(mover);
+        tank.setShooter(shooter);
+        tank.setPowerUp(powerUp);
 
-		radar.update();
-		playerShip = radar.getPlayerShip();
-		enemyShips = radar.getEnemyShips();
-	}
+        stage.addActorBeforeGUI(tank);
+    }
 
-	private IPowerUp choosePowerUp(IEnemyShip fighter)
-	{
-		IPowerUp powerUp = null;
+    protected abstract ShooterAI createTankShooter(IEnemyShip tank);
 
-		if (Math.random() < Consts.AI.FIGHTER_POWER_UP_CHANCE)
-		{
-			double randomNumber = Math.random();
+    private void addBoss() {
 
-			if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE)
-				powerUp = PowerUpBuilder.INSTANCE.hp(hpPool);
-			else if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE + Consts.AI.FIGHTER_ENE_UP_CHANCE)
-				powerUp = PowerUpBuilder.INSTANCE.energy(energyPool);
-			else
-				powerUp = choosePowerUp();
-		}
-		return powerUp;
-	}
+        updateRadar();
 
-	protected abstract IPowerUp choosePowerUp();
+        MoverAI mover = boss.getDefaultMoverType().create();
+        ShooterAI shooter = createBossShooter(boss);
+
+        mover.setPlayerShip(playerShip);
+        mover.setOwner(boss);
+        mover.registerObserver(shooter);
+
+        boss.setPlayerShip(radar.getPlayerShip());
+        boss.setMover(mover);
+        boss.setShooter(shooter);
+
+        stage.addActorBeforeGUI(boss);
+    }
+
+    private ShooterAI createBossShooter(IBoss boss) {
+
+        ShooterAI shooter;
+        shooter = boss.getDefaultShooterType().create();
+
+        shooter.setFriends(enemyShips);
+        shooter.setPlayerShip(playerShip);
+        shooter.setOwner(boss);
+
+        return shooter;
+    }
+
+    private IEnemyShip createTank() {
+
+        IEnemyShip tank = null;
+
+        if (tanksPool > 1 || boss != null)
+            tank = shipsFactory.createTank(act, stage);
+        else
+            tank = shipsFactory.createSuperTank(act, stage);
+
+        tanksPool--;
+        return tank;
+    }
+
+    private MoverAI chooseMover(IEnemyShip fighter) {
+
+        MoverAI mover = null;
+
+        if (enemyShips.isEmpty())
+            mover = MoverType.DIRECT_CHASER.create();
+        else
+            mover = chooseMinOccursMover();
+
+        mover.setPlayerShip(playerShip);
+        mover.setOwner(fighter);
+
+        return mover;
+    }
+
+    private MoverAI chooseMinOccursMover() {
+
+        Map<MoverType, Long> countedMovers = countMovers();
+        AtomicLong minOccurs = getMinOccursNumber(countedMovers);
+        List<MoverType> lessFrequentMovers = getLessFrequentMovers(countedMovers, minOccurs);
+
+        return lessFrequentMovers.get((int) (Math.random() * (lessFrequentMovers.size() - 1))).create();
+    }
+
+    private Map<MoverType, Long> countMovers() {
+
+        Map<MoverType, Long> countedMovers = enemyShips //
+                .stream() //
+                .map(ship -> ship.getMoverType()) //
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        Arrays.asList(MoverType.values()) //
+                .stream() //
+                .filter(type -> !countedMovers.containsKey(type)) //
+                .forEach(type -> countedMovers.put(type, 0l));
+        return countedMovers;
+    }
+
+    private AtomicLong getMinOccursNumber(Map<MoverType, Long> countedMovers) {
+
+        AtomicLong minOccurs = new AtomicLong(Long.MAX_VALUE);
+
+        countedMovers //
+                .entrySet() //
+                .stream() //
+                .filter(entry -> !entry.getKey().isSpecial()) //
+                .forEach(entry -> {
+                    if (entry.getValue() < minOccurs.get())
+                        minOccurs.set(entry.getValue());
+
+                }); //
+        return minOccurs;
+    }
+
+    private List<MoverType> getLessFrequentMovers(Map<MoverType, Long> countedMovers, AtomicLong minOccurs) {
+
+        List<MoverType> lessFrequentMovers = countedMovers //
+                .entrySet() //
+                .stream() //
+                .filter(entry -> !entry.getKey().isSpecial()) //
+                .filter(entry -> entry.getValue().equals(minOccurs.get()))//
+                .map(entry -> entry.getKey()) //
+                .collect(Collectors.toList());
+        return lessFrequentMovers;
+    }
+
+    private ShooterAI chooseShooter(IEnemyShip fighter) {
+
+        return createDirectShooter(fighter);
+    }
+
+    protected ShooterAI createDirectShooter(IEnemyShip fighter) {
+
+        ShooterAI shooter;
+        shooter = ShooterType.DIRECT_SHOOTER.create();
+
+        shooter.setFriends(enemyShips);
+        shooter.setPlayerShip(playerShip);
+        shooter.setOwner(fighter);
+
+        return shooter;
+    }
+
+    protected void updateRadar() {
+
+        if (radar == null)
+            return;
+
+        radar.update();
+        playerShip = radar.getPlayerShip();
+        enemyShips = radar.getEnemyShips();
+    }
+
+    private IPowerUp choosePowerUp(IEnemyShip fighter) {
+
+        IPowerUp powerUp = null;
+
+        if (Math.random() < Consts.AI.FIGHTER_POWER_UP_CHANCE) {
+            double randomNumber = Math.random();
+
+            if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE)
+                powerUp = PowerUpBuilder.INSTANCE.hp(hpPool);
+            else
+                if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE + Consts.AI.FIGHTER_ENE_UP_CHANCE)
+                    powerUp = PowerUpBuilder.INSTANCE.energy(energyPool);
+                else
+                    powerUp = choosePowerUp();
+        }
+        return powerUp;
+    }
+
+    protected abstract IPowerUp choosePowerUp();
 }

@@ -1,6 +1,5 @@
 package spaceattack.game.input;
 
-public enum InputType
-{
-	TOUCH_UP,TOUCH_DOWN;
+public enum InputType {
+    TOUCH_UP, TOUCH_DOWN;
 }

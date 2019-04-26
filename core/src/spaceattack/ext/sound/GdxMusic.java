@@ -7,90 +7,90 @@ import com.badlogic.gdx.audio.Music;
 
 import spaceattack.game.system.sound.IMusic;
 
-public class GdxMusic implements IMusic
-{
-	private Music music;
-	
-	public GdxMusic(String path) 
-	{
-		music = Gdx.audio.newMusic(Gdx.files.internal(path));
-	}
+public class GdxMusic implements IMusic {
 
-	@Override
-	public void play() 
-	{
-		music.play();
-	}
+    private Music music;
 
-	@Override
-	public void pause() 
-	{
-		music.pause();
-	}
+    public GdxMusic(String path) {
 
-	@Override
-	public void stop() 
-	{
-		music.stop();
-	}
+        music = Gdx.audio.newMusic(Gdx.files.internal(path));
+    }
 
-	@Override
-	public boolean isPlaying() 
-	{
-		return music.isPlaying();
-	}
+    @Override
+    public void play() {
 
-	@Override
-	public void setLooping(boolean isLooping) 
-	{
-		music.setLooping(isLooping);
-	}
+        music.play();
+    }
 
-	@Override
-	public boolean isLooping() 
-	{
-		return music.isLooping();
-	}
+    @Override
+    public void pause() {
 
-	@Override
-	public void setVolume(float volume) 
-	{
-		music.setVolume(volume);
-	}
+        music.pause();
+    }
 
-	@Override
-	public float getVolume() 
-	{
-		return music.getVolume();
-	}
+    @Override
+    public void stop() {
 
-	@Override
-	public void setPan(float pan, float volume) 
-	{
-		music.setPan(pan, volume);
-	}
+        music.stop();
+    }
 
-	@Override
-	public void setPosition(float position) 
-	{
-		music.setPosition(position);
-	}
+    @Override
+    public boolean isPlaying() {
 
-	@Override
-	public float getPosition() 
-	{
-		return music.getPosition();
-	}
+        return music.isPlaying();
+    }
 
-	@Override
-	public void dispose() 
-	{
-		music.dispose();
-	}
+    @Override
+    public void setLooping(boolean isLooping) {
 
-	@Override
-	public void setOnCompletionListener(Consumer<IMusic> listener) 
-	{
-		music.setOnCompletionListener(music -> listener.accept(this));
-	}
+        music.setLooping(isLooping);
+    }
+
+    @Override
+    public boolean isLooping() {
+
+        return music.isLooping();
+    }
+
+    @Override
+    public void setVolume(float volume) {
+
+        music.setVolume(volume);
+    }
+
+    @Override
+    public float getVolume() {
+
+        return music.getVolume();
+    }
+
+    @Override
+    public void setPan(float pan, float volume) {
+
+        music.setPan(pan, volume);
+    }
+
+    @Override
+    public void setPosition(float position) {
+
+        music.setPosition(position);
+    }
+
+    @Override
+    public float getPosition() {
+
+        return music.getPosition();
+    }
+
+    @Override
+    public void dispose() {
+
+        music.dispose();
+    }
+
+    @Override
+    public void setOnCompletionListener(Consumer<IMusic> listener) {
+
+        music.setOnCompletionListener(music -> listener.accept(this));
+    }
 }

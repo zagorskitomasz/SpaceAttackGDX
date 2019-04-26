@@ -6,118 +6,110 @@ import java.util.concurrent.locks.ReentrantLock;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.FrameController;
 
-public class Pool extends AbstractPool
-{
-	public static final Integer UPDATES_PER_SECOND = 10;
+public class Pool extends AbstractPool {
 
-	private float baseAmount;
-	private float increasePerLevel;
-	private float baseRegen;
-	private float regenPerLevel;
+    public static final Integer UPDATES_PER_SECOND = 10;
 
-	private float regenPerSecond;
+    private float baseAmount;
+    private float increasePerLevel;
+    private float baseRegen;
+    private float regenPerLevel;
 
-	private boolean destroyed;
+    private float regenPerSecond;
 
-	private Lock lock;
-	private FrameController controller;
+    private boolean destroyed;
 
-	public Pool(float baseAmount,float increasePerLevel,float baseRegen,float regenPerLevel)
-	{
-		super();
-		lock = new ReentrantLock();
-		controller = new FrameController(Factories.getUtilsFactory().create(), UPDATES_PER_SECOND);
+    private Lock lock;
+    private FrameController controller;
 
-		this.baseAmount = baseAmount;
-		this.increasePerLevel = increasePerLevel;
-		this.baseRegen = baseRegen;
-		this.regenPerLevel = regenPerLevel;
+    public Pool(float baseAmount, float increasePerLevel, float baseRegen, float regenPerLevel) {
 
-		setLevel(1);
-	}
+        super();
+        lock = new ReentrantLock();
+        controller = new FrameController(Factories.getUtilsFactory().create(), UPDATES_PER_SECOND);
 
-	@Override
-	public boolean take(float amountTaken)
-	{
-		try
-		{
-			lock.lock();
-			return doTake(amountTaken);
-		}
-		finally
-		{
-			lock.unlock();
-		}
-	}
+        this.baseAmount = baseAmount;
+        this.increasePerLevel = increasePerLevel;
+        this.baseRegen = baseRegen;
+        this.regenPerLevel = regenPerLevel;
 
-	boolean doTake(float amountTaken)
-	{
-		if (amountTaken <= amount)
-		{
-			amount -= amountTaken;
-			notifyObservers();
+        setLevel(1);
+    }
 
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean take(float amountTaken) {
 
-	@Override
-	public void setLevel(int level)
-	{
-		try
-		{
-			lock.lock();
-			doSetLevel(level);
-		}
-		finally
-		{
-			lock.unlock();
-		}
-	}
+        try {
+            lock.lock();
+            return doTake(amountTaken);
+        }
+        finally {
+            lock.unlock();
+        }
+    }
 
-	void doSetLevel(int level)
-	{
-		maxAmount = baseAmount + (level - 1) * increasePerLevel;
-		regenPerSecond = baseRegen + (level - 1) * regenPerLevel;
+    boolean doTake(float amountTaken) {
 
-		amount = maxAmount;
+        if (amountTaken <= amount) {
+            amount -= amountTaken;
+            notifyObservers();
 
-		notifyObservers();
-	}
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public void update()
-	{
-		try
-		{
-			lock.lock();
-			doUpdate();
-		}
-		finally
-		{
-			lock.unlock();
-		}
-	}
+    @Override
+    public void setLevel(int level) {
 
-	void doUpdate()
-	{
-		if (controller.check() && !destroyed)
-		{
-			amount += regenPerSecond / UPDATES_PER_SECOND;
+        try {
+            lock.lock();
+            doSetLevel(level);
+        }
+        finally {
+            lock.unlock();
+        }
+    }
 
-			if (amount > maxAmount)
-				amount = maxAmount;
+    void doSetLevel(int level) {
 
-			notifyObservers();
-		}
-	}
+        maxAmount = baseAmount + (level - 1) * increasePerLevel;
+        regenPerSecond = baseRegen + (level - 1) * regenPerLevel;
 
-	@Override
-	public void destroy()
-	{
-		destroyed = true;
-		amount = 0;
-		notifyObservers();
-	}
+        amount = maxAmount;
+
+        notifyObservers();
+    }
+
+    @Override
+    public void update() {
+
+        try {
+            lock.lock();
+            doUpdate();
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    void doUpdate() {
+
+        if (controller.check() && !destroyed) {
+            amount += regenPerSecond / UPDATES_PER_SECOND;
+
+            if (amount > maxAmount)
+                amount = maxAmount;
+
+            notifyObservers();
+        }
+    }
+
+    @Override
+    public void destroy() {
+
+        destroyed = true;
+        amount = 0;
+        notifyObservers();
+    }
 }

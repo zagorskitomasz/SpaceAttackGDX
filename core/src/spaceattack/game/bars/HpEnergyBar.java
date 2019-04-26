@@ -5,69 +5,69 @@ import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.Textures;
 
-public class HpEnergyBar extends Bar
-{
-	private AbstractBarFiller energyFiller;
-	private AbstractBarFiller hpFiller;
+public class HpEnergyBar extends Bar {
 
-	public HpEnergyBar(IPool energyPool,IPool hpPool)
-	{
-		texture = Textures.HP_ENE_BAR.getTexture();
-	}
+    private AbstractBarFiller energyFiller;
+    private AbstractBarFiller hpFiller;
 
-	void setFillers(AbstractBarFiller hpFiller,AbstractBarFiller energyFiller)
-	{
-		this.hpFiller = hpFiller;
-		this.energyFiller = energyFiller;
-	}
+    public HpEnergyBar(IPool energyPool, IPool hpPool) {
 
-	@Override
-	protected void drawTexture(IBatch batch)
-	{
-		batch.draw(texture, 0, Sizes.GAME_HEIGHT - texture.getHeight());
-	}
+        texture = Textures.HP_ENE_BAR.getTexture();
+    }
 
-	@Override
-	protected void drawFillerLabel(IBatch batch)
-	{
-		energyFiller.drawLabel(batch);
-		hpFiller.drawLabel(batch);
-	}
+    void setFillers(AbstractBarFiller hpFiller, AbstractBarFiller energyFiller) {
 
-	@Override
-	protected void drawBarRect(IBatch batch)
-	{
-		energyFiller.drawRect(batch);
-		hpFiller.drawRect(batch);
-	}
+        this.hpFiller = hpFiller;
+        this.energyFiller = energyFiller;
+    }
 
-	float getMaxEnergy()
-	{
-		return energyFiller.getMaxAmount();
-	}
+    @Override
+    protected void drawTexture(IBatch batch) {
 
-	float getEnergy()
-	{
-		return energyFiller.getAmount();
-	}
+        batch.draw(texture, 0, Sizes.GAME_HEIGHT - texture.getHeight());
+    }
 
-	float getEnergyPercent()
-	{
-		return energyFiller.getPercent();
-	}
+    @Override
+    protected void drawFillerLabel(IBatch batch) {
 
-	float getMaxHp()
-	{
-		return hpFiller.getMaxAmount();
-	}
+        energyFiller.drawLabel(batch);
+        hpFiller.drawLabel(batch);
+    }
 
-	float getHp()
-	{
-		return hpFiller.getAmount();
-	}
+    @Override
+    protected void drawBarRect(IBatch batch) {
 
-	float getHpPercent()
-	{
-		return hpFiller.getPercent();
-	}
+        energyFiller.drawRect(batch);
+        hpFiller.drawRect(batch);
+    }
+
+    float getMaxEnergy() {
+
+        return energyFiller.getMaxAmount();
+    }
+
+    float getEnergy() {
+
+        return energyFiller.getAmount();
+    }
+
+    float getEnergyPercent() {
+
+        return energyFiller.getPercent();
+    }
+
+    float getMaxHp() {
+
+        return hpFiller.getMaxAmount();
+    }
+
+    float getHp() {
+
+        return hpFiller.getAmount();
+    }
+
+    float getHpPercent() {
+
+        return hpFiller.getPercent();
+    }
 }

@@ -20,198 +20,193 @@ import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.weapons.MissilesLauncher;
 
-public class GameplayStage extends AbstractStage implements IObserver<GameProgress>, INotifier<GameplayStage>
-{
-	private List<IObserver<GameplayStage>> observers;
-	private int currentMission;
-	private boolean gameOver;
-	private boolean won;
+public class GameplayStage extends AbstractStage implements IObserver<GameProgress>, INotifier<GameplayStage> {
 
-	private TimeLabel levelUpLabel;
-	private TimeLabel completedLabel;
-	private TimeLabel failedLabel;
+    private List<IObserver<GameplayStage>> observers;
+    private int currentMission;
+    private boolean gameOver;
+    private boolean won;
 
-	private TimeLabel finalizeLabel = null;
+    private TimeLabel levelUpLabel;
+    private TimeLabel completedLabel;
+    private TimeLabel failedLabel;
 
-	private IPool expPool;
+    private TimeLabel finalizeLabel = null;
 
-	private MissilesLauncher missilesLauncher;
+    private IPool expPool;
 
-	void setExpPool(IPool pool)
-	{
-		expPool = pool;
-	}
+    private MissilesLauncher missilesLauncher;
 
-	void setLevelUpLabel(TimeLabel label)
-	{
-		levelUpLabel = label;
-	}
+    void setExpPool(IPool pool) {
 
-	void setCompletedLabel(TimeLabel label)
-	{
-		completedLabel = label;
-	}
+        expPool = pool;
+    }
 
-	void setFailedLabel(TimeLabel label)
-	{
-		failedLabel = label;
-	}
+    void setLevelUpLabel(TimeLabel label) {
 
-	@Override
-	public IInputProcessor getInputProcessor()
-	{
-		return null;
-	}
+        levelUpLabel = label;
+    }
 
-	@Override
-	public void notify(GameProgress state)
-	{
-		if (state.getLevel() > getProgressBackup().getLevel())
-			showLevelUpLabel();
-	}
+    void setCompletedLabel(TimeLabel label) {
 
-	void showLevelUpLabel()
-	{
-		if (!getActors().contains(levelUpLabel))
-			addActor(levelUpLabel);
+        completedLabel = label;
+    }
 
-		levelUpLabel.show();
-	}
+    void setFailedLabel(TimeLabel label) {
 
-	@Override
-	public void act(float delta)
-	{
-		if (gameOver && finalizeLabel == null)
-			showFinalizeLabel();
+        failedLabel = label;
+    }
 
-		if (finalizeLabel != null && !finalizeLabel.isVisible())
-			finalizeStage();
+    @Override
+    public IInputProcessor getInputProcessor() {
 
-		super.act(delta);
+        return null;
+    }
 
-		List<IGameActor> actorsToKill = new LinkedList<>();
-		getActors().forEach(actor->
-		{
-			if (actor instanceof Killable && ((Killable) actor).isToKill())
-			{
-				actorsToKill.add(actor);
-				if (actor instanceof RequiredOnStage)
-					finishMission(actor);
-				if (actor instanceof IEnemyShip && ((IEnemyShip)actor).exploded())
-					getGameProgress().addExperience((long) ((IShip) actor).getHpPool().getMaxAmount());
-			}
-		});
-		actorsToKill.forEach(actor->stage.removeActor(actor));
-	}
+    @Override
+    public void notify(GameProgress state) {
 
-	private void finishMission(IGameActor actor) 
-	{
-		if(actor instanceof PlayerShip)
-			lose();
-		else
-			win();
-	}
+        if (state.getLevel() > getProgressBackup().getLevel())
+            showLevelUpLabel();
+    }
 
-	private void win() 
-	{
-		if(!gameOver)
-		{
-			gameOver = true;
-			won = true;
-		}
-	}
+    void showLevelUpLabel() {
 
-	void lose()
-	{
-		gameOver = true;
+        if (!getActors().contains(levelUpLabel))
+            addActor(levelUpLabel);
 
-		if (expPool != null)
-			expPool.destroy();
-	}
+        levelUpLabel.show();
+    }
 
-	private void showFinalizeLabel()
-	{
-		if (won)
-			finalizeLabel = completedLabel;
-		else
-			finalizeLabel = failedLabel;
+    @Override
+    public void act(float delta) {
 
-		addActor(finalizeLabel);
-		finalizeLabel.show();
-	}
+        if (gameOver && finalizeLabel == null)
+            showFinalizeLabel();
 
-	public void finalizeStage()
-	{
-		StageResult result = new StageResult();
-		result.setNextStage(Stages.MISSIONS);
+        if (finalizeLabel != null && !finalizeLabel.isVisible())
+            finalizeStage();
 
-		if (won)
-		{
-			getGameProgress().missionCompleted(currentMission);
-			result.setGameProgress(getGameProgress());
-		}
-		else
-		{
-			result.setGameProgress(getProgressBackup());
-		}
-		setResult(result);
-	}
+        super.act(delta);
 
-	boolean isGameOver()
-	{
-		return gameOver;
-	}
+        List<IGameActor> actorsToKill = new LinkedList<>();
+        getActors().forEach(actor -> {
+            if (actor instanceof Killable && ((Killable) actor).isToKill()) {
+                actorsToKill.add(actor);
+                if (actor instanceof RequiredOnStage)
+                    finishMission(actor);
+                if (actor instanceof IEnemyShip && ((IEnemyShip) actor).exploded())
+                    getGameProgress().addExperience((long) ((IShip) actor).getHpPool().getMaxAmount());
+            }
+        });
+        actorsToKill.forEach(actor -> stage.removeActor(actor));
+    }
 
-	void setGameOver(boolean gameOver)
-	{
-		this.gameOver = gameOver;
-	}
+    private void finishMission(IGameActor actor) {
 
-	void setWon(boolean won)
-	{
-		this.won = won;
-	}
+        if (actor instanceof PlayerShip)
+            lose();
+        else
+            win();
+    }
 
-	public void setMissileLauncher(MissilesLauncher missilesLauncher)
-	{
-		this.missilesLauncher = missilesLauncher;
-	}
+    private void win() {
 
-	public MissilesLauncher getMissilesLauncher()
-	{
-		return missilesLauncher;
-	}
-	
-	public void setCurrentMission(int mission)
-	{
-		currentMission = mission;
-		notifyObservers();
-	}
+        if (!gameOver) {
+            gameOver = true;
+            won = true;
+        }
+    }
 
-	public int getCurrentMission() 
-	{
-		return currentMission;
-	}
+    void lose() {
 
-	@Override
-	public void registerObserver(IObserver<GameplayStage> observer) 
-	{
-		if(observers == null)
-			observers = new LinkedList<>();
-		
-		observers.add(observer);
-	}
+        gameOver = true;
 
-	@Override
-	public void unregisterObserver(IObserver<GameplayStage> observer) 
-	{
-		if(observers != null)
-			observers.remove(observer);
-	}
+        if (expPool != null)
+            expPool.destroy();
+    }
 
-	private void notifyObservers() 
-	{
-		if(observers != null)
-			observers.forEach(observer -> observer.notify(this));
-	}
+    private void showFinalizeLabel() {
+
+        if (won)
+            finalizeLabel = completedLabel;
+        else
+            finalizeLabel = failedLabel;
+
+        addActor(finalizeLabel);
+        finalizeLabel.show();
+    }
+
+    public void finalizeStage() {
+
+        StageResult result = new StageResult();
+        result.setNextStage(Stages.MISSIONS);
+
+        if (won) {
+            getGameProgress().missionCompleted(currentMission);
+            result.setGameProgress(getGameProgress());
+        }
+        else {
+            result.setGameProgress(getProgressBackup());
+        }
+        setResult(result);
+    }
+
+    boolean isGameOver() {
+
+        return gameOver;
+    }
+
+    void setGameOver(boolean gameOver) {
+
+        this.gameOver = gameOver;
+    }
+
+    void setWon(boolean won) {
+
+        this.won = won;
+    }
+
+    public void setMissileLauncher(MissilesLauncher missilesLauncher) {
+
+        this.missilesLauncher = missilesLauncher;
+    }
+
+    public MissilesLauncher getMissilesLauncher() {
+
+        return missilesLauncher;
+    }
+
+    public void setCurrentMission(int mission) {
+
+        currentMission = mission;
+        notifyObservers();
+    }
+
+    public int getCurrentMission() {
+
+        return currentMission;
+    }
+
+    @Override
+    public void registerObserver(IObserver<GameplayStage> observer) {
+
+        if (observers == null)
+            observers = new LinkedList<>();
+
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregisterObserver(IObserver<GameplayStage> observer) {
+
+        if (observers != null)
+            observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+
+        if (observers != null)
+            observers.forEach(observer -> observer.notify(this));
+    }
 }

@@ -13,39 +13,39 @@ import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.MusicPlayer;
 
-public class MainMenuStageBuilder implements IStageBuilder
-{
-	@Override
-	public IGameStage build(GameProgress progress)
-	{
-		MainMenuStage stage = new MainMenuStage();
+public class MainMenuStageBuilder implements IStageBuilder {
 
-		stage.setStage(Factories.getStageFactory().create());
-		stage.setGameSaver(GameSaverFactory.INSTANCE.create());
-		stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
-		stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load());
+    @Override
+    public IGameStage build(GameProgress progress) {
 
-		Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
+        MainMenuStage stage = new MainMenuStage();
 
-		StaticImage background = StaticImageFactory.INSTANCE.create(Textures.MENU_BACKGROUND.getTexture(), 0, 0);
-		StaticImage logo = StaticImageFactory.INSTANCE.create(Textures.LOGO.getTexture(), 0, Sizes.GAME_HEIGHT * 0.03f);
+        stage.setStage(Factories.getStageFactory().create());
+        stage.setGameSaver(GameSaverFactory.INSTANCE.create());
+        stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
+        stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load());
 
-		IButton newGameButton = MenuButtonsBuilder.INSTANCE.newGameButton(stage);
-		IButton continueGameButton = MenuButtonsBuilder.INSTANCE.continueGameButton(stage);
-		IButton exitGameButton = MenuButtonsBuilder.INSTANCE.exitGameButton(stage);
+        Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
 
-		stage.addButtonsEnabledPredicate(continueGameButton, stage::isContinueButtonEnabled);
+        StaticImage background = StaticImageFactory.INSTANCE.create(Textures.MENU_BACKGROUND.getTexture(), 0, 0);
+        StaticImage logo = StaticImageFactory.INSTANCE.create(Textures.LOGO.getTexture(), 0, Sizes.GAME_HEIGHT * 0.03f);
 
-		stage.addBackground(background);
-		stage.addActorBeforeGUI(logo);
-		stage.addActor(newGameButton);
-		stage.addActor(continueGameButton);
-		stage.addActor(exitGameButton);
+        IButton newGameButton = MenuButtonsBuilder.INSTANCE.newGameButton(stage);
+        IButton continueGameButton = MenuButtonsBuilder.INSTANCE.continueGameButton(stage);
+        IButton exitGameButton = MenuButtonsBuilder.INSTANCE.exitGameButton(stage);
 
-		stage.updateControls();
-		
-		MusicPlayer.INSTANCE.playMenu();
+        stage.addButtonsEnabledPredicate(continueGameButton, stage::isContinueButtonEnabled);
 
-		return stage;
-	}
+        stage.addBackground(background);
+        stage.addActorBeforeGUI(logo);
+        stage.addActor(newGameButton);
+        stage.addActor(continueGameButton);
+        stage.addActor(exitGameButton);
+
+        stage.updateControls();
+
+        MusicPlayer.INSTANCE.playMenu();
+
+        return stage;
+    }
 }

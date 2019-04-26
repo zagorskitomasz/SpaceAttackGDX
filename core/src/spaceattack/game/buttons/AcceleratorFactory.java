@@ -4,17 +4,18 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Textures;
 
 public enum AcceleratorFactory {
-	INSTANCE;
+    INSTANCE;
 
-	public Accelerator create() 
-	{
-		IProgressButton progressButton = Factories.getImageButtonsFactory().create(Textures.JOYSTICK_BG.getTexture(), Textures.JOYSTICK_HEAD.getTexture());
-		progressButton.setPosition(60, 80);
+    public Accelerator create() {
 
-		Accelerator accelerator = new Accelerator();
-		accelerator.setProgressButton(progressButton);
-		progressButton.setGameActor(accelerator);
+        IProgressButton progressButton = Factories.getImageButtonsFactory().create(Textures.JOYSTICK_BG.getTexture(),
+                Textures.JOYSTICK_HEAD.getTexture());
+        progressButton.setPosition(60, 80);
 
-		return accelerator;
-	}
+        Accelerator accelerator = new Accelerator();
+        accelerator.setProgressButton(progressButton);
+        progressButton.setGameActor(accelerator);
+
+        return accelerator;
+    }
 }

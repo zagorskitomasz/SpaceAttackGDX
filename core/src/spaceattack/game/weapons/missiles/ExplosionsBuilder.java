@@ -7,85 +7,92 @@ import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.graphics.Animations;
 import spaceattack.game.system.sound.Sounds;
 
-public enum ExplosionsBuilder
-{
-	INSTANCE;
+public enum ExplosionsBuilder {
+    INSTANCE;
 
-	public Explosion createFighterExplosion(GameplayStage stage)
-	{
-		int strength = stage.getCurrentMission() * 2;
+    public Explosion createFighterExplosion(GameplayStage stage) {
 
-		Explosion explosion = new Explosion();
+        int strength = stage.getCurrentMission() * 2;
 
-		explosion.setActor(Factories.getActorFactory().create(explosion));
-		explosion.setAnimation(Animations.FIGHTER_EX.getAnimation());
-		explosion.setDmg(Consts.Explosions.FIGHTER_EX_DMG * strength);
-		explosion.setFireDmg(Consts.Explosions.FIGHTER_EX_FIRE_BASE_DMG + strength * Consts.Explosions.FIGHTER_EX_FIRE_DMG_PER_STRENGTH);
-		explosion.setFireDuration(Consts.Explosions.FIRE_BASE_DURATION + strength * Consts.Explosions.FIRE_DURATION_PER_STRENGTH);
-		explosion.setRadius(Consts.Explosions.FIGHTER_EX_RADIUS);
-		explosion.setSound(Sounds.SMALL_SHIP_EXPLOSION);
+        Explosion explosion = new Explosion();
 
-		return explosion;
-	}
+        explosion.setActor(Factories.getActorFactory().create(explosion));
+        explosion.setAnimation(Animations.FIGHTER_EX.getAnimation());
+        explosion.setDmg(Consts.Explosions.FIGHTER_EX_DMG * strength);
+        explosion.setFireDmg(Consts.Explosions.FIGHTER_EX_FIRE_BASE_DMG
+                + strength * Consts.Explosions.FIGHTER_EX_FIRE_DMG_PER_STRENGTH);
+        explosion.setFireDuration(
+                Consts.Explosions.FIRE_BASE_DURATION + strength * Consts.Explosions.FIRE_DURATION_PER_STRENGTH);
+        explosion.setRadius(Consts.Explosions.FIGHTER_EX_RADIUS);
+        explosion.setSound(Sounds.SMALL_SHIP_EXPLOSION);
 
-	public Explosion createBossExplosion()
-	{
-		Explosion explosion = new Explosion();
+        return explosion;
+    }
 
-		explosion.setActor(Factories.getActorFactory().create(explosion));
-		explosion.setAnimation(Animations.BOSS_EX.getAnimation());
-		explosion.setDmg(Consts.Explosions.BOSS_EX_DMG);
-		explosion.setFireDmg(Consts.Explosions.BOSS_EX_FIRE_BASE_DMG);
-		explosion.setFireDuration(Consts.Explosions.FIRE_BASE_DURATION);
-		explosion.setRadius(Consts.Explosions.BOSS_EX_RADIUS);
-		explosion.setSound(Sounds.BOSS_EXPLOSION);
+    public Explosion createBossExplosion() {
 
-		return explosion;
-	}
+        Explosion explosion = new Explosion();
 
-	public Launchable createMissileExplosion(int strength)
-	{
-		Explosion explosion = new Explosion();
+        explosion.setActor(Factories.getActorFactory().create(explosion));
+        explosion.setAnimation(Animations.BOSS_EX.getAnimation());
+        explosion.setDmg(Consts.Explosions.BOSS_EX_DMG);
+        explosion.setFireDmg(Consts.Explosions.BOSS_EX_FIRE_BASE_DMG);
+        explosion.setFireDuration(Consts.Explosions.FIRE_BASE_DURATION);
+        explosion.setRadius(Consts.Explosions.BOSS_EX_RADIUS);
+        explosion.setSound(Sounds.BOSS_EXPLOSION);
 
-		explosion.setActor(Factories.getActorFactory().create(explosion));
-		explosion.setAnimation(Animations.MISSILE_EX.getAnimation());
-		explosion.setDmg(Consts.Explosions.MISSILE_EX_DMG * strength);
-		explosion.setFireDmg(Consts.Explosions.MISSILE_EX_FIRE_BASE_DMG + strength * Consts.Explosions.MISSILE_EX_FIRE_DMG_PER_STRENGTH);
-		explosion.setFireDuration(Consts.Explosions.FIRE_BASE_DURATION + strength * Consts.Explosions.FIRE_DURATION_PER_STRENGTH);
-		explosion.setRadius(Consts.Explosions.MISSILE_EX_RADIUS);
-		explosion.setSound(Sounds.MISSILE_EXPLOSION);
+        return explosion;
+    }
 
-		return explosion;
-	}
+    public Launchable createMissileExplosion(int strength) {
 
-	public Explosion createTankExplosion(GameplayStage stage)
-	{
-		int strength = stage.getCurrentMission() * 2;
-		Explosion explosion = new Explosion();
+        Explosion explosion = new Explosion();
 
-		explosion.setActor(Factories.getActorFactory().create(explosion));
-		explosion.setAnimation(Animations.TANK_EX.getAnimation());
-		explosion.setDmg(Consts.Explosions.TANK_EX_DMG * strength);
-		explosion.setFireDmg(Consts.Explosions.TANK_EX_FIRE_BASE_DMG + strength * Consts.Explosions.TANK_EX_FIRE_DMG_PER_STRENGTH);
-		explosion.setFireDuration(Consts.Explosions.FIRE_BASE_DURATION + strength * Consts.Explosions.FIRE_DURATION_PER_STRENGTH);
-		explosion.setRadius(Consts.Explosions.TANK_EX_RADIUS);
-		explosion.setSound(Sounds.SMALL_SHIP_EXPLOSION);
+        explosion.setActor(Factories.getActorFactory().create(explosion));
+        explosion.setAnimation(Animations.MISSILE_EX.getAnimation());
+        explosion.setDmg(Consts.Explosions.MISSILE_EX_DMG * strength);
+        explosion.setFireDmg(Consts.Explosions.MISSILE_EX_FIRE_BASE_DMG
+                + strength * Consts.Explosions.MISSILE_EX_FIRE_DMG_PER_STRENGTH);
+        explosion.setFireDuration(
+                Consts.Explosions.FIRE_BASE_DURATION + strength * Consts.Explosions.FIRE_DURATION_PER_STRENGTH);
+        explosion.setRadius(Consts.Explosions.MISSILE_EX_RADIUS);
+        explosion.setSound(Sounds.MISSILE_EXPLOSION);
 
-		return explosion;
-	}
+        return explosion;
+    }
 
-	public Launchable createMineExplosion(int strength) 
-	{
-		Explosion explosion = new Explosion();
+    public Explosion createTankExplosion(GameplayStage stage) {
 
-		explosion.setActor(Factories.getActorFactory().create(explosion));
-		explosion.setAnimation(Animations.MISSILE_EX.getAnimation());
-		explosion.setDmg(Consts.Explosions.MINE_EX_DMG * strength);
-		explosion.setFireDmg(Consts.Explosions.MINE_EX_FIRE_BASE_DMG + strength * Consts.Explosions.MINE_EX_FIRE_DMG_PER_STRENGTH);
-		explosion.setFireDuration(Consts.Explosions.FIRE_BASE_DURATION + strength * Consts.Explosions.FIRE_DURATION_PER_STRENGTH);
-		explosion.setRadius(Consts.Explosions.MINE_EX_RADIUS);
-		explosion.setSound(Sounds.MISSILE_EXPLOSION);
+        int strength = stage.getCurrentMission() * 2;
+        Explosion explosion = new Explosion();
 
-		return explosion;
-	}
+        explosion.setActor(Factories.getActorFactory().create(explosion));
+        explosion.setAnimation(Animations.TANK_EX.getAnimation());
+        explosion.setDmg(Consts.Explosions.TANK_EX_DMG * strength);
+        explosion.setFireDmg(
+                Consts.Explosions.TANK_EX_FIRE_BASE_DMG + strength * Consts.Explosions.TANK_EX_FIRE_DMG_PER_STRENGTH);
+        explosion.setFireDuration(
+                Consts.Explosions.FIRE_BASE_DURATION + strength * Consts.Explosions.FIRE_DURATION_PER_STRENGTH);
+        explosion.setRadius(Consts.Explosions.TANK_EX_RADIUS);
+        explosion.setSound(Sounds.SMALL_SHIP_EXPLOSION);
+
+        return explosion;
+    }
+
+    public Launchable createMineExplosion(int strength) {
+
+        Explosion explosion = new Explosion();
+
+        explosion.setActor(Factories.getActorFactory().create(explosion));
+        explosion.setAnimation(Animations.MISSILE_EX.getAnimation());
+        explosion.setDmg(Consts.Explosions.MINE_EX_DMG * strength);
+        explosion.setFireDmg(
+                Consts.Explosions.MINE_EX_FIRE_BASE_DMG + strength * Consts.Explosions.MINE_EX_FIRE_DMG_PER_STRENGTH);
+        explosion.setFireDuration(
+                Consts.Explosions.FIRE_BASE_DURATION + strength * Consts.Explosions.FIRE_DURATION_PER_STRENGTH);
+        explosion.setRadius(Consts.Explosions.MINE_EX_RADIUS);
+        explosion.setSound(Sounds.MISSILE_EXPLOSION);
+
+        return explosion;
+    }
 }

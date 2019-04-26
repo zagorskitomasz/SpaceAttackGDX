@@ -13,45 +13,45 @@ import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 
-public abstract class Act2StageBuilder extends GameplayStageBuilder
-{
-	@Override
-	protected Acts getAct() 
-	{
-		return Acts.II;
-	}
+public abstract class Act2StageBuilder extends GameplayStageBuilder {
 
-	@Override
-	protected EnemyBase createEnemyBase(IUtils utils) 
-	{
-		return new Act2EnemyBase(utils);
-	}
+    @Override
+    protected Acts getAct() {
 
-	@Override
-	protected void buildShip()
-	{
-		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
-		Burner burner = BurnerBuilder.INSTANCE.build(playersShip);
+        return Acts.II;
+    }
 
-		gameProgress.registerObserver(playersShip);
-		playersShip.notify(gameProgress);
-		playersShip.setActor(Factories.getActorFactory().create(playersShip));
-		playersShip.loadComplexGraphics(Textures.PLAYER_SHIP2_F.getTexture(), Textures.PLAYER_SHIP2_R.getTexture(),
-				Textures.PLAYER_SHIP2_L.getTexture());
-		playersShip.setShipEngine(engine);
-		playersShip.addWeapon(primaryWeapon);
-		playersShip.addWeapon(greenLaser);
-		playersShip.setEnergyPool(energyPool);
-		playersShip.setHpPool(hpPool);
-		playersShip.setLevel(gameProgress.getLevel());
-		playersShip.setMissilesLauncher(missilesLauncher);
-		playersShip.setExplosion(explosion);
-		playersShip.setBurner(burner);
-	}
-	
-	@Override
-	public IWeapon createPrimaryWeapon()
-	{
-		return WeaponsFactory.INSTANCE.createDoubleRedLaser(weaponController, missilesLauncher);
-	}
+    @Override
+    protected EnemyBase createEnemyBase(IUtils utils) {
+
+        return new Act2EnemyBase(utils);
+    }
+
+    @Override
+    protected void buildShip() {
+
+        Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
+        Burner burner = BurnerBuilder.INSTANCE.build(playersShip);
+
+        gameProgress.registerObserver(playersShip);
+        playersShip.notify(gameProgress);
+        playersShip.setActor(Factories.getActorFactory().create(playersShip));
+        playersShip.loadComplexGraphics(Textures.PLAYER_SHIP2_F.getTexture(), Textures.PLAYER_SHIP2_R.getTexture(),
+                Textures.PLAYER_SHIP2_L.getTexture());
+        playersShip.setShipEngine(engine);
+        playersShip.addWeapon(primaryWeapon);
+        playersShip.addWeapon(greenLaser);
+        playersShip.setEnergyPool(energyPool);
+        playersShip.setHpPool(hpPool);
+        playersShip.setLevel(gameProgress.getLevel());
+        playersShip.setMissilesLauncher(missilesLauncher);
+        playersShip.setExplosion(explosion);
+        playersShip.setBurner(burner);
+    }
+
+    @Override
+    public IWeapon createPrimaryWeapon() {
+
+        return WeaponsFactory.INSTANCE.createDoubleRedLaser(weaponController, missilesLauncher);
+    }
 }

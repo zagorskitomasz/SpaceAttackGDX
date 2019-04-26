@@ -3,19 +3,19 @@ package spaceattack.game.weapons;
 import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.stages.IGameStage;
 
-public class MissilesLauncher
-{
-	private IGameStage stage;
+public class MissilesLauncher {
 
-	public MissilesLauncher(IGameStage stage)
-	{
-		this.stage = stage;
-	}
+    private IGameStage stage;
 
-	public void launch(Launchable launchable)
-	{
-		stage.addActorBeforeGUI(launchable);
-		launchable.setActors(stage.getActors());
-		launchable.launched();
-	}
+    public MissilesLauncher(IGameStage stage) {
+
+        this.stage = stage;
+    }
+
+    public void launch(Launchable launchable) {
+
+        stage.addActorBeforeGUI(launchable);
+        launchable.setActors(stage.getActors());
+        launchable.launched();
+    }
 }

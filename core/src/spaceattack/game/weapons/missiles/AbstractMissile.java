@@ -10,73 +10,72 @@ import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;
 
-public abstract class AbstractMissile extends DrawableActor implements Launchable,Killable
-{
-	private boolean isToKill;
-	private Sounds sound;
-	private float radius;
-	protected boolean isPlayersAttack;
+public abstract class AbstractMissile extends DrawableActor implements Launchable, Killable {
 
-	protected boolean checkCollision(Collisionable collisionable)
-	{
-		disappearIfNeeded();
-		
-		IVector missileCenter = Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
-		IVector vulnerableCenter = collisionable.getPosition();
+    private boolean isToKill;
+    private Sounds sound;
+    private float radius;
+    protected boolean isPlayersAttack;
 
-		return NumbersUtils.distance(missileCenter, vulnerableCenter) <= collisionable.getRadius() + getRadius();
-	}
+    protected boolean checkCollision(Collisionable collisionable) {
 
-	public float getRadius()
-	{
-		return radius * Sizes.RADIUS_FACTOR;
-	}
+        disappearIfNeeded();
 
-	public void setRadius(float radius)
-	{
-		this.radius = radius;
-	}
+        IVector missileCenter = Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
+        IVector vulnerableCenter = collisionable.getPosition();
 
-	public IVector getPosition()
-	{
-		return Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
-	}
+        return NumbersUtils.distance(missileCenter, vulnerableCenter) <= collisionable.getRadius() + getRadius();
+    }
 
-	@Override
-	public void setToKill()
-	{
-		isToKill = true;
-	}
+    public float getRadius() {
 
-	@Override
-	public boolean isToKill()
-	{
-		return isToKill;
-	}
+        return radius * Sizes.RADIUS_FACTOR;
+    }
 
-	public void setSound(Sounds sound)
-	{
-		this.sound = sound;
-	}
+    public void setRadius(float radius) {
 
-	@Override
-	public void playSound()
-	{
-		if(sound != null)
-			sound.play();
-	}
+        this.radius = radius;
+    }
 
-	public void setPosition(IVector position)
-	{
-		if (getActor() != null)
-		{
-			getActor().setX(position.getX());
-			getActor().setY(position.getY());
-		}
-	}
-	
-	public void setPlayersAttack(boolean isPlayer)
-	{
-		isPlayersAttack = isPlayer;
-	}
+    public IVector getPosition() {
+
+        return Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
+    }
+
+    @Override
+    public void setToKill() {
+
+        isToKill = true;
+    }
+
+    @Override
+    public boolean isToKill() {
+
+        return isToKill;
+    }
+
+    public void setSound(Sounds sound) {
+
+        this.sound = sound;
+    }
+
+    @Override
+    public void playSound() {
+
+        if (sound != null)
+            sound.play();
+    }
+
+    public void setPosition(IVector position) {
+
+        if (getActor() != null) {
+            getActor().setX(position.getX());
+            getActor().setY(position.getY());
+        }
+    }
+
+    public void setPlayersAttack(boolean isPlayer) {
+
+        isPlayersAttack = isPlayer;
+    }
 }

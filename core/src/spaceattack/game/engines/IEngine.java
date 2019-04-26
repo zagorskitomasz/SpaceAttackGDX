@@ -3,21 +3,21 @@ package spaceattack.game.engines;
 import spaceattack.game.ships.IShip.Turn;
 import spaceattack.game.utils.vector.IVector;
 
-public interface IEngine
-{
-	public void setDestination(IVector destination);
+public interface IEngine {
 
-	public Turn fly();
+    public void setDestination(IVector destination);
 
-	public void setLevel(int level);
+    public Turn fly();
 
-	public void setBaseSpeed(float baseSpeed);
+    public void setLevel(int level);
 
-	public void setAcceleration(float acceleration);
+    public void setBaseSpeed(float baseSpeed);
 
-	public void setBraking(float braking);
+    public void setAcceleration(float acceleration);
 
-	public void setAgility(float agility);
+    public void setBraking(float braking);
 
-	public boolean isDestinationReached();
+    public void setAgility(float agility);
+
+    public boolean isDestinationReached();
 }

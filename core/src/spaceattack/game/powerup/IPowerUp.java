@@ -3,11 +3,11 @@ package spaceattack.game.powerup;
 import spaceattack.game.actors.interfaces.Killable;
 import spaceattack.game.actors.interfaces.Launchable;
 
-public interface IPowerUp extends Launchable,Killable
-{
-	public void consumed();
+public interface IPowerUp extends Launchable, Killable {
 
-	public void setX(float x);
+    public void consumed();
 
-	public void setY(float y);
+    public void setX(float x);
+
+    public void setY(float y);
 }

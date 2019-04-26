@@ -3,47 +3,47 @@ package spaceattack.game.ships.pools;
 import spaceattack.consts.Experience;
 import spaceattack.game.GameProgress;
 
-public class ExperiencePool extends AbstractPool
-{
-	private GameProgress gameProgress;
-	private GameProgress backup;
+public class ExperiencePool extends AbstractPool {
 
-	public ExperiencePool(GameProgress gameProgress,GameProgress backup)
-	{
-		super();
-		this.gameProgress = gameProgress;
-		this.backup = backup;
-	}
+    private GameProgress gameProgress;
+    private GameProgress backup;
 
-	@Override
-	public void update()
-	{
-		long nextLevelReq = Experience.INSTANCE.expForLevel(gameProgress.getLevel() + 1);
-		long thisLevelReq = Experience.INSTANCE.expForLevel(gameProgress.getLevel());
+    public ExperiencePool(GameProgress gameProgress, GameProgress backup) {
 
-		maxAmount = nextLevelReq - thisLevelReq;
-		amount = gameProgress.getExperience() - thisLevelReq;
+        super();
+        this.gameProgress = gameProgress;
+        this.backup = backup;
+    }
 
-		notifyObservers();
-	}
+    @Override
+    public void update() {
 
-	@Override
-	public void destroy()
-	{
-		gameProgress = backup;
-		update();
-	}
+        long nextLevelReq = Experience.INSTANCE.expForLevel(gameProgress.getLevel() + 1);
+        long thisLevelReq = Experience.INSTANCE.expForLevel(gameProgress.getLevel());
 
-	@Override
-	public boolean take(float amount)
-	{
-		// do nothing
-		return true;
-	}
+        maxAmount = nextLevelReq - thisLevelReq;
+        amount = gameProgress.getExperience() - thisLevelReq;
 
-	@Override
-	public void setLevel(int level)
-	{
-		// do nothing
-	}
+        notifyObservers();
+    }
+
+    @Override
+    public void destroy() {
+
+        gameProgress = backup;
+        update();
+    }
+
+    @Override
+    public boolean take(float amount) {
+
+        // do nothing
+        return true;
+    }
+
+    @Override
+    public void setLevel(int level) {
+
+        // do nothing
+    }
 }

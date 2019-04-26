@@ -1,16 +1,16 @@
 package spaceattack.game.utils.vector;
 
-public interface IVector
-{
-	public float getX();
+public interface IVector {
 
-	public float getY();
+    public float getX();
 
-	public float length();
+    public float getY();
 
-	public IVector normalize();
+    public float length();
 
-	public IVector copy();
+    public IVector normalize();
 
-	public void setY(float y);
+    public IVector copy();
+
+    public void setY(float y);
 }

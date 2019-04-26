@@ -19,63 +19,63 @@ import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.utils.vector.IVectorFactory;
 
-public class DirectChaserTest
-{
-	private DirectChaser mover;
+public class DirectChaserTest {
 
-	private FakeShip playerShip;
-	private IVectorFactory vectors;
+    private DirectChaser mover;
 
-	@Mock
-	private IEnemyShip owner;
+    private FakeShip playerShip;
+    private IVectorFactory vectors;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		playerShip = new FakeShip();
-		vectors = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(vectors);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    @Mock
+    private IEnemyShip owner;
 
-		playerShip.setX(100);
-		playerShip.setY(200);
-		playerShip.setRadius(15);
+    @Before
+    public void setUp() {
 
-		mover = new DirectChaser();
-		mover.setPlayerShip(playerShip);
-		mover.setOwner(owner);
-	}
+        MockitoAnnotations.initMocks(this);
+        playerShip = new FakeShip();
+        vectors = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(vectors);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-	@Test
-	public void whenShipIsMovingWait()
-	{
-		doReturn(true).when(owner).isMoving();
+        playerShip.setX(100);
+        playerShip.setY(200);
+        playerShip.setRadius(15);
 
-		mover.updateDirection();
+        mover = new DirectChaser();
+        mover.setPlayerShip(playerShip);
+        mover.setOwner(owner);
+    }
 
-		verify(owner, times(1)).setDestination(any(IVector.class));
-	}
+    @Test
+    public void whenShipIsMovingWait() {
 
-	@Test
-	public void whenShipIsNotMovingMove()
-	{
-		doReturn(false).when(owner).isMoving();
-		doReturn(vectors.create(400, 500)).when(owner).getPosition();
+        doReturn(true).when(owner).isMoving();
 
-		mover.updateDirection();
+        mover.updateDirection();
 
-		verify(owner, times(1)).setDestination(eq(vectors.create(100, 200)));
-	}
+        verify(owner, times(1)).setDestination(any(IVector.class));
+    }
 
-	@Test
-	public void standByInRadiusOfDestination()
-	{
-		doReturn(false).when(owner).isMoving();
-		doReturn(vectors.create(105, 205)).when(owner).getPosition();
+    @Test
+    public void whenShipIsNotMovingMove() {
 
-		mover.updateDirection();
+        doReturn(false).when(owner).isMoving();
+        doReturn(vectors.create(400, 500)).when(owner).getPosition();
 
-		verify(owner, times(1)).setDestination(any(IVector.class));
-	}
+        mover.updateDirection();
+
+        verify(owner, times(1)).setDestination(eq(vectors.create(100, 200)));
+    }
+
+    @Test
+    public void standByInRadiusOfDestination() {
+
+        doReturn(false).when(owner).isMoving();
+        doReturn(vectors.create(105, 205)).when(owner).getPosition();
+
+        mover.updateDirection();
+
+        verify(owner, times(1)).setDestination(any(IVector.class));
+    }
 }

@@ -15,34 +15,34 @@ import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.stages.UIStage;
 
-public class ChangeStageButtonListenerTest
-{
-	@Mock
-	private IGameStage stage;
+public class ChangeStageButtonListenerTest {
 
-	private ChangeStageButtonListener listener;
+    @Mock
+    private IGameStage stage;
 
-	private StageResult result;
+    private ChangeStageButtonListener listener;
 
-	@Before
-	public void setUp()
-	{
-		stage = mock(UIStage.class);
-		listener = new ChangeStageButtonListener(stage, Stages.MISSIONS);
+    private StageResult result;
 
-		GameProgress progress = new GameProgress();
-		result = new StageResult();
-		result.setNextStage(Stages.MISSIONS);
-		result.setGameProgress(progress);
+    @Before
+    public void setUp() {
 
-		doReturn(progress).when(stage).getGameProgress();
-	}
+        stage = mock(UIStage.class);
+        listener = new ChangeStageButtonListener(stage, Stages.MISSIONS);
 
-	@Test
-	public void listenerIsChangingStage()
-	{
-		listener.clicked();
+        GameProgress progress = new GameProgress();
+        result = new StageResult();
+        result.setNextStage(Stages.MISSIONS);
+        result.setGameProgress(progress);
 
-		verify(stage).setResult(eq(result));
-	}
+        doReturn(progress).when(stage).getGameProgress();
+    }
+
+    @Test
+    public void listenerIsChangingStage() {
+
+        listener.clicked();
+
+        verify(stage).setResult(eq(result));
+    }
 }

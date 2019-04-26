@@ -5,19 +5,18 @@ import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 
-public enum MinerBuilder
-{
-	INSTANCE;
+public enum MinerBuilder {
+    INSTANCE;
 
-	public IWeapon build(IWeaponController weaponController,MissilesLauncher missilesLauncher)
-	{
-		Miner miner = new Miner();
+    public IWeapon build(IWeaponController weaponController, MissilesLauncher missilesLauncher) {
 
-		miner.setUtils(Factories.getUtilsFactory().create());
-		miner.setController(weaponController);
-		miner.setMissilesLauncher(missilesLauncher);
-		miner.setLevel(1);
+        Miner miner = new Miner();
 
-		return miner;
-	}
+        miner.setUtils(Factories.getUtilsFactory().create());
+        miner.setController(weaponController);
+        miner.setMissilesLauncher(missilesLauncher);
+        miner.setLevel(1);
+
+        return miner;
+    }
 }

@@ -1,10 +1,10 @@
 package spaceattack.game.actors.interfaces;
 
-public interface RadarVisible
-{
-	public float getX();
+public interface RadarVisible {
 
-	public float getY();
+    public float getX();
 
-	public float getRadius();
+    public float getY();
+
+    public float getRadius();
 }

@@ -17,235 +17,232 @@ import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
 
-public abstract class Ship extends DrawableActor implements IShip
-{
-	protected ITexture currentTexture;
+public abstract class Ship extends DrawableActor implements IShip {
 
-	protected IEngine engine;
-	protected Set<IWeapon> weapons;
+    protected ITexture currentTexture;
 
-	private IPool energyPool;
-	private IPool hpPool;
+    protected IEngine engine;
+    protected Set<IWeapon> weapons;
 
-	private boolean isToKill;
-	private boolean exploded;
+    private IPool energyPool;
+    private IPool hpPool;
 
-	protected MissilesLauncher launcher;
-	private Launchable explosion;
+    private boolean isToKill;
+    private boolean exploded;
 
-	private Burner burner;
+    protected MissilesLauncher launcher;
+    private Launchable explosion;
 
-	@Override
-	public void setTexture(ITexture texture)
-	{
-		currentTexture = texture;
-	}
+    private Burner burner;
 
-	@Override
-	public void setShipEngine(IEngine engine)
-	{
-		this.engine = engine;
-	}
+    @Override
+    public void setTexture(ITexture texture) {
 
-	@Override
-	protected ITexture getTexture()
-	{
-		return currentTexture;
-	}
+        currentTexture = texture;
+    }
 
-	@Override
-	public void setDestination(IVector destination)
-	{
-		if (engine != null)
-			engine.setDestination(destination);
-	}
+    @Override
+    public void setShipEngine(IEngine engine) {
 
-	@Override
-	public void setEnergyPool(IPool pool)
-	{
-		energyPool = pool;
-	}
+        this.engine = engine;
+    }
 
-	@Override
-	public void setHpPool(IPool pool)
-	{
-		hpPool = pool;
-	}
+    @Override
+    protected ITexture getTexture() {
 
-	@Override
-	public void setBurner(Burner burner)
-	{
-		this.burner = burner;
-	}
+        return currentTexture;
+    }
 
-	@Override
-	public void act(float delta)
-	{
-		if (energyPool != null)
-			energyPool.update();
+    @Override
+    public void setDestination(IVector destination) {
 
-		if (hpPool != null)
-		{
-			hpPool.update();
-			burner.burn(delta);
-		}
+        if (engine != null)
+            engine.setDestination(destination);
+    }
 
-		if (engine != null)
-			fly();
-	}
+    @Override
+    public void setEnergyPool(IPool pool) {
 
-	protected void fly()
-	{
-		engine.fly();
-	}
+        energyPool = pool;
+    }
 
-	@Override
-	public void addWeapon(IWeapon weapon)
-	{
-		if (weapons == null)
-			weapons = new CopyOnWriteArraySet<>();
+    @Override
+    public void setHpPool(IPool pool) {
 
-		weapons.add(weapon);
-	}
+        hpPool = pool;
+    }
 
-	@Override
-	public Set<IWeapon> getWeapons()
-	{
-		return weapons;
-	}
+    @Override
+    public void setBurner(Burner burner) {
 
-	@Override
-	public void setLevel(int level)
-	{
-		if (engine != null)
-			engine.setLevel(level);
+        this.burner = burner;
+    }
 
-		if (energyPool != null)
-			energyPool.setLevel(level);
+    @Override
+    public void act(float delta) {
 
-		if (hpPool != null)
-			hpPool.setLevel(level);
+        if (energyPool != null)
+            energyPool.update();
 
-		if (weapons != null)
-			for (IWeapon weapon : weapons)
-				weapon.setLevel(level);
-	}
+        if (hpPool != null) {
+            hpPool.update();
+            burner.burn(delta);
+        }
 
-	@Override
-	public float getHeight()
-	{
-		return currentTexture.getHeight();
-	}
+        if (engine != null)
+            fly();
+    }
 
-	@Override
-	public float getWidth()
-	{
-		return currentTexture.getWidth();
-	}
+    protected void fly() {
 
-	@Override
-	public void takeDmg(float dmg)
-	{
-		if (!hpPool.take(dmg))
-		{
-			setToKill();
-			energyPool.destroy();
-		}
-	}
+        engine.fly();
+    }
 
-	@Override
-	public float getRadius()
-	{
-		return (getHeight() + getWidth()) * 0.25f;
-	}
+    @Override
+    public void addWeapon(IWeapon weapon) {
 
-	@Override
-	public IVector getPosition()
-	{
-		return Factories.getVectorFactory().create(getX(), getY());
-	}
+        if (weapons == null)
+            weapons = new CopyOnWriteArraySet<>();
 
-	@Override
-	public void setToKill()
-	{
-		if (!isToKill)
-		{
-			isToKill = true;
-			if(!isOutOfScreen())
-				explode();
-		}
-	}
+        weapons.add(weapon);
+    }
 
-	@Override
-	public boolean isToKill()
-	{
-		return isToKill;
-	}
+    @Override
+    public Set<IWeapon> getWeapons() {
 
-	@Override
-	public boolean takeEnergy(float energyCost)
-	{
-		return energyPool.take(energyCost);
-	}
+        return weapons;
+    }
 
-	@Override
-	public IPool getEnergyPool()
-	{
-		return energyPool;
-	}
+    @Override
+    public void setLevel(int level) {
 
-	@Override
-	public IPool getHpPool()
-	{
-		return hpPool;
-	}
+        if (engine != null)
+            engine.setLevel(level);
 
-	@Override
-	public void notify(GameProgress state)
-	{
-		setLevel(state.getLevel());
-	}
+        if (energyPool != null)
+            energyPool.setLevel(level);
 
-	@Override
-	public void setMissilesLauncher(MissilesLauncher launcher)
-	{
-		this.launcher = launcher;
-	}
+        if (hpPool != null)
+            hpPool.setLevel(level);
 
-	@Override
-	public void explode()
-	{
-		if (launcher == null || explosion == null)
-			return;
+        if (weapons != null)
+            for (IWeapon weapon : weapons)
+                weapon.setLevel(level);
+    }
 
-		exploded = true;
-		IActor actor = getActor();
-		explosion.getActor().setPosition(actor.getX(), actor.getY());
-		launcher.launch(explosion);
-	}
+    @Override
+    public float getHeight() {
 
-	@Override
-	public void setExplosion(Launchable explosion)
-	{
-		this.explosion = explosion;
-	}
+        return currentTexture.getHeight();
+    }
 
-	@Override
-	public void draw(IBatch batch,float alpha)
-	{
-		super.draw(batch, alpha);
-		burner.draw(batch);
-	}
+    @Override
+    public float getWidth() {
 
-	@Override
-	public void ignite(float burningDPS,long fireDuration)
-	{
-		burner.ignite(burningDPS, fireDuration);
-	}
+        return currentTexture.getWidth();
+    }
 
-	@Override
-	public boolean exploded()
-	{
-		return exploded;
-	}
+    @Override
+    public void takeDmg(float dmg) {
+
+        if (!hpPool.take(dmg)) {
+            setToKill();
+            energyPool.destroy();
+        }
+    }
+
+    @Override
+    public float getRadius() {
+
+        return (getHeight() + getWidth()) * 0.25f;
+    }
+
+    @Override
+    public IVector getPosition() {
+
+        return Factories.getVectorFactory().create(getX(), getY());
+    }
+
+    @Override
+    public void setToKill() {
+
+        if (!isToKill) {
+            isToKill = true;
+            if (!isOutOfScreen())
+                explode();
+        }
+    }
+
+    @Override
+    public boolean isToKill() {
+
+        return isToKill;
+    }
+
+    @Override
+    public boolean takeEnergy(float energyCost) {
+
+        return energyPool.take(energyCost);
+    }
+
+    @Override
+    public IPool getEnergyPool() {
+
+        return energyPool;
+    }
+
+    @Override
+    public IPool getHpPool() {
+
+        return hpPool;
+    }
+
+    @Override
+    public void notify(GameProgress state) {
+
+        setLevel(state.getLevel());
+    }
+
+    @Override
+    public void setMissilesLauncher(MissilesLauncher launcher) {
+
+        this.launcher = launcher;
+    }
+
+    @Override
+    public void explode() {
+
+        if (launcher == null || explosion == null)
+            return;
+
+        exploded = true;
+        IActor actor = getActor();
+        explosion.getActor().setPosition(actor.getX(), actor.getY());
+        launcher.launch(explosion);
+    }
+
+    @Override
+    public void setExplosion(Launchable explosion) {
+
+        this.explosion = explosion;
+    }
+
+    @Override
+    public void draw(IBatch batch, float alpha) {
+
+        super.draw(batch, alpha);
+        burner.draw(batch);
+    }
+
+    @Override
+    public void ignite(float burningDPS, long fireDuration) {
+
+        burner.ignite(burningDPS, fireDuration);
+    }
+
+    @Override
+    public boolean exploded() {
+
+        return exploded;
+    }
 }

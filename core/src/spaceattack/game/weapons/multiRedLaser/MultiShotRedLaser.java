@@ -5,30 +5,30 @@ import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.utils.vector.IVectorFactory;
 import spaceattack.game.weapons.redLaser.RedLaser;
 
-public abstract class MultiShotRedLaser extends RedLaser
-{
-	protected IVectorFactory vectors;
-	
-	MultiShotRedLaser()
-	{
-		super();
-		vectors = Factories.getVectorFactory();
-	}
+public abstract class MultiShotRedLaser extends RedLaser {
 
-	@Override
-	public boolean use()
-	{
-		if (!frameController.check())
-			return false;
+    protected IVectorFactory vectors;
 
-		if (!controller.takeEnergy(energyCost))
-			return false;
+    MultiShotRedLaser() {
 
-		IVector centralPosition = controller.getPrimaryWeaponUsePlacement();
-		
-		launchMissiles(centralPosition);
-		return true;
-	}
+        super();
+        vectors = Factories.getVectorFactory();
+    }
 
-	protected abstract void launchMissiles(IVector centralPosition);
+    @Override
+    public boolean use() {
+
+        if (!frameController.check())
+            return false;
+
+        if (!controller.takeEnergy(energyCost))
+            return false;
+
+        IVector centralPosition = controller.getPrimaryWeaponUsePlacement();
+
+        launchMissiles(centralPosition);
+        return true;
+    }
+
+    protected abstract void launchMissiles(IVector centralPosition);
 }

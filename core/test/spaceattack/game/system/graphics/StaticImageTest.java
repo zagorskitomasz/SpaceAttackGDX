@@ -12,31 +12,31 @@ import spaceattack.game.actors.IActorFactory;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.factories.Factories;
 
-public class StaticImageTest
-{
-	@Mock
-	private IBatch batch;
+public class StaticImageTest {
 
-	@Mock
-	private ITexture texture;
+    @Mock
+    private IBatch batch;
 
-	@Mock
-	private IActorFactory actorFactory;
+    @Mock
+    private ITexture texture;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		Factories.setActorFactory(actorFactory);
-	}
+    @Mock
+    private IActorFactory actorFactory;
 
-	@Test
-	public void drawsTextureOnBatchWithCoords()
-	{
-		StaticImage image = StaticImageFactory.INSTANCE.create(texture, 10, 480);
+    @Before
+    public void setUp() {
 
-		image.draw(batch, 0);
+        MockitoAnnotations.initMocks(this);
+        Factories.setActorFactory(actorFactory);
+    }
 
-		verify(batch).draw(texture, 10, Sizes.GAME_HEIGHT - 480, 0, 0);
-	}
+    @Test
+    public void drawsTextureOnBatchWithCoords() {
+
+        StaticImage image = StaticImageFactory.INSTANCE.create(texture, 10, 480);
+
+        image.draw(batch, 0);
+
+        verify(batch).draw(texture, 10, Sizes.GAME_HEIGHT - 480, 0, 0);
+    }
 }

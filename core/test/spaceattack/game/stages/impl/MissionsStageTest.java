@@ -17,241 +17,241 @@ import spaceattack.game.buttons.IButton;
 import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.Textures;
 
-public class MissionsStageTest
-{
-	@Mock
-	private StaticImage actLogo;
+public class MissionsStageTest {
 
-	@Mock
-	private IButton button;
+    @Mock
+    private StaticImage actLogo;
 
-	private MissionsStage stage;
+    @Mock
+    private IButton button;
 
-	private GameProgress progress;
+    private MissionsStage stage;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    private GameProgress progress;
 
-		stage = new MissionsStage();
-		progress = new GameProgress();
-		stage.addActLogoImage(actLogo);
-		stage.setAct(1);
+    @Before
+    public void setUp() {
 
-		Textures.loadForTest();
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void firstMissionIs0OnFreshGame()
-	{
-		stage.setAct(1);
+        stage = new MissionsStage();
+        progress = new GameProgress();
+        stage.addActLogoImage(actLogo);
+        stage.setAct(1);
 
-		assertEquals(1, stage.calculateMission(0));
-	}
+        Textures.loadForTest();
+    }
 
-	@Test
-	public void thirdMissionIs3OnFreshGame()
-	{
-		stage.setAct(1);
+    @Test
+    public void firstMissionIs0OnFreshGame() {
 
-		assertEquals(3, stage.calculateMission(2));
-	}
+        stage.setAct(1);
 
-	@Test
-	public void firstMissionIs7InThirdAct()
-	{
-		stage.setAct(3);
+        assertEquals(1, stage.calculateMission(0));
+    }
 
-		assertEquals(7, stage.calculateMission(0));
-	}
+    @Test
+    public void thirdMissionIs3OnFreshGame() {
 
-	@Test
-	public void thirdMissionIs9InThirdAct()
-	{
-		stage.setAct(3);
+        stage.setAct(1);
 
-		assertEquals(9, stage.calculateMission(2));
-	}
+        assertEquals(3, stage.calculateMission(2));
+    }
 
-	@Test
-	public void onFreshGameActIsSetToOne()
-	{
-		stage.setGameProgress(progress);
+    @Test
+    public void firstMissionIs7InThirdAct() {
 
-		assertEquals(1, stage.getAct());
-	}
+        stage.setAct(3);
 
-	@Test
-	public void onThirdMissionActIsSetToOne()
-	{
-		progress.setMission(3);
-		stage.setGameProgress(progress);
+        assertEquals(7, stage.calculateMission(0));
+    }
 
-		assertEquals(1, stage.getAct());
-	}
+    @Test
+    public void thirdMissionIs9InThirdAct() {
 
-	@Test
-	public void onFourthMissionActIsSetToTwo()
-	{
-		progress.setMission(4);
-		stage.setGameProgress(progress);
+        stage.setAct(3);
 
-		assertEquals(2, stage.getAct());
-	}
+        assertEquals(9, stage.calculateMission(2));
+    }
 
-	@Test
-	public void onSevenMissionActIsSetToThree()
-	{
-		progress.setMission(7);
-		stage.setGameProgress(progress);
+    @Test
+    public void onFreshGameActIsSetToOne() {
 
-		assertEquals(3, stage.getAct());
-	}
+        stage.setGameProgress(progress);
 
-	@Test
-	public void onNineMissionActIsSetToThree()
-	{
-		progress.setMission(9);
-		stage.setGameProgress(progress);
+        assertEquals(1, stage.getAct());
+    }
 
-		assertEquals(3, stage.getAct());
-	}
+    @Test
+    public void onThirdMissionActIsSetToOne() {
 
-	@Test
-	public void nextAct()
-	{
-		progress.setMission(4);
-		stage.setGameProgress(progress);
-		stage.nextAct();
+        progress.setMission(3);
+        stage.setGameProgress(progress);
 
-		assertEquals(3, stage.getAct());
-	}
+        assertEquals(1, stage.getAct());
+    }
 
-	@Test
-	public void previousAct()
-	{
-		progress.setMission(4);
-		stage.setGameProgress(progress);
-		stage.previousAct();
+    @Test
+    public void onFourthMissionActIsSetToTwo() {
 
-		assertEquals(1, stage.getAct());
-	}
+        progress.setMission(4);
+        stage.setGameProgress(progress);
 
-	@Test
-	public void missionIsEnabledIfLowerThanProgress()
-	{
-		progress.setMission(3);
-		stage.setGameProgress(progress);
+        assertEquals(2, stage.getAct());
+    }
 
-		doReturn(1).when(button).getGridPosition();
+    @Test
+    public void onSevenMissionActIsSetToThree() {
 
-		assertTrue(stage.isMissionButtonEnabled(button));
-	}
+        progress.setMission(7);
+        stage.setGameProgress(progress);
 
-	@Test
-	public void missionIsEnabledIfEqProgress()
-	{
-		progress.setMission(5);
-		stage.setGameProgress(progress);
+        assertEquals(3, stage.getAct());
+    }
 
-		doReturn(1).when(button).getGridPosition();
+    @Test
+    public void onNineMissionActIsSetToThree() {
 
-		assertTrue(stage.isMissionButtonEnabled(button));
-	}
+        progress.setMission(9);
+        stage.setGameProgress(progress);
 
-	@Test
-	public void missionIsDisabledIfHigherThanProgress()
-	{
-		progress.setMission(5);
-		stage.setGameProgress(progress);
+        assertEquals(3, stage.getAct());
+    }
 
-		doReturn(2).when(button).getGridPosition();
+    @Test
+    public void nextAct() {
 
-		assertFalse(stage.isMissionButtonEnabled(button));
-	}
+        progress.setMission(4);
+        stage.setGameProgress(progress);
+        stage.nextAct();
 
-	@Test
-	public void stageIsUpdatingButtonsEnabled()
-	{
-		stage.addButtonsEnabledPredicate(button, button->true);
+        assertEquals(3, stage.getAct());
+    }
 
-		stage.updateControls();
+    @Test
+    public void previousAct() {
 
-		verify(button).setEnabled(true);
-	}
+        progress.setMission(4);
+        stage.setGameProgress(progress);
+        stage.previousAct();
 
-	@Test
-	public void stageIsUpdatingButtonsVisible()
-	{
-		stage.addButtonsVisiblePredicate(button, button->true);
+        assertEquals(1, stage.getAct());
+    }
 
-		stage.updateControls();
+    @Test
+    public void missionIsEnabledIfLowerThanProgress() {
 
-		verify(button).setVisible(true);
-	}
+        progress.setMission(3);
+        stage.setGameProgress(progress);
 
-	@Test
-	public void stageIsUpdatingButtonsText()
-	{
-		String test = "Test";
-		stage.addButtonsTextFunction(button, button->test);
+        doReturn(1).when(button).getGridPosition();
 
-		stage.updateControls();
+        assertTrue(stage.isMissionButtonEnabled(button));
+    }
 
-		verify(button).setText(test);
-	}
+    @Test
+    public void missionIsEnabledIfEqProgress() {
 
-	@Test
-	public void actLogoImageIsUpdated()
-	{
-		stage.setAct(3);
+        progress.setMission(5);
+        stage.setGameProgress(progress);
 
-		stage.updateControls();
+        doReturn(1).when(button).getGridPosition();
 
-		verify(actLogo).setTexture(any());
-	}
+        assertTrue(stage.isMissionButtonEnabled(button));
+    }
 
-	@Test
-	public void prevActIsHiddenInFirstAct()
-	{
-		progress.setMission(2);
+    @Test
+    public void missionIsDisabledIfHigherThanProgress() {
 
-		stage.setGameProgress(progress);
+        progress.setMission(5);
+        stage.setGameProgress(progress);
 
-		assertFalse(stage.isPreviousActButtonVisible(button));
-	}
+        doReturn(2).when(button).getGridPosition();
 
-	@Test
-	public void nextActIsHiddenInThirdAct()
-	{
-		progress.setMission(9);
-		stage.setGameProgress(progress);
-		assertFalse(stage.isNextActButtonVisible(button));
-	}
+        assertFalse(stage.isMissionButtonEnabled(button));
+    }
 
-	@Test
-	public void nextActIsHiddenIfMissionInCurrentAct1()
-	{
-		progress.setMission(5);
-		stage.setGameProgress(progress);
-		assertFalse(stage.isNextActButtonVisible(button));
-	}
+    @Test
+    public void stageIsUpdatingButtonsEnabled() {
 
-	@Test
-	public void nextActIsHiddenIfMissionInCurrentAct2()
-	{
-		progress.setMission(5);
-		stage.setGameProgress(progress);
-		assertFalse(stage.isNextActButtonVisible(button));
-	}
+        stage.addButtonsEnabledPredicate(button, button -> true);
 
-	@Test
-	public void nextActIsVisibleIfMissionAboveCurrentAct()
-	{
-		progress.setMission(5);
-		stage.setGameProgress(progress);
-		stage.previousAct();
-		assertTrue(stage.isNextActButtonVisible(button));
-	}
+        stage.updateControls();
+
+        verify(button).setEnabled(true);
+    }
+
+    @Test
+    public void stageIsUpdatingButtonsVisible() {
+
+        stage.addButtonsVisiblePredicate(button, button -> true);
+
+        stage.updateControls();
+
+        verify(button).setVisible(true);
+    }
+
+    @Test
+    public void stageIsUpdatingButtonsText() {
+
+        String test = "Test";
+        stage.addButtonsTextFunction(button, button -> test);
+
+        stage.updateControls();
+
+        verify(button).setText(test);
+    }
+
+    @Test
+    public void actLogoImageIsUpdated() {
+
+        stage.setAct(3);
+
+        stage.updateControls();
+
+        verify(actLogo).setTexture(any());
+    }
+
+    @Test
+    public void prevActIsHiddenInFirstAct() {
+
+        progress.setMission(2);
+
+        stage.setGameProgress(progress);
+
+        assertFalse(stage.isPreviousActButtonVisible(button));
+    }
+
+    @Test
+    public void nextActIsHiddenInThirdAct() {
+
+        progress.setMission(9);
+        stage.setGameProgress(progress);
+        assertFalse(stage.isNextActButtonVisible(button));
+    }
+
+    @Test
+    public void nextActIsHiddenIfMissionInCurrentAct1() {
+
+        progress.setMission(5);
+        stage.setGameProgress(progress);
+        assertFalse(stage.isNextActButtonVisible(button));
+    }
+
+    @Test
+    public void nextActIsHiddenIfMissionInCurrentAct2() {
+
+        progress.setMission(5);
+        stage.setGameProgress(progress);
+        assertFalse(stage.isNextActButtonVisible(button));
+    }
+
+    @Test
+    public void nextActIsVisibleIfMissionAboveCurrentAct() {
+
+        progress.setMission(5);
+        stage.setGameProgress(progress);
+        stage.previousAct();
+        assertTrue(stage.isNextActButtonVisible(button));
+    }
 }

@@ -23,64 +23,65 @@ import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.missiles.FakeLauncher;
 
-public class TripleGreenLaserTest
-{
-	@Mock
-	private IWeaponController controller;
+public class TripleGreenLaserTest {
 
-	private FakeLauncher launcher;
+    @Mock
+    private IWeaponController controller;
 
-	@Mock
-	private IActorFactory factory;
+    private FakeLauncher launcher;
 
-	private TripleGreenLaser tripleGreenLaser;
+    @Mock
+    private IActorFactory factory;
 
-	@Before
-	public void setUp()
-	{
-		launcher = new FakeLauncher(null);
-		initMocks(this);
-		Textures.loadForTest();
-		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
-		Factories.setActorFactory(factory);
+    private TripleGreenLaser tripleGreenLaser;
 
-		tripleGreenLaser = new TripleGreenLaser();
+    @Before
+    public void setUp() {
 
-		tripleGreenLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
-		tripleGreenLaser.setController(controller);
-		tripleGreenLaser.setMissilesLauncher(launcher);
-		tripleGreenLaser.setLevel(1);
+        launcher = new FakeLauncher(null);
+        initMocks(this);
+        Textures.loadForTest();
+        Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+        Factories.setActorFactory(factory);
 
-		doReturn(true).when(controller).takeEnergy(anyFloat());
-		doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getSecondaryWeaponUsePlacement();
-		doReturn(new FakeActor()).doReturn(new FakeActor()).doReturn(new FakeActor()).when(factory).create(any(IGameActor.class));
-	}
+        tripleGreenLaser = new TripleGreenLaser();
 
-	@Test
-	public void energyCostIsDuplicated()
-	{
-		tripleGreenLaser.setLevel(5);
-		assertEquals(64f, tripleGreenLaser.getEnergyCost(),0f);
-	}
+        tripleGreenLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
+        tripleGreenLaser.setController(controller);
+        tripleGreenLaser.setMissilesLauncher(launcher);
+        tripleGreenLaser.setLevel(1);
 
-	@Test
-	public void launchingThreeMissiles()
-	{
-		tripleGreenLaser.use();
-		assertEquals(3, launcher.getLaunched().size());
-	}
-	
-	@Test
-	public void missilesAreMoved()
-	{
-		tripleGreenLaser.use();
-		
-		List<Launchable> launched = launcher.getLaunched();
-		
-		assertEquals(50, launched.get(0).getActor().getX(), 0);
-		assertEquals(150, launched.get(1).getActor().getX(), 0);
-		assertEquals(100, launched.get(2).getActor().getX(), 0);
+        doReturn(true).when(controller).takeEnergy(anyFloat());
+        doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getSecondaryWeaponUsePlacement();
+        doReturn(new FakeActor()).doReturn(new FakeActor()).doReturn(new FakeActor()).when(factory)
+                .create(any(IGameActor.class));
+    }
 
-		assertEquals(80, launched.get(2).getActor().getY(), 0);
-	}
+    @Test
+    public void energyCostIsDuplicated() {
+
+        tripleGreenLaser.setLevel(5);
+        assertEquals(64f, tripleGreenLaser.getEnergyCost(), 0f);
+    }
+
+    @Test
+    public void launchingThreeMissiles() {
+
+        tripleGreenLaser.use();
+        assertEquals(3, launcher.getLaunched().size());
+    }
+
+    @Test
+    public void missilesAreMoved() {
+
+        tripleGreenLaser.use();
+
+        List<Launchable> launched = launcher.getLaunched();
+
+        assertEquals(50, launched.get(0).getActor().getX(), 0);
+        assertEquals(150, launched.get(1).getActor().getX(), 0);
+        assertEquals(100, launched.get(2).getActor().getX(), 0);
+
+        assertEquals(80, launched.get(2).getActor().getY(), 0);
+    }
 }

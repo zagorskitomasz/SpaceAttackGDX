@@ -16,42 +16,42 @@ import spaceattack.game.ships.FakeShip;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.utils.vector.IVectorFactory;
 
-public class RightSideChaserTest
-{
-	private RightSideChaser mover;
+public class RightSideChaserTest {
 
-	private FakeShip playerShip;
-	private IVectorFactory vectors;
+    private RightSideChaser mover;
 
-	@Mock
-	private IEnemyShip owner;
+    private FakeShip playerShip;
+    private IVectorFactory vectors;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		playerShip = new FakeShip();
-		vectors = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(vectors);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    @Mock
+    private IEnemyShip owner;
 
-		playerShip.setX(100);
-		playerShip.setY(200);
-		playerShip.setRadius(15);
+    @Before
+    public void setUp() {
 
-		mover = new RightSideChaser();
-		mover.setPlayerShip(playerShip);
-		mover.setOwner(owner);
-	}
+        MockitoAnnotations.initMocks(this);
+        playerShip = new FakeShip();
+        vectors = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(vectors);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-	@Test
-	public void keepRightFromPlayerShip()
-	{
-		doReturn(false).when(owner).isMoving();
-		doReturn(vectors.create(400, 500)).when(owner).getPosition();
+        playerShip.setX(100);
+        playerShip.setY(200);
+        playerShip.setRadius(15);
 
-		mover.updateDirection();
+        mover = new RightSideChaser();
+        mover.setPlayerShip(playerShip);
+        mover.setOwner(owner);
+    }
 
-		verify(owner).setDestination(eq(vectors.create(130, 200)));
-	}
+    @Test
+    public void keepRightFromPlayerShip() {
+
+        doReturn(false).when(owner).isMoving();
+        doReturn(vectors.create(400, 500)).when(owner).getPosition();
+
+        mover.updateDirection();
+
+        verify(owner).setDestination(eq(vectors.create(130, 200)));
+    }
 }

@@ -17,79 +17,79 @@ import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeapon;
 
-public class ComplexFireButtonTest
-{
-	private ComplexFireButton button;
+public class ComplexFireButtonTest {
 
-	@Mock
-	private IWeapon mainWeapon;
+    private ComplexFireButton button;
 
-	@Mock
-	private IWeapon specialWeapon;
+    @Mock
+    private IWeapon mainWeapon;
 
-	@Mock
-	private IImageButton imageButton;
+    @Mock
+    private IWeapon specialWeapon;
 
-	@Mock
-	private ITexture texture;
+    @Mock
+    private IImageButton imageButton;
 
-	@Mock
-	private IBatch batch;
+    @Mock
+    private ITexture texture;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    @Mock
+    private IBatch batch;
 
-		Textures.loadForTest();
-		button = new ComplexFireButton();
-		button.setImageButton(imageButton);
-		button.setMainWeapon(mainWeapon);
-		doReturn(true).when(mainWeapon).use();
-		doReturn(true).when(specialWeapon).use();
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void afterSettingSpecialWeaponIsUsedToPerformAttacks()
-	{
-		button.setSpecialWeapon(specialWeapon, 3, texture);
+        MockitoAnnotations.initMocks(this);
 
-		button.fire();
+        Textures.loadForTest();
+        button = new ComplexFireButton();
+        button.setImageButton(imageButton);
+        button.setMainWeapon(mainWeapon);
+        doReturn(true).when(mainWeapon).use();
+        doReturn(true).when(specialWeapon).use();
+    }
 
-		verify(mainWeapon, times(0)).use();
-		verify(specialWeapon).use();
-	}
+    @Test
+    public void afterSettingSpecialWeaponIsUsedToPerformAttacks() {
 
-	@Test
-	public void afterUsingAmmonReturnToMainWeapon()
-	{
-		button.setSpecialWeapon(specialWeapon, 3, texture);
+        button.setSpecialWeapon(specialWeapon, 3, texture);
 
-		button.fire();
-		button.fire();
-		button.fire();
-		button.fire();
+        button.fire();
 
-		verify(mainWeapon, times(1)).use();
-		verify(specialWeapon, times(3)).use();
-	}
+        verify(mainWeapon, times(0)).use();
+        verify(specialWeapon).use();
+    }
 
-	@Test
-	public void weaponIconIsDrawn()
-	{
-		button.draw(batch, 0);
-		verify(batch, times(0)).draw(eq(texture), anyFloat(), anyFloat());
+    @Test
+    public void afterUsingAmmonReturnToMainWeapon() {
 
-		button.setSpecialWeapon(specialWeapon, 3, texture);
+        button.setSpecialWeapon(specialWeapon, 3, texture);
 
-		button.draw(batch, 0);
-		verify(batch, times(3)).draw(eq(texture), anyFloat(), anyFloat());
+        button.fire();
+        button.fire();
+        button.fire();
+        button.fire();
 
-		button.fire();
-		button.fire();
-		button.fire();
+        verify(mainWeapon, times(1)).use();
+        verify(specialWeapon, times(3)).use();
+    }
 
-		button.draw(batch, 0);
-		verify(batch, times(3)).draw(eq(texture), anyFloat(), anyFloat());
-	}
+    @Test
+    public void weaponIconIsDrawn() {
+
+        button.draw(batch, 0);
+        verify(batch, times(0)).draw(eq(texture), anyFloat(), anyFloat());
+
+        button.setSpecialWeapon(specialWeapon, 3, texture);
+
+        button.draw(batch, 0);
+        verify(batch, times(3)).draw(eq(texture), anyFloat(), anyFloat());
+
+        button.fire();
+        button.fire();
+        button.fire();
+
+        button.draw(batch, 0);
+        verify(batch, times(3)).draw(eq(texture), anyFloat(), anyFloat());
+    }
 }

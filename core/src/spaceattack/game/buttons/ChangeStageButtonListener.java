@@ -5,34 +5,34 @@ import spaceattack.game.StageResult;
 import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.Stages;
 
-public class ChangeStageButtonListener implements IListener
-{
-	protected IGameStage stage;
-	protected Stages nextStage;
+public class ChangeStageButtonListener implements IListener {
 
-	public ChangeStageButtonListener(IGameStage stage,Stages nextStage)
-	{
-		this.stage = stage;
-		this.nextStage = nextStage;
-	}
+    protected IGameStage stage;
+    protected Stages nextStage;
 
-	@Override
-	public void clicked()
-	{
-		finalizeStage();
-	}
+    public ChangeStageButtonListener(IGameStage stage, Stages nextStage) {
 
-	public void finalizeStage()
-	{
-		stage.setResult(createResult(stage.getGameProgress()));
-	}
+        this.stage = stage;
+        this.nextStage = nextStage;
+    }
 
-	protected StageResult createResult(GameProgress progress)
-	{
-		StageResult result = new StageResult();
-		result.setNextStage(nextStage);
-		result.setGameProgress(progress);
+    @Override
+    public void clicked() {
 
-		return result;
-	}
+        finalizeStage();
+    }
+
+    public void finalizeStage() {
+
+        stage.setResult(createResult(stage.getGameProgress()));
+    }
+
+    protected StageResult createResult(GameProgress progress) {
+
+        StageResult result = new StageResult();
+        result.setNextStage(nextStage);
+        result.setGameProgress(progress);
+
+        return result;
+    }
 }
