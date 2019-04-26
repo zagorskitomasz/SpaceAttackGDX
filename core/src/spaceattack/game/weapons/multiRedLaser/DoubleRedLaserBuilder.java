@@ -1,4 +1,4 @@
-package spaceattack.game.weapons.doubleRedLaser;
+package spaceattack.game.weapons.multiRedLaser;
 
 import spaceattack.game.factories.Factories;
 import spaceattack.game.weapons.IWeapon;

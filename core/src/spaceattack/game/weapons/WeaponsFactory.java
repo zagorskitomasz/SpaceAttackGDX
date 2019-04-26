@@ -1,8 +1,8 @@
 package spaceattack.game.weapons;
 
-import spaceattack.game.weapons.doubleRedLaser.DoubleRedLaserBuilder;
 import spaceattack.game.weapons.greenLaser.GreenLaserBuilder;
 import spaceattack.game.weapons.miner.MinerBuilder;
+import spaceattack.game.weapons.multiRedLaser.DoubleRedLaserBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 

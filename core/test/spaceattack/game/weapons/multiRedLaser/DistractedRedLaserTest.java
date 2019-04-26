@@ -1,4 +1,4 @@
-package spaceattack.game.weapons.doubleRedLaser;
+package spaceattack.game.weapons.multiRedLaser;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,7 +23,7 @@ import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.missiles.FakeLauncher;
 
-public class DoubleRedLaserTest
+public class DistractedRedLaserTest
 {
 	@Mock
 	private IWeaponController controller;
@@ -33,7 +33,7 @@ public class DoubleRedLaserTest
 	@Mock
 	private IActorFactory factory;
 
-	private DoubleRedLaser laser;
+	private DistractedRedLaser laser;
 
 	@Before
 	public void setUp()
@@ -44,7 +44,7 @@ public class DoubleRedLaserTest
 		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 		Factories.setActorFactory(factory);
 
-		laser = new DoubleRedLaser();
+		laser = new DistractedRedLaser();
 
 		laser.setUtils(ExtUtilsFactory.INSTANCE.create());
 		laser.setController(controller);
@@ -54,13 +54,14 @@ public class DoubleRedLaserTest
 		doReturn(true).when(controller).takeEnergy(anyFloat());
 		doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getPrimaryWeaponUsePlacement();
 		doReturn(new FakeActor()).doReturn(new FakeActor()).doReturn(new FakeActor()).when(factory).create(any(IGameActor.class));
+		doReturn(ExtVectorFactory.INSTANCE.create(0, -1)).when(controller).getWeaponMovement();
 	}
 
 	@Test
-	public void launchingThreeMissiles()
+	public void launchingTwoMissiles()
 	{
 		laser.use();
-		assertEquals(2, launcher.getLaunched().size());
+		assertEquals(3, launcher.getLaunched().size());
 	}
 	
 	@Test
@@ -70,7 +71,8 @@ public class DoubleRedLaserTest
 		
 		List<Launchable> launched = launcher.getLaunched();
 		
-		assertEquals(75, launched.get(0).getActor().getX(), 0);
-		assertEquals(125, launched.get(1).getActor().getX(), 0);
+		assertEquals(50, launched.get(0).getActor().getX(), 0);
+		assertEquals(150, launched.get(1).getActor().getX(), 0);
+		assertEquals(100, launched.get(2).getActor().getX(), 0);
 	}
 }
