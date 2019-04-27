@@ -4,11 +4,11 @@ import java.util.List;
 
 import spaceattack.game.actors.IGameActor;
 
-public interface Launchable extends IGameActor
-{
-	public void setActors(List<IGameActor> actors);
+public interface Launchable extends IGameActor {
 
-	public void playSound();
+    public void setActors(List<IGameActor> actors);
 
-	public void launched();
+    public void playSound();
+
+    public void launched();
 }

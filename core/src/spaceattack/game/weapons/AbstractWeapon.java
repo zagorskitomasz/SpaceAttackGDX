@@ -1,57 +1,96 @@
 package spaceattack.game.weapons;
 
 import spaceattack.consts.Consts;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
+import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.missiles.Missile;
 
-public abstract class AbstractWeapon implements IWeapon
-{
-	@SuppressWarnings("unused")
-	private IUtils utils;
-	protected FrameController frameController;
-	protected IWeaponController controller;
-	protected MissilesLauncher launcher;
+public abstract class AbstractWeapon implements IWeapon {
 
-	protected float dmg;
-	protected float speed;
-	protected float energyCost;
+    @SuppressWarnings("unused")
+    private IUtils utils;
+    protected FrameController frameController;
+    protected IWeaponController controller;
+    protected MissilesLauncher launcher;
 
-	protected abstract Missile buildMissile();
+    protected float dmg;
+    protected float speed;
+    protected float energyCost;
 
-	public void setUtils(IUtils utils)
-	{
-		this.utils = utils;
-		frameController = new FrameController(utils, Consts.Weapons.LASER_ATTACKS_PER_SECOND);
-	}
+    protected abstract Missile buildMissile();
 
-	public void setController(IWeaponController weaponController)
-	{
-		this.controller = weaponController;
-	}
+    public void setUtils(final IUtils utils) {
 
-	public void setMissilesLauncher(MissilesLauncher missilesLauncher)
-	{
-		launcher = missilesLauncher;
-	}
+        this.utils = utils;
+        frameController = new FrameController(utils, Consts.Weapons.LASER_ATTACKS_PER_SECOND);
+    }
 
-	@Override
-	public boolean use()
-	{
-		if (!frameController.check())
-			return false;
+    public void setController(final IWeaponController weaponController) {
 
-		if (!controller.takeEnergy(energyCost))
-			return false;
+        this.controller = weaponController;
+    }
 
-		Missile missile = buildMissile();
-		launcher.launch(missile);
-		return true;
-	}
+    public void setMissilesLauncher(final MissilesLauncher missilesLauncher) {
 
-	@Override
-	public float getEnergyCost()
-	{
-		return energyCost;
-	}
+        launcher = missilesLauncher;
+    }
+
+    @Override
+    public boolean use() {
+
+        if (!frameController.check()) {
+            return false;
+        }
+
+        if (!controller.takeEnergy(energyCost)) {
+            return false;
+        }
+
+        Missile missile = buildMissile();
+        launcher.launch(missile);
+        return true;
+    }
+
+    @Override
+    public float getEnergyCost() {
+
+        return energyCost;
+    }
+
+    protected IVector calculateTargetedShotPosition(final float distanceFromShip) {
+
+        IVector shipCoords = controller.getPrimaryWeaponUsePlacement();
+        IVector movement = controller.getTargetedWeaponMovement();
+        float xDirection = movement.getX();
+        float yDirection = movement.getY();
+
+        float x;
+        float y;
+
+        if (xDirection < 0) {
+            x = shipCoords.getX() - controller.getShipsWidth() * distanceFromShip;
+        }
+        else
+            if (xDirection > 0) {
+                x = shipCoords.getX() + controller.getShipsWidth() * distanceFromShip;
+            }
+            else {
+                x = shipCoords.getX();
+            }
+
+        if (yDirection < 0) {
+            y = shipCoords.getY() - controller.getShipsHeight() * distanceFromShip;
+        }
+        else
+            if (yDirection > 0) {
+                y = shipCoords.getY() + controller.getShipsHeight() * distanceFromShip;
+            }
+            else {
+                y = shipCoords.getY();
+            }
+
+        return Factories.getVectorFactory().create(x, y);
+    }
 }

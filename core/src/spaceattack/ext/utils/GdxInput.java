@@ -4,61 +4,61 @@ import com.badlogic.gdx.InputProcessor;
 
 import spaceattack.game.input.IInputProcessor;
 
-class GdxInput implements InputProcessor
-{
-	private IInputProcessor inputProcessor;
+class GdxInput implements InputProcessor {
 
-	public GdxInput(IInputProcessor inputProcessor)
-	{
-		this.inputProcessor = inputProcessor;
-	}
+    private IInputProcessor inputProcessor;
 
-	@Override
-	public boolean keyDown(int keycode)
-	{
-		return inputProcessor.keyDown(keycode);
-	}
+    public GdxInput(IInputProcessor inputProcessor) {
 
-	@Override
-	public boolean keyUp(int keycode)
-	{
-		return inputProcessor.keyUp(keycode);
-	}
+        this.inputProcessor = inputProcessor;
+    }
 
-	@Override
-	public boolean keyTyped(char character)
-	{
-		return inputProcessor.keyTyped(character);
-	}
+    @Override
+    public boolean keyDown(int keycode) {
 
-	@Override
-	public boolean touchDown(int screenX,int screenY,int pointer,int button)
-	{
-		return inputProcessor.touchDown(screenX, screenY, pointer, button);
-	}
+        return inputProcessor.keyDown(keycode);
+    }
 
-	@Override
-	public boolean touchUp(int screenX,int screenY,int pointer,int button)
-	{
-		return inputProcessor.touchUp(screenX, screenY, pointer, button);
-	}
+    @Override
+    public boolean keyUp(int keycode) {
 
-	@Override
-	public boolean touchDragged(int screenX,int screenY,int pointer)
-	{
-		return inputProcessor.touchDragged(screenX, screenY, pointer);
-	}
+        return inputProcessor.keyUp(keycode);
+    }
 
-	@Override
-	public boolean mouseMoved(int screenX,int screenY)
-	{
-		return inputProcessor.mouseMoved(screenX, screenY);
-	}
+    @Override
+    public boolean keyTyped(char character) {
 
-	@Override
-	public boolean scrolled(int amount)
-	{
-		return inputProcessor.scrolled(amount);
-	}
+        return inputProcessor.keyTyped(character);
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        return inputProcessor.touchDown(screenX, screenY, pointer, button);
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+        return inputProcessor.touchUp(screenX, screenY, pointer, button);
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+
+        return inputProcessor.touchDragged(screenX, screenY, pointer);
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+
+        return inputProcessor.mouseMoved(screenX, screenY);
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+
+        return inputProcessor.scrolled(amount);
+    }
 
 }

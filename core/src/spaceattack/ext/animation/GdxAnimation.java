@@ -10,30 +10,30 @@ import spaceattack.ext.texture.GdxTextureReg;
 import spaceattack.game.system.graphics.IAnimation;
 import spaceattack.game.system.graphics.ITexture;
 
-public class GdxAnimation implements IAnimation
-{
-	private Animation<TextureRegion> gdxAnimation;
-	float elapsed = 0;
+public class GdxAnimation implements IAnimation {
 
-	public GdxAnimation(String path,boolean loop,float fps)
-	{
-		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(path));
-		gdxAnimation = new Animation<>(1 / fps, atlas.getRegions(), loop ? PlayMode.LOOP : PlayMode.NORMAL);
-	}
+    private Animation<TextureRegion> gdxAnimation;
+    float elapsed = 0;
 
-	@Override
-	public ITexture getFrame()
-	{
-		this.elapsed += Gdx.graphics.getDeltaTime();
+    public GdxAnimation(String path, boolean loop, float fps) {
 
-		TextureRegion textureRegion = gdxAnimation.getKeyFrame(elapsed);
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(path));
+        gdxAnimation = new Animation<>(1 / fps, atlas.getRegions(), loop ? PlayMode.LOOP : PlayMode.NORMAL);
+    }
 
-		return new GdxTextureReg(textureRegion);
-	}
+    @Override
+    public ITexture getFrame() {
 
-	@Override
-	public boolean isCompleted()
-	{
-		return gdxAnimation.isAnimationFinished(elapsed);
-	}
+        this.elapsed += Gdx.graphics.getDeltaTime();
+
+        TextureRegion textureRegion = gdxAnimation.getKeyFrame(elapsed);
+
+        return new GdxTextureReg(textureRegion);
+    }
+
+    @Override
+    public boolean isCompleted() {
+
+        return gdxAnimation.isAnimationFinished(elapsed);
+    }
 }

@@ -23,97 +23,97 @@ import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.utils.vector.IVectorFactory;
 import spaceattack.game.weapons.IWeapon;
 
-public class FireButtonTest
-{
-	@Mock
-	private IImageButton extButton;
+public class FireButtonTest {
 
-	@Mock
-	private IWeapon weapon;
+    @Mock
+    private IImageButton extButton;
 
-	private FireButton fireButton;
+    @Mock
+    private IWeapon weapon;
 
-	private IVectorFactory factory;
+    private FireButton fireButton;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    private IVectorFactory factory;
 
-		factory = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(factory);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    @Before
+    public void setUp() {
 
-		doReturn(80f).when(extButton).getWidth();
-		doReturn(80f).when(extButton).getHeight();
+        MockitoAnnotations.initMocks(this);
 
-		fireButton = new FireButton();
-		fireButton.setImageButton(extButton);
-		fireButton.setWeapon(weapon);
-		fireButton.setPosition(160, 160);
-	}
+        factory = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(factory);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-	@Test
-	public void touchingCenterOfButtonIsFiringWeapon()
-	{
-		doReturn(factory.create(200, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
+        doReturn(80f).when(extButton).getWidth();
+        doReturn(80f).when(extButton).getHeight();
 
-		boolean result = fireButton.touchUp(200, 200);
+        fireButton = new FireButton();
+        fireButton.setImageButton(extButton);
+        fireButton.setWeapon(weapon);
+        fireButton.setPosition(160, 160);
+    }
 
-		verify(weapon).use();
-		assertTrue(result);
-	}
+    @Test
+    public void touchingCenterOfButtonIsFiringWeapon() {
 
-	@Test
-	public void touchingBorderOfButtonIsFiringWeapon()
-	{
-		doReturn(factory.create(239, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
+        doReturn(factory.create(200, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
 
-		boolean result = fireButton.touchUp(239, 200);
+        boolean result = fireButton.touchUp(200, 200);
 
-		verify(weapon).use();
-		assertTrue(result);
-	}
+        verify(weapon).use();
+        assertTrue(result);
+    }
 
-	@Test
-	public void touchingOutOfBorderOfButtonIsNotFiringWeapon()
-	{
-		doReturn(factory.create(241, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
-		boolean result = fireButton.touchUp(241, 200);
+    @Test
+    public void touchingBorderOfButtonIsFiringWeapon() {
 
-		verify(weapon, times(0)).use();
-		assertFalse(result);
-	}
+        doReturn(factory.create(239, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
 
-	@Test
-	public void cornerIsExcluded()
-	{
-		doReturn(factory.create(238, 238)).when(extButton).screenToStageCoordinates(any(IVector.class));
-		boolean result = fireButton.touchUp(238, 238);
+        boolean result = fireButton.touchUp(239, 200);
 
-		verify(weapon, times(0)).use();
-		assertFalse(result);
-	}
+        verify(weapon).use();
+        assertTrue(result);
+    }
 
-	@Test
-	public void releasingOutsideButtonIsUnpressing()
-	{
-		doReturn(factory.create(238, 238)).when(extButton).screenToStageCoordinates(any(IVector.class));
-		doReturn(true).when(extButton).isPressed();
-		boolean result = fireButton.touchUp(238, 238);
+    @Test
+    public void touchingOutOfBorderOfButtonIsNotFiringWeapon() {
 
-		verify(extButton).fire(any(InputType.class));
-		assertFalse(result);
-	}
+        doReturn(factory.create(241, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
+        boolean result = fireButton.touchUp(241, 200);
 
-	@Test
-	public void disabledWhenNotifiedAndNotEnoughEnergy()
-	{
-		doReturn(100f).when(weapon).getEnergyCost();
-		IPool pool = new Pool(10, 10, 10, 10);
-		fireButton.setEnergyPool(pool);
-		pool.update();
+        verify(weapon, times(0)).use();
+        assertFalse(result);
+    }
 
-		verify(extButton).setEnabled(false);
-	}
+    @Test
+    public void cornerIsExcluded() {
+
+        doReturn(factory.create(238, 238)).when(extButton).screenToStageCoordinates(any(IVector.class));
+        boolean result = fireButton.touchUp(238, 238);
+
+        verify(weapon, times(0)).use();
+        assertFalse(result);
+    }
+
+    @Test
+    public void releasingOutsideButtonIsUnpressing() {
+
+        doReturn(factory.create(238, 238)).when(extButton).screenToStageCoordinates(any(IVector.class));
+        doReturn(true).when(extButton).isPressed();
+        boolean result = fireButton.touchUp(238, 238);
+
+        verify(extButton).fire(any(InputType.class));
+        assertFalse(result);
+    }
+
+    @Test
+    public void disabledWhenNotifiedAndNotEnoughEnergy() {
+
+        doReturn(100f).when(weapon).getEnergyCost();
+        IPool pool = new Pool(10, 10, 10, 10);
+        fireButton.setEnergyPool(pool);
+        pool.update();
+
+        verify(extButton).setEnabled(false);
+    }
 }

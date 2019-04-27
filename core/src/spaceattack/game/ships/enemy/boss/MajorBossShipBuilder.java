@@ -18,66 +18,96 @@ import spaceattack.game.weapons.AIWeaponController;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.miner.FlyingMinerBuilder;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
+import spaceattack.game.weapons.multiRedLaser.DistractedRedLaserBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
-public enum MajorBossShipBuilder 
-{
-	INSTANCE;
+public enum MajorBossShipBuilder {
+    INSTANCE;
 
-	public IBoss buildActI(GameplayStage stage)
-	{
-		return build(stage);
-	}
+    public IBoss buildActI(final GameplayStage stage) {
 
-	private IBoss build(GameplayStage stage)
-	{
-		IBoss boss = new BossShip();
-		boss.setDefaultMoverType(MoverType.ALL_CORNERS_CHASER);
-		boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
-		MissilesLauncher launcher = stage.getMissilesLauncher();
-		IWeaponController controller = new AIWeaponController();
-		IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
-		IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
-		IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
-		Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
+        IBoss boss = build(stage);
 
-		Burner burner = BurnerBuilder.INSTANCE.build(boss);
+        boss.setDefaultMoverType(MoverType.ALL_CORNERS_CHASER);
+        boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
 
-		IPool energyPool = new Pool(
-				Consts.Pools.MAJOR_BOSS_ENERGY_BASE_AMOUNT, 
-				Consts.Pools.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL, 
-				Consts.Pools.MAJOR_BOSS_ENERGY_BASE_REGEN,
-				Consts.Pools.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
-		IPool hpPool = new HpPool(
-				Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT, 
-				Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL, 
-				Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
-				Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+        controller.setPrimaryWeapon(targetedRedLaser);
+        controller.setSecondaryWeapon(tripleGreenLaser);
+        controller.setShip(boss);
+        boss.addWeapon(targetedRedLaser);
+        boss.addWeapon(tripleGreenLaser);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        boss.setTexture(Textures.BOSS1.getTexture());
 
-		controller.setPrimaryWeapon(targetedRedLaser);
-		controller.setSecondaryWeapon(tripleGreenLaser);
-		controller.setShip(boss);
+        boss.setLevel(stage.getCurrentMission() * 2);
 
-		boss.setActor(Factories.getActorFactory().create(boss));
-		boss.setTexture(Textures.BOSS1.getTexture());
-		boss.setShipEngine(engine);
-		boss.addWeapon(targetedRedLaser);
-		boss.addWeapon(tripleGreenLaser);
-		boss.setEnergyPool(energyPool);
-		boss.setHpPool(hpPool);
-		boss.setLevel(stage.getCurrentMission() * 2);
-		boss.setWeaponController(controller);
-		boss.setMissilesLauncher(launcher);
-		boss.setExplosion(explosion);
-		boss.setBar(new BigEnemyBar(boss));
-		boss.setBurner(burner);
-		boss.setX(Sizes.GAME_WIDTH * 0.2f + (float)Math.random() * Sizes.GAME_WIDTH * 0.6f);
+        return boss;
+    }
 
-		return boss;
-	}
+    public IBoss buildActII(final GameplayStage stage) {
+
+        IBoss boss = build(stage);
+
+        boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
+        boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon distractedRedLaser = DistractedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon flyingMine = FlyingMinerBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(distractedRedLaser);
+        controller.setSecondaryWeapon(flyingMine);
+        controller.setShip(boss);
+        boss.addWeapon(distractedRedLaser);
+        boss.addWeapon(flyingMine);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        boss.setTexture(Textures.BOSS2.getTexture());
+
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    private IBoss build(final GameplayStage stage) {
+
+        IBoss boss = new BossShip();
+        IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
+        Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
+
+        Burner burner = BurnerBuilder.INSTANCE.build(boss);
+
+        IPool energyPool = new Pool(
+                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_AMOUNT,
+                Consts.Pools.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL,
+                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_REGEN,
+                Consts.Pools.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+        IPool hpPool = new HpPool(
+                Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT,
+                Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL,
+                Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
+                Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+
+        boss.setActor(Factories.getActorFactory().create(boss));
+        boss.setShipEngine(engine);
+        boss.setEnergyPool(energyPool);
+        boss.setHpPool(hpPool);
+        boss.setExplosion(explosion);
+        boss.setBar(new BigEnemyBar(boss));
+        boss.setBurner(burner);
+        boss.setX(Sizes.GAME_WIDTH * 0.2f + (float) Math.random() * Sizes.GAME_WIDTH * 0.6f);
+
+        return boss;
+    }
 }

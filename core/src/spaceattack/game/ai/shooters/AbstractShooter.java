@@ -10,59 +10,59 @@ import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.utils.vector.IVectorFactory;
 import spaceattack.game.weapons.IWeaponController;
 
-public abstract class AbstractShooter implements ShooterAI
-{
-	protected RadarVisible playerShip;
-	protected IEnemyShip owner;
-	protected IWeaponController controller;
-	protected IVectorFactory vectors;
+public abstract class AbstractShooter implements ShooterAI {
 
-	protected boolean canPrimary;
-	protected boolean canSecondary;
-	
-	protected List<? extends RadarVisible> friends;
+    protected RadarVisible playerShip;
+    protected IEnemyShip owner;
+    protected IWeaponController controller;
+    protected IVectorFactory vectors;
 
-	public AbstractShooter()
-	{
-		vectors = Factories.getVectorFactory();
-	}
+    protected boolean canPrimary;
+    protected boolean canSecondary;
 
-	@Override
-	public void setPlayerShip(RadarVisible playerShip)
-	{
-		this.playerShip = playerShip;
-	}
+    protected List<? extends RadarVisible> friends;
 
-	@Override
-	public void setOwner(IEnemyShip owner)
-	{
-		this.owner = owner;
-		controller = owner.getWeaponController();
-	}
+    public AbstractShooter() {
 
-	@Override
-	public void setFriends(List<? extends RadarVisible> friends)
-	{
-		this.friends = friends;
-	}
+        vectors = Factories.getVectorFactory();
+    }
 
-	protected PossibleAttacks processResult()
-	{
-		if (canPrimary && canSecondary)
-			return PossibleAttacks.BOTH;
+    @Override
+    public void setPlayerShip(RadarVisible playerShip) {
 
-		if (canPrimary)
-			return PossibleAttacks.PRIMARY;
+        this.playerShip = playerShip;
+    }
 
-		if (canSecondary)
-			return PossibleAttacks.SECONDARY;
+    @Override
+    public void setOwner(IEnemyShip owner) {
 
-		return PossibleAttacks.NONE;
-	}
+        this.owner = owner;
+        controller = owner.getWeaponController();
+    }
 
-	@Override
-	public void notify(MoverAI state) 
-	{
-		// do nothing
-	}
+    @Override
+    public void setFriends(List<? extends RadarVisible> friends) {
+
+        this.friends = friends;
+    }
+
+    protected PossibleAttacks processResult() {
+
+        if (canPrimary && canSecondary)
+            return PossibleAttacks.BOTH;
+
+        if (canPrimary)
+            return PossibleAttacks.PRIMARY;
+
+        if (canSecondary)
+            return PossibleAttacks.SECONDARY;
+
+        return PossibleAttacks.NONE;
+    }
+
+    @Override
+    public void notify(MoverAI state) {
+
+        // do nothing
+    }
 }

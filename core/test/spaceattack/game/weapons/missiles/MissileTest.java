@@ -25,87 +25,87 @@ import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.vector.IVectorFactory;
 
-public class MissileTest
-{
-	private IVectorFactory factory;
+public class MissileTest {
 
-	private Missile missile;
+    private IVectorFactory factory;
 
-	@Mock
-	private ITexture texture;
+    private Missile missile;
 
-	@Mock
-	private PlayerShip ship;
+    @Mock
+    private ITexture texture;
 
-	@Mock
-	private IFireButton button;
+    @Mock
+    private PlayerShip ship;
 
-	private List<IGameActor> actors;
+    @Mock
+    private IFireButton button;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		factory = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(factory);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    private List<IGameActor> actors;
 
-		missile = new Missile();
-		missile.setActor(new FakeActor());
-		missile.setTexture(texture);
-		missile.setDmg(10);
-		missile.setSpeed(10);
-		missile.setAcceleration(3);
-		missile.setMovement(factory.create(1, 0));
-		missile.setPosition(factory.create(200, 200));
-		missile.setSound(Sounds.RED_LASER);
+    @Before
+    public void setUp() {
 
-		actors = new ArrayList<>();
-		actors.add(ship);
-		actors.add(button);
+        MockitoAnnotations.initMocks(this);
+        factory = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(factory);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-		missile.setActors(actors);
+        missile = new Missile();
+        missile.setActor(new FakeActor());
+        missile.setTexture(texture);
+        missile.setDmg(10);
+        missile.setSpeed(10);
+        missile.setAcceleration(3);
+        missile.setMovement(factory.create(1, 0));
+        missile.setPosition(factory.create(200, 200));
+        missile.setSound(Sounds.RED_LASER);
 
-		doReturn(factory.create(100, 100)).when(ship).getPosition();
-		doReturn(10f).when(ship).getRadius();
-		doReturn(20).when(texture).getHeight();
-	}
+        actors = new ArrayList<>();
+        actors.add(ship);
+        actors.add(button);
 
-	@Test
-	public void missileIsMoving()
-	{
-		missile.act(0);
-		missile.act(0);
-		missile.act(0);
+        missile.setActors(actors);
 
-		assertEquals(factory.create(239, 200), missile.getPosition());
-	}
+        doReturn(factory.create(100, 100)).when(ship).getPosition();
+        doReturn(10f).when(ship).getRadius();
+        doReturn(20).when(texture).getHeight();
+    }
 
-	@Test
-	public void missileIsHittingVulnerableTarget()
-	{
-		doReturn(factory.create(200, 200)).when(ship).getPosition();
+    @Test
+    public void missileIsMoving() {
 
-		missile.act(0);
+        missile.act(0);
+        missile.act(0);
+        missile.act(0);
 
-		verify(ship).takeDmg(10f);
-	}
+        assertEquals(factory.create(239, 200), missile.getPosition());
+    }
 
-	@Test
-	public void isNotHittingOutOfRange()
-	{
-		missile.act(0);
+    @Test
+    public void missileIsHittingVulnerableTarget() {
 
-		verify(ship, times(0)).takeDmg(10f);
-	}
+        doReturn(factory.create(200, 200)).when(ship).getPosition();
 
-	@Test
-	public void missileIsDissapearingAfterHit()
-	{
-		doReturn(factory.create(200, 200)).when(ship).getPosition();
+        missile.act(0);
 
-		missile.act(0);
+        verify(ship).takeDmg(10f);
+    }
 
-		assertTrue(missile.isToKill());
-	}
+    @Test
+    public void isNotHittingOutOfRange() {
+
+        missile.act(0);
+
+        verify(ship, times(0)).takeDmg(10f);
+    }
+
+    @Test
+    public void missileIsDissapearingAfterHit() {
+
+        doReturn(factory.create(200, 200)).when(ship).getPosition();
+
+        missile.act(0);
+
+        assertTrue(missile.isToKill());
+    }
 }

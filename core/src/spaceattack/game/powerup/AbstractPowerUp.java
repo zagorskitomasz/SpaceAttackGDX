@@ -15,91 +15,89 @@ import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;
 
-public abstract class AbstractPowerUp extends DrawableActor implements IPowerUp
-{
-	private Sounds consumeSound;
-	private ITexture texture;
+public abstract class AbstractPowerUp extends DrawableActor implements IPowerUp {
 
-	private boolean isToKill;
-	private List<PowerUpConsumer> consumers;
+    private Sounds consumeSound;
+    private ITexture texture;
 
-	AbstractPowerUp()
-	{
-		consumeSound = Sounds.POWER_UP;
-	}
+    private boolean isToKill;
+    private List<PowerUpConsumer> consumers;
 
-	@Override
-	public void setActors(List<IGameActor> actors)
-	{
-		consumers = actors //
-				.stream() //
-				.filter(element->element instanceof PowerUpConsumer) //
-				.map(element->(PowerUpConsumer) element) //
-				.collect(Collectors.toList());
-	}
+    AbstractPowerUp() {
 
-	@Override
-	public void act(float delta)
-	{
-		setY(getY() - Consts.AI.POWER_UP_SPEED);
+        consumeSound = Sounds.POWER_UP;
+    }
 
-		if (consumers == null)
-			return;
+    @Override
+    public void setActors(List<IGameActor> actors) {
 
-		for (PowerUpConsumer consumer : consumers)
-		{
-			if (checkCollision(consumer))
-			{
-				consumer.consume(this);
-				setToKill();
-				if (consumeSound != null)
-					consumeSound.play();
-			}
-		}
-	}
+        consumers = actors //
+                .stream() //
+                .filter(element -> element instanceof PowerUpConsumer) //
+                .map(element -> (PowerUpConsumer) element) //
+                .collect(Collectors.toList());
+    }
 
-	private boolean checkCollision(PowerUpConsumer consumer)
-	{
-		disappearIfNeeded();
-		
-		IVector powerUpCenter = Factories.getVectorFactory().create(getX(), getY());
-		IVector consumerCenter = Factories.getVectorFactory().create(consumer.getX(), consumer.getY());
+    @Override
+    public void act(float delta) {
 
-		return NumbersUtils.distance(powerUpCenter, consumerCenter) <= Sizes.POWER_UP_RADIUS + consumer.getRadius();
-	}
+        setY(getY() - Consts.AI.POWER_UP_SPEED);
 
-	@Override
-	protected ITexture getTexture()
-	{
-		return texture;
-	}
+        if (consumers == null)
+            return;
 
-	public void setTexture(Textures texture)
-	{
-		this.texture = texture.getTexture();
-	}
+        for (PowerUpConsumer consumer : consumers) {
+            if (checkCollision(consumer)) {
+                consumer.consume(this);
+                setToKill();
+                if (consumeSound != null)
+                    consumeSound.play();
+            }
+        }
+    }
 
-	@Override
-	public void setToKill()
-	{
-		isToKill = true;
-	}
+    private boolean checkCollision(PowerUpConsumer consumer) {
 
-	@Override
-	public boolean isToKill()
-	{
-		return isToKill;
-	}
+        disappearIfNeeded();
 
-	@Override
-	public void playSound()
-	{
-		// do nothing
-	}
+        IVector powerUpCenter = Factories.getVectorFactory().create(getX(), getY());
+        IVector consumerCenter = Factories.getVectorFactory().create(consumer.getX(), consumer.getY());
 
-	@Override
-	public void launched()
-	{
-		// do nothing
-	}
+        return NumbersUtils.distance(powerUpCenter, consumerCenter) <= Sizes.POWER_UP_RADIUS + consumer.getRadius();
+    }
+
+    @Override
+    protected ITexture getTexture() {
+
+        return texture;
+    }
+
+    public void setTexture(Textures texture) {
+
+        this.texture = texture.getTexture();
+    }
+
+    @Override
+    public void setToKill() {
+
+        isToKill = true;
+    }
+
+    @Override
+    public boolean isToKill() {
+
+        return isToKill;
+    }
+
+    @Override
+    public void playSound() {
+
+        // do nothing
+    }
+
+    @Override
+    public void launched() {
+
+        // do nothing
+    }
 }

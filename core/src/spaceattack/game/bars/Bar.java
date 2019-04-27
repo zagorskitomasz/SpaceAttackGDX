@@ -5,42 +5,42 @@ import spaceattack.game.actors.IGameActor;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.system.graphics.ITexture;
 
-public abstract class Bar implements IGameActor
-{
-	protected ITexture texture;
+public abstract class Bar implements IGameActor {
 
-	private IActor actor;
+    protected ITexture texture;
 
-	@Override
-	public void draw(IBatch batch,float aplpha)
-	{
-		drawBarRect(batch);
-		drawFillerLabel(batch);
-		if (texture != null)
-			drawTexture(batch);
-	}
+    private IActor actor;
 
-	@Override
-	public IActor getActor()
-	{
-		return actor;
-	}
+    @Override
+    public void draw(IBatch batch, float aplpha) {
 
-	@Override
-	public void setActor(IActor actor)
-	{
-		this.actor = actor;
-	}
+        drawBarRect(batch);
+        drawFillerLabel(batch);
+        if (texture != null)
+            drawTexture(batch);
+    }
 
-	protected abstract void drawBarRect(IBatch batch);
+    @Override
+    public IActor getActor() {
 
-	protected abstract void drawFillerLabel(IBatch batch);
+        return actor;
+    }
 
-	protected abstract void drawTexture(IBatch batch);
+    @Override
+    public void setActor(IActor actor) {
 
-	@Override
-	public void act(float delta)
-	{
-		// do nothing
-	}
+        this.actor = actor;
+    }
+
+    protected abstract void drawBarRect(IBatch batch);
+
+    protected abstract void drawFillerLabel(IBatch batch);
+
+    protected abstract void drawTexture(IBatch batch);
+
+    @Override
+    public void act(float delta) {
+
+        // do nothing
+    }
 }

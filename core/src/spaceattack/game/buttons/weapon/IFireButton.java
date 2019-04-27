@@ -6,31 +6,31 @@ import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.weapons.IWeapon;
 
-public interface IFireButton extends IGameActor
-{
-	@Override
-	public default void setActor(IActor actor)
-	{
-		// do nothing
-	}
+public interface IFireButton extends IGameActor {
 
-	@Override
-	public default void draw(IBatch batch,float alpha)
-	{
-		// do nothing
-	}
+    @Override
+    public default void setActor(IActor actor) {
 
-	@Override
-	public default void act(float delta)
-	{
-		// do nothing
-	}
+        // do nothing
+    }
 
-	public void setWeapon(IWeapon secondaryWeapon);
+    @Override
+    public default void draw(IBatch batch, float alpha) {
 
-	public void setEnergyPool(IPool pool);
+        // do nothing
+    }
 
-	public boolean touchDown(int screenX,int screenY);
+    @Override
+    public default void act(float delta) {
 
-	public boolean touchUp(int screenX,int screenY);
+        // do nothing
+    }
+
+    public void setWeapon(IWeapon secondaryWeapon);
+
+    public void setEnergyPool(IPool pool);
+
+    public boolean touchDown(int screenX, int screenY);
+
+    public boolean touchUp(int screenX, int screenY);
 }

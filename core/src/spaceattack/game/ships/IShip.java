@@ -14,48 +14,47 @@ import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
 
-public interface IShip extends IObserver<GameProgress>,Ignitable,IGameActor,RadarVisible,Explosive
-{
-    public enum Turn
-	{
-		FRONT,LEFT,RIGHT;
-	}
+public interface IShip extends IObserver<GameProgress>, Ignitable, IGameActor, RadarVisible, Explosive {
 
-	public void setDestination(IVector iVector);
+    public enum Turn {
+        FRONT, LEFT, RIGHT;
+    }
 
-	@Override
-	public float getX();
+    public void setDestination(IVector iVector);
 
-	@Override
-	public float getY();
+    @Override
+    public float getX();
 
-	public void setX(float x);
+    @Override
+    public float getY();
 
-	public void setY(float y);
+    public void setX(float x);
 
-	public void setShipEngine(IEngine engine);
+    public void setY(float y);
 
-	public void addWeapon(IWeapon weapon);
+    public void setShipEngine(IEngine engine);
 
-	public Set<IWeapon> getWeapons();
+    public void addWeapon(IWeapon weapon);
 
-	public void setLevel(int level);
+    public Set<IWeapon> getWeapons();
 
-	public float getHeight();
+    public void setLevel(int level);
 
-	public float getWidth();
+    public float getHeight();
 
-	public boolean takeEnergy(float energyCost);
+    public float getWidth();
 
-	public void setHpPool(IPool pool);
+    public boolean takeEnergy(float energyCost);
 
-	public IPool getHpPool();
+    public void setHpPool(IPool pool);
 
-	public void setEnergyPool(IPool pool);
+    public IPool getHpPool();
 
-	public IPool getEnergyPool();
+    public void setEnergyPool(IPool pool);
 
-	public void setTexture(ITexture texture);
+    public IPool getEnergyPool();
 
-	public boolean exploded();
+    public void setTexture(ITexture texture);
+
+    public boolean exploded();
 }

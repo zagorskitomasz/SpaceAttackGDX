@@ -7,17 +7,17 @@ import org.junit.Test;
 
 import spaceattack.game.system.Acts;
 
-public class ActsTest
-{
-	@Test
-	public void selectingByExistingNumber()
-	{
-		assertEquals(Acts.II, Acts.get(2));
-	}
+public class ActsTest {
 
-	@Test
-	public void selectingByNonExistingNumber()
-	{
-		assertNull(Acts.get(-5));
-	}
+    @Test
+    public void selectingByExistingNumber() {
+
+        assertEquals(Acts.II, Acts.get(2));
+    }
+
+    @Test
+    public void selectingByNonExistingNumber() {
+
+        assertNull(Acts.get(-5));
+    }
 }

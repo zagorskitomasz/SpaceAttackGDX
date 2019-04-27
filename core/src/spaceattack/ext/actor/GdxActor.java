@@ -7,24 +7,24 @@ import spaceattack.ext.batch.BatchProxyHolder;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
 
-public class GdxActor extends Actor implements IActor
-{
-	private IGameActor gameActor;
+public class GdxActor extends Actor implements IActor {
 
-	public GdxActor(IGameActor actor)
-	{
-		gameActor = actor;
-	}
+    private IGameActor gameActor;
 
-	@Override
-	public void draw(Batch batch,float alpha)
-	{
-		gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
-	}
+    public GdxActor(IGameActor actor) {
 
-	@Override
-	public void act(float delta)
-	{
-		gameActor.act(delta);
-	}
+        gameActor = actor;
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha) {
+
+        gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
+    }
+
+    @Override
+    public void act(float delta) {
+
+        gameActor.act(delta);
+    }
 }

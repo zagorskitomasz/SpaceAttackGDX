@@ -12,42 +12,42 @@ import spaceattack.consts.Consts;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.factories.Factories;
 
-public class TimeLabelTest
-{
-	private TimeLabel timeLabel;
+public class TimeLabelTest {
 
-	@Mock
-	private ILabel label;
+    private TimeLabel timeLabel;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    @Mock
+    private ILabel label;
 
-		timeLabel = new TimeLabel();
-		timeLabel.setLabel(label);
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void afterShowDrawingIsEnabling()
-	{
-		timeLabel.show();
-		timeLabel.draw(null, 0);
+        MockitoAnnotations.initMocks(this);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-		verify(label).enableDawing();
-	}
+        timeLabel = new TimeLabel();
+        timeLabel.setLabel(label);
+    }
 
-	@Test
-	public void drawingDisabledAfter300Millis() throws InterruptedException
-	{
-		timeLabel.show();
-		timeLabel.draw(null, 0);
-		verify(label,times(0)).disableDrawing();
-		
-		Thread.sleep(Consts.Gameplay.LABEL_SHOW_TIME + 1);
+    @Test
+    public void afterShowDrawingIsEnabling() {
 
-		timeLabel.draw(null, 0);
-		verify(label).disableDrawing();
-	}
+        timeLabel.show();
+        timeLabel.draw(null, 0);
+
+        verify(label).enableDawing();
+    }
+
+    @Test
+    public void drawingDisabledAfter300Millis() throws InterruptedException {
+
+        timeLabel.show();
+        timeLabel.draw(null, 0);
+        verify(label, times(0)).disableDrawing();
+
+        Thread.sleep(Consts.Gameplay.LABEL_SHOW_TIME + 1);
+
+        timeLabel.draw(null, 0);
+        verify(label).disableDrawing();
+    }
 }

@@ -6,19 +6,18 @@ import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.laser.Laser;
 
-public enum RedLaserBuilder
-{
-	INSTANCE;
+public enum RedLaserBuilder {
+    INSTANCE;
 
-	public IWeapon build(IWeaponController weaponController,MissilesLauncher missilesLauncher)
-	{
-		Laser redLaser = new RedLaser();
+    public IWeapon build(IWeaponController weaponController, MissilesLauncher missilesLauncher) {
 
-		redLaser.setUtils(Factories.getUtilsFactory().create());
-		redLaser.setController(weaponController);
-		redLaser.setMissilesLauncher(missilesLauncher);
-		redLaser.setLevel(1);
+        Laser redLaser = new RedLaser();
 
-		return redLaser;
-	}
+        redLaser.setUtils(Factories.getUtilsFactory().create());
+        redLaser.setController(weaponController);
+        redLaser.setMissilesLauncher(missilesLauncher);
+        redLaser.setLevel(1);
+
+        return redLaser;
+    }
 }

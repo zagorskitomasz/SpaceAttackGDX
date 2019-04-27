@@ -1,65 +1,72 @@
 package spaceattack.game.weapons;
 
 import spaceattack.game.ships.IShip;
+import spaceattack.game.utils.vector.IVector;
 
-public abstract class AbstractWeaponController implements IWeaponController
-{
-	protected IShip ship;
+public abstract class AbstractWeaponController implements IWeaponController {
 
-	protected IWeapon primaryWeapon;
-	protected IWeapon secondaryWeapon;
+    protected IShip ship;
 
-	@Override
-	public void setShip(IShip ship)
-	{
-		this.ship = ship;
-	}
+    protected IWeapon primaryWeapon;
+    protected IWeapon secondaryWeapon;
 
-	@Override
-	public void setPrimaryWeapon(IWeapon weapon)
-	{
-		primaryWeapon = weapon;
-	}
+    @Override
+    public void setShip(final IShip ship) {
 
-	@Override
-	public void setSecondaryWeapon(IWeapon weapon)
-	{
-		secondaryWeapon = weapon;
-	}
+        this.ship = ship;
+    }
 
-	@Override
-	public boolean takeEnergy(float energyCost)
-	{
-		return ship.takeEnergy(energyCost);
-	}
+    @Override
+    public void setPrimaryWeapon(final IWeapon weapon) {
 
-	@Override
-	public void updateSecondaryWeapon(IWeapon weapon)
-	{
-		secondaryWeapon = weapon;
-	}
+        primaryWeapon = weapon;
+    }
 
-	@Override
-	public float getPrimaryWeaponRadius()
-	{
-		return primaryWeapon.getCollisionRadius();
-	}
+    @Override
+    public void setSecondaryWeapon(final IWeapon weapon) {
 
-	@Override
-	public float getSecondaryWeaponRadius()
-	{
-		return secondaryWeapon.getCollisionRadius();
-	}
+        secondaryWeapon = weapon;
+    }
 
-	@Override
-	public float getShipsWidth() 
-	{
-		return ship.getWidth();
-	}
+    @Override
+    public boolean takeEnergy(final float energyCost) {
 
-	@Override
-	public float getShipsHeight() 
-	{
-		return ship.getHeight();
-	}
+        return ship.takeEnergy(energyCost);
+    }
+
+    @Override
+    public void updateSecondaryWeapon(final IWeapon weapon) {
+
+        secondaryWeapon = weapon;
+    }
+
+    @Override
+    public float getPrimaryWeaponRadius() {
+
+        return primaryWeapon.getCollisionRadius();
+    }
+
+    @Override
+    public float getSecondaryWeaponRadius() {
+
+        return secondaryWeapon.getCollisionRadius();
+    }
+
+    @Override
+    public float getShipsWidth() {
+
+        return ship.getWidth();
+    }
+
+    @Override
+    public float getShipsHeight() {
+
+        return ship.getHeight();
+    }
+
+    @Override
+    public IVector getTargetCoords() {
+
+        return null;
+    }
 }

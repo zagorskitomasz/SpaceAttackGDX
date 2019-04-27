@@ -18,60 +18,60 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Explosion;
 
-public class MineTest 
-{
-	private static final long DELAY = 2000;
-	
-	@Mock
-	private MissilesLauncher launcher;
-	
-	@Mock
-	private Explosion explosion;
-	
-	@Mock
-	private IActor explosionActor;
-	
-	private IActor actor;
-	
-	@InjectMocks
-	private Mine mine;
-	
-	@Before
-	public void setUp()
-	{
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-		
-		actor = new FakeActor();
-		actor.setPosition(100, 100);
-		
-		mine = new Mine(DELAY);
-		MockitoAnnotations.initMocks(this);
-		mine.setActor(actor);
-		
-		doReturn(explosionActor).when(explosion).getActor();
-	}
+public class MineTest {
 
-	@Test
-	public void mineWontExplodeBeforeDelay() 
-	{
-		mine.act(0);
-		verify(launcher,never()).launch(explosion);
-	}
+    private static final long DELAY = 2000;
 
-	@Test
-	public void mineExplodeAfterDelay() throws InterruptedException 
-	{
-		Thread.sleep(DELAY);
-		mine.act(0);
-		verify(launcher).launch(explosion);
-	}
-	
-	@Test
-	public void overheatedExplodesSoon() throws InterruptedException
-	{
-		mine.overheat();
-		Thread.sleep(Consts.Weapons.MINE_OVERHEAT_DELAY + 100);
-		mine.act(0);
-		verify(launcher).launch(explosion);
-	}
+    @Mock
+    private MissilesLauncher launcher;
+
+    @Mock
+    private Explosion explosion;
+
+    @Mock
+    private IActor explosionActor;
+
+    private IActor actor;
+
+    @InjectMocks
+    private Mine mine;
+
+    @Before
+    public void setUp() {
+
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+
+        actor = new FakeActor();
+        actor.setPosition(100, 100);
+
+        mine = new Mine(DELAY);
+        MockitoAnnotations.initMocks(this);
+        mine.setActor(actor);
+
+        doReturn(explosionActor).when(explosion).getActor();
+    }
+
+    @Test
+    public void mineWontExplodeBeforeDelay() {
+
+        mine.act(0);
+        verify(launcher, never()).launch(explosion);
+    }
+
+    @Test
+    public void mineExplodeAfterDelay() throws InterruptedException {
+
+        Thread.sleep(DELAY);
+        mine.act(0);
+        verify(launcher).launch(explosion);
+    }
+
+    @Test
+    public void overheatedExplodesSoon() throws InterruptedException {
+
+        mine.overheat();
+        Thread.sleep(Consts.Weapons.MINE_OVERHEAT_DELAY + 100);
+        mine.act(0);
+        verify(launcher).launch(explosion);
+    }
 }

@@ -8,76 +8,72 @@ import spaceattack.consts.Paths;
 import spaceattack.game.GameProgress;
 import spaceattack.game.utils.IUtils;
 
-public class GameLoader
-{
-	private IUtils utils;
-	private IFileHandle file;
+public class GameLoader {
 
-	private Lock lock;
+    private IUtils utils;
+    private IFileHandle file;
 
-	GameLoader()
-	{
-		lock = new ReentrantLock();
-	}
+    private Lock lock;
 
-	void setUtils(IUtils utils)
-	{
-		this.utils = utils;
-	}
+    GameLoader() {
 
-	public GameProgress load()
-	{
-		try
-		{
-			lock.lock();
+        lock = new ReentrantLock();
+    }
 
-			loadFromFilesystem();
+    void setUtils(IUtils utils) {
 
-			if (fileExists())
-				return parse();
+        this.utils = utils;
+    }
 
-			return new GameProgress();
-		}
-		finally
-		{
-			lock.unlock();
-		}
-	}
+    public GameProgress load() {
 
-	private GameProgress parse()
-	{
-		InputStream fileContent = readData();
+        try {
+            lock.lock();
 
-		return utils.streamToObject(GameProgress.class, fileContent);
-	}
+            loadFromFilesystem();
 
-	private void loadFromFilesystem()
-	{
-		file = utils.loadFile(Paths.SAVE);
-	}
+            if (fileExists())
+                return parse();
 
-	public boolean fileExists()
-	{
-		try
-		{
-			lock.lock();
+            return new GameProgress();
+        }
+        finally {
+            lock.unlock();
+        }
+    }
 
-			if (file == null)
-				loadFromFilesystem();
+    private GameProgress parse() {
 
-			return file.exists();
-		}
-		finally
-		{
-			lock.unlock();
-		}
-	}
+        InputStream fileContent = readData();
 
-	private InputStream readData()
-	{
-		if (file == null)
-			loadFromFilesystem();
+        return utils.streamToObject(GameProgress.class, fileContent);
+    }
 
-		return file.read();
-	}
+    private void loadFromFilesystem() {
+
+        file = utils.loadFile(Paths.SAVE);
+    }
+
+    public boolean fileExists() {
+
+        try {
+            lock.lock();
+
+            if (file == null)
+                loadFromFilesystem();
+
+            return file.exists();
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    private InputStream readData() {
+
+        if (file == null)
+            loadFromFilesystem();
+
+        return file.read();
+    }
 }

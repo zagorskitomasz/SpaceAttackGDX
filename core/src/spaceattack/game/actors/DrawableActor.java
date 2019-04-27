@@ -3,59 +3,59 @@ package spaceattack.game.actors;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.system.graphics.ITexture;
 
-public abstract class DrawableActor implements IGameActor
-{
-	protected abstract ITexture getTexture();
+public abstract class DrawableActor implements IGameActor {
 
-	private IActor actor;
+    protected abstract ITexture getTexture();
 
-	@Override
-	public void setActor(IActor actor)
-	{
-		this.actor = actor;
-	}
+    private IActor actor;
 
-	@Override
-	public IActor getActor()
-	{
-		return actor;
-	}
+    @Override
+    public void setActor(IActor actor) {
 
-	@Override
-	public void draw(IBatch batch,float alpha)
-	{
-		ITexture texture = getTexture();
-		if (texture != null)
-			batch.draw(texture, getDrawingX(), getDrawingY(), texture.getWidth(), texture.getHeight());
-	}
+        this.actor = actor;
+    }
 
-	public float getDrawingX()
-	{
-		return actor.getX() - getTexture().getWidth() * 0.5f;
-	}
+    @Override
+    public IActor getActor() {
 
-	public float getDrawingY()
-	{
-		return actor.getY() - getTexture().getHeight() * 0.5f;
-	}
+        return actor;
+    }
 
-	public float getX()
-	{
-		return actor.getX();
-	}
+    @Override
+    public void draw(IBatch batch, float alpha) {
 
-	public float getY()
-	{
-		return actor.getY();
-	}
+        ITexture texture = getTexture();
+        if (texture != null)
+            batch.draw(texture, getDrawingX(), getDrawingY(), texture.getWidth(), texture.getHeight());
+    }
 
-	public void setX(float x)
-	{
-		actor.setX(x);
-	}
+    public float getDrawingX() {
 
-	public void setY(float y)
-	{
-		actor.setY(y);
-	}
+        return actor.getX() - getTexture().getWidth() * 0.5f;
+    }
+
+    public float getDrawingY() {
+
+        return actor.getY() - getTexture().getHeight() * 0.5f;
+    }
+
+    public float getX() {
+
+        return actor.getX();
+    }
+
+    public float getY() {
+
+        return actor.getY();
+    }
+
+    public void setX(float x) {
+
+        actor.setX(x);
+    }
+
+    public void setY(float y) {
+
+        actor.setY(y);
+    }
 }

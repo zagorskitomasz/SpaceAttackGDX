@@ -26,100 +26,100 @@ import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
 
-public class BaseEnemyShipTest
-{
-	private BaseEnemyShip fighter;
+public class BaseEnemyShipTest {
 
-	@Mock
-	private IWeaponController controller;
+    private BaseEnemyShip fighter;
 
-	@Mock
-	private MoverAI mover;
+    @Mock
+    private IWeaponController controller;
 
-	@Mock
-	private ShooterAI shooter;
+    @Mock
+    private MoverAI mover;
 
-	@Mock
-	private IEngine engine;
+    @Mock
+    private ShooterAI shooter;
 
-	@Mock
-	private IBatch batch;
+    @Mock
+    private IEngine engine;
 
-	@Mock
-	private EnemyBar bar;
+    @Mock
+    private IBatch batch;
 
-	@Mock
-	private Burner burner;
+    @Mock
+    private EnemyBar bar;
 
-	@Mock
-	private MissilesLauncher launcher;
+    @Mock
+    private Burner burner;
 
-	@Mock
-	private IPowerUp powerUp;
+    @Mock
+    private MissilesLauncher launcher;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    @Mock
+    private IPowerUp powerUp;
 
-		fighter = new BaseEnemyShip();
-		fighter.setMover(mover);
-		fighter.setShooter(shooter);
-		fighter.setWeaponController(controller);
-		fighter.setShipEngine(engine);
-		fighter.setBar(bar);
-		fighter.setBurner(burner);
-		fighter.setMissilesLauncher(launcher);
-		fighter.setPowerUp(powerUp);
-		fighter.setActor(ExtActorFactory.INSTANCE.create(fighter));
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void shipIsMovingWhenEngineDidntReachDestination()
-	{
-		doReturn(false).when(engine).isDestinationReached();
-		assertTrue(fighter.isMoving());
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void shipIsNotMovingWhenEngineReachedDestination()
-	{
-		doReturn(true).when(engine).isDestinationReached();
-		assertFalse(fighter.isMoving());
-	}
+        fighter = new BaseEnemyShip();
+        fighter.setMover(mover);
+        fighter.setShooter(shooter);
+        fighter.setWeaponController(controller);
+        fighter.setShipEngine(engine);
+        fighter.setBar(bar);
+        fighter.setBurner(burner);
+        fighter.setMissilesLauncher(launcher);
+        fighter.setPowerUp(powerUp);
+        fighter.setActor(ExtActorFactory.INSTANCE.create(fighter));
+    }
 
-	@Test
-	public void shipIsDelegatingAttackOrderToWeaponController()
-	{
-		doReturn(PossibleAttacks.BOTH).when(shooter).checkShot();
+    @Test
+    public void shipIsMovingWhenEngineDidntReachDestination() {
 
-		fighter.act(0);
+        doReturn(false).when(engine).isDestinationReached();
+        assertTrue(fighter.isMoving());
+    }
 
-		verify(controller).performAttack(eq(PossibleAttacks.BOTH),nullable(RadarVisible.class));
-	}
+    @Test
+    public void shipIsNotMovingWhenEngineReachedDestination() {
 
-	@Test
-	public void dontBotherControllerWhenCantAttack()
-	{
-		doReturn(PossibleAttacks.NONE).when(shooter).checkShot();
+        doReturn(true).when(engine).isDestinationReached();
+        assertFalse(fighter.isMoving());
+    }
 
-		fighter.act(0);
+    @Test
+    public void shipIsDelegatingAttackOrderToWeaponController() {
 
-		verify(controller, times(0)).performAttack(any(PossibleAttacks.class),nullable(RadarVisible.class));
-	}
+        doReturn(PossibleAttacks.BOTH).when(shooter).checkShot();
 
-	@Test
-	public void barIsDrawn()
-	{
-		fighter.draw(batch, 0);
-		verify(bar).draw(batch);
-	}
+        fighter.act(0);
 
-	@Test
-	public void powerUpIsLaunchedWhenShipDestroyed()
-	{
-		fighter.setToKill();
+        verify(controller).performAttack(eq(PossibleAttacks.BOTH), nullable(RadarVisible.class));
+    }
 
-		verify(launcher).launch(powerUp);
-	}
+    @Test
+    public void dontBotherControllerWhenCantAttack() {
+
+        doReturn(PossibleAttacks.NONE).when(shooter).checkShot();
+
+        fighter.act(0);
+
+        verify(controller, times(0)).performAttack(any(PossibleAttacks.class), nullable(RadarVisible.class));
+    }
+
+    @Test
+    public void barIsDrawn() {
+
+        fighter.draw(batch, 0);
+        verify(bar).draw(batch);
+    }
+
+    @Test
+    public void powerUpIsLaunchedWhenShipDestroyed() {
+
+        fighter.setToKill();
+
+        verify(launcher).launch(powerUp);
+    }
 }

@@ -11,31 +11,31 @@ import spaceattack.consts.Sizes;
 import spaceattack.game.actors.IActorFactory;
 import spaceattack.game.factories.Factories;
 
-public class StaticImageFactoryTest
-{
-	private StaticImageFactory factory;
+public class StaticImageFactoryTest {
 
-	@Mock
-	private ITexture texture;
+    private StaticImageFactory factory;
 
-	@Mock
-	private IActorFactory actorFactory;
+    @Mock
+    private ITexture texture;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		factory = StaticImageFactory.INSTANCE;
-		Factories.setActorFactory(actorFactory);
-	}
+    @Mock
+    private IActorFactory actorFactory;
 
-	@Test
-	public void factoryIsCreatingImageObject()
-	{
-		StaticImage image = factory.create(texture, 100, 500);
+    @Before
+    public void setUp() {
 
-		assertEquals(texture, image.getTexture());
-		assertEquals(100, image.getX(), 0);
-		assertEquals(Sizes.GAME_HEIGHT - 500, image.getY(), 0);
-	}
+        MockitoAnnotations.initMocks(this);
+        factory = StaticImageFactory.INSTANCE;
+        Factories.setActorFactory(actorFactory);
+    }
+
+    @Test
+    public void factoryIsCreatingImageObject() {
+
+        StaticImage image = factory.create(texture, 100, 500);
+
+        assertEquals(texture, image.getTexture());
+        assertEquals(100, image.getX(), 0);
+        assertEquals(Sizes.GAME_HEIGHT - 500, image.getY(), 0);
+    }
 }

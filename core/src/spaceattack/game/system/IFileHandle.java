@@ -2,11 +2,11 @@ package spaceattack.game.system;
 
 import java.io.InputStream;
 
-public interface IFileHandle
-{
-	public InputStream read();
+public interface IFileHandle {
 
-	public boolean exists();
+    public InputStream read();
 
-	public void writeString(String fileContent,boolean append);
+    public boolean exists();
+
+    public void writeString(String fileContent, boolean append);
 }

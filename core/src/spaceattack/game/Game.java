@@ -10,112 +10,109 @@ import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.IUtils;
 
-class Game implements IGame
-{
-	private boolean isTest;
+class Game implements IGame {
 
-	private IUtils extUtils;
-	private GameLoader gameLoader;
-	private GameStageFactory stageBuilder;
-	private FrameController frameController;
+    private boolean isTest;
 
-	private IGameStage stage;
+    private IUtils extUtils;
+    private GameLoader gameLoader;
+    private GameStageFactory stageBuilder;
+    private FrameController frameController;
 
-	public Game(boolean isTest)
-	{
-		this.isTest = isTest;
-	}
+    private IGameStage stage;
 
-	public void setExtUtils(IUtils extUtils)
-	{
-		this.extUtils = extUtils;
-	}
+    public Game(boolean isTest) {
 
-	public void setGameLoader(GameLoader gameLoader)
-	{
-		this.gameLoader = gameLoader;
-	}
+        this.isTest = isTest;
+    }
 
-	public void setStageBuilder(GameStageFactory stageBuilder)
-	{
-		this.stageBuilder = stageBuilder;
-	}
+    public void setExtUtils(IUtils extUtils) {
 
-	public void setFrameController(FrameController frameController)
-	{
-		this.frameController = frameController;
-	}
+        this.extUtils = extUtils;
+    }
 
-	@Override
-	public void create()
-	{
-		loadMedia();
-		StageResult defaultResult = prepareInitialResult();
-		stage = stageBuilder.getStage(defaultResult);
-	}
+    public void setGameLoader(GameLoader gameLoader) {
 
-	private void loadMedia()
-	{
-		if (isTest)
-		{
-			Textures.loadForTest();
-			Sounds.loadForTest();
-			Animations.loadForTest();
-		}
-		else
-		{
-			Sounds.load();
-			Textures.load();
-		}
-	}
+        this.gameLoader = gameLoader;
+    }
 
-	private StageResult prepareInitialResult()
-	{
-		StageResult defaultResult = new StageResult();
-		GameProgress progress = gameLoader.load();
-		defaultResult.setGameProgress(progress);
+    public void setStageBuilder(GameStageFactory stageBuilder) {
 
-		return defaultResult;
-	}
+        this.stageBuilder = stageBuilder;
+    }
 
-	@Override
-	public void render()
-	{
-		extUtils.clearScreen();
+    public void setFrameController(FrameController frameController) {
 
-		if (checkFrame())
-			stage.act(extUtils.getDeltaTime());
+        this.frameController = frameController;
+    }
 
-		stage.draw();
+    @Override
+    public void create() {
 
-		checkStageSwitch();
-	}
+        loadMedia();
+        StageResult defaultResult = prepareInitialResult();
+        stage = stageBuilder.getStage(defaultResult);
+    }
 
-	private boolean checkFrame()
-	{
-		return frameController.check();
-	}
+    private void loadMedia() {
 
-	private void checkStageSwitch()
-	{
-		if (stage.isCompleted())
-		{
-			StageResult result = stage.getResult();
-			stage = stageBuilder.getStage(result);
-		}
-	}
+        if (isTest) {
+            Textures.loadForTest();
+            Sounds.loadForTest();
+            Animations.loadForTest();
+        }
+        else {
+            Sounds.load();
+            Textures.load();
+        }
+    }
 
-	@Override
-	public void resize(int width,int height)
-	{
-		if (stage == null)
-			return;
+    private StageResult prepareInitialResult() {
 
-		stage.updateViewport(width, height, true);
-	}
+        StageResult defaultResult = new StageResult();
+        GameProgress progress = gameLoader.load();
+        defaultResult.setGameProgress(progress);
 
-	Stages getCurrentStage()
-	{
-		return stage.getType();
-	}
+        return defaultResult;
+    }
+
+    @Override
+    public void render() {
+
+        extUtils.clearScreen();
+
+        if (checkFrame())
+            stage.act(extUtils.getDeltaTime());
+
+        stage.draw();
+
+        checkStageSwitch();
+    }
+
+    private boolean checkFrame() {
+
+        return frameController.check();
+    }
+
+    private void checkStageSwitch() {
+
+        if (stage.isCompleted()) {
+            StageResult result = stage.getResult();
+            stage = stageBuilder.getStage(result);
+        }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+        if (stage == null)
+            return;
+
+        stage.updateViewport(width, height, true);
+    }
+
+    Stages getCurrentStage() {
+
+        return stage.getType();
+    }
 }

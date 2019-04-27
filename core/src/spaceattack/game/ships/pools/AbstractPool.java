@@ -5,59 +5,59 @@ import java.util.Set;
 
 import spaceattack.game.system.notifiers.IObserver;
 
-public abstract class AbstractPool implements IPool
-{
-	private Set<IObserver<Float>> observers;
+public abstract class AbstractPool implements IPool {
 
-	protected float maxAmount;
-	protected float amount;
+    private Set<IObserver<Float>> observers;
 
-	public AbstractPool()
-	{
-		observers = new HashSet<>();
-	}
+    protected float maxAmount;
+    protected float amount;
 
-	@Override
-	public void registerObserver(IObserver<Float> observer)
-	{
-		observers.add(observer);
-	}
+    public AbstractPool() {
 
-	@Override
-	public void unregisterObserver(IObserver<Float> observer)
-	{
-		if (observers == null)
-			return;
+        observers = new HashSet<>();
+    }
 
-		observers.remove(observer);
-	}
+    @Override
+    public void registerObserver(IObserver<Float> observer) {
 
-	protected void notifyObservers()
-	{
-		if (observers == null || observers.size() <= 0)
-			return;
+        observers.add(observer);
+    }
 
-		float poolPercent = amount / maxAmount;
+    @Override
+    public void unregisterObserver(IObserver<Float> observer) {
 
-		for (IObserver<Float> observer : observers)
-			observer.notify(poolPercent);
-	}
+        if (observers == null)
+            return;
 
-	@Override
-	public float getAmount()
-	{
-		return amount;
-	}
+        observers.remove(observer);
+    }
 
-	@Override
-	public float getMaxAmount()
-	{
-		return maxAmount;
-	}
+    protected void notifyObservers() {
 
-	@Override
-	public void regen(float amount)
-	{
-		this.amount = Math.min(this.amount + amount, maxAmount);
-	}
+        if (observers == null || observers.size() <= 0)
+            return;
+
+        float poolPercent = amount / maxAmount;
+
+        for (IObserver<Float> observer : observers)
+            observer.notify(poolPercent);
+    }
+
+    @Override
+    public float getAmount() {
+
+        return amount;
+    }
+
+    @Override
+    public float getMaxAmount() {
+
+        return maxAmount;
+    }
+
+    @Override
+    public void regen(float amount) {
+
+        this.amount = Math.min(this.amount + amount, maxAmount);
+    }
 }

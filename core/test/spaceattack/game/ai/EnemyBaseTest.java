@@ -30,94 +30,94 @@ import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.Acts;
 import spaceattack.game.system.graphics.Textures;
 
-public class EnemyBaseTest
-{
-	private EnemyBase base;
+public class EnemyBaseTest {
 
-	@Mock
-	private GameplayStage stage;
+    private EnemyBase base;
 
-	@Mock
-	private IEnemyShip fighter;
+    @Mock
+    private GameplayStage stage;
 
-	@Mock
-	private Radar radar;
+    @Mock
+    private IEnemyShip fighter;
 
-	@Mock
-	private IEnemyShipsFactory factory;
+    @Mock
+    private Radar radar;
 
-	@Mock
-	private IEnemyShip directMover;
+    @Mock
+    private IEnemyShipsFactory factory;
 
-	@Mock
-	private IEnemyShip leftMover;
-	
-	@Mock
-	private IBoss boss;
+    @Mock
+    private IEnemyShip directMover;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		Factories.setActorFactory(ExtActorFactory.INSTANCE);
-		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-		Textures.loadForTest();
-		doReturn(fighter).when(factory).createFighter(Acts.I,stage);
-		doReturn(0f).when(fighter).getX();
-		doReturn(0f).when(fighter).getY();
-		doReturn(new GameProgress()).when(stage).getGameProgress();
+    @Mock
+    private IEnemyShip leftMover;
 
-		base = new Act1EnemyBase(ExtUtilsFactory.INSTANCE.create());
-		base.setActor(new FakeActor());
-		base.setRadar(radar);
-		base.setShipsFactory(factory);
-		base.setStage(stage);
-	}
+    @Mock
+    private IBoss boss;
 
-	@Test
-	public void firstFighterIsDirectChaser() throws InterruptedException
-	{
-		doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
+    @Before
+    public void setUp() {
 
-		Thread.sleep(3000);
-		base.act(0);
+        MockitoAnnotations.initMocks(this);
+        Factories.setActorFactory(ExtActorFactory.INSTANCE);
+        Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+        Textures.loadForTest();
+        doReturn(fighter).when(factory).createFighter(Acts.I, stage);
+        doReturn(0f).when(fighter).getX();
+        doReturn(0f).when(fighter).getY();
+        doReturn(new GameProgress()).when(stage).getGameProgress();
 
-		verify(fighter).setMover(any(DirectChaser.class));
-	}
+        base = new Act1EnemyBase(ExtUtilsFactory.INSTANCE.create());
+        base.setActor(new FakeActor());
+        base.setRadar(radar);
+        base.setShipsFactory(factory);
+        base.setStage(stage);
+    }
 
-	@Test
-	public void firstFighterIsDirectShooter() throws InterruptedException
-	{
-		doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
+    @Test
+    public void firstFighterIsDirectChaser() throws InterruptedException {
 
-		Thread.sleep(3000);
-		base.act(0);
+        doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
 
-		verify(fighter).setShooter(any(DirectShooter.class));
-	}
+        Thread.sleep(3000);
+        base.act(0);
 
-	@Test
-	public void firstFighterIsAddedAfterInitialDelay()
-	{
-		doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
+        verify(fighter).setMover(any(DirectChaser.class));
+    }
 
-		base.act(0);
+    @Test
+    public void firstFighterIsDirectShooter() throws InterruptedException {
 
-		verify(factory, times(0)).createFighter(eq(Acts.I),any());
-	}
-	
-	@Test
-	@Ignore
-	public void bossIsReleasedWhenTankShipsAreGone()
-	{
-		doReturn(MoverType.CORNERS_CHASER).when(boss).getDefaultMoverType();
-		doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
-		base.setTanksPool(0);
-		base.setBoss(boss);
-		
-		base.act(0);
-		
-		verify(stage).addActorBeforeGUI(boss);
-	}
+        doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
+
+        Thread.sleep(3000);
+        base.act(0);
+
+        verify(fighter).setShooter(any(DirectShooter.class));
+    }
+
+    @Test
+    public void firstFighterIsAddedAfterInitialDelay() {
+
+        doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
+
+        base.act(0);
+
+        verify(factory, times(0)).createFighter(eq(Acts.I), any());
+    }
+
+    @Test
+    @Ignore
+    public void bossIsReleasedWhenTankShipsAreGone() {
+
+        doReturn(MoverType.CORNERS_CHASER).when(boss).getDefaultMoverType();
+        doReturn(new ArrayList<IEnemyShip>()).when(radar).getEnemyShips();
+        base.setTanksPool(0);
+        base.setBoss(boss);
+
+        base.act(0);
+
+        verify(stage).addActorBeforeGUI(boss);
+    }
 }

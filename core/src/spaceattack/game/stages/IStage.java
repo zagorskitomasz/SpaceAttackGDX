@@ -4,21 +4,21 @@ import java.util.List;
 
 import spaceattack.game.actors.IGameActor;
 
-public interface IStage
-{
-	public void addActorAtBegining(IGameActor actor);
+public interface IStage {
 
-	public void addBackground(IGameActor actor);
+    public void addActorAtBegining(IGameActor actor);
 
-	public void addActor(IGameActor actor);
+    public void addBackground(IGameActor actor);
 
-	public List<IGameActor> getGameActors();
+    public void addActor(IGameActor actor);
 
-	public void removeActor(IGameActor actor);
+    public List<IGameActor> getGameActors();
 
-	public void updateViewport(int width,int height,boolean centerCamera);
+    public void removeActor(IGameActor actor);
 
-	public void draw();
+    public void updateViewport(int width, int height, boolean centerCamera);
 
-	public void act(float delta);
+    public void draw();
+
+    public void act(float delta);
 }

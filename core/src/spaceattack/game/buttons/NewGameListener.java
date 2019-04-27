@@ -8,42 +8,42 @@ import spaceattack.game.stages.Stages;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.utils.IUtils;
 
-public class NewGameListener extends ChangeStageButtonListener
-{
-	private GameLoader loader;
-	private IUtils utils;
+public class NewGameListener extends ChangeStageButtonListener {
 
-	public NewGameListener(IGameStage stage,GameLoader gameLoader)
-	{
-		super(stage, Stages.MISSIONS);
-		loader = gameLoader;
-		utils = Factories.getUtilsFactory().create();
-	}
+    private GameLoader loader;
+    private IUtils utils;
 
-	@Override
-	public void clicked()
-	{
-		if (!loader.fileExists())
-			finalizeStage();
-		else
-			confirm();
-	}
+    public NewGameListener(IGameStage stage, GameLoader gameLoader) {
 
-	@Override
-	public void finalizeStage()
-	{
-		stage.setResult(createResult(new GameProgress()));
-	}
+        super(stage, Stages.MISSIONS);
+        loader = gameLoader;
+        utils = Factories.getUtilsFactory().create();
+    }
 
-	private void confirm()
-	{
-		utils.confirmDialog(UIStrings.NEW_GAME, UIStrings.NEW_GAME_QUESTION, stage.getStage(),
-				this::processOverrideDialogResult);
-	}
+    @Override
+    public void clicked() {
 
-	public void processOverrideDialogResult(boolean result)
-	{
-		if (result)
-			finalizeStage();
-	}
+        if (!loader.fileExists())
+            finalizeStage();
+        else
+            confirm();
+    }
+
+    @Override
+    public void finalizeStage() {
+
+        stage.setResult(createResult(new GameProgress()));
+    }
+
+    private void confirm() {
+
+        utils.confirmDialog(UIStrings.NEW_GAME, UIStrings.NEW_GAME_QUESTION, stage.getStage(),
+                this::processOverrideDialogResult);
+    }
+
+    public void processOverrideDialogResult(boolean result) {
+
+        if (result)
+            finalizeStage();
+    }
 }

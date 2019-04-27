@@ -23,279 +23,280 @@ import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
 
-public class FakeShip implements IShip, IEnemyShip
-{
-	private float x;
-	private float y;
-	private float radius;
-	private IPool hpPool;
+public class FakeShip implements IShip, IEnemyShip {
 
-	@Override
-	public void notify(GameProgress state)
-	{
-		// do nothing
-	}
+    private float x;
+    private float y;
+    private float radius;
+    private IPool hpPool;
 
-	@Override
-	public void takeDmg(float dmg)
-	{
-		// do nothing
-	}
+    @Override
+    public void notify(GameProgress state) {
 
-	@Override
-	public float getRadius()
-	{
-		return radius;
-	}
+        // do nothing
+    }
 
-	@Override
-	public IVector getPosition()
-	{
-		return ExtVectorFactory.INSTANCE.create(x, y);
-	}
+    @Override
+    public void takeDmg(float dmg) {
 
-	@Override
-	public void setToKill()
-	{
-		// do nothing
-	}
+        // do nothing
+    }
 
-	@Override
-	public boolean isToKill()
-	{
-		return false;
-	}
+    @Override
+    public float getRadius() {
 
-	@Override
-	public IActor getActor()
-	{
-		return null;
-	}
+        return radius;
+    }
 
-	@Override
-	public void setActor(IActor actor)
-	{
-		// do nothing
-	}
+    @Override
+    public IVector getPosition() {
 
-	@Override
-	public void act(float delta)
-	{
-		// do nothing
-	}
+        return ExtVectorFactory.INSTANCE.create(x, y);
+    }
 
-	@Override
-	public void draw(IBatch batch,float alpha)
-	{
-		// do nothing
-	}
+    @Override
+    public void setToKill() {
 
-	@Override
-	public void setDestination(IVector destination)
-	{
-		x = destination.getX();
-		y = destination.getY();
-	}
+        // do nothing
+    }
 
-	@Override
-	public float getX()
-	{
-		return x;
-	}
+    @Override
+    public boolean isToKill() {
 
-	@Override
-	public float getY()
-	{
-		return y;
-	}
+        return false;
+    }
 
-	@Override
-	public void setX(float x)
-	{
-		this.x = x;
-	}
+    @Override
+    public IActor getActor() {
 
-	@Override
-	public void setY(float y)
-	{
-		this.y = y;
-	}
+        return null;
+    }
 
-	public void setRadius(float radius)
-	{
-		this.radius = radius;
-	}
+    @Override
+    public void setActor(IActor actor) {
 
-	@Override
-	public void setShipEngine(IEngine engine)
-	{
-		// do nothing
-	}
+        // do nothing
+    }
 
-	@Override
-	public void addWeapon(IWeapon weapon)
-	{
-		// do nothing
-	}
+    @Override
+    public void act(float delta) {
 
-	@Override
-	public Set<IWeapon> getWeapons()
-	{
-		return null;
-	}
+        // do nothing
+    }
 
-	@Override
-	public void setLevel(int level)
-	{
-		// do nothing
-	}
+    @Override
+    public void draw(IBatch batch, float alpha) {
 
-	@Override
-	public float getHeight()
-	{
-		return 0;
-	}
+        // do nothing
+    }
 
-	@Override
-	public float getWidth()
-	{
-		return 0;
-	}
+    @Override
+    public void setDestination(IVector destination) {
 
-	@Override
-	public boolean takeEnergy(float energyCost)
-	{
-		return false;
-	}
+        x = destination.getX();
+        y = destination.getY();
+    }
 
-	@Override
-	public void setEnergyPool(IPool pool)
-	{
-		// do nothing
-	}
+    @Override
+    public float getX() {
 
-	@Override
-	public IPool getEnergyPool()
-	{
-		return null;
-	}
+        return x;
+    }
 
-	@Override
-	public void setTexture(ITexture texture)
-	{
-		// do nothing
-	}
+    @Override
+    public float getY() {
 
-	@Override
-	public boolean exploded() {
-		return false;
-	}
+        return y;
+    }
 
-	@Override
-	public void setHpPool(IPool pool)
-	{
-		hpPool = pool;
-	}
+    @Override
+    public void setX(float x) {
 
-	@Override
-	public IPool getHpPool()
-	{
-		return hpPool;
-	}
+        this.x = x;
+    }
 
-	@Override
-	public void setMissilesLauncher(MissilesLauncher launcher)
-	{
-		// do nothing
-	}
+    @Override
+    public void setY(float y) {
 
-	@Override
-	public void explode()
-	{
-		// do nothing
-	}
+        this.y = y;
+    }
 
-	@Override
-	public void setExplosion(Launchable explosion)
-	{
-		// do nothing
-	}
+    public void setRadius(float radius) {
 
-	@Override
-	public void ignite(float fireDmg,long fireDuration)
-	{
-		// do nothing
-	}
+        this.radius = radius;
+    }
 
-	@Override
-	public void setBurner(Burner burner)
-	{
-		// do nothing
-	}
+    @Override
+    public void setShipEngine(IEngine engine) {
 
-	@Override
-	public float getDrawingX()
-	{
-		return x;
-	}
+        // do nothing
+    }
 
-	@Override
-	public float getDrawingY()
-	{
-		return y;
-	}
+    @Override
+    public void addWeapon(IWeapon weapon) {
 
-	@Override
-	public void setPlayerShip(RadarVisible playerShip)
-	{
-		// do nothing
-	}
+        // do nothing
+    }
 
-	@Override
-	public void setMover(MoverAI mover) 
-	{
-		// do nothing
-	}
+    @Override
+    public Set<IWeapon> getWeapons() {
 
-	@Override
-	public void setShooter(ShooterAI shooter) 
-	{
-		// do nothing
-	}
+        return null;
+    }
 
-	@Override
-	public IWeaponController getWeaponController() 
-	{
-		return null;
-	}
+    @Override
+    public void setLevel(int level) {
 
-	@Override
-	public boolean isMoving() 
-	{
-		return false;
-	}
+        // do nothing
+    }
 
-	@Override
-	public void setWeaponController(IWeaponController controller) 
-	{
-		// do nothing
-	}
+    @Override
+    public float getHeight() {
 
-	@Override
-	public MoverType getMoverType() 
-	{
-		return null;
-	}
+        return 0;
+    }
 
-	@Override
-	public void setBar(EnemyBar bar)
-	{
-		// do nothing
-	}
+    @Override
+    public float getWidth() {
 
-	@Override
-	public void setPowerUp(IPowerUp powerUp) 
-	{
-		// do nothing
-	}
+        return 0;
+    }
+
+    @Override
+    public boolean takeEnergy(float energyCost) {
+
+        return false;
+    }
+
+    @Override
+    public void setEnergyPool(IPool pool) {
+
+        // do nothing
+    }
+
+    @Override
+    public IPool getEnergyPool() {
+
+        return null;
+    }
+
+    @Override
+    public void setTexture(ITexture texture) {
+
+        // do nothing
+    }
+
+    @Override
+    public boolean exploded() {
+
+        return false;
+    }
+
+    @Override
+    public void setHpPool(IPool pool) {
+
+        hpPool = pool;
+    }
+
+    @Override
+    public IPool getHpPool() {
+
+        return hpPool;
+    }
+
+    @Override
+    public void setMissilesLauncher(MissilesLauncher launcher) {
+
+        // do nothing
+    }
+
+    @Override
+    public void explode() {
+
+        // do nothing
+    }
+
+    @Override
+    public void setExplosion(Launchable explosion) {
+
+        // do nothing
+    }
+
+    @Override
+    public void ignite(float fireDmg, long fireDuration) {
+
+        // do nothing
+    }
+
+    @Override
+    public void setBurner(Burner burner) {
+
+        // do nothing
+    }
+
+    @Override
+    public float getDrawingX() {
+
+        return x;
+    }
+
+    @Override
+    public float getDrawingY() {
+
+        return y;
+    }
+
+    @Override
+    public void setPlayerShip(RadarVisible playerShip) {
+
+        // do nothing
+    }
+
+    @Override
+    public void setMover(MoverAI mover) {
+
+        // do nothing
+    }
+
+    @Override
+    public void setShooter(ShooterAI shooter) {
+
+        // do nothing
+    }
+
+    @Override
+    public IWeaponController getWeaponController() {
+
+        return null;
+    }
+
+    @Override
+    public boolean isMoving() {
+
+        return false;
+    }
+
+    @Override
+    public void setWeaponController(IWeaponController controller) {
+
+        // do nothing
+    }
+
+    @Override
+    public MoverType getMoverType() {
+
+        return null;
+    }
+
+    @Override
+    public void setBar(EnemyBar bar) {
+
+        // do nothing
+    }
+
+    @Override
+    public void setPowerUp(IPowerUp powerUp) {
+
+        // do nothing
+    }
 }

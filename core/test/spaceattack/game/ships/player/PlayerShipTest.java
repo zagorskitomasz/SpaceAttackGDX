@@ -26,156 +26,156 @@ import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
 
-public class PlayerShipTest
-{
-	private PlayerShip ship;
+public class PlayerShipTest {
 
-	@Mock
-	private IPool energyPool;
+    private PlayerShip ship;
 
-	@Mock
-	private IPool hpPool;
+    @Mock
+    private IPool energyPool;
 
-	@Mock
-	private IEngine engine;
+    @Mock
+    private IPool hpPool;
 
-	@Mock
-	private IWeapon weapon;
+    @Mock
+    private IEngine engine;
 
-	@Mock
-	private ITexture texture;
+    @Mock
+    private IWeapon weapon;
 
-	@Mock
-	private Launchable explosion;
+    @Mock
+    private ITexture texture;
 
-	@Mock
-	private MissilesLauncher launcher;
+    @Mock
+    private Launchable explosion;
 
-	@Mock
-	private IActor explosionActor;
+    @Mock
+    private MissilesLauncher launcher;
 
-	@Mock
-	private IBatch batch;
+    @Mock
+    private IActor explosionActor;
 
-	@Mock
-	private Burner burner;
+    @Mock
+    private IBatch batch;
 
-	@Before
-	public void setUp()
-	{
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-		MockitoAnnotations.initMocks(this);
+    @Mock
+    private Burner burner;
 
-		explosionActor = new FakeActor();
-		explosionActor.setX(800);
-		explosionActor.setY(200);
+    @Before
+    public void setUp() {
 
-		doReturn(100).when(texture).getWidth();
-		doReturn(200).when(texture).getHeight();
-		doReturn(explosionActor).when(explosion).getActor();
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+        MockitoAnnotations.initMocks(this);
 
-		ship = new PlayerShip();
-		ship.setActor(new FakeActor());
-		ship.setShipEngine(engine);
-		ship.setHpPool(hpPool);
-		ship.setEnergyPool(energyPool);
-		ship.addWeapon(weapon);
-		ship.setTexture(texture);
-		ship.setExplosion(explosion);
-		ship.setMissilesLauncher(launcher);
-		ship.setBurner(burner);
-	}
+        explosionActor = new FakeActor();
+        explosionActor.setX(800);
+        explosionActor.setY(200);
 
-	@Test
-	public void isSettingCenterCoords()
-	{
-		IBatch batch = mock(IBatch.class);
+        doReturn(100).when(texture).getWidth();
+        doReturn(200).when(texture).getHeight();
+        doReturn(explosionActor).when(explosion).getActor();
 
-		ship.draw(batch, 0);
+        ship = new PlayerShip();
+        ship.setActor(new FakeActor());
+        ship.setShipEngine(engine);
+        ship.setHpPool(hpPool);
+        ship.setEnergyPool(energyPool);
+        ship.addWeapon(weapon);
+        ship.setTexture(texture);
+        ship.setExplosion(explosion);
+        ship.setMissilesLauncher(launcher);
+        ship.setBurner(burner);
+    }
 
-		verify(batch).draw(texture, 310, 412, 100, 200);
-	}
+    @Test
+    public void isSettingCenterCoords() {
 
-	@Test
-	public void radius()
-	{
-		doReturn(100).when(texture).getWidth();
-		doReturn(100).when(texture).getHeight();
+        IBatch batch = mock(IBatch.class);
 
-		assertEquals(50f, ship.getRadius(), 0);
-	}
+        ship.draw(batch, 0);
 
-	@Test
-	public void afterDmgHigherThanHpPoolIsToKill()
-	{
-		IPool hpPool = new HpPool(50, 10, 5, 1);
+        verify(batch).draw(texture, 310, 412, 100, 200);
+    }
 
-		ship.setHpPool(hpPool);
-		ship.takeDmg(100);
+    @Test
+    public void radius() {
 
-		assertTrue(ship.isToKill());
-	}
+        doReturn(100).when(texture).getWidth();
+        doReturn(100).when(texture).getHeight();
 
-	@Test
-	public void actingIsUpdatingShipsConponents()
-	{
-		ship.act(0);
+        assertEquals(50f, ship.getRadius(), 0);
+    }
 
-		verify(engine).fly();
-		verify(energyPool).update();
-		verify(hpPool).update();
-	}
+    @Test
+    public void afterDmgHigherThanHpPoolIsToKill() {
 
-	@Test
-	public void updatingLevelIsPropagatedToShipsComponents()
-	{
-		ship.setLevel(5);
+        IPool hpPool = new HpPool(50, 10, 5, 1);
 
-		verify(engine).setLevel(5);
-		verify(energyPool).setLevel(5);
-		verify(hpPool).setLevel(5);
-		verify(weapon).setLevel(5);
-	}
+        ship.setHpPool(hpPool);
+        ship.takeDmg(100);
 
-	@Test
-	public void explodeWhenDestroyed()
-	{
-		ship.setToKill();
+        assertTrue(ship.isToKill());
+    }
 
-		verify(launcher).launch(explosion);
-	}
-	
-	@Test
-	public void wontExplodeOutOfScreen()
-	{
-		ship.setX(-500);
-		ship.setToKill();
+    @Test
+    public void actingIsUpdatingShipsConponents() {
 
-		verify(launcher,times(0)).launch(explosion);
-	}
+        ship.act(0);
 
-	@Test
-	public void explosionHasShipCoords()
-	{
-		ship.setToKill();
+        verify(engine).fly();
+        verify(energyPool).update();
+        verify(hpPool).update();
+    }
 
-		assertEquals(360, explosionActor.getX(), 0);
-		assertEquals(512, explosionActor.getY(), 0);
-	}
+    @Test
+    public void updatingLevelIsPropagatedToShipsComponents() {
 
-	@Test
-	public void burnIsDrawn()
-	{
-		ship.draw(batch, 0);
+        ship.setLevel(5);
 
-		verify(burner).draw(batch);
-	}
+        verify(engine).setLevel(5);
+        verify(energyPool).setLevel(5);
+        verify(hpPool).setLevel(5);
+        verify(weapon).setLevel(5);
+    }
 
-	@Test
-	public void burningWhenActing()
-	{
-		ship.act(0);
+    @Test
+    public void explodeWhenDestroyed() {
 
-		verify(burner).burn(0);
-	}
+        ship.setToKill();
+
+        verify(launcher).launch(explosion);
+    }
+
+    @Test
+    public void wontExplodeOutOfScreen() {
+
+        ship.setX(-500);
+        ship.setToKill();
+
+        verify(launcher, times(0)).launch(explosion);
+    }
+
+    @Test
+    public void explosionHasShipCoords() {
+
+        ship.setToKill();
+
+        assertEquals(360, explosionActor.getX(), 0);
+        assertEquals(512, explosionActor.getY(), 0);
+    }
+
+    @Test
+    public void burnIsDrawn() {
+
+        ship.draw(batch, 0);
+
+        verify(burner).draw(batch);
+    }
+
+    @Test
+    public void burningWhenActing() {
+
+        ship.act(0);
+
+        verify(burner).burn(0);
+    }
 }

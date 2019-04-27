@@ -18,108 +18,108 @@ import spaceattack.game.buttons.IButton;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
 
-public class MainMenuStageTest
-{
-	@Mock
-	private GameSaver saver;
+public class MainMenuStageTest {
 
-	@Mock
-	private GameLoader loader;
+    @Mock
+    private GameSaver saver;
 
-	@Mock
-	private IButton button;
+    @Mock
+    private GameLoader loader;
 
-	private MainMenuStage stage;
+    @Mock
+    private IButton button;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    private MainMenuStage stage;
 
-		stage = new MainMenuStage();
-		stage.setGameSaver(saver);
-		stage.setGameLoader(loader);
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void afterSettingResultIsCompleted()
-	{
-		stage.setResult(new StageResult());
-		assertTrue(stage.isCompleted());
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void settingResultIsSavingProgressFile()
-	{
-		doReturn(true).when(loader).fileExists();
+        stage = new MainMenuStage();
+        stage.setGameSaver(saver);
+        stage.setGameLoader(loader);
+    }
 
-		GameProgress progress = new GameProgress();
-		progress.setExperience(1000l);
+    @Test
+    public void afterSettingResultIsCompleted() {
 
-		StageResult result = new StageResult();
-		result.setGameProgress(progress);
+        stage.setResult(new StageResult());
+        assertTrue(stage.isCompleted());
+    }
 
-		stage.setGameProgress(new GameProgress());
-		stage.setResult(result);
+    @Test
+    public void settingResultIsSavingProgressFile() {
 
-		verify(saver).save(eq(progress));
-	}
+        doReturn(true).when(loader).fileExists();
 
-	@Test
-	public void notSavedWhenProgressIsNull()
-	{
-		doReturn(true).when(loader).fileExists();
+        GameProgress progress = new GameProgress();
+        progress.setExperience(1000l);
 
-		StageResult result = new StageResult();
+        StageResult result = new StageResult();
+        result.setGameProgress(progress);
 
-		stage.setResult(result);
+        stage.setGameProgress(new GameProgress());
+        stage.setResult(result);
 
-		verify(saver, times(0)).save(any(GameProgress.class));
-	}
+        verify(saver).save(eq(progress));
+    }
 
-	@Test
-	public void notSavedWhenNoChange()
-	{
-		doReturn(true).when(loader).fileExists();
+    @Test
+    public void notSavedWhenProgressIsNull() {
 
-		GameProgress progress = new GameProgress();
-		progress.setExperience(1000l);
+        doReturn(true).when(loader).fileExists();
 
-		StageResult result = new StageResult();
-		result.setGameProgress(progress);
+        StageResult result = new StageResult();
 
-		stage.setGameProgress(progress);
-		stage.setResult(result);
+        stage.setResult(result);
 
-		verify(saver, times(0)).save(any(GameProgress.class));
-	}
+        verify(saver, times(0)).save(any(GameProgress.class));
+    }
 
-	@Test
-	public void forceSaveWhenFileNotExists()
-	{
-		doReturn(false).when(loader).fileExists();
+    @Test
+    public void notSavedWhenNoChange() {
 
-		GameProgress progress = new GameProgress();
-		progress.setExperience(1000l);
+        doReturn(true).when(loader).fileExists();
 
-		StageResult result = new StageResult();
-		result.setGameProgress(progress);
+        GameProgress progress = new GameProgress();
+        progress.setExperience(1000l);
 
-		stage.setGameProgress(progress);
-		stage.setResult(result);
+        StageResult result = new StageResult();
+        result.setGameProgress(progress);
 
-		verify(saver).save(eq(progress));
-	}
+        stage.setGameProgress(progress);
+        stage.setResult(result);
 
-	@Test
-	public void whenFileNotExistsContinueButtonIsDisabled()
-	{
-		doReturn(false).when(loader).fileExists();
+        verify(saver, times(0)).save(any(GameProgress.class));
+    }
 
-		stage.setGameLoader(loader);
-		stage.addButtonsEnabledPredicate(button, stage::isContinueButtonEnabled);
-		stage.updateControls();
+    @Test
+    public void forceSaveWhenFileNotExists() {
 
-		verify(button).setEnabled(false);
-	}
+        doReturn(false).when(loader).fileExists();
+
+        GameProgress progress = new GameProgress();
+        progress.setExperience(1000l);
+
+        StageResult result = new StageResult();
+        result.setGameProgress(progress);
+
+        stage.setGameProgress(progress);
+        stage.setResult(result);
+
+        verify(saver).save(eq(progress));
+    }
+
+    @Test
+    public void whenFileNotExistsContinueButtonIsDisabled() {
+
+        doReturn(false).when(loader).fileExists();
+
+        stage.setGameLoader(loader);
+        stage.addButtonsEnabledPredicate(button, stage::isContinueButtonEnabled);
+        stage.updateControls();
+
+        verify(button).setEnabled(false);
+    }
 }

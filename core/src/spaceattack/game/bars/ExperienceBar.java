@@ -5,43 +5,43 @@ import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.Textures;
 
-public class ExperienceBar extends Bar
-{
-	private IPool expPool;
-	private AbstractBarFiller expFiller;
+public class ExperienceBar extends Bar {
 
-	public ExperienceBar(IPool pool)
-	{
-		expPool = pool;
-		texture = Textures.EXP_BAR.getTexture();
-	}
+    private IPool expPool;
+    private AbstractBarFiller expFiller;
 
-	void setFiller(AbstractBarFiller filler)
-	{
-		expFiller = filler;
-	}
+    public ExperienceBar(IPool pool) {
 
-	@Override
-	protected void drawFillerLabel(IBatch batch)
-	{
-		// do nothing
-	}
+        expPool = pool;
+        texture = Textures.EXP_BAR.getTexture();
+    }
 
-	@Override
-	protected void drawTexture(IBatch batch)
-	{
-		batch.draw(texture, Sizes.GAME_WIDTH - texture.getWidth(), Sizes.GAME_HEIGHT - 900 * Sizes.Y_FACTOR);
-	}
+    void setFiller(AbstractBarFiller filler) {
 
-	@Override
-	protected void drawBarRect(IBatch batch)
-	{
-		expFiller.drawRect(batch);
-	}
+        expFiller = filler;
+    }
 
-	@Override
-	public void act(float delta)
-	{
-		expPool.update();
-	}
+    @Override
+    protected void drawFillerLabel(IBatch batch) {
+
+        // do nothing
+    }
+
+    @Override
+    protected void drawTexture(IBatch batch) {
+
+        batch.draw(texture, Sizes.GAME_WIDTH - texture.getWidth(), Sizes.GAME_HEIGHT - 900 * Sizes.Y_FACTOR);
+    }
+
+    @Override
+    protected void drawBarRect(IBatch batch) {
+
+        expFiller.drawRect(batch);
+    }
+
+    @Override
+    public void act(float delta) {
+
+        expPool.update();
+    }
 }

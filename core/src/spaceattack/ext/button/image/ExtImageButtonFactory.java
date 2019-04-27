@@ -10,31 +10,30 @@ import spaceattack.game.buttons.IProgressButton;
 import spaceattack.game.buttons.weapon.IImageButtonFactory;
 import spaceattack.game.system.graphics.ITexture;
 
-public enum ExtImageButtonFactory implements IImageButtonFactory
-{
-	INSTANCE;
+public enum ExtImageButtonFactory implements IImageButtonFactory {
+    INSTANCE;
 
-	@Override
-	public IImageButton create(ITexture textureUp,ITexture textureDown,ITexture textureDisabled)
-	{
-		Drawable drawableUp = createDrawable(textureUp);
-		Drawable drawableDown = createDrawable(textureDown);
-		Drawable drawableDisabled = createDrawable(textureDisabled);
+    @Override
+    public IImageButton create(ITexture textureUp, ITexture textureDown, ITexture textureDisabled) {
 
-		return new GdxImageButton(drawableUp, drawableDown, drawableDisabled);
-	}
+        Drawable drawableUp = createDrawable(textureUp);
+        Drawable drawableDown = createDrawable(textureDown);
+        Drawable drawableDisabled = createDrawable(textureDisabled);
 
-	private Drawable createDrawable(ITexture texture)
-	{
-		TextureRegion region = new TextureRegion((GdxTexture) texture);
-		return new TextureRegionDrawable(region);
-	}
+        return new GdxImageButton(drawableUp, drawableDown, drawableDisabled);
+    }
 
-	@Override
-	public IProgressButton create(ITexture background, ITexture slider) 
-	{
-		Drawable drawableBackground = createDrawable(background);
-		
-		return new GdxProgressButton(drawableBackground, (GdxTexture)slider);
-	}
+    private Drawable createDrawable(ITexture texture) {
+
+        TextureRegion region = new TextureRegion((GdxTexture) texture);
+        return new TextureRegionDrawable(region);
+    }
+
+    @Override
+    public IProgressButton create(ITexture background, ITexture slider) {
+
+        Drawable drawableBackground = createDrawable(background);
+
+        return new GdxProgressButton(drawableBackground, (GdxTexture) slider);
+    }
 }

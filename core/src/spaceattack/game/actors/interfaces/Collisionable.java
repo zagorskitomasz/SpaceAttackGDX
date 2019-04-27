@@ -2,9 +2,9 @@ package spaceattack.game.actors.interfaces;
 
 import spaceattack.game.utils.vector.IVector;
 
-public interface Collisionable 
-{
-	float getRadius();
+public interface Collisionable {
 
-	IVector getPosition();
+    float getRadius();
+
+    IVector getPosition();
 }

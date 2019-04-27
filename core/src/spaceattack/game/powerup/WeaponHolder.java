@@ -4,41 +4,41 @@ import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.weapons.IWeapon;
 
-public class WeaponHolder extends AbstractPowerUp
-{
-	private IWeapon weapon;
-	private ComplexFireButton button;
-	private int ammo;
-	private ITexture weaponIcon;
+public class WeaponHolder extends AbstractPowerUp {
 
-	public void setWeapon(IWeapon weapon)
-	{
-		this.weapon = weapon;
-	}
+    private IWeapon weapon;
+    private ComplexFireButton button;
+    private int ammo;
+    private ITexture weaponIcon;
 
-	public IWeapon getWeapon()
-	{
-		return weapon;
-	}
+    public void setWeapon(IWeapon weapon) {
 
-	public void setFireButton(ComplexFireButton button)
-	{
-		this.button = button;
-	}
+        this.weapon = weapon;
+    }
 
-	public void setAmmo(int ammo)
-	{
-		this.ammo = ammo;
-	}
+    public IWeapon getWeapon() {
 
-	public void setWeaponIcon(ITexture weaponIcon)
-	{
-		this.weaponIcon = weaponIcon;
-	}
+        return weapon;
+    }
 
-	@Override
-	public void consumed()
-	{
-		button.setSpecialWeapon(weapon, ammo, weaponIcon);
-	}
+    public void setFireButton(ComplexFireButton button) {
+
+        this.button = button;
+    }
+
+    public void setAmmo(int ammo) {
+
+        this.ammo = ammo;
+    }
+
+    public void setWeaponIcon(ITexture weaponIcon) {
+
+        this.weaponIcon = weaponIcon;
+    }
+
+    @Override
+    public void consumed() {
+
+        button.setSpecialWeapon(weapon, ammo, weaponIcon);
+    }
 }

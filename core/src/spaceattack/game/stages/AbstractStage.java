@@ -14,169 +14,169 @@ import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
 import spaceattack.game.system.graphics.StaticImage;
 
-public abstract class AbstractStage implements IGameStage
-{
-	protected IStage stage;
+public abstract class AbstractStage implements IGameStage {
 
-	protected GameSaver gameSaver;
-	protected GameLoader gameLoader;
+    protected IStage stage;
 
-	private Stages type;
-	private StageResult result;
-	private GameProgress gameProgress;
-	private GameProgress progressBackup;
+    protected GameSaver gameSaver;
+    protected GameLoader gameLoader;
 
-	private Map<IButton, Predicate<IButton>> buttonsToEnable;
-	private Map<IButton, Predicate<IButton>> buttonsToHide;
-	private Map<IButton, Function<IButton, String>> changeTextButtons;
+    private Stages type;
+    private StageResult result;
+    private GameProgress gameProgress;
+    private GameProgress progressBackup;
 
-	public AbstractStage()
-	{
-		buttonsToEnable = new HashMap<>();
-		buttonsToHide = new HashMap<>();
-		changeTextButtons = new HashMap<>();
-	}
+    private Map<IButton, Predicate<IButton>> buttonsToEnable;
+    private Map<IButton, Predicate<IButton>> buttonsToHide;
+    private Map<IButton, Function<IButton, String>> changeTextButtons;
 
-	public void setStage(IStage stage)
-	{
-		this.stage = stage;
-	}
+    public AbstractStage() {
 
-	public void setGameSaver(GameSaver saver)
-	{
-		gameSaver = saver;
-	}
+        buttonsToEnable = new HashMap<>();
+        buttonsToHide = new HashMap<>();
+        changeTextButtons = new HashMap<>();
+    }
 
-	public void setGameLoader(GameLoader loader)
-	{
-		gameLoader = loader;
-	}
+    public void setStage(IStage stage) {
 
-	@Override
-	public boolean isCompleted()
-	{
-		return result != null;
-	}
+        this.stage = stage;
+    }
 
-	@Override
-	public StageResult getResult()
-	{
-		return result;
-	}
+    public void setGameSaver(GameSaver saver) {
 
-	@Override
-	public void setResult(StageResult result)
-	{
-		this.result = result;
+        gameSaver = saver;
+    }
 
-		if (result.getGameProgress() != null
-				&& !(result.getGameProgress().equals(progressBackup) && gameLoader.fileExists()))
-			gameSaver.save(result.getGameProgress());
-	}
+    public void setGameLoader(GameLoader loader) {
 
-	@Override
-	public Stages getType()
-	{
-		return type;
-	}
+        gameLoader = loader;
+    }
 
-	@Override
-	public void setType(Stages type)
-	{
-		this.type = type;
-	}
+    @Override
+    public boolean isCompleted() {
 
-	@Override
-	public GameProgress getGameProgress()
-	{
-		return gameProgress;
-	}
+        return result != null;
+    }
 
-	@Override
-	public void setGameProgress(GameProgress gameProgress)
-	{
-		this.gameProgress = gameProgress;
+    @Override
+    public StageResult getResult() {
 
-		if (progressBackup == null)
-			progressBackup = gameProgress.clone();
-	}
+        return result;
+    }
 
-	@Override
-	public void addActorBeforeGUI(IGameActor newActor)
-	{
-		stage.addActorAtBegining(newActor);
-	}
+    @Override
+    public void setResult(StageResult result) {
 
-	@Override
-	public void addActor(IGameActor actor)
-	{
-		stage.addActor(actor);
-	}
+        this.result = result;
 
-	public GameProgress getProgressBackup()
-	{
-		return progressBackup;
-	}
+        if (result.getGameProgress() != null
+                && !(result.getGameProgress().equals(progressBackup) && gameLoader.fileExists()))
+            gameSaver.save(result.getGameProgress());
+    }
 
-	@Override
-	public void act(float delta)
-	{
-		stage.act(delta);
-	}
+    @Override
+    public Stages getType() {
 
-	@Override
-	public void draw()
-	{
-		stage.draw();
-	}
+        return type;
+    }
 
-	@Override
-	public List<IGameActor> getActors()
-	{
-		return stage.getGameActors();
-	}
+    @Override
+    public void setType(Stages type) {
 
-	@Override
-	public void updateViewport(int width,int height,boolean centerCamera)
-	{
-		stage.updateViewport(width, height, centerCamera);
-	}
+        this.type = type;
+    }
 
-	@Override
-	public IStage getStage()
-	{
-		return stage;
-	}
+    @Override
+    public GameProgress getGameProgress() {
 
-	@Override
-	public void updateControls()
-	{
-		buttonsToEnable.forEach((button,predicate)->button.setEnabled(predicate.test(button)));
-		buttonsToHide.forEach((button,predicate)->button.setVisible(predicate.test(button)));
-		changeTextButtons.forEach((button,function)->button.setText(function.apply(button)));
-	}
+        return gameProgress;
+    }
 
-	@Override
-	public void addButtonsEnabledPredicate(IButton button,Predicate<IButton> predicate)
-	{
-		buttonsToEnable.put(button, predicate);
-	}
+    @Override
+    public void setGameProgress(GameProgress gameProgress) {
 
-	@Override
-	public void addButtonsVisiblePredicate(IButton button,Predicate<IButton> predicate)
-	{
-		buttonsToHide.put(button, predicate);
-	}
+        this.gameProgress = gameProgress;
 
-	@Override
-	public void addButtonsTextFunction(IButton button,Function<IButton, String> predicate)
-	{
-		changeTextButtons.put(button, predicate);
-	}
+        if (progressBackup == null)
+            progressBackup = gameProgress.clone();
+    }
 
-	@Override
-	public void addBackground(StaticImage background)
-	{
-		stage.addBackground(background);
-	}
+    @Override
+    public void addActorBeforeGUI(IGameActor newActor) {
+
+        stage.addActorAtBegining(newActor);
+    }
+
+    @Override
+    public void addActor(IGameActor actor) {
+
+        stage.addActor(actor);
+    }
+
+    public GameProgress getProgressBackup() {
+
+        return progressBackup;
+    }
+
+    @Override
+    public void act(float delta) {
+
+        stage.act(delta);
+    }
+
+    @Override
+    public void draw() {
+
+        stage.draw();
+    }
+
+    @Override
+    public List<IGameActor> getActors() {
+
+        return stage.getGameActors();
+    }
+
+    @Override
+    public void updateViewport(int width, int height, boolean centerCamera) {
+
+        stage.updateViewport(width, height, centerCamera);
+    }
+
+    @Override
+    public IStage getStage() {
+
+        return stage;
+    }
+
+    @Override
+    public void updateControls() {
+
+        buttonsToEnable.forEach((button, predicate) -> button.setEnabled(predicate.test(button)));
+        buttonsToHide.forEach((button, predicate) -> button.setVisible(predicate.test(button)));
+        changeTextButtons.forEach((button, function) -> button.setText(function.apply(button)));
+    }
+
+    @Override
+    public void addButtonsEnabledPredicate(IButton button, Predicate<IButton> predicate) {
+
+        buttonsToEnable.put(button, predicate);
+    }
+
+    @Override
+    public void addButtonsVisiblePredicate(IButton button, Predicate<IButton> predicate) {
+
+        buttonsToHide.put(button, predicate);
+    }
+
+    @Override
+    public void addButtonsTextFunction(IButton button, Function<IButton, String> predicate) {
+
+        changeTextButtons.put(button, predicate);
+    }
+
+    @Override
+    public void addBackground(StaticImage background) {
+
+        stage.addBackground(background);
+    }
 }

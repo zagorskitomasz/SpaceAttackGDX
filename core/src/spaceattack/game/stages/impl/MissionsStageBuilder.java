@@ -14,55 +14,54 @@ import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.MusicPlayer;
 
-public class MissionsStageBuilder implements IStageBuilder
-{
-	@Override
-	public IGameStage build(GameProgress progress)
-	{
-		MissionsStage stage = new MissionsStage();
+public class MissionsStageBuilder implements IStageBuilder {
 
-		stage.setStage(Factories.getStageFactory().create());
-		stage.setGameSaver(GameSaverFactory.INSTANCE.create());
-		stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
-		stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load());
+    @Override
+    public IGameStage build(GameProgress progress) {
 
-		Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
+        MissionsStage stage = new MissionsStage();
 
-		StaticImage background = StaticImageFactory.INSTANCE.create(Textures.MENU_BACKGROUND.getTexture(), 0, 0);
-		StaticImage logo = StaticImageFactory.INSTANCE.create(Textures.LOGO.getTexture(), 0, Sizes.GAME_HEIGHT * 0.03f);
-		StaticImage actLogo = StaticImageFactory.INSTANCE.create(Textures.ACT_1_LOGO.getTexture(), 0,
-				Sizes.GAME_HEIGHT * 0.27f);
+        stage.setStage(Factories.getStageFactory().create());
+        stage.setGameSaver(GameSaverFactory.INSTANCE.create());
+        stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
+        stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load());
 
-		IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToMenuButton(stage);
-		IButton previouwActButton = MenuButtonsBuilder.INSTANCE.previousActButton(stage);
-		IButton nextActButton = MenuButtonsBuilder.INSTANCE.nextActButton(stage);
+        Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
 
-		stage.addBackground(background);
-		stage.addActLogoImage(actLogo);
+        StaticImage background = StaticImageFactory.INSTANCE.create(Textures.MENU_BACKGROUND.getTexture(), 0, 0);
+        StaticImage logo = StaticImageFactory.INSTANCE.create(Textures.LOGO.getTexture(), 0, Sizes.GAME_HEIGHT * 0.03f);
+        StaticImage actLogo = StaticImageFactory.INSTANCE.create(Textures.ACT_1_LOGO.getTexture(), 0,
+                Sizes.GAME_HEIGHT * 0.27f);
 
-		for (int i = 0; i < Consts.Metagame.MISSIONS_IN_ACT; i++)
-		{
-			IButton missionButton = MenuButtonsBuilder.INSTANCE.missionButton(stage, i);
-			stage.addButtonsEnabledPredicate(missionButton, stage::isMissionButtonEnabled);
-			stage.addButtonsTextFunction(missionButton, stage::getMissionButtonText);
-			stage.addActor(missionButton);
-		}
+        IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToMenuButton(stage);
+        IButton previouwActButton = MenuButtonsBuilder.INSTANCE.previousActButton(stage);
+        IButton nextActButton = MenuButtonsBuilder.INSTANCE.nextActButton(stage);
 
-		stage.addButtonsVisiblePredicate(nextActButton, stage::isNextActButtonVisible);
-		stage.addButtonsVisiblePredicate(previouwActButton, stage::isPreviousActButtonVisible);
-		stage.addButtonsTextFunction(nextActButton, stage::getNextActButtonText);
-		stage.addButtonsTextFunction(previouwActButton, stage::getPreviousActButtonText);
+        stage.addBackground(background);
+        stage.addActLogoImage(actLogo);
 
-		stage.addActorBeforeGUI(actLogo);
-		stage.addActorBeforeGUI(logo);
-		stage.addActor(backToMenuButton);
-		stage.addActor(previouwActButton);
-		stage.addActor(nextActButton);
+        for (int i = 0; i < Consts.Metagame.MISSIONS_IN_ACT; i++) {
+            IButton missionButton = MenuButtonsBuilder.INSTANCE.missionButton(stage, i);
+            stage.addButtonsEnabledPredicate(missionButton, stage::isMissionButtonEnabled);
+            stage.addButtonsTextFunction(missionButton, stage::getMissionButtonText);
+            stage.addActor(missionButton);
+        }
 
-		stage.updateControls();
-		
-		MusicPlayer.INSTANCE.playMenu();
+        stage.addButtonsVisiblePredicate(nextActButton, stage::isNextActButtonVisible);
+        stage.addButtonsVisiblePredicate(previouwActButton, stage::isPreviousActButtonVisible);
+        stage.addButtonsTextFunction(nextActButton, stage::getNextActButtonText);
+        stage.addButtonsTextFunction(previouwActButton, stage::getPreviousActButtonText);
 
-		return stage;
-	}
+        stage.addActorBeforeGUI(actLogo);
+        stage.addActorBeforeGUI(logo);
+        stage.addActor(backToMenuButton);
+        stage.addActor(previouwActButton);
+        stage.addActor(nextActButton);
+
+        stage.updateControls();
+
+        MusicPlayer.INSTANCE.playMenu();
+
+        return stage;
+    }
 }

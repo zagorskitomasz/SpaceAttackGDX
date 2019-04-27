@@ -1,83 +1,83 @@
 package spaceattack.game.utils;
 
-public class Rect
-{
-	private float x;
-	private float y;
-	private float width;
-	private float height;
+public class Rect {
 
-	private float red;
-	private float green;
-	private float blue;
+    private float x;
+    private float y;
+    private float width;
+    private float height;
 
-	public float getX()
-	{
-		return x;
-	}
+    private float red;
+    private float green;
+    private float blue;
 
-	public void setX(float x)
-	{
-		this.x = x;
-	}
+    public float getX() {
 
-	public float getY()
-	{
-		return y;
-	}
+        return x;
+    }
 
-	public void setY(float y)
-	{
-		this.y = y;
-	}
+    public void setX(float x) {
 
-	public float getWidth()
-	{
-		return width;
-	}
+        this.x = x;
+    }
 
-	public void setWidth(float width)
-	{
-		this.width = width;
-	}
+    public float getY() {
 
-	public float getHeight()
-	{
-		return height;
-	}
+        return y;
+    }
 
-	public void setHeight(float height)
-	{
-		this.height = height;
-	}
+    public void setY(float y) {
 
-	public float getRed()
-	{
-		return red;
-	}
+        this.y = y;
+    }
 
-	public void setRed(float red)
-	{
-		this.red = red;
-	}
+    public float getWidth() {
 
-	public float getGreen()
-	{
-		return green;
-	}
+        return width;
+    }
 
-	public void setGreen(float green)
-	{
-		this.green = green;
-	}
+    public void setWidth(float width) {
 
-	public float getBlue()
-	{
-		return blue;
-	}
+        this.width = width;
+    }
 
-	public void setBlue(float blue)
-	{
-		this.blue = blue;
-	}
+    public float getHeight() {
+
+        return height;
+    }
+
+    public void setHeight(float height) {
+
+        this.height = height;
+    }
+
+    public float getRed() {
+
+        return red;
+    }
+
+    public void setRed(float red) {
+
+        this.red = red;
+    }
+
+    public float getGreen() {
+
+        return green;
+    }
+
+    public void setGreen(float green) {
+
+        this.green = green;
+    }
+
+    public float getBlue() {
+
+        return blue;
+    }
+
+    public void setBlue(float blue) {
+
+        this.blue = blue;
+    }
 }

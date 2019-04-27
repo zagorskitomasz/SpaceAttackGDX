@@ -18,83 +18,82 @@ import spaceattack.game.input.InputType;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 
-public class GdxImageButton extends Button implements IImageButton
-{
-	private IGameActor gameActor;
+public class GdxImageButton extends Button implements IImageButton {
 
-	public GdxImageButton(Drawable drawableUp,Drawable drawableDown,Drawable drawableDisabled)
-	{
-		super(drawableUp, drawableDown);
-		getStyle().disabled = drawableDisabled;
-	}
+    private IGameActor gameActor;
 
-	@Override
-	public void setGameActor(IGameActor gameActor)
-	{
-		this.gameActor = gameActor;
-	}
+    public GdxImageButton(Drawable drawableUp, Drawable drawableDown, Drawable drawableDisabled) {
 
-	@Override
-	public void fire(InputType type)
-	{
-		InputEvent.Type gdxType = null;
+        super(drawableUp, drawableDown);
+        getStyle().disabled = drawableDisabled;
+    }
 
-		switch (type)
-		{
-			case TOUCH_DOWN:
-				gdxType = InputEvent.Type.touchDown;
-				break;
-			case TOUCH_UP:
-				gdxType = InputEvent.Type.touchUp;
-				break;
-		}
+    @Override
+    public void setGameActor(IGameActor gameActor) {
 
-		InputEvent event = new InputEvent();
-		event.setType(gdxType);
+        this.gameActor = gameActor;
+    }
 
-		fire(event);
-	}
+    @Override
+    public void fire(InputType type) {
 
-	@Override
-	public IVector screenToStageCoordinates(IVector touch)
-	{
-		Vector2 vector = new Vector2(touch.getX(), touch.getY());
-		Vector2 result = getStage().screenToStageCoordinates(vector);
+        InputEvent.Type gdxType = null;
 
-		return ExtVectorFactory.INSTANCE.create(result.x, result.y);
-	}
+        switch (type) {
+        case TOUCH_DOWN:
+            gdxType = InputEvent.Type.touchDown;
+            break;
+        case TOUCH_UP:
+            gdxType = InputEvent.Type.touchUp;
+            break;
+        }
 
-	@Override
-	public void setEnabled(boolean enabled)
-	{
-		setDisabled(!enabled);
-		setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
-	}
+        InputEvent event = new InputEvent();
+        event.setType(gdxType);
 
-	@Override
-	public void setDown(ITexture texture)
-	{
-		getStyle().down = createDrawable(texture);
-	}
+        fire(event);
+    }
 
-	@Override
-	public void setUp(ITexture texture)
-	{
-		getStyle().up = createDrawable(texture);
-	}
+    @Override
+    public IVector screenToStageCoordinates(IVector touch) {
 
-	private Drawable createDrawable(ITexture texture)
-	{
-		TextureRegion region = new TextureRegion((GdxTexture) texture);
-		return new TextureRegionDrawable(region);
-	}
+        Vector2 vector = new Vector2(touch.getX(), touch.getY());
+        Vector2 result = getStage().screenToStageCoordinates(vector);
 
-	@Override
-	public void draw(Batch batch,float alpha)
-	{
-		super.draw(batch, alpha);
+        return ExtVectorFactory.INSTANCE.create(result.x, result.y);
+    }
 
-		if (gameActor != null)
-			gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
-	}
+    @Override
+    public void setEnabled(boolean enabled) {
+
+        setDisabled(!enabled);
+        setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
+    }
+
+    @Override
+    public void setDown(ITexture texture) {
+
+        getStyle().down = createDrawable(texture);
+    }
+
+    @Override
+    public void setUp(ITexture texture) {
+
+        getStyle().up = createDrawable(texture);
+    }
+
+    private Drawable createDrawable(ITexture texture) {
+
+        TextureRegion region = new TextureRegion((GdxTexture) texture);
+        return new TextureRegionDrawable(region);
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha) {
+
+        super.draw(batch, alpha);
+
+        if (gameActor != null)
+            gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
+    }
 }

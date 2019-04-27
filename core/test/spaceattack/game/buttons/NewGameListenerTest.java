@@ -25,73 +25,73 @@ import spaceattack.game.system.GameLoader;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.IUtilsFactory;
 
-public class NewGameListenerTest
-{
-	@Mock
-	private IGameStage stage;
+public class NewGameListenerTest {
 
-	@Mock
-	private IUtils utils;
+    @Mock
+    private IGameStage stage;
 
-	@Mock
-	private IUtilsFactory factory;
+    @Mock
+    private IUtils utils;
 
-	@Mock
-	private GameLoader loader;
+    @Mock
+    private IUtilsFactory factory;
 
-	private NewGameListener listener;
+    @Mock
+    private GameLoader loader;
 
-	private StageResult result;
+    private NewGameListener listener;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    private StageResult result;
 
-		GameProgress progress = new GameProgress();
-		result = new StageResult();
-		result.setNextStage(Stages.MISSIONS);
-		result.setGameProgress(progress);
+    @Before
+    public void setUp() {
 
-		doReturn(progress).when(stage).getGameProgress();
-		doReturn(utils).when(factory).create();
-		Factories.setUtilsFactory(factory);
+        MockitoAnnotations.initMocks(this);
 
-		listener = new NewGameListener(stage, loader);
-	}
+        GameProgress progress = new GameProgress();
+        result = new StageResult();
+        result.setNextStage(Stages.MISSIONS);
+        result.setGameProgress(progress);
 
-	@Test
-	public void ifThereIsNoSaveFileStartGame()
-	{
-		doReturn(false).when(loader).fileExists();
+        doReturn(progress).when(stage).getGameProgress();
+        doReturn(utils).when(factory).create();
+        Factories.setUtilsFactory(factory);
 
-		listener.clicked();
+        listener = new NewGameListener(stage, loader);
+    }
 
-		verify(stage).setResult(eq(result));
-	}
+    @Test
+    public void ifThereIsNoSaveFileStartGame() {
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void ifFileExistsDoConfirm()
-	{
-		doReturn(true).when(loader).fileExists();
+        doReturn(false).when(loader).fileExists();
 
-		listener.clicked();
+        listener.clicked();
 
-		verify(utils).confirmDialog(anyString(), anyString(), nullable(IStage.class), any(Consumer.class));
-	}
+        verify(stage).setResult(eq(result));
+    }
 
-	@Test
-	public void confirmedIsSettingResult()
-	{
-		listener.processOverrideDialogResult(true);
-		verify(stage).setResult(eq(result));
-	}
+    @SuppressWarnings("unchecked")
+    @Test
+    public void ifFileExistsDoConfirm() {
 
-	@Test
-	public void notConfirmedIsntSettingResult()
-	{
-		listener.processOverrideDialogResult(false);
-		verify(stage, times(0)).setResult(any(StageResult.class));
-	}
+        doReturn(true).when(loader).fileExists();
+
+        listener.clicked();
+
+        verify(utils).confirmDialog(anyString(), anyString(), nullable(IStage.class), any(Consumer.class));
+    }
+
+    @Test
+    public void confirmedIsSettingResult() {
+
+        listener.processOverrideDialogResult(true);
+        verify(stage).setResult(eq(result));
+    }
+
+    @Test
+    public void notConfirmedIsntSettingResult() {
+
+        listener.processOverrideDialogResult(false);
+        verify(stage, times(0)).setResult(any(StageResult.class));
+    }
 }

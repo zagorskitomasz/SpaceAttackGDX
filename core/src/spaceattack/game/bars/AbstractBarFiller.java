@@ -8,59 +8,59 @@ import spaceattack.game.system.notifiers.ValueObserver;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.Rect;
 
-public abstract class AbstractBarFiller
-{
-	private IPool pool;
+public abstract class AbstractBarFiller {
 
-	private float amount;
-	private float maxAmount;
-	protected float percent;
+    private IPool pool;
 
-	protected ILabel label;
+    private float amount;
+    private float maxAmount;
+    protected float percent;
 
-	protected Rect rect;
+    protected ILabel label;
 
-	public AbstractBarFiller(IPool pool,IUtils utils)
-	{
-		this.pool = pool;
+    protected Rect rect;
 
-		IObserver<Float> observer = new ValueObserver(this::valueChanged);
-		pool.registerObserver(observer);
+    public AbstractBarFiller(IPool pool, IUtils utils) {
 
-		label = utils.createBarLabel();
-		rect = new Rect();
-	}
+        this.pool = pool;
 
-	public void valueChanged(float percent)
-	{
-		amount = pool.getAmount();
-		maxAmount = pool.getMaxAmount();
-		this.percent = percent;
+        IObserver<Float> observer = new ValueObserver(this::valueChanged);
+        pool.registerObserver(observer);
 
-		if (label != null)
-			label.setText(String.format("%.0f", amount) + " / " + String.format("%.0f", maxAmount));
-	}
+        label = utils.createBarLabel();
+        rect = new Rect();
+    }
 
-	public abstract void drawRect(IBatch batch);
+    public void valueChanged(float percent) {
 
-	public void drawLabel(IBatch batch)
-	{
-		if (label != null)
-			label.draw(batch, 0.8f);
-	}
+        amount = pool.getAmount();
+        maxAmount = pool.getMaxAmount();
+        this.percent = percent;
 
-	public float getMaxAmount()
-	{
-		return maxAmount;
-	}
+        if (label != null)
+            label.setText(String.format("%.0f", amount) + " / " + String.format("%.0f", maxAmount));
+    }
 
-	public float getAmount()
-	{
-		return amount;
-	}
+    public abstract void drawRect(IBatch batch);
 
-	public float getPercent()
-	{
-		return percent;
-	}
+    public void drawLabel(IBatch batch) {
+
+        if (label != null)
+            label.draw(batch, 0.8f);
+    }
+
+    public float getMaxAmount() {
+
+        return maxAmount;
+    }
+
+    public float getAmount() {
+
+        return amount;
+    }
+
+    public float getPercent() {
+
+        return percent;
+    }
 }

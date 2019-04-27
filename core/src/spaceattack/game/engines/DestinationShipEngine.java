@@ -8,202 +8,191 @@ import spaceattack.game.ships.IShip.Turn;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.vector.IVector;
 
-public class DestinationShipEngine extends AbstractShipEngine
-{
-	private IUtils utils;
-	
-	protected IVector destination;
-	private IVector nextDestination;
+public class DestinationShipEngine extends AbstractShipEngine {
 
-	private boolean isTurning;
+    private IUtils utils;
 
-	private Lock lock;
+    protected IVector destination;
+    private IVector nextDestination;
 
-	DestinationShipEngine(IShip ship,IUtils utils)
-	{
-		super(ship);
-		this.utils = utils;
-		lock = new ReentrantLock();
-	}
+    private boolean isTurning;
 
-	@Override
-	public void setDestination(IVector destination)
-	{
-		try
-		{
-			lock.lock();
+    private Lock lock;
 
-			if (this.destination == null || isDestinationReached())
-			{
-				this.destination = destination;
-			}
-			else
-			{
-				isTurning = true;
-				nextDestination = destination;
-			}
-		}
-		finally
-		{
-			lock.unlock();
-		}
-	}
+    DestinationShipEngine(IShip ship, IUtils utils) {
 
-	@Override
-	public boolean isDestinationReached()
-	{
-		return ship != null && destination != null && ship.getX() == destination.getX() && ship.getY() == destination.getY();
-	}
+        super(ship);
+        this.utils = utils;
+        lock = new ReentrantLock();
+    }
 
-	@Override
-	public Turn fly()
-	{
-		try
-		{
-			lock.lock();
+    @Override
+    public void setDestination(IVector destination) {
 
-			if (destination == null)
-				return IShip.Turn.FRONT;
+        try {
+            lock.lock();
 
-			if (isDestinationReached())
-			{
-				if (isTurning)
-					doTurn();
+            if (this.destination == null || isDestinationReached()) {
+                this.destination = destination;
+            }
+            else {
+                isTurning = true;
+                nextDestination = destination;
+            }
+        }
+        finally {
+            lock.unlock();
+        }
+    }
 
-				return IShip.Turn.FRONT;
-			}
+    @Override
+    public boolean isDestinationReached() {
 
-			computeSpeed();
-			return moveShip();
-		}
-		finally
-		{
-			lock.unlock();
-		}
-	}
+        return ship != null && destination != null && ship.getX() == destination.getX()
+                && ship.getY() == destination.getY();
+    }
 
-	private void doTurn()
-	{
-		destination = nextDestination;
-		nextDestination = null;
-		isTurning = false;
-	}
+    @Override
+    public Turn fly() {
 
-	private Turn moveShip()
-	{
-		IVector movement = computeMovement();
+        try {
+            lock.lock();
 
-		if (movement.length() <= currentSpeed || movement.length() <= baseSpeed)
-		{
-			ship.setX(destination.getX());
-			ship.setY(destination.getY());
+            if (destination == null)
+                return IShip.Turn.FRONT;
 
-			return IShip.Turn.FRONT;
-		}
-		else
-		{
-			movement = movement.normalize();
-			ship.setX(ship.getX() + movement.getX() * currentSpeed);
-			ship.setY(ship.getY() + movement.getY() * currentSpeed);
+            if (isDestinationReached()) {
+                if (isTurning)
+                    doTurn();
 
-			return calculateShipTurning(movement);
-		}
-	}
+                return IShip.Turn.FRONT;
+            }
 
-	private IVector computeMovement()
-	{
-		return vectorFactory.create(destination.getX() - ship.getX(), destination.getY() - ship.getY());
-	}
+            computeSpeed();
+            return moveShip();
+        }
+        finally {
+            lock.unlock();
+        }
+    }
 
-	private Turn calculateShipTurning(IVector movement)
-	{
-		if (movement.getX() >= 0.3)
-			return Turn.RIGHT;
+    private void doTurn() {
 
-		if (movement.getX() <= -0.3)
-			return Turn.LEFT;
+        destination = nextDestination;
+        nextDestination = null;
+        isTurning = false;
+    }
 
-		return Turn.FRONT;
-	}
+    private Turn moveShip() {
 
-	private void computeSpeed()
-	{
-		IVector movement = computeMovement();
+        IVector movement = computeMovement();
 
-		if (isTurning)
-		{
-			if (canTurnWithThisSpeed(movement.copy().normalize()))
-				doTurn();
-			else
-				brake();
-		}
-		else
-		{
-			if (movement.length() > brakingWay())
-				accelerate();
-			else
-				brake();
+        if (movement.length() <= currentSpeed || movement.length() <= baseSpeed) {
+            ship.setX(destination.getX());
+            ship.setY(destination.getY());
 
-			if (currentSpeed <= baseSpeed)
-				currentSpeed = baseSpeed;
-		}
-	}
+            return IShip.Turn.FRONT;
+        }
+        else {
+            movement = movement.normalize();
+            ship.setX(ship.getX() + movement.getX() * currentSpeed);
+            ship.setY(ship.getY() + movement.getY() * currentSpeed);
 
-	private void accelerate()
-	{
-		currentSpeed += acceleration;
-	}
+            return calculateShipTurning(movement);
+        }
+    }
 
-	private void brake()
-	{
-		currentSpeed -= braking;
-	}
+    private IVector computeMovement() {
 
-	private boolean canTurnWithThisSpeed(IVector currentDirection)
-	{
-		IVector newDirection = vectorFactory
-				.create(nextDestination.getX() - ship.getX(), nextDestination.getY() - ship.getY()).normalize();
+        return vectorFactory.create(destination.getX() - ship.getX(), destination.getY() - ship.getY());
+    }
 
-		float angle = computeAngle(currentDirection, newDirection);
+    private Turn calculateShipTurning(IVector movement) {
 
-		return currentSpeed <= baseSpeed || (currentSpeed * currentSpeed / agility) < angle;
-	}
+        if (movement.getX() >= 0.3)
+            return Turn.RIGHT;
 
-	private float computeAngle(IVector first,IVector second)
-	{
-		float angle = (utils.atan2(first.getX(), first.getY()) - utils.atan2(second.getX(), second.getY()));
+        if (movement.getX() <= -0.3)
+            return Turn.LEFT;
 
-		angle *= utils.radiansToDegrees();
-		angle = Math.abs(Math.abs(angle) - 180);
+        return Turn.FRONT;
+    }
 
-		return angle;
-	}
+    private void computeSpeed() {
 
-	private float brakingWay()
-	{
-		float brakingWay = 0;
-		float tempSpeed = currentSpeed - 1;
+        IVector movement = computeMovement();
 
-		while (tempSpeed >= baseSpeed)
-		{
-			brakingWay += tempSpeed;
-			tempSpeed -= braking;
-		}
-		return brakingWay;
-	}
+        if (isTurning) {
+            if (canTurnWithThisSpeed(movement.copy().normalize()))
+                doTurn();
+            else
+                brake();
+        }
+        else {
+            if (movement.length() > brakingWay())
+                accelerate();
+            else
+                brake();
 
-	IVector getDestination()
-	{
-		return destination;
-	}
+            if (currentSpeed <= baseSpeed)
+                currentSpeed = baseSpeed;
+        }
+    }
 
-	IVector getNextDestination()
-	{
-		return nextDestination;
-	}
+    private void accelerate() {
 
-	float getCurrentSpeed()
-	{
-		return currentSpeed;
-	}
+        currentSpeed += acceleration;
+    }
+
+    private void brake() {
+
+        currentSpeed -= braking;
+    }
+
+    private boolean canTurnWithThisSpeed(IVector currentDirection) {
+
+        IVector newDirection = vectorFactory
+                .create(nextDestination.getX() - ship.getX(), nextDestination.getY() - ship.getY()).normalize();
+
+        float angle = computeAngle(currentDirection, newDirection);
+
+        return currentSpeed <= baseSpeed || (currentSpeed * currentSpeed / agility) < angle;
+    }
+
+    private float computeAngle(IVector first, IVector second) {
+
+        float angle = (utils.atan2(first.getX(), first.getY()) - utils.atan2(second.getX(), second.getY()));
+
+        angle *= utils.radiansToDegrees();
+        angle = Math.abs(Math.abs(angle) - 180);
+
+        return angle;
+    }
+
+    private float brakingWay() {
+
+        float brakingWay = 0;
+        float tempSpeed = currentSpeed - 1;
+
+        while (tempSpeed >= baseSpeed) {
+            brakingWay += tempSpeed;
+            tempSpeed -= braking;
+        }
+        return brakingWay;
+    }
+
+    IVector getDestination() {
+
+        return destination;
+    }
+
+    IVector getNextDestination() {
+
+        return nextDestination;
+    }
+
+    float getCurrentSpeed() {
+
+        return currentSpeed;
+    }
 }

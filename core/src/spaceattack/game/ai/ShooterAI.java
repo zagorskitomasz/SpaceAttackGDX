@@ -8,15 +8,15 @@ import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.system.notifiers.IObserver;
 
-public interface ShooterAI extends IObserver<MoverAI>
-{
-	ShooterType getType();
+public interface ShooterAI extends IObserver<MoverAI> {
 
-	void setPlayerShip(RadarVisible playerShip);
+    ShooterType getType();
 
-	void setOwner(IEnemyShip fighter);
+    void setPlayerShip(RadarVisible playerShip);
 
-	PossibleAttacks checkShot();
+    void setOwner(IEnemyShip fighter);
 
-	void setFriends(List<? extends RadarVisible> friends);
+    PossibleAttacks checkShot();
+
+    void setFriends(List<? extends RadarVisible> friends);
 }

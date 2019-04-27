@@ -6,21 +6,21 @@ import spaceattack.game.input.InputType;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 
-public interface IImageButton extends IActor
-{
-	public void fire(InputType type);
+public interface IImageButton extends IActor {
 
-	public boolean isPressed();
+    public void fire(InputType type);
 
-	public IVector screenToStageCoordinates(IVector touch);
+    public boolean isPressed();
 
-	public boolean isDisabled();
+    public IVector screenToStageCoordinates(IVector touch);
 
-	public void setEnabled(boolean b);
+    public boolean isDisabled();
 
-	public void setDown(ITexture texture);
+    public void setEnabled(boolean b);
 
-	public void setUp(ITexture texture);
+    public void setDown(ITexture texture);
 
-	public void setGameActor(IGameActor gameActor);
+    public void setUp(ITexture texture);
+
+    public void setGameActor(IGameActor gameActor);
 }

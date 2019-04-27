@@ -3,31 +3,32 @@ package spaceattack.game.ai.movers;
 import spaceattack.consts.Consts;
 import spaceattack.game.utils.vector.IVector;
 
-public class AllCornersChaser extends AbstractMover
-{
-	@Override
-	public MoverType getType()
-	{
-		return MoverType.ALL_CORNERS_CHASER;
-	}
+public class AllCornersChaser extends AbstractMover {
 
-	@Override
-	public void updateDirection()
-	{
-		if (playerShip == null || owner == null)
-			return;
+    @Override
+    public MoverType getType() {
 
-		if (owner.isMoving())
-			return;
+        return MoverType.ALL_CORNERS_CHASER;
+    }
 
-		int factorX = Math.random() < 0.5 ? -1 : 1;
-		int factorY = Math.random() < 0.5 ? -1 : 1;
-		
-		IVector destination = vectors.create(playerShip.getX() + factorX * Consts.AI.FRONT_CHASER_DISTANCE * 0.7f, playerShip.getY() + factorY * Consts.AI.FRONT_CHASER_DISTANCE * 0.7f);
+    @Override
+    public void updateDirection() {
 
-		if (isInRadius(destination))
-			return;
+        if (playerShip == null || owner == null)
+            return;
 
-		owner.setDestination(destination);
-	}
+        if (owner.isMoving())
+            return;
+
+        int factorX = Math.random() < 0.5 ? -1 : 1;
+        int factorY = Math.random() < 0.5 ? -1 : 1;
+
+        IVector destination = vectors.create(playerShip.getX() + factorX * Consts.AI.FRONT_CHASER_DISTANCE * 0.7f,
+                playerShip.getY() + factorY * Consts.AI.FRONT_CHASER_DISTANCE * 0.7f);
+
+        if (isInRadius(destination))
+            return;
+
+        owner.setDestination(destination);
+    }
 }

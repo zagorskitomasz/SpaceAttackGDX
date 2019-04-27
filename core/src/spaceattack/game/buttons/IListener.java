@@ -1,6 +1,6 @@
 package spaceattack.game.buttons;
 
-public interface IListener
-{
-	public void clicked();
+public interface IListener {
+
+    public void clicked();
 }

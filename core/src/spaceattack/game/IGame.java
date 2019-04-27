@@ -1,10 +1,10 @@
 package spaceattack.game;
 
-public interface IGame
-{
-	void create();
+public interface IGame {
 
-	void render();
+    void create();
 
-	void resize(int width,int height);
+    void render();
+
+    void resize(int width, int height);
 }

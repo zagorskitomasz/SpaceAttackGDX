@@ -16,177 +16,177 @@ import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.notifiers.IObserver;
 
-public class PoolTest
-{
-	private static final float BASE_AMOUNT = 50;
-	private static final float INCREASE_PER_LEVEL = 20;
-	private static final float BASE_REGEN = 10 * Pool.UPDATES_PER_SECOND;
-	private static final float REGEN_PER_LEVEL = 5 * Pool.UPDATES_PER_SECOND;
+public class PoolTest {
 
-	private Pool pool;
+    private static final float BASE_AMOUNT = 50;
+    private static final float INCREASE_PER_LEVEL = 20;
+    private static final float BASE_REGEN = 10 * Pool.UPDATES_PER_SECOND;
+    private static final float REGEN_PER_LEVEL = 5 * Pool.UPDATES_PER_SECOND;
 
-	@Mock
-	private IObserver<Float> observer;
+    private Pool pool;
 
-	@Before
-	public void setUp()
-	{
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-		pool = new Pool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
-	}
+    @Mock
+    private IObserver<Float> observer;
 
-	@Test
-	public void defaultValues()
-	{
-		assertEquals(50, pool.getAmount(), 0);
-		assertEquals(50, pool.getMaxAmount(), 0);
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void increasingLevel()
-	{
-		pool.setLevel(3);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+        pool = new Pool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
+    }
 
-		assertEquals(90, pool.getAmount(), 0);
-		assertEquals(90, pool.getMaxAmount(), 0);
-	}
+    @Test
+    public void defaultValues() {
 
-	@Test
-	public void takingIsDecreasingAmount()
-	{
-		pool.take(15);
+        assertEquals(50, pool.getAmount(), 0);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
 
-		assertEquals(35, pool.getAmount(), 0);
-		assertEquals(50, pool.getMaxAmount(), 0);
-	}
+    @Test
+    public void increasingLevel() {
 
-	@Test
-	public void succesfullTakeReturnsTrue()
-	{
-		assertTrue(pool.take(15));
-	}
+        pool.setLevel(3);
 
-	@Test
-	public void failedTakeReturnsFalse()
-	{
-		assertFalse(pool.take(65));
-	}
+        assertEquals(90, pool.getAmount(), 0);
+        assertEquals(90, pool.getMaxAmount(), 0);
+    }
 
-	@Test
-	public void failedTakeDontDecreasePool()
-	{
-		pool.take(65);
+    @Test
+    public void takingIsDecreasingAmount() {
 
-		assertEquals(50, pool.getAmount(), 0);
-		assertEquals(50, pool.getMaxAmount(), 0);
-	}
+        pool.take(15);
 
-	@Test
-	public void updatingRegeneratesPool()
-	{
-		pool.take(15);
-		pool.update();
+        assertEquals(35, pool.getAmount(), 0);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
 
-		assertEquals(45, pool.getAmount(), 0);
-		assertEquals(50, pool.getMaxAmount(), 0);
-	}
+    @Test
+    public void succesfullTakeReturnsTrue() {
 
-	@Test
-	public void updatingIsIntervalWork()
-	{
-		pool.take(45);
-		pool.update();
-		pool.update();
+        assertTrue(pool.take(15));
+    }
 
-		assertEquals(15, pool.getAmount(), 0);
-		assertEquals(50, pool.getMaxAmount(), 0);
-	}
+    @Test
+    public void failedTakeReturnsFalse() {
 
-	@Test
-	public void updatingIsPossibleAfterFixedTime() throws InterruptedException
-	{
-		pool.take(45);
-		pool.update();
-		Thread.sleep(1000 / Pool.UPDATES_PER_SECOND + 10);
-		pool.update();
+        assertFalse(pool.take(65));
+    }
 
-		assertEquals(25, pool.getAmount(), 0);
-		assertEquals(50, pool.getMaxAmount(), 0);
-	}
+    @Test
+    public void failedTakeDontDecreasePool() {
 
-	@Test
-	public void regenIsIncreasingEveryLevel()
-	{
-		pool.setLevel(3);
-		pool.take(70);
-		pool.update();
+        pool.take(65);
 
-		assertEquals(40, pool.getAmount(), 0);
-		assertEquals(90, pool.getMaxAmount(), 0);
-	}
+        assertEquals(50, pool.getAmount(), 0);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
 
-	@Test
-	public void observerIsNotifiedWithPoolPercentAfterTake()
-	{
-		MockitoAnnotations.initMocks(this);
+    @Test
+    public void updatingRegeneratesPool() {
 
-		pool.registerObserver(observer);
-		pool.take(10);
+        pool.take(15);
+        pool.update();
 
-		verify(observer).notify(0.8f);
-	}
+        assertEquals(45, pool.getAmount(), 0);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
 
-	@Test
-	public void observerIsNotifiedWithPoolPercentAfterLevelSet()
-	{
-		MockitoAnnotations.initMocks(this);
+    @Test
+    public void updatingIsIntervalWork() {
 
-		pool.registerObserver(observer);
-		pool.setLevel(3);
+        pool.take(45);
+        pool.update();
+        pool.update();
 
-		verify(observer).notify(1f);
-	}
+        assertEquals(15, pool.getAmount(), 0);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
 
-	@Test
-	public void observerIsNotifiedWithPoolPercentAfterUpdate()
-	{
-		MockitoAnnotations.initMocks(this);
+    @Test
+    public void updatingIsPossibleAfterFixedTime() throws InterruptedException {
 
-		pool.take(30);
-		pool.registerObserver(observer);
-		pool.update();
+        pool.take(45);
+        pool.update();
+        Thread.sleep(1000 / Pool.UPDATES_PER_SECOND + 10);
+        pool.update();
 
-		verify(observer).notify(0.6f);
-	}
+        assertEquals(25, pool.getAmount(), 0);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
 
-	@Test
-	public void unregisteredObserverWontBeNotified()
-	{
-		MockitoAnnotations.initMocks(this);
+    @Test
+    public void regenIsIncreasingEveryLevel() {
 
-		pool.registerObserver(observer);
-		pool.unregisterObserver(observer);
-		pool.take(30);
+        pool.setLevel(3);
+        pool.take(70);
+        pool.update();
 
-		verify(observer, times(0)).notify(anyFloat());
-	}
+        assertEquals(40, pool.getAmount(), 0);
+        assertEquals(90, pool.getMaxAmount(), 0);
+    }
 
-	@Test
-	public void cantRegenerateMoreThanMaxAmount()
-	{
-		pool.update();
+    @Test
+    public void observerIsNotifiedWithPoolPercentAfterTake() {
 
-		assertEquals(50, pool.getAmount(), 0);
-		assertEquals(50, pool.getMaxAmount(), 0);
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void afterDestroyingPoolIsEmptyAndDoesntRegen()
-	{
-		pool.destroy();
-		pool.update();
+        pool.registerObserver(observer);
+        pool.take(10);
 
-		assertEquals(0, pool.getAmount(), 0);
-		assertEquals(50, pool.getMaxAmount(), 0);
-	}
+        verify(observer).notify(0.8f);
+    }
+
+    @Test
+    public void observerIsNotifiedWithPoolPercentAfterLevelSet() {
+
+        MockitoAnnotations.initMocks(this);
+
+        pool.registerObserver(observer);
+        pool.setLevel(3);
+
+        verify(observer).notify(1f);
+    }
+
+    @Test
+    public void observerIsNotifiedWithPoolPercentAfterUpdate() {
+
+        MockitoAnnotations.initMocks(this);
+
+        pool.take(30);
+        pool.registerObserver(observer);
+        pool.update();
+
+        verify(observer).notify(0.6f);
+    }
+
+    @Test
+    public void unregisteredObserverWontBeNotified() {
+
+        MockitoAnnotations.initMocks(this);
+
+        pool.registerObserver(observer);
+        pool.unregisterObserver(observer);
+        pool.take(30);
+
+        verify(observer, times(0)).notify(anyFloat());
+    }
+
+    @Test
+    public void cantRegenerateMoreThanMaxAmount() {
+
+        pool.update();
+
+        assertEquals(50, pool.getAmount(), 0);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
+
+    @Test
+    public void afterDestroyingPoolIsEmptyAndDoesntRegen() {
+
+        pool.destroy();
+        pool.update();
+
+        assertEquals(0, pool.getAmount(), 0);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
 }

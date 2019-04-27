@@ -17,34 +17,34 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
-public class MissionInputHandlerTest
-{
-	@Mock
-	private IShip ship;
+public class MissionInputHandlerTest {
 
-	@Mock
-	private IFireButton button;
+    @Mock
+    private IShip ship;
 
-	private MissionInputHandler handler;
+    @Mock
+    private IFireButton button;
 
-	@Before
-	public void setUp()
-	{
-		initMocks(this);
-		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+    private MissionInputHandler handler;
 
-		handler = new MissionInputHandler();
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void ifWeaponFiredShipIsNotMoved()
-	{
-		doReturn(true).when(button).touchUp(anyInt(), anyInt());
+        initMocks(this);
+        Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
 
-		handler.registerShip(ship);
-		handler.registerFireButton(button);
-		handler.touchUp(100, 200, 1, 1);
+        handler = new MissionInputHandler();
+    }
 
-		verify(ship, times(0)).setDestination(any(IVector.class));
-	}
+    @Test
+    public void ifWeaponFiredShipIsNotMoved() {
+
+        doReturn(true).when(button).touchUp(anyInt(), anyInt());
+
+        handler.registerShip(ship);
+        handler.registerFireButton(button);
+        handler.touchUp(100, 200, 1, 1);
+
+        verify(ship, times(0)).setDestination(any(IVector.class));
+    }
 }

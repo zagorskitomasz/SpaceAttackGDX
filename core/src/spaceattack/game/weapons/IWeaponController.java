@@ -5,35 +5,37 @@ import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
-public interface IWeaponController
-{
-	void setShip(IShip ship);
+public interface IWeaponController {
 
-	void setPrimaryWeapon(IWeapon weapon);
+    void setShip(IShip ship);
 
-	void setSecondaryWeapon(IWeapon weapon);
+    void setPrimaryWeapon(IWeapon weapon);
 
-	IVector getPrimaryWeaponUsePlacement();
+    void setSecondaryWeapon(IWeapon weapon);
 
-	IVector getSecondaryWeaponUsePlacement();
+    IVector getPrimaryWeaponUsePlacement();
 
-	IVector getWeaponMovement();
+    IVector getSecondaryWeaponUsePlacement();
 
-	boolean takeEnergy(float energyCost);
+    IVector getWeaponMovement();
 
-	void updateSecondaryWeapon(IWeapon weapon);
+    boolean takeEnergy(float energyCost);
 
-	float getPrimaryWeaponRadius();
+    void updateSecondaryWeapon(IWeapon weapon);
 
-	float getSecondaryWeaponRadius();
+    float getPrimaryWeaponRadius();
 
-	void performAttack(PossibleAttacks possibleAttack, RadarVisible target);
+    float getSecondaryWeaponRadius();
 
-	boolean isPlayer();
+    void performAttack(PossibleAttacks possibleAttack, RadarVisible target);
 
-	IVector getTargetedWeaponMovement();
+    boolean isPlayer();
 
-	float getShipsWidth();
+    IVector getTargetedWeaponMovement();
 
-	float getShipsHeight();
+    float getShipsWidth();
+
+    float getShipsHeight();
+
+    IVector getTargetCoords();
 }

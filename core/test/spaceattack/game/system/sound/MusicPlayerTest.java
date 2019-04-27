@@ -13,67 +13,67 @@ import org.mockito.MockitoAnnotations;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.Acts;
 
-public class MusicPlayerTest 
-{
-	@Mock
-	private IMusicFactory factory;
-	
-	@Mock
-	private IMusic menuMusic;
-	
-	@Mock
-	private IMusic actMusic;
-	
-	private MusicPlayer player;
-	
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		
-		doReturn(menuMusic).when(factory).create(MenuMusic.MENU.getPath());
-		doReturn(actMusic).when(factory).create(Act1Music.SONG_1.getPath());
-		doReturn(actMusic).when(factory).create(Act1Music.SONG_2.getPath());
-		doReturn(actMusic).when(factory).create(Act1Music.SONG_3.getPath());
-		doReturn(actMusic).when(factory).create(Act1Music.SONG_4.getPath());
-		doReturn(actMusic).when(factory).create(Act1Music.SONG_5.getPath());
-		doReturn(actMusic).when(factory).create(Act2Music.SONG_1.getPath());
-		doReturn(actMusic).when(factory).create(Act2Music.SONG_2.getPath());
-		doReturn(actMusic).when(factory).create(Act2Music.SONG_3.getPath());
-		doReturn(actMusic).when(factory).create(Act2Music.SONG_4.getPath());
-		doReturn(actMusic).when(factory).create(Act2Music.SONG_5.getPath());
-		
-		Factories.setMusicFactory(factory);
-		player = MusicPlayer.INSTANCE;
-	}
-	
-	/**
-	 * One big test due to global singleton enum instance
-	 */
-	@Test
-	public void playingMusic() throws InterruptedException 
-	{
-		doReturn(menuMusic).when(factory).create(MenuMusic.MENU.getPath());
-		
-		player.playMenu();
-		Thread.sleep(2000);
-		
-		verify(menuMusic).play();
-		verify(menuMusic,times(71)).setVolume(anyFloat());
-		doReturn(true).when(menuMusic).isPlaying();
-		
-		player.playAct(Acts.I);
-		Thread.sleep(2000);
-		
-		verify(menuMusic).pause();
-		verify(actMusic).play();
-		doReturn(false).when(menuMusic).isPlaying();
-		doReturn(true).when(actMusic).isPlaying();
-		
-		player.playMenu();
-		Thread.sleep(2000);
-		
-		verify(actMusic,times(2)).pause();
-		verify(menuMusic,times(2)).play();
-	}
+public class MusicPlayerTest {
+
+    @Mock
+    private IMusicFactory factory;
+
+    @Mock
+    private IMusic menuMusic;
+
+    @Mock
+    private IMusic actMusic;
+
+    private MusicPlayer player;
+
+    @Before
+    public void setUp() {
+
+        MockitoAnnotations.initMocks(this);
+
+        doReturn(menuMusic).when(factory).create(MenuMusic.MENU.getPath());
+        doReturn(actMusic).when(factory).create(Act1Music.SONG_1.getPath());
+        doReturn(actMusic).when(factory).create(Act1Music.SONG_2.getPath());
+        doReturn(actMusic).when(factory).create(Act1Music.SONG_3.getPath());
+        doReturn(actMusic).when(factory).create(Act1Music.SONG_4.getPath());
+        doReturn(actMusic).when(factory).create(Act1Music.SONG_5.getPath());
+        doReturn(actMusic).when(factory).create(Act2Music.SONG_1.getPath());
+        doReturn(actMusic).when(factory).create(Act2Music.SONG_2.getPath());
+        doReturn(actMusic).when(factory).create(Act2Music.SONG_3.getPath());
+        doReturn(actMusic).when(factory).create(Act2Music.SONG_4.getPath());
+        doReturn(actMusic).when(factory).create(Act2Music.SONG_5.getPath());
+
+        Factories.setMusicFactory(factory);
+        player = MusicPlayer.INSTANCE;
+    }
+
+    /**
+     * One big test due to global singleton enum instance
+     */
+    @Test
+    public void playingMusic() throws InterruptedException {
+
+        doReturn(menuMusic).when(factory).create(MenuMusic.MENU.getPath());
+
+        player.playMenu();
+        Thread.sleep(2000);
+
+        verify(menuMusic).play();
+        verify(menuMusic, times(71)).setVolume(anyFloat());
+        doReturn(true).when(menuMusic).isPlaying();
+
+        player.playAct(Acts.I);
+        Thread.sleep(2000);
+
+        verify(menuMusic).pause();
+        verify(actMusic).play();
+        doReturn(false).when(menuMusic).isPlaying();
+        doReturn(true).when(actMusic).isPlaying();
+
+        player.playMenu();
+        Thread.sleep(2000);
+
+        verify(actMusic, times(2)).pause();
+        verify(menuMusic, times(2)).play();
+    }
 }

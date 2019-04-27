@@ -4,33 +4,33 @@ import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.batch.IBatch;
 
-public interface IButton extends IGameActor,IActor
-{
-	@Override
-	public default void setActor(IActor actor)
-	{
-		// do nothing
-	}
+public interface IButton extends IGameActor, IActor {
 
-	@Override
-	public default void draw(IBatch batch,float alpha)
-	{
-		// do nothing
-	}
+    @Override
+    public default void setActor(IActor actor) {
 
-	public void setPosition(float x,float y);
+        // do nothing
+    }
 
-	public void setSize(float buttonWidth,float buttonHeight);
+    @Override
+    public default void draw(IBatch batch, float alpha) {
 
-	public void addListener(IListener listener);
+        // do nothing
+    }
 
-	public void setEnabled(boolean enabled);
+    public void setPosition(float x, float y);
 
-	public void setVisible(boolean visible);
+    public void setSize(float buttonWidth, float buttonHeight);
 
-	public void setColumnPosition(int position);
+    public void addListener(IListener listener);
 
-	public int getGridPosition();
+    public void setEnabled(boolean enabled);
 
-	public void setText(String apply);
+    public void setVisible(boolean visible);
+
+    public void setColumnPosition(int position);
+
+    public int getGridPosition();
+
+    public void setText(String apply);
 }

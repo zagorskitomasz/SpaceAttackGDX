@@ -4,19 +4,19 @@ import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.utils.vector.IVector;
 
-public interface IProgressButton extends IActor
-{
-	public void setJoystickPosition(float percentX, float percentY);
+public interface IProgressButton extends IActor {
 
-	public IVector screenToStageCoordinates(IVector touch);
+    public void setJoystickPosition(float percentX, float percentY);
 
-	public void setGameActor(IGameActor gameActor);
+    public IVector screenToStageCoordinates(IVector touch);
 
-	public boolean isOver();
+    public void setGameActor(IGameActor gameActor);
 
-	public boolean wasNotReleased();
+    public boolean isOver();
 
-	public void keep();
+    public boolean wasNotReleased();
 
-	public void release();
+    public void keep();
+
+    public void release();
 }

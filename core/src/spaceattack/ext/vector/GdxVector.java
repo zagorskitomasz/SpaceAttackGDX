@@ -4,50 +4,50 @@ import com.badlogic.gdx.math.Vector2;
 
 import spaceattack.game.utils.vector.IVector;
 
-class GdxVector extends Vector2 implements IVector
-{
-	private static final long serialVersionUID = -627649586112457682L;
+class GdxVector extends Vector2 implements IVector {
 
-	public GdxVector(float x,float y)
-	{
-		super(x, y);
-	}
+    private static final long serialVersionUID = -627649586112457682L;
 
-	@Override
-	public float getX()
-	{
-		return x;
-	}
+    public GdxVector(float x, float y) {
 
-	@Override
-	public float getY()
-	{
-		return y;
-	}
+        super(x, y);
+    }
 
-	@Override
-	public float length()
-	{
-		return len();
-	}
+    @Override
+    public float getX() {
 
-	@Override
-	public IVector normalize()
-	{
-		nor();
-		return this;
-	}
+        return x;
+    }
 
-	@Override
-	public IVector copy()
-	{
-		Vector2 copy = cpy();
-		return new GdxVector(copy.x, copy.y);
-	}
+    @Override
+    public float getY() {
 
-	@Override
-	public void setY(float y)
-	{
-		this.y = y;
-	}
+        return y;
+    }
+
+    @Override
+    public float length() {
+
+        return len();
+    }
+
+    @Override
+    public IVector normalize() {
+
+        nor();
+        return this;
+    }
+
+    @Override
+    public IVector copy() {
+
+        Vector2 copy = cpy();
+        return new GdxVector(copy.x, copy.y);
+    }
+
+    @Override
+    public void setY(float y) {
+
+        this.y = y;
+    }
 }

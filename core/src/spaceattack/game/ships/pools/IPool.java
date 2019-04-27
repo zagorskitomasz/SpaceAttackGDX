@@ -2,19 +2,19 @@ package spaceattack.game.ships.pools;
 
 import spaceattack.game.system.notifiers.INotifier;
 
-public interface IPool extends INotifier<Float>
-{
-	public boolean take(float amount);
+public interface IPool extends INotifier<Float> {
 
-	public float getAmount();
+    public boolean take(float amount);
 
-	public float getMaxAmount();
+    public float getAmount();
 
-	public void setLevel(int level);
+    public float getMaxAmount();
 
-	public void update();
+    public void setLevel(int level);
 
-	public void destroy();
+    public void update();
 
-	public void regen(float amount);
+    public void destroy();
+
+    public void regen(float amount);
 }

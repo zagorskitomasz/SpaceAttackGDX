@@ -11,41 +11,41 @@ import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.utils.vector.IVector;
 
-public class NumbersUtilsTest
-{
-	@Mock
-	private IVector first;
+public class NumbersUtilsTest {
 
-	@Mock
-	private IVector second;
+    @Mock
+    private IVector first;
 
-	@Test
-	public void convertingFirstTenNumers()
-	{
-		assertEquals("I", NumbersUtils.toRoman(1));
-		assertEquals("II", NumbersUtils.toRoman(2));
-		assertEquals("III", NumbersUtils.toRoman(3));
-		assertEquals("IV", NumbersUtils.toRoman(4));
-		assertEquals("V", NumbersUtils.toRoman(5));
-		assertEquals("VI", NumbersUtils.toRoman(6));
-		assertEquals("VII", NumbersUtils.toRoman(7));
-		assertEquals("VIII", NumbersUtils.toRoman(8));
-		assertEquals("IX", NumbersUtils.toRoman(9));
-		assertEquals("X", NumbersUtils.toRoman(10));
-	}
+    @Mock
+    private IVector second;
 
-	@Test
-	public void distance()
-	{
-		initMocks(this);
+    @Test
+    public void convertingFirstTenNumers() {
 
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+        assertEquals("I", NumbersUtils.toRoman(1));
+        assertEquals("II", NumbersUtils.toRoman(2));
+        assertEquals("III", NumbersUtils.toRoman(3));
+        assertEquals("IV", NumbersUtils.toRoman(4));
+        assertEquals("V", NumbersUtils.toRoman(5));
+        assertEquals("VI", NumbersUtils.toRoman(6));
+        assertEquals("VII", NumbersUtils.toRoman(7));
+        assertEquals("VIII", NumbersUtils.toRoman(8));
+        assertEquals("IX", NumbersUtils.toRoman(9));
+        assertEquals("X", NumbersUtils.toRoman(10));
+    }
 
-		doReturn(10f).when(first).getX();
-		doReturn(10f).when(first).getY();
-		doReturn(13f).when(second).getX();
-		doReturn(14f).when(second).getY();
+    @Test
+    public void distance() {
 
-		assertEquals(5f, NumbersUtils.distance(first, second), 0);
-	}
+        initMocks(this);
+
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+
+        doReturn(10f).when(first).getX();
+        doReturn(10f).when(first).getY();
+        doReturn(13f).when(second).getX();
+        doReturn(14f).when(second).getY();
+
+        assertEquals(5f, NumbersUtils.distance(first, second), 0);
+    }
 }

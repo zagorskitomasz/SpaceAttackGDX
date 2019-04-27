@@ -1,6 +1,6 @@
 package spaceattack.game.system.sound;
 
-public interface ISoundFactory
-{
-	public ISound create(String path);
+public interface ISoundFactory {
+
+    public ISound create(String path);
 }

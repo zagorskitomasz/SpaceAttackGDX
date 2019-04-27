@@ -1,18 +1,18 @@
 package spaceattack.game.actors;
 
-public interface IActor
-{
-	public float getX();
+public interface IActor {
 
-	public float getY();
+    public float getX();
 
-	public void setX(float x);
+    public float getY();
 
-	public void setY(float y);
+    public void setX(float x);
 
-	public float getHeight();
+    public void setY(float y);
 
-	public float getWidth();
+    public float getHeight();
 
-	public void setPosition(float x,float y);
+    public float getWidth();
+
+    public void setPosition(float x, float y);
 }

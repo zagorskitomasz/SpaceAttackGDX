@@ -27,97 +27,97 @@ import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.vector.IVectorFactory;
 
-public class ExplosionTest
-{
-	private IVectorFactory factory;
+public class ExplosionTest {
 
-	private Explosion explosion;
+    private IVectorFactory factory;
 
-	@Mock
-	private ITexture texture;
+    private Explosion explosion;
 
-	@Mock
-	private FakeVulnerable vulnerable;
+    @Mock
+    private ITexture texture;
 
-	@Mock
-	private IShip ignitable;
+    @Mock
+    private FakeVulnerable vulnerable;
 
-	@Mock
-	private Sounds sound;
+    @Mock
+    private IShip ignitable;
 
-	@Mock
-	private IAnimation animation;
+    @Mock
+    private Sounds sound;
 
-	private List<IGameActor> actors;
+    @Mock
+    private IAnimation animation;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-		factory = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(factory);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    private List<IGameActor> actors;
 
-		explosion = new Explosion();
-		explosion.setActor(new FakeActor());
-		explosion.setAnimation(animation);
-		explosion.setDmg(10);
-		explosion.setFireDmg(5);
-		explosion.setFireDuration(2000);
-		explosion.setRadius(20);
-		explosion.setPosition(factory.create(200, 200));
-		explosion.setSound(sound);
+    @Before
+    public void setUp() {
 
-		actors = new ArrayList<>();
-		actors.add(vulnerable);
-		actors.add(ignitable);
+        MockitoAnnotations.initMocks(this);
+        factory = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(factory);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-		doReturn(factory.create(210, 210)).when(ignitable).getPosition();
-		doReturn(10f).when(ignitable).getRadius();
-		doReturn(factory.create(190, 190)).when(vulnerable).getPosition();
-		doReturn(10f).when(vulnerable).getRadius();
-	}
+        explosion = new Explosion();
+        explosion.setActor(new FakeActor());
+        explosion.setAnimation(animation);
+        explosion.setDmg(10);
+        explosion.setFireDmg(5);
+        explosion.setFireDuration(2000);
+        explosion.setRadius(20);
+        explosion.setPosition(factory.create(200, 200));
+        explosion.setSound(sound);
 
-	@Test
-	public void explosionHitsVulnerablesInRange()
-	{
-		explosion.setActors(actors);
+        actors = new ArrayList<>();
+        actors.add(vulnerable);
+        actors.add(ignitable);
 
-		explosion.launched();
+        doReturn(factory.create(210, 210)).when(ignitable).getPosition();
+        doReturn(10f).when(ignitable).getRadius();
+        doReturn(factory.create(190, 190)).when(vulnerable).getPosition();
+        doReturn(10f).when(vulnerable).getRadius();
+    }
 
-		verify(vulnerable).takeDmg(10f);
-	}
+    @Test
+    public void explosionHitsVulnerablesInRange() {
 
-	@Test
-	public void explosionIgnitesIgnitableInRange()
-	{
-		explosion.setActors(actors);
+        explosion.setActors(actors);
 
-		explosion.launched();
+        explosion.launched();
 
-		verify(ignitable).ignite(5f, 2000l);
-	}
+        verify(vulnerable).takeDmg(10f);
+    }
 
-	@Test
-	public void explosionWontHitActorsOutOfRange()
-	{
-		doReturn(factory.create(100, 100)).when(ignitable).getPosition();
+    @Test
+    public void explosionIgnitesIgnitableInRange() {
 
-		explosion.setActors(actors);
+        explosion.setActors(actors);
 
-		explosion.launched();
+        explosion.launched();
 
-		verify(ignitable, times(0)).takeDmg(anyFloat());
-		verify(ignitable, times(0)).ignite(anyFloat(), anyLong());
-	}
+        verify(ignitable).ignite(5f, 2000l);
+    }
 
-	@Test
-	public void whenAnimationCompletedExplosionIsRemoved()
-	{
-		doReturn(true).when(animation).isCompleted();
+    @Test
+    public void explosionWontHitActorsOutOfRange() {
 
-		explosion.act(10);
+        doReturn(factory.create(100, 100)).when(ignitable).getPosition();
 
-		assertTrue(explosion.isToKill());
-	}
+        explosion.setActors(actors);
+
+        explosion.launched();
+
+        verify(ignitable, times(0)).takeDmg(anyFloat());
+        verify(ignitable, times(0)).ignite(anyFloat(), anyLong());
+    }
+
+    @Test
+    public void whenAnimationCompletedExplosionIsRemoved() {
+
+        doReturn(true).when(animation).isCompleted();
+
+        explosion.act(10);
+
+        assertTrue(explosion.isToKill());
+    }
 }

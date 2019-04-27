@@ -17,51 +17,51 @@ import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.GameProgress;
 import spaceattack.game.utils.IUtils;
 
-public class GameLoaderTest
-{
-	private IUtils utils;
+public class GameLoaderTest {
 
-	@Mock
-	private IFileHandle file;
+    private IUtils utils;
 
-	private GameLoader loader;
+    @Mock
+    private IFileHandle file;
 
-	@Before
-	public void setUp()
-	{
-		utils = spy(ExtUtilsFactory.INSTANCE.create());
-		loader = new GameLoader();
-		loader.setUtils(utils);
-		initMocks(this);
+    private GameLoader loader;
 
-		String fileContent = "{mission:3,level:5,experience:999888777666}";
-		InputStream fileContentStream = new ByteArrayInputStream(fileContent.getBytes());
+    @Before
+    public void setUp() {
 
-		doReturn(file).when(utils).loadFile(anyString());
-		doReturn(fileContentStream).when(file).read();
-	}
+        utils = spy(ExtUtilsFactory.INSTANCE.create());
+        loader = new GameLoader();
+        loader.setUtils(utils);
+        initMocks(this);
 
-	@Test
-	public void existingFileIsParsedToGameProgress()
-	{
-		doReturn(true).when(file).exists();
+        String fileContent = "{mission:3,level:5,experience:999888777666}";
+        InputStream fileContentStream = new ByteArrayInputStream(fileContent.getBytes());
 
-		GameProgress progress = loader.load();
+        doReturn(file).when(utils).loadFile(anyString());
+        doReturn(fileContentStream).when(file).read();
+    }
 
-		assertEquals(Integer.valueOf(3), progress.getMission());
-		assertEquals(Integer.valueOf(5), progress.getLevel());
-		assertEquals(Long.valueOf(999888777666l), progress.getExperience());
-	}
+    @Test
+    public void existingFileIsParsedToGameProgress() {
 
-	@Test
-	public void ifFileNotExistsReturnInitialProgress()
-	{
-		doReturn(false).when(file).exists();
+        doReturn(true).when(file).exists();
 
-		GameProgress progress = loader.load();
+        GameProgress progress = loader.load();
 
-		assertEquals(Integer.valueOf(1), progress.getMission());
-		assertEquals(Integer.valueOf(1), progress.getLevel());
-		assertEquals(Long.valueOf(0l), progress.getExperience());
-	}
+        assertEquals(Integer.valueOf(3), progress.getMission());
+        assertEquals(Integer.valueOf(5), progress.getLevel());
+        assertEquals(Long.valueOf(999888777666l), progress.getExperience());
+    }
+
+    @Test
+    public void ifFileNotExistsReturnInitialProgress() {
+
+        doReturn(false).when(file).exists();
+
+        GameProgress progress = loader.load();
+
+        assertEquals(Integer.valueOf(1), progress.getMission());
+        assertEquals(Integer.valueOf(1), progress.getLevel());
+        assertEquals(Long.valueOf(0l), progress.getExperience());
+    }
 }

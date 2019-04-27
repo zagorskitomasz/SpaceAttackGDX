@@ -6,49 +6,48 @@ import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.actors.interfaces.Overheatable;
 import spaceattack.game.weapons.MissilesLauncher;
 
-public class ExplosiveMissile extends Missile implements Explosive, Overheatable
-{
-	private Launchable explosion;
-	private MissilesLauncher launcher;
+public class ExplosiveMissile extends Missile implements Explosive, Overheatable {
 
-	@Override
-	public void setExplosion(Launchable explosion)
-	{
-		this.explosion = explosion;
-	}
+    private Launchable explosion;
+    private MissilesLauncher launcher;
 
-	@Override
-	public void setMissilesLauncher(MissilesLauncher launcher)
-	{
-		this.launcher = launcher;
-	}
+    @Override
+    public void setExplosion(Launchable explosion) {
 
-	@Override
-	public void explode()
-	{
-		if (launcher == null || explosion == null)
-			return;
+        this.explosion = explosion;
+    }
 
-		IActor actor = getActor();
-		explosion.getActor().setPosition(actor.getX(), actor.getY());
-		launcher.launch(explosion);
-	}
+    @Override
+    public void setMissilesLauncher(MissilesLauncher launcher) {
 
-	@Override
-	public void setToKill()
-	{
-		if (!isToKill())
-		{
-			super.setToKill();
-			
-			if(!isOutOfScreen())
-				explode();
-		}
-	}
+        this.launcher = launcher;
+    }
 
-	@Override
-	public void overheat() 
-	{
-		setToKill();
-	}
+    @Override
+    public void explode() {
+
+        if (launcher == null || explosion == null)
+            return;
+
+        IActor actor = getActor();
+        explosion.getActor().setPosition(actor.getX(), actor.getY());
+        launcher.launch(explosion);
+    }
+
+    @Override
+    public void setToKill() {
+
+        if (!isToKill()) {
+            super.setToKill();
+
+            if (!isOutOfScreen())
+                explode();
+        }
+    }
+
+    @Override
+    public void overheat() {
+
+        setToKill();
+    }
 }

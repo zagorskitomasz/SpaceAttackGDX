@@ -1,6 +1,6 @@
 package spaceattack.game.actors.interfaces;
 
-public interface Overheatable extends Killable, Collisionable
-{
-	void overheat();
+public interface Overheatable extends Killable, Collisionable {
+
+    void overheat();
 }

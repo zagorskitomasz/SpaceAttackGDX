@@ -21,172 +21,172 @@ import spaceattack.game.stages.IStage;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
 
-public class GameplayStageTest
-{
-	private GameplayStage stage;
+public class GameplayStageTest {
 
-	private IStage extStage;
+    private GameplayStage stage;
 
-	@Mock
-	private GameSaver saver;
+    private IStage extStage;
 
-	@Mock
-	private GameLoader loader;
+    @Mock
+    private GameSaver saver;
 
-	@Mock
-	private IShip killableToKill;
+    @Mock
+    private GameLoader loader;
 
-	@Mock
-	private IShip killableNotToKill;
+    @Mock
+    private IShip killableToKill;
 
-	@Mock
-	private FireButton notKillable;
+    @Mock
+    private IShip killableNotToKill;
 
-	@Mock
-	private PlayerShip playersShip;
+    @Mock
+    private FireButton notKillable;
 
-	@Mock
-	private TimeLabel completedLabel;
+    @Mock
+    private PlayerShip playersShip;
 
-	@Mock
-	private TimeLabel failedLabel;
+    @Mock
+    private TimeLabel completedLabel;
 
-	@Mock
-	private TimeLabel levelUpLabel;
+    @Mock
+    private TimeLabel failedLabel;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    @Mock
+    private TimeLabel levelUpLabel;
 
-		extStage = new FakeStage();
-		stage = new GameplayStage();
-		stage.setStage(extStage);
-		stage.setCompletedLabel(completedLabel);
-		stage.setFailedLabel(failedLabel);
-		stage.setLevelUpLabel(levelUpLabel);
-		stage.setGameSaver(saver);
-		stage.setGameLoader(loader);
+    @Before
+    public void setUp() {
 
-		doReturn(true).when(killableToKill).isToKill();
-		doReturn(false).when(killableNotToKill).isToKill();
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void removingActorsToKill()
-	{
-		stage.addActor(killableToKill);
-		stage.addActor(killableNotToKill);
-		stage.addActor(notKillable);
+        extStage = new FakeStage();
+        stage = new GameplayStage();
+        stage.setStage(extStage);
+        stage.setCompletedLabel(completedLabel);
+        stage.setFailedLabel(failedLabel);
+        stage.setLevelUpLabel(levelUpLabel);
+        stage.setGameSaver(saver);
+        stage.setGameLoader(loader);
 
-		stage.act(0);
+        doReturn(true).when(killableToKill).isToKill();
+        doReturn(false).when(killableNotToKill).isToKill();
+    }
 
-		assertEquals(2, stage.getActors().size());
-	}
+    @Test
+    public void removingActorsToKill() {
 
-	@Test
-	public void killingRequiredActorCausesGameOver()
-	{
-		doReturn(true).when(playersShip).isToKill();
-		stage.addActor(playersShip);
+        stage.addActor(killableToKill);
+        stage.addActor(killableNotToKill);
+        stage.addActor(notKillable);
 
-		stage.act(0);
+        stage.act(0);
 
-		assertTrue(stage.isGameOver());
-	}
+        assertEquals(2, stage.getActors().size());
+    }
 
-	@Test
-	public void losingGameIsCausingSavingBackupProgress()
-	{
-		GameProgress baseProgress = new GameProgress();
-		GameProgress backupProgress = new GameProgress();
+    @Test
+    public void killingRequiredActorCausesGameOver() {
 
-		stage.setGameProgress(baseProgress);
+        doReturn(true).when(playersShip).isToKill();
+        stage.addActor(playersShip);
 
-		baseProgress.addExperience(1000);
+        stage.act(0);
 
-		stage.lose();
-		stage.finalizeStage();
+        assertTrue(stage.isGameOver());
+    }
 
-		verify(saver).save(eq(backupProgress));
-	}
+    @Test
+    public void losingGameIsCausingSavingBackupProgress() {
 
-	@Test
-	public void winningGameIsCausingSaveOfNewProgress()
-	{
-		GameProgress baseProgress = new GameProgress();
+        GameProgress baseProgress = new GameProgress();
+        GameProgress backupProgress = new GameProgress();
 
-		stage.setGameProgress(baseProgress);
+        stage.setGameProgress(baseProgress);
 
-		baseProgress.addExperience(1000);
+        baseProgress.addExperience(1000);
 
-		stage.setGameOver(true);
-		stage.setWon(true);
-		stage.finalizeStage();
+        stage.lose();
+        stage.finalizeStage();
 
-		verify(saver).save(eq(baseProgress));
-	}
+        verify(saver).save(eq(backupProgress));
+    }
 
-	@Test
-	public void levelingUpIsShowingLabel()
-	{
-		GameProgress progress = new GameProgress();
-		stage.setGameProgress(progress);
-		progress.registerObserver(stage);
-		progress.setLevel(2);
+    @Test
+    public void winningGameIsCausingSaveOfNewProgress() {
 
-		verify(levelUpLabel).show();
-	}
+        GameProgress baseProgress = new GameProgress();
 
-	@Test
-	public void ifGameOverAndWonCompletedLabelIsShown()
-	{
-		GameProgress progress = new GameProgress();
-		stage.setGameProgress(progress);
-		stage.setGameOver(true);
-		stage.setWon(true);
-		stage.act(0);
+        stage.setGameProgress(baseProgress);
 
-		verify(completedLabel).show();
-	}
+        baseProgress.addExperience(1000);
 
-	@Test
-	public void ifGameOverAndLostFailedLabelIsShown()
-	{
-		stage.setGameOver(true);
-		stage.setWon(false);
-		stage.act(0);
+        stage.setGameOver(true);
+        stage.setWon(true);
+        stage.finalizeStage();
 
-		verify(failedLabel).show();
-	}
+        verify(saver).save(eq(baseProgress));
+    }
 
-	@Test
-	public void afterGivenTimeStageIsFinalized()
-	{
-		GameProgress progress = new GameProgress();
-		stage.setGameProgress(progress);
-		stage.setGameOver(true);
-		stage.setWon(false);
+    @Test
+    public void levelingUpIsShowingLabel() {
 
-		doReturn(true).when(failedLabel).isVisible();
-		stage.act(0);
+        GameProgress progress = new GameProgress();
+        stage.setGameProgress(progress);
+        progress.registerObserver(stage);
+        progress.setLevel(2);
 
-		doReturn(false).when(failedLabel).isVisible();
-		stage.act(0);
+        verify(levelUpLabel).show();
+    }
 
-		verify(saver).save(eq(progress));
-	}
-	
-	@Test
-	public void ifWonThenProgressIsNotifiedAboutMissionCompletion()
-	{
-		GameProgress progress = mock(GameProgress.class);
-		stage.setCurrentMission(3);
-		stage.setGameProgress(progress);
-		stage.setGameOver(true);
-		stage.setWon(true);
-		stage.act(0);
+    @Test
+    public void ifGameOverAndWonCompletedLabelIsShown() {
 
-		verify(progress).missionCompleted(3);
-	}
+        GameProgress progress = new GameProgress();
+        stage.setGameProgress(progress);
+        stage.setGameOver(true);
+        stage.setWon(true);
+        stage.act(0);
+
+        verify(completedLabel).show();
+    }
+
+    @Test
+    public void ifGameOverAndLostFailedLabelIsShown() {
+
+        stage.setGameOver(true);
+        stage.setWon(false);
+        stage.act(0);
+
+        verify(failedLabel).show();
+    }
+
+    @Test
+    public void afterGivenTimeStageIsFinalized() {
+
+        GameProgress progress = new GameProgress();
+        stage.setGameProgress(progress);
+        stage.setGameOver(true);
+        stage.setWon(false);
+
+        doReturn(true).when(failedLabel).isVisible();
+        stage.act(0);
+
+        doReturn(false).when(failedLabel).isVisible();
+        stage.act(0);
+
+        verify(saver).save(eq(progress));
+    }
+
+    @Test
+    public void ifWonThenProgressIsNotifiedAboutMissionCompletion() {
+
+        GameProgress progress = mock(GameProgress.class);
+        stage.setCurrentMission(3);
+        stage.setGameProgress(progress);
+        stage.setGameOver(true);
+        stage.setWon(true);
+        stage.act(0);
+
+        verify(progress).missionCompleted(3);
+    }
 }

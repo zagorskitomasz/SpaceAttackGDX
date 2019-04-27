@@ -9,104 +9,101 @@ import spaceattack.game.actors.interfaces.Vulnerable;
 import spaceattack.game.system.graphics.IAnimation;
 import spaceattack.game.system.graphics.ITexture;
 
-public class Explosion extends AbstractMissile
-{
-	private Iterable<IGameActor> actors;
-	private IAnimation animation;
-	private float dmg;
-	private float fireDmg;
-	private long fireDuration;
+public class Explosion extends AbstractMissile {
 
-	@Override
-	public void setActors(List<IGameActor> actors)
-	{
-		this.actors = actors;
-	}
+    private Iterable<IGameActor> actors;
+    private IAnimation animation;
+    private float dmg;
+    private float fireDmg;
+    private long fireDuration;
 
-	@Override
-	public void launched()
-	{
-		if (actors == null)
-			return;
+    @Override
+    public void setActors(List<IGameActor> actors) {
 
-		playSound();
+        this.actors = actors;
+    }
 
-		for (IGameActor actor : actors)
-		{
-			if (actor instanceof Vulnerable)
-				collision((Vulnerable) actor);
+    @Override
+    public void launched() {
 
-			if (actor instanceof Overheatable)
-				collision((Overheatable) actor);
-		}
-	}
+        if (actors == null)
+            return;
 
-	private void collision(Vulnerable vulnerable)
-	{
-		if (checkCollision(vulnerable))
-		{
-			vulnerable.takeDmg(dmg);
-			if (vulnerable instanceof Ignitable)
-				((Ignitable) vulnerable).ignite(fireDmg, fireDuration);
-		}
-	}
+        playSound();
 
-	private void collision(Overheatable destroyable) 
-	{
-		if (checkCollision(destroyable))
-		{
-			destroyable.overheat();
-		}
-	}
+        for (IGameActor actor : actors) {
+            if (actor instanceof Vulnerable)
+                collision((Vulnerable) actor);
 
-	@Override
-	protected ITexture getTexture()
-	{
-		if (animation == null)
-			return null;
+            if (actor instanceof Overheatable)
+                collision((Overheatable) actor);
+        }
+    }
 
-		return animation.getFrame();
-	}
+    private void collision(Vulnerable vulnerable) {
 
-	public void setAnimation(IAnimation animation)
-	{
-		this.animation = animation;
-	}
+        if (checkCollision(vulnerable)) {
+            vulnerable.takeDmg(dmg);
+            if (vulnerable instanceof Ignitable)
+                ((Ignitable) vulnerable).ignite(fireDmg, fireDuration);
+        }
+    }
 
-	public void setDmg(float dmg)
-	{
-		this.dmg = dmg;
-	}
+    private void collision(Overheatable destroyable) {
 
-	public void setFireDmg(float fireDmg)
-	{
-		this.fireDmg = fireDmg;
-	}
+        if (checkCollision(destroyable)) {
+            destroyable.overheat();
+        }
+    }
 
-	public void setFireDuration(long fireDuration)
-	{
-		this.fireDuration = fireDuration;
-	}
+    @Override
+    protected ITexture getTexture() {
 
-	public float getDmg()
-	{
-		return dmg;
-	}
+        if (animation == null)
+            return null;
 
-	public float getFireDmg()
-	{
-		return fireDmg;
-	}
+        return animation.getFrame();
+    }
 
-	public float getFireDuration()
-	{
-		return fireDuration;
-	}
+    public void setAnimation(IAnimation animation) {
 
-	@Override
-	public void act(float delta)
-	{
-		if (animation != null && animation.isCompleted())
-			setToKill();
-	}
+        this.animation = animation;
+    }
+
+    public void setDmg(float dmg) {
+
+        this.dmg = dmg;
+    }
+
+    public void setFireDmg(float fireDmg) {
+
+        this.fireDmg = fireDmg;
+    }
+
+    public void setFireDuration(long fireDuration) {
+
+        this.fireDuration = fireDuration;
+    }
+
+    public float getDmg() {
+
+        return dmg;
+    }
+
+    public float getFireDmg() {
+
+        return fireDmg;
+    }
+
+    public float getFireDuration() {
+
+        return fireDuration;
+    }
+
+    @Override
+    public void act(float delta) {
+
+        if (animation != null && animation.isCompleted())
+            setToKill();
+    }
 }

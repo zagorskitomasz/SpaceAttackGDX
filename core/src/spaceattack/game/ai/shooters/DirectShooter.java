@@ -3,78 +3,78 @@ package spaceattack.game.ai.shooters;
 import spaceattack.consts.Sizes;
 import spaceattack.game.utils.vector.IVector;
 
-public class DirectShooter extends AbstractShooter
-{
-	private IVector playerPosition;
-	private IVector primaryWeaponPlacement;
-	private IVector secondaryWeaponPlacement;
-	
-	@Override
-	public ShooterType getType()
-	{
-		return ShooterType.DIRECT_SHOOTER;
-	}
+public class DirectShooter extends AbstractShooter {
 
-	@Override
-	public synchronized PossibleAttacks checkShot()
-	{
-		if (playerShip == null || owner == null)
-			return PossibleAttacks.NONE;
+    private IVector playerPosition;
+    private IVector primaryWeaponPlacement;
+    private IVector secondaryWeaponPlacement;
 
-		canPrimary = false;
-		canSecondary = false;
+    @Override
+    public ShooterType getType() {
 
-		playerPosition = vectors.create(playerShip.getX(), playerShip.getY());
-		primaryWeaponPlacement = controller.getPrimaryWeaponUsePlacement();
-		secondaryWeaponPlacement = controller.getSecondaryWeaponUsePlacement();
+        return ShooterType.DIRECT_SHOOTER;
+    }
 
-		checkHorizontal();
-		checkVertical();
+    @Override
+    public synchronized PossibleAttacks checkShot() {
 
-		return processResult();
-	}
+        if (playerShip == null || owner == null)
+            return PossibleAttacks.NONE;
 
-	private void checkHorizontal()
-	{
-		if (inHorizontalRange(primaryWeaponPlacement.getX(), controller.getPrimaryWeaponRadius()))
-			canPrimary = true;
+        canPrimary = false;
+        canSecondary = false;
 
-		if (inHorizontalRange(secondaryWeaponPlacement.getX(), controller.getSecondaryWeaponRadius()))
-			canSecondary = true;
-	}
+        playerPosition = vectors.create(playerShip.getX(), playerShip.getY());
+        primaryWeaponPlacement = controller.getPrimaryWeaponUsePlacement();
+        secondaryWeaponPlacement = controller.getSecondaryWeaponUsePlacement();
 
-	private boolean inHorizontalRange(float ownerX,float weaponRadius)
-	{
-		return isTargetBelow(ownerX, weaponRadius) && !isFriendBetweenOwnerAndTarget(ownerX, weaponRadius);
-	}
+        checkHorizontal();
+        checkVertical();
 
-	private boolean isTargetBelow(float ownerX, float weaponRadius) 
-	{
-		return Math.abs(playerPosition.getX() - ownerX) < playerShip.getRadius() + weaponRadius;
-	}
+        return processResult();
+    }
 
-	private boolean isFriendBetweenOwnerAndTarget(float ownerX,float weaponRadius) 
-	{
-		return friends //
-				.stream() //
-				.filter(friend -> Math.abs(ownerX - friend.getX()) <= friend.getRadius() + weaponRadius) //
-				.filter(friend -> friend.getY() < owner.getY()) //
-				.filter(friend -> friend.getY() > playerShip.getY()) //
-				.findAny() //
-				.isPresent();
-	}
+    private void checkHorizontal() {
 
-	private void checkVertical()
-	{
-		if (!isAbove(controller.getPrimaryWeaponUsePlacement().getY(), controller.getPrimaryWeaponRadius()))
-			canPrimary = false;
+        if (inHorizontalRange(primaryWeaponPlacement.getX(), controller.getPrimaryWeaponRadius()))
+            canPrimary = true;
 
-		if (!isAbove(controller.getSecondaryWeaponUsePlacement().getY(), controller.getSecondaryWeaponRadius()))
-			canSecondary = false;
-	}
+        if (inHorizontalRange(secondaryWeaponPlacement.getX(), controller.getSecondaryWeaponRadius()))
+            canSecondary = true;
+    }
 
-	private boolean isAbove(float weaponPlacementY,float weaponRadius)
-	{
-		return weaponPlacementY + weaponRadius  * Sizes.X_FACTOR > playerShip.getY() - playerShip.getRadius();
-	}
+    private boolean inHorizontalRange(float ownerX, float weaponRadius) {
+
+        return isTargetBelow(ownerX, weaponRadius) && !isFriendBetweenOwnerAndTarget(ownerX, weaponRadius);
+    }
+
+    private boolean isTargetBelow(float ownerX, float weaponRadius) {
+
+        return Math.abs(playerPosition.getX() - ownerX) < playerShip.getRadius() + weaponRadius;
+    }
+
+    private boolean isFriendBetweenOwnerAndTarget(float ownerX, float weaponRadius) {
+
+        return friends //
+                .stream() //
+                .filter(friend -> Math.abs(ownerX - friend.getX()) <= friend.getRadius() + weaponRadius) //
+                .filter(friend -> friend.getY() < owner.getY()) //
+                .filter(friend -> friend.getY() > playerShip.getY()) //
+                .findAny() //
+                .isPresent();
+    }
+
+    private void checkVertical() {
+
+        if (!isAbove(controller.getPrimaryWeaponUsePlacement().getY(), controller.getPrimaryWeaponRadius()))
+            canPrimary = false;
+
+        if (!isAbove(controller.getSecondaryWeaponUsePlacement().getY(), controller.getSecondaryWeaponRadius()))
+            canSecondary = false;
+    }
+
+    private boolean isAbove(float weaponPlacementY, float weaponRadius) {
+
+        return weaponPlacementY + weaponRadius * Sizes.X_FACTOR > playerShip.getY() - playerShip.getRadius();
+    }
 }

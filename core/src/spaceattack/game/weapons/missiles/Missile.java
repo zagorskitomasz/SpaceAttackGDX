@@ -10,109 +10,107 @@ import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 
-public class Missile extends AbstractMissile implements Killable
-{
-	private Iterable<IGameActor> actors;
+public class Missile extends AbstractMissile implements Killable {
 
-	private ITexture texture;
-	private float dmg;
-	private float speed;
-	private float acceleration;
-	private IVector movement;
+    private Iterable<IGameActor> actors;
 
-	@Override
-	public void setActors(List<IGameActor> iterable)
-	{
-		this.actors = iterable;
-	}
+    private ITexture texture;
+    private float dmg;
+    private float speed;
+    private float acceleration;
+    private IVector movement;
 
-	@Override
-	public void act(float delta)
-	{
-		move();
+    @Override
+    public void setActors(List<IGameActor> iterable) {
 
-		if (actors == null)
-			return;
+        this.actors = iterable;
+    }
 
-		for (IGameActor actor : actors)
-		{
-			if (actor instanceof Vulnerable && differentFraction(actor))
-				collision((Vulnerable) actor);
-		}
-	}
+    @Override
+    public void act(float delta) {
 
-	private boolean differentFraction(IGameActor actor) 
-	{
-		return (isPlayersAttack && actor instanceof IEnemyShip) || (!isPlayersAttack && actor instanceof PlayerShip);
-	}
+        move();
 
-	protected void move()
-	{
-		getActor().setX(getActor().getX() + movement.getX() * speed);
-		getActor().setY(getActor().getY() + movement.getY() * speed);
+        if (actors == null)
+            return;
 
-		speed += acceleration;
-	}
+        for (IGameActor actor : actors) {
+            if (actor instanceof Vulnerable && differentFraction(actor))
+                collision((Vulnerable) actor);
+        }
+    }
 
-	private void collision(Vulnerable vulnerable)
-	{
-		if (!isToKill() && checkCollision(vulnerable))
-		{
-			vulnerable.takeDmg(dmg);
-			setToKill();
-		}
-	}
+    private boolean differentFraction(IGameActor actor) {
 
-	@Override
-	protected ITexture getTexture()
-	{
-		return texture;
-	}
+        return (isPlayersAttack && actor instanceof IEnemyShip) || (!isPlayersAttack && actor instanceof PlayerShip);
+    }
 
-	public void setTexture(ITexture texture)
-	{
-		this.texture = texture;
-	}
+    protected void move() {
 
-	public void setDmg(float dmg)
-	{
-		this.dmg = dmg;
-	}
+        getActor().setX(getActor().getX() + movement.getX() * speed);
+        getActor().setY(getActor().getY() + movement.getY() * speed);
 
-	public void setSpeed(float speed)
-	{
-		this.speed = speed;
-	}
+        speed += acceleration;
+    }
 
-	public void setAcceleration(float acceleration)
-	{
-		this.acceleration = acceleration;
-	}
+    private void collision(Vulnerable vulnerable) {
 
-	public void setMovement(IVector movement)
-	{
-		if (movement != null)
-			this.movement = movement.normalize();
-	}
+        if (!isToKill() && checkCollision(vulnerable)) {
+            vulnerable.takeDmg(dmg);
+            setToKill();
+        }
+    }
 
-	public float getDmg()
-	{
-		return dmg;
-	}
+    @Override
+    protected ITexture getTexture() {
 
-	public float getSpeed()
-	{
-		return speed;
-	}
+        return texture;
+    }
 
-	public float getAcceleration()
-	{
-		return acceleration;
-	}
+    public void setTexture(ITexture texture) {
 
-	@Override
-	public void launched()
-	{
-		playSound();
-	}
+        this.texture = texture;
+    }
+
+    public void setDmg(float dmg) {
+
+        this.dmg = dmg;
+    }
+
+    public void setSpeed(float speed) {
+
+        this.speed = speed;
+    }
+
+    public void setAcceleration(float acceleration) {
+
+        this.acceleration = acceleration;
+    }
+
+    public void setMovement(IVector movement) {
+
+        if (movement != null)
+            this.movement = movement.normalize();
+    }
+
+    public float getDmg() {
+
+        return dmg;
+    }
+
+    public float getSpeed() {
+
+        return speed;
+    }
+
+    public float getAcceleration() {
+
+        return acceleration;
+    }
+
+    @Override
+    public void launched() {
+
+        playSound();
+    }
 }

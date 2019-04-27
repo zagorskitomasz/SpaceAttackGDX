@@ -12,120 +12,119 @@ import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.ships.Ship;
 import spaceattack.game.weapons.IWeaponController;
 
-public class BaseEnemyShip extends Ship implements IEnemyShip
-{
-	private RadarVisible playerShip;
+public class BaseEnemyShip extends Ship implements IEnemyShip {
 
-	private IPowerUp powerUp;
-	private MoverAI mover;
-	private ShooterAI shooter;
-	private IWeaponController controller;
+    private RadarVisible playerShip;
 
-	private EnemyBar bar;
+    private IPowerUp powerUp;
+    private MoverAI mover;
+    private ShooterAI shooter;
+    private IWeaponController controller;
 
-	@Override
-	public void act(float delta)
-	{
-		super.act(delta);
-		mover.updateDirection();
-		performAttack();
-		disappearIfNeeded();
-	}
+    private EnemyBar bar;
 
-	void performAttack()
-	{
-		PossibleAttacks possibleAttack = shooter.checkShot();
-		if (!PossibleAttacks.NONE.equals(possibleAttack))
-			controller.performAttack(possibleAttack,playerShip);
-	}
+    @Override
+    public void act(float delta) {
 
-	@Override
-	public void setPlayerShip(RadarVisible playerShip)
-	{
-		this.playerShip = playerShip;
-	}
+        super.act(delta);
+        mover.updateDirection();
+        performAttack();
+        disappearIfNeeded();
+    }
 
-	@Override
-	public void setMover(MoverAI mover)
-	{
-		this.mover = mover;
-	}
+    void performAttack() {
 
-	@Override
-	public void setShooter(ShooterAI shooter)
-	{
-		this.shooter = shooter;
-	}
+        PossibleAttacks possibleAttack = shooter.checkShot();
+        if (!PossibleAttacks.NONE.equals(possibleAttack))
+            controller.performAttack(possibleAttack, playerShip);
+    }
 
-	@Override
-	public IWeaponController getWeaponController()
-	{
-		return controller;
-	}
+    @Override
+    public void setPlayerShip(RadarVisible playerShip) {
 
-	@Override
-	public boolean isMoving()
-	{
-		return !engine.isDestinationReached();
-	}
+        this.playerShip = playerShip;
+    }
 
-	@Override
-	public void setWeaponController(IWeaponController controller)
-	{
-		this.controller = controller;
-	}
+    @Override
+    public void setMover(MoverAI mover) {
 
-	@Override
-	public void setActor(IActor actor)
-	{
-		super.setActor(actor);
-		getActor().setPosition((float) (Math.random() * Sizes.GAME_WIDTH), Sizes.GAME_HEIGHT);
-	}
+        this.mover = mover;
+    }
 
-	@Override
-	public void setBar(EnemyBar bar)
-	{
-		this.bar = bar;
-	}
+    @Override
+    public void setShooter(ShooterAI shooter) {
 
-	@Override
-	public MoverType getMoverType()
-	{
-		return mover.getType();
-	}
+        this.shooter = shooter;
+    }
 
-	@Override
-	public void draw(IBatch batch,float alpha)
-	{
-		super.draw(batch, alpha);
+    @Override
+    public IWeaponController getWeaponController() {
 
-		if (bar != null)
-			bar.draw(batch);
-	}
+        return controller;
+    }
 
-	@Override
-	public void setPowerUp(IPowerUp powerUp)
-	{
-		this.powerUp = powerUp;
-	}
+    @Override
+    public boolean isMoving() {
 
-	@Override
-	public void setToKill()
-	{
-		super.setToKill();
+        return !engine.isDestinationReached();
+    }
 
-		if (powerUp != null)
-		{
-			powerUp.setX(getX());
-			powerUp.setY(getY());
+    @Override
+    public void setWeaponController(IWeaponController controller) {
 
-			launcher.launch(powerUp);
-		}
-	}
+        this.controller = controller;
+    }
 
-	@Override
-	public boolean isToKill()
-	{
-		return super.isToKill();
-	}
+    @Override
+    public void setActor(IActor actor) {
+
+        super.setActor(actor);
+        getActor().setPosition((float) (Math.random() * Sizes.GAME_WIDTH), Sizes.GAME_HEIGHT);
+    }
+
+    @Override
+    public void setBar(EnemyBar bar) {
+
+        this.bar = bar;
+    }
+
+    @Override
+    public MoverType getMoverType() {
+
+        return mover.getType();
+    }
+
+    @Override
+    public void draw(IBatch batch, float alpha) {
+
+        super.draw(batch, alpha);
+
+        if (bar != null)
+            bar.draw(batch);
+    }
+
+    @Override
+    public void setPowerUp(IPowerUp powerUp) {
+
+        this.powerUp = powerUp;
+    }
+
+    @Override
+    public void setToKill() {
+
+        super.setToKill();
+
+        if (powerUp != null) {
+            powerUp.setX(getX());
+            powerUp.setY(getY());
+
+            launcher.launch(powerUp);
+        }
+    }
+
+    @Override
+    public boolean isToKill() {
+
+        return super.isToKill();
+    }
 }

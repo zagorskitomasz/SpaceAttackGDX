@@ -6,54 +6,53 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.enemy.IEnemyShip;
 
-public enum ShipEngineBuilder
-{
-	INSTANCE;
+public enum ShipEngineBuilder {
+    INSTANCE;
 
-	public IEngine createDestinationEngine(IShip ship)
-	{
-		IEngine engine = new DestinationShipEngine(ship, Factories.getUtilsFactory().create());
+    public IEngine createDestinationEngine(IShip ship) {
 
-		engine.setBaseSpeed(0.5f * Sizes.RADIUS_FACTOR);
-		engine.setAcceleration(0.2f * Sizes.RADIUS_FACTOR);
-		engine.setBraking(0.5f * Sizes.RADIUS_FACTOR);
-		engine.setAgility(0.2f * Sizes.RADIUS_FACTOR);
+        IEngine engine = new DestinationShipEngine(ship, Factories.getUtilsFactory().create());
 
-		return engine;
-	}
+        engine.setBaseSpeed(0.5f * Sizes.RADIUS_FACTOR);
+        engine.setAcceleration(0.2f * Sizes.RADIUS_FACTOR);
+        engine.setBraking(0.5f * Sizes.RADIUS_FACTOR);
+        engine.setAgility(0.2f * Sizes.RADIUS_FACTOR);
 
-	public IEngine createInputEngine(IShip ship, IAccelerator accelerator)
-	{
-		InputShipEngine engine = new InputShipEngine(ship);
-		
-		engine.setAccelerator(accelerator);
-		engine.setMaxSpeed(10f * Sizes.RADIUS_FACTOR);
-		engine.setAcceleration(1f * Sizes.RADIUS_FACTOR);
+        return engine;
+    }
 
-		return engine;
-	}
+    public IEngine createInputEngine(IShip ship, IAccelerator accelerator) {
 
-	public IEngine createFighterEngine(IEnemyShip fighter)
-	{
-		IEngine engine = new FighterEngine(fighter, Factories.getUtilsFactory().create());
+        InputShipEngine engine = new InputShipEngine(ship);
 
-		engine.setBaseSpeed((0.3f + (float) Math.random() * 1f)  * Sizes.RADIUS_FACTOR);
-		engine.setAcceleration(1f * Sizes.RADIUS_FACTOR);
-		engine.setBraking(1f * Sizes.RADIUS_FACTOR);
-		engine.setAgility(1f * Sizes.RADIUS_FACTOR);
+        engine.setAccelerator(accelerator);
+        engine.setMaxSpeed(10f * Sizes.RADIUS_FACTOR);
+        engine.setAcceleration(1f * Sizes.RADIUS_FACTOR);
 
-		return engine;
-	}
+        return engine;
+    }
 
-	public IEngine createFastDestinationEngine(IShip ship) 
-	{
-		IEngine engine = new FastDestinationShipEngine(ship, Factories.getUtilsFactory().create());
+    public IEngine createFighterEngine(IEnemyShip fighter) {
 
-		engine.setBaseSpeed(0.5f * Sizes.RADIUS_FACTOR);
-		engine.setAcceleration(0.2f * Sizes.RADIUS_FACTOR);
-		engine.setBraking(0.5f * Sizes.RADIUS_FACTOR);
-		engine.setAgility(0.2f * Sizes.RADIUS_FACTOR);
+        IEngine engine = new FighterEngine(fighter, Factories.getUtilsFactory().create());
 
-		return engine;
-	}
+        engine.setBaseSpeed((0.3f + (float) Math.random() * 1f) * Sizes.RADIUS_FACTOR);
+        engine.setAcceleration(1f * Sizes.RADIUS_FACTOR);
+        engine.setBraking(1f * Sizes.RADIUS_FACTOR);
+        engine.setAgility(1f * Sizes.RADIUS_FACTOR);
+
+        return engine;
+    }
+
+    public IEngine createFastDestinationEngine(IShip ship) {
+
+        IEngine engine = new FastDestinationShipEngine(ship, Factories.getUtilsFactory().create());
+
+        engine.setBaseSpeed(0.5f * Sizes.RADIUS_FACTOR);
+        engine.setAcceleration(0.2f * Sizes.RADIUS_FACTOR);
+        engine.setBraking(0.5f * Sizes.RADIUS_FACTOR);
+        engine.setAgility(0.2f * Sizes.RADIUS_FACTOR);
+
+        return engine;
+    }
 }

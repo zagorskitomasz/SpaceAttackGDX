@@ -8,30 +8,30 @@ import org.mockito.MockitoAnnotations;
 
 import spaceattack.game.stages.impl.MissionsStage;
 
-public class ActChangeButtonListenerTest
-{
-	@Mock
-	private MissionsStage stage;
+public class ActChangeButtonListenerTest {
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
-	}
+    @Mock
+    private MissionsStage stage;
 
-	@Test
-	public void clickOnNextVariantIsIncrementingStageAct()
-	{
-		ActChangeButtonListener listener = new ActChangeButtonListener(stage, ActChangeButtonListener.Variants.NEXT);
-		listener.clicked();
-		Mockito.verify(stage).nextAct();
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void clickOnPrevVariantIsIncrementingStageAct()
-	{
-		ActChangeButtonListener listener = new ActChangeButtonListener(stage, ActChangeButtonListener.Variants.PREV);
-		listener.clicked();
-		Mockito.verify(stage).previousAct();
-	}
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void clickOnNextVariantIsIncrementingStageAct() {
+
+        ActChangeButtonListener listener = new ActChangeButtonListener(stage, ActChangeButtonListener.Variants.NEXT);
+        listener.clicked();
+        Mockito.verify(stage).nextAct();
+    }
+
+    @Test
+    public void clickOnPrevVariantIsIncrementingStageAct() {
+
+        ActChangeButtonListener listener = new ActChangeButtonListener(stage, ActChangeButtonListener.Variants.PREV);
+        listener.clicked();
+        Mockito.verify(stage).previousAct();
+    }
 }

@@ -11,116 +11,116 @@ import spaceattack.game.system.sound.ISoundFactory;
 import spaceattack.game.utils.IUtilsFactory;
 import spaceattack.game.utils.vector.IVectorFactory;
 
-public class Factories
-{
-	private static ISoundFactory soundFactory;
-	private static ITextureFactory textureFactory;
-	private static IUtilsFactory utilsFactory;
-	private static IStageFactory stageFactory;
-	private static IActorFactory actorFactory;
-	private static IVectorFactory vectorFactory;
-	private static ITextButtonFactory textButtonFactory;
-	private static IImageButtonFactory imageButtonFactory;
-	private static IAnimationFactory animationFactory;
-	private static IMusicFactory musicFactory;
+public class Factories {
 
-	public static void setSoundFactory(ISoundFactory factory)
-	{
-		soundFactory = factory;
-	}
+    private static ISoundFactory soundFactory;
+    private static ITextureFactory textureFactory;
+    private static IUtilsFactory utilsFactory;
+    private static IStageFactory stageFactory;
+    private static IActorFactory actorFactory;
+    private static IVectorFactory vectorFactory;
+    private static ITextButtonFactory textButtonFactory;
+    private static IImageButtonFactory imageButtonFactory;
+    private static IAnimationFactory animationFactory;
+    private static IMusicFactory musicFactory;
 
-	public static ISoundFactory getSoundFactory()
-	{
-		return soundFactory;
-	}
+    public static void setSoundFactory(ISoundFactory factory) {
 
-	public static void setTextureFactory(ITextureFactory factory)
-	{
-		textureFactory = factory;
-	}
+        soundFactory = factory;
+    }
 
-	public static ITextureFactory getTextureFactory()
-	{
-		return textureFactory;
-	}
+    public static ISoundFactory getSoundFactory() {
 
-	public static void setUtilsFactory(IUtilsFactory factory)
-	{
-		utilsFactory = factory;
-	}
+        return soundFactory;
+    }
 
-	public static IUtilsFactory getUtilsFactory()
-	{
-		return utilsFactory;
-	}
+    public static void setTextureFactory(ITextureFactory factory) {
 
-	public static IStageFactory getStageFactory()
-	{
-		return stageFactory;
-	}
+        textureFactory = factory;
+    }
 
-	public static void setStageFactory(IStageFactory factory)
-	{
-		stageFactory = factory;
-	}
+    public static ITextureFactory getTextureFactory() {
 
-	public static IActorFactory getActorFactory()
-	{
-		return actorFactory;
-	}
+        return textureFactory;
+    }
 
-	public static void setActorFactory(IActorFactory factory)
-	{
-		actorFactory = factory;
-	}
+    public static void setUtilsFactory(IUtilsFactory factory) {
 
-	public static IVectorFactory getVectorFactory()
-	{
-		return vectorFactory;
-	}
+        utilsFactory = factory;
+    }
 
-	public static void setVectorFactory(IVectorFactory factory)
-	{
-		vectorFactory = factory;
-	}
+    public static IUtilsFactory getUtilsFactory() {
 
-	public static ITextButtonFactory getTextButtonFactory()
-	{
-		return textButtonFactory;
-	}
+        return utilsFactory;
+    }
 
-	public static void setTextButtonFactory(ITextButtonFactory factory)
-	{
-		textButtonFactory = factory;
-	}
+    public static IStageFactory getStageFactory() {
 
-	public static IImageButtonFactory getImageButtonsFactory()
-	{
-		return imageButtonFactory;
-	}
+        return stageFactory;
+    }
 
-	public static void setImageButtonFactory(IImageButtonFactory factory)
-	{
-		imageButtonFactory = factory;
-	}
+    public static void setStageFactory(IStageFactory factory) {
 
-	public static IAnimationFactory getAnimationFactory()
-	{
-		return animationFactory;
-	}
+        stageFactory = factory;
+    }
 
-	public static void setAnimationFactory(IAnimationFactory factory)
-	{
-		animationFactory = factory;
-	}
+    public static IActorFactory getActorFactory() {
 
-	public static IMusicFactory getMusicFactory() 
-	{
-		return musicFactory;
-	}
-	
-	public static void setMusicFactory(IMusicFactory factory)
-	{
-		musicFactory = factory;
-	}
+        return actorFactory;
+    }
+
+    public static void setActorFactory(IActorFactory factory) {
+
+        actorFactory = factory;
+    }
+
+    public static IVectorFactory getVectorFactory() {
+
+        return vectorFactory;
+    }
+
+    public static void setVectorFactory(IVectorFactory factory) {
+
+        vectorFactory = factory;
+    }
+
+    public static ITextButtonFactory getTextButtonFactory() {
+
+        return textButtonFactory;
+    }
+
+    public static void setTextButtonFactory(ITextButtonFactory factory) {
+
+        textButtonFactory = factory;
+    }
+
+    public static IImageButtonFactory getImageButtonsFactory() {
+
+        return imageButtonFactory;
+    }
+
+    public static void setImageButtonFactory(IImageButtonFactory factory) {
+
+        imageButtonFactory = factory;
+    }
+
+    public static IAnimationFactory getAnimationFactory() {
+
+        return animationFactory;
+    }
+
+    public static void setAnimationFactory(IAnimationFactory factory) {
+
+        animationFactory = factory;
+    }
+
+    public static IMusicFactory getMusicFactory() {
+
+        return musicFactory;
+    }
+
+    public static void setMusicFactory(IMusicFactory factory) {
+
+        musicFactory = factory;
+    }
 }

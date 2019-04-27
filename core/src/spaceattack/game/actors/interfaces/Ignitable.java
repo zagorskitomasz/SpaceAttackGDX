@@ -2,13 +2,13 @@ package spaceattack.game.actors.interfaces;
 
 import spaceattack.game.weapons.missiles.Burner;
 
-public interface Ignitable extends Vulnerable
-{
-	public void ignite(float burningDPS,long fireDuration);
+public interface Ignitable extends Vulnerable {
 
-	public void setBurner(Burner burner);
+    public void ignite(float burningDPS, long fireDuration);
 
-	public float getDrawingX();
+    public void setBurner(Burner burner);
 
-	public float getDrawingY();
+    public float getDrawingX();
+
+    public float getDrawingY();
 }

@@ -15,55 +15,55 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVectorFactory;
 
-public class PlayerWeaponControllerTest
-{
-	@Mock
-	private IShip ship;
+public class PlayerWeaponControllerTest {
 
-	@Mock
-	private IWeapon primaryWeapon;
+    @Mock
+    private IShip ship;
 
-	@Mock
-	private IWeapon secondaryWeapon;
+    @Mock
+    private IWeapon primaryWeapon;
 
-	@Mock
-	private IFireButton secondaryButton;
+    @Mock
+    private IWeapon secondaryWeapon;
 
-	private PlayerWeaponController controller;
+    @Mock
+    private IFireButton secondaryButton;
 
-	private IVectorFactory factory;
+    private PlayerWeaponController controller;
 
-	@Before
-	public void setUp()
-	{
-		MockitoAnnotations.initMocks(this);
+    private IVectorFactory factory;
 
-		factory = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(factory);
+    @Before
+    public void setUp() {
 
-		controller = new PlayerWeaponController();
-		controller.setShip(ship);
-		controller.setPrimaryWeapon(primaryWeapon);
-	}
+        MockitoAnnotations.initMocks(this);
 
-	@Test
-	public void placementOfLaserShot()
-	{
-		doReturn(0.7f).when(primaryWeapon).getWeaponsMovementFactor();
-		doReturn(100f).when(ship).getX();
-		doReturn(200f).when(ship).getY();
-		doReturn(60f).when(ship).getHeight();
+        factory = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(factory);
 
-		assertEquals(factory.create(100, 242), controller.getPrimaryWeaponUsePlacement());
-	}
+        controller = new PlayerWeaponController();
+        controller.setShip(ship);
+        controller.setPrimaryWeapon(primaryWeapon);
+    }
 
-	@Test
-	public void settingSecondaryWeapon()
-	{
-		controller.setSecondaryFireButton(secondaryButton);
-		controller.setSecondaryWeapon(primaryWeapon);
-		controller.updateSecondaryWeapon(secondaryWeapon);
+    @Test
+    public void placementOfLaserShot() {
 
-		verify(secondaryButton).setWeapon(secondaryWeapon);
-	}
+        doReturn(0.7f).when(primaryWeapon).getWeaponsMovementFactor();
+        doReturn(100f).when(ship).getX();
+        doReturn(200f).when(ship).getY();
+        doReturn(60f).when(ship).getHeight();
+
+        assertEquals(factory.create(100, 242), controller.getPrimaryWeaponUsePlacement());
+    }
+
+    @Test
+    public void settingSecondaryWeapon() {
+
+        controller.setSecondaryFireButton(secondaryButton);
+        controller.setSecondaryWeapon(primaryWeapon);
+        controller.updateSecondaryWeapon(secondaryWeapon);
+
+        verify(secondaryButton).setWeapon(secondaryWeapon);
+    }
 }

@@ -18,61 +18,61 @@ import spaceattack.game.actors.interfaces.Collisionable;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.weapons.MissilesLauncher;
 
-public class ExplosiveMissileTest
-{
-	@InjectMocks
-	private ExplosiveMissile missile;
+public class ExplosiveMissileTest {
 
-	@Mock
-	private Explosion explosion;
+    @InjectMocks
+    private ExplosiveMissile missile;
 
-	@Mock
-	private MissilesLauncher launcher;
-	
-	@Mock
-	private Collisionable vulnerable;
+    @Mock
+    private Explosion explosion;
 
-	@Before
-	public void setUp()
-	{
-		missile = new ExplosiveMissile();
-		MockitoAnnotations.initMocks(this);
-		missile.setActor(new FakeActor());
-		doReturn(new FakeActor()).when(explosion).getActor();
-		doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(vulnerable).getPosition();
-		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-	}
+    @Mock
+    private MissilesLauncher launcher;
 
-	@Test
-	public void launchesExplosionWhenKilled()
-	{
-		missile.setToKill();
-		verify(launcher).launch(explosion);
-	}
-	
-	@Test
-	public void wontExplodeOutOfScreen()
-	{
-		missile.setX(-500);
-		missile.setToKill();
+    @Mock
+    private Collisionable vulnerable;
 
-		verify(launcher,times(0)).launch(explosion);
-	}
-	
-	@Test
-	public void willDissapearIfOutOfScreen()
-	{
-		missile.setX(-500);
-		missile.checkCollision(vulnerable);
+    @Before
+    public void setUp() {
 
-		assertTrue(missile.isToKill());
-	}
-	
-	@Test
-	public void overheatingKillsMissile()
-	{
-		missile.overheat();
-		assertTrue(missile.isToKill());
-	}
+        missile = new ExplosiveMissile();
+        MockitoAnnotations.initMocks(this);
+        missile.setActor(new FakeActor());
+        doReturn(new FakeActor()).when(explosion).getActor();
+        doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(vulnerable).getPosition();
+        Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    }
+
+    @Test
+    public void launchesExplosionWhenKilled() {
+
+        missile.setToKill();
+        verify(launcher).launch(explosion);
+    }
+
+    @Test
+    public void wontExplodeOutOfScreen() {
+
+        missile.setX(-500);
+        missile.setToKill();
+
+        verify(launcher, times(0)).launch(explosion);
+    }
+
+    @Test
+    public void willDissapearIfOutOfScreen() {
+
+        missile.setX(-500);
+        missile.checkCollision(vulnerable);
+
+        assertTrue(missile.isToKill());
+    }
+
+    @Test
+    public void overheatingKillsMissile() {
+
+        missile.overheat();
+        assertTrue(missile.isToKill());
+    }
 }

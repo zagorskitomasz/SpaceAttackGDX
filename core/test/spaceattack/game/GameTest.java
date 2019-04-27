@@ -20,91 +20,91 @@ import spaceattack.game.system.FrameController;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.utils.IUtils;
 
-public class GameTest
-{
-	@Mock
-	private IUtils extUtils;
+public class GameTest {
 
-	@Mock
-	private GameLoader gameLoader;
+    @Mock
+    private IUtils extUtils;
 
-	@Mock
-	private GameStageFactory stageBuilder;
+    @Mock
+    private GameLoader gameLoader;
 
-	@Mock
-	private FrameController frameController;
+    @Mock
+    private GameStageFactory stageBuilder;
 
-	@Mock
-	private IGameStage stage;
+    @Mock
+    private FrameController frameController;
 
-	@Mock
-	private IGameStage missionsStage;
+    @Mock
+    private IGameStage stage;
 
-	@InjectMocks
-	private Game game;
+    @Mock
+    private IGameStage missionsStage;
 
-	@Before
-	public void setUp()
-	{
-		game = new Game(true);
-		initMocks(this);
+    @InjectMocks
+    private Game game;
 
-		doReturn(Stages.MAIN_MENU).when(stage).getType();
-		doReturn(Stages.MISSIONS).when(missionsStage).getType();
-		doReturn(stage).when(stageBuilder).getStage(any(StageResult.class));
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void mainMenuIsFirstStage()
-	{
-		game.create();
-		assertEquals(Stages.MAIN_MENU, game.getCurrentStage());
-	}
+        game = new Game(true);
+        initMocks(this);
 
-	@Test
-	public void gameIsLoadedDuringCreate()
-	{
-		game.create();
-		verify(gameLoader).load();
-	}
+        doReturn(Stages.MAIN_MENU).when(stage).getType();
+        doReturn(Stages.MISSIONS).when(missionsStage).getType();
+        doReturn(stage).when(stageBuilder).getStage(any(StageResult.class));
+    }
 
-	@Test
-	public void stageIsSwitchedToTypeReturnedByPreviousStage()
-	{
-		game.create();
+    @Test
+    public void mainMenuIsFirstStage() {
 
-		StageResult result = new StageResult();
-		result.setNextStage(Stages.MISSIONS);
+        game.create();
+        assertEquals(Stages.MAIN_MENU, game.getCurrentStage());
+    }
 
-		doReturn(true).when(stage).isCompleted();
-		doReturn(result).when(stage).getResult();
-		doReturn(missionsStage).when(stageBuilder).getStage(eq(result));
+    @Test
+    public void gameIsLoadedDuringCreate() {
 
-		game.render();
-		assertEquals(Stages.MISSIONS, game.getCurrentStage());
-	}
+        game.create();
+        verify(gameLoader).load();
+    }
 
-	@Test
-	public void screenIsClearingDuringRender()
-	{
-		game.create();
-		game.render();
-		game.render();
-		game.render();
+    @Test
+    public void stageIsSwitchedToTypeReturnedByPreviousStage() {
 
-		verify(extUtils, times(3)).clearScreen();
-	}
+        game.create();
 
-	@Test
-	public void stageIsActedAndRendered()
-	{
-		doReturn(true).when(frameController).check();
+        StageResult result = new StageResult();
+        result.setNextStage(Stages.MISSIONS);
 
-		game.create();
-		game.render();
-		game.render();
+        doReturn(true).when(stage).isCompleted();
+        doReturn(result).when(stage).getResult();
+        doReturn(missionsStage).when(stageBuilder).getStage(eq(result));
 
-		verify(stage, times(2)).act(any(Float.class));
-		verify(stage, times(2)).draw();
-	}
+        game.render();
+        assertEquals(Stages.MISSIONS, game.getCurrentStage());
+    }
+
+    @Test
+    public void screenIsClearingDuringRender() {
+
+        game.create();
+        game.render();
+        game.render();
+        game.render();
+
+        verify(extUtils, times(3)).clearScreen();
+    }
+
+    @Test
+    public void stageIsActedAndRendered() {
+
+        doReturn(true).when(frameController).check();
+
+        game.create();
+        game.render();
+        game.render();
+
+        verify(stage, times(2)).act(any(Float.class));
+        verify(stage, times(2)).draw();
+    }
 }

@@ -20,94 +20,94 @@ import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.utils.vector.IVectorFactory;
 import spaceattack.game.weapons.IWeaponController;
 
-public class DirectShooterTest
-{
-	private ShooterAI shooter;
+public class DirectShooterTest {
 
-	private FakeShip playerShip;
-	private List<FakeShip> friends;
-	private IVectorFactory vectors;
+    private ShooterAI shooter;
 
-	@Mock
-	private IWeaponController controller;
+    private FakeShip playerShip;
+    private List<FakeShip> friends;
+    private IVectorFactory vectors;
 
-	@Mock
-	private IEnemyShip owner;
+    @Mock
+    private IWeaponController controller;
 
-	@Before
-	public void setUp()
-	{
-		vectors = ExtVectorFactory.INSTANCE;
-		Factories.setVectorFactory(vectors);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+    @Mock
+    private IEnemyShip owner;
 
-		MockitoAnnotations.initMocks(this);
-		doReturn(controller).when(owner).getWeaponController();
-		doReturn(vectors.create(105, 400)).when(controller).getPrimaryWeaponUsePlacement();
-		doReturn(vectors.create(105, 400)).when(controller).getSecondaryWeaponUsePlacement();
-		doReturn(105f).when(owner).getX();
-		doReturn(400f).when(owner).getY();
+    @Before
+    public void setUp() {
 
-		playerShip = new FakeShip();
-		friends = new LinkedList<>();
+        vectors = ExtVectorFactory.INSTANCE;
+        Factories.setVectorFactory(vectors);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
 
-		playerShip.setX(100);
-		playerShip.setY(200);
-		playerShip.setRadius(15);
+        MockitoAnnotations.initMocks(this);
+        doReturn(controller).when(owner).getWeaponController();
+        doReturn(vectors.create(105, 400)).when(controller).getPrimaryWeaponUsePlacement();
+        doReturn(vectors.create(105, 400)).when(controller).getSecondaryWeaponUsePlacement();
+        doReturn(105f).when(owner).getX();
+        doReturn(400f).when(owner).getY();
 
-		shooter = new DirectShooter();
-		shooter.setPlayerShip(playerShip);
-		shooter.setOwner(owner);
-		shooter.setFriends(friends);
-	}
+        playerShip = new FakeShip();
+        friends = new LinkedList<>();
 
-	@Test
-	public void shootWhenInRadiusWidthLineWithPlayer()
-	{
-		doReturn(vectors.create(105, 400)).when(owner).getPosition();
+        playerShip.setX(100);
+        playerShip.setY(200);
+        playerShip.setRadius(15);
 
-		assertEquals(PossibleAttacks.BOTH, shooter.checkShot());
-	}
+        shooter = new DirectShooter();
+        shooter.setPlayerShip(playerShip);
+        shooter.setOwner(owner);
+        shooter.setFriends(friends);
+    }
 
-	@Test
-	public void shootOnlyWeaponInRadius()
-	{
-		doReturn(vectors.create(125, 400)).when(controller).getPrimaryWeaponUsePlacement();
-		doReturn(vectors.create(125, 400)).when(controller).getSecondaryWeaponUsePlacement();
-		doReturn(5f).when(controller).getPrimaryWeaponRadius();
-		doReturn(15f).when(controller).getSecondaryWeaponRadius();
+    @Test
+    public void shootWhenInRadiusWidthLineWithPlayer() {
 
-		assertEquals(PossibleAttacks.SECONDARY, shooter.checkShot());
-	}
+        doReturn(vectors.create(105, 400)).when(owner).getPosition();
 
-	@Test
-	public void dontShootUnderTarget()
-	{
-		doReturn(vectors.create(105, 190)).when(controller).getPrimaryWeaponUsePlacement();
-		doReturn(vectors.create(105, 100)).when(controller).getSecondaryWeaponUsePlacement();
+        assertEquals(PossibleAttacks.BOTH, shooter.checkShot());
+    }
 
-		assertEquals(PossibleAttacks.PRIMARY, shooter.checkShot());
-	}
-	
-	@Test
-	public void dontShootAboveFriend()
-	{
-		FakeShip friend = new FakeShip();
-		friend.setX(105);
-		friend.setY(300);
-		friends.add(friend);
-		
-		assertEquals(PossibleAttacks.NONE, shooter.checkShot());
-	}
-	
-	@Test
-	public void shootIfTargetBetweenOwnerAndFriend()
-	{
-		FakeShip friend = new FakeShip();
-		friend.setX(105);
-		friend.setY(100);
-		friends.add(friend);
-		
-		assertEquals(PossibleAttacks.BOTH, shooter.checkShot());
-	}
+    @Test
+    public void shootOnlyWeaponInRadius() {
+
+        doReturn(vectors.create(125, 400)).when(controller).getPrimaryWeaponUsePlacement();
+        doReturn(vectors.create(125, 400)).when(controller).getSecondaryWeaponUsePlacement();
+        doReturn(5f).when(controller).getPrimaryWeaponRadius();
+        doReturn(15f).when(controller).getSecondaryWeaponRadius();
+
+        assertEquals(PossibleAttacks.SECONDARY, shooter.checkShot());
+    }
+
+    @Test
+    public void dontShootUnderTarget() {
+
+        doReturn(vectors.create(105, 190)).when(controller).getPrimaryWeaponUsePlacement();
+        doReturn(vectors.create(105, 100)).when(controller).getSecondaryWeaponUsePlacement();
+
+        assertEquals(PossibleAttacks.PRIMARY, shooter.checkShot());
+    }
+
+    @Test
+    public void dontShootAboveFriend() {
+
+        FakeShip friend = new FakeShip();
+        friend.setX(105);
+        friend.setY(300);
+        friends.add(friend);
+
+        assertEquals(PossibleAttacks.NONE, shooter.checkShot());
+    }
+
+    @Test
+    public void shootIfTargetBetweenOwnerAndFriend() {
+
+        FakeShip friend = new FakeShip();
+        friend.setX(105);
+        friend.setY(100);
+        friends.add(friend);
+
+        assertEquals(PossibleAttacks.BOTH, shooter.checkShot());
+    }
 }

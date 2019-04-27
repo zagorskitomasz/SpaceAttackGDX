@@ -9,52 +9,50 @@ import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.batch.IBatch;
 
-public class GdxLabel extends Label implements ILabel
-{
-	private IGameActor gameActor;
-	private boolean draw;
+public class GdxLabel extends Label implements ILabel {
 
-	public GdxLabel(CharSequence text,LabelStyle style)
-	{
-		super(text, style);
-		setFontScale(Sizes.X_FACTOR,Sizes.Y_FACTOR);
-	}
+    private IGameActor gameActor;
+    private boolean draw;
 
-	@Override
-	public void setGameActor(IGameActor actor)
-	{
-		gameActor = actor;
-	}
+    public GdxLabel(CharSequence text, LabelStyle style) {
 
-	@Override
-	public void draw(IBatch batch, float alpha)
-	{
-		batch.draw(this,alpha);
-	}
+        super(text, style);
+        setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+    }
 
-	@Override
-	public void disableDrawing()
-	{
-		draw = false;
-	}
+    @Override
+    public void setGameActor(IGameActor actor) {
 
-	@Override
-	public void enableDawing()
-	{
-		draw = true;
-	}
+        gameActor = actor;
+    }
 
-	@Override
-	public void draw(Batch batch, float alpha)
-	{
-		if(gameActor == null || draw)
-		{
-			super.draw(batch, alpha);
+    @Override
+    public void draw(IBatch batch, float alpha) {
 
-			if(draw)
-			{
-				gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
-			}
-		}
-	}
+        batch.draw(this, alpha);
+    }
+
+    @Override
+    public void disableDrawing() {
+
+        draw = false;
+    }
+
+    @Override
+    public void enableDawing() {
+
+        draw = true;
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha) {
+
+        if (gameActor == null || draw) {
+            super.draw(batch, alpha);
+
+            if (draw) {
+                gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
+            }
+        }
+    }
 }

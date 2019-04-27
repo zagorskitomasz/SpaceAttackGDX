@@ -14,46 +14,46 @@ import spaceattack.game.actors.IGameActor;
 import spaceattack.game.stages.IGameStage;
 import spaceattack.game.weapons.missiles.Missile;
 
-public class MissileLauncherTest
-{
-	@Mock
-	private IGameStage stage;
+public class MissileLauncherTest {
 
-	@Mock
-	private Missile missile;
+    @Mock
+    private IGameStage stage;
 
-	@Mock
-	private List<IGameActor> actors;
+    @Mock
+    private Missile missile;
 
-	private MissilesLauncher launcher;
+    @Mock
+    private List<IGameActor> actors;
 
-	@Before
-	public void setUp()
-	{
-		initMocks(this);
-		launcher = new MissilesLauncher(stage);
-	}
+    private MissilesLauncher launcher;
 
-	@Test
-	public void addingActorToStage()
-	{
-		launcher.launch(missile);
-		verify(stage).addActorBeforeGUI(missile);
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void addingActorsListReferenceToMissile()
-	{
-		doReturn(actors).when(stage).getActors();
+        initMocks(this);
+        launcher = new MissilesLauncher(stage);
+    }
 
-		launcher.launch(missile);
-		verify(missile).setActors(actors);
-	}
+    @Test
+    public void addingActorToStage() {
 
-	@Test
-	public void playingSoundAfterShot()
-	{
-		launcher.launch(missile);
-		verify(missile).launched();
-	}
+        launcher.launch(missile);
+        verify(stage).addActorBeforeGUI(missile);
+    }
+
+    @Test
+    public void addingActorsListReferenceToMissile() {
+
+        doReturn(actors).when(stage).getActors();
+
+        launcher.launch(missile);
+        verify(missile).setActors(actors);
+    }
+
+    @Test
+    public void playingSoundAfterShot() {
+
+        launcher.launch(missile);
+        verify(missile).launched();
+    }
 }

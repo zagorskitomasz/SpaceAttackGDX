@@ -16,41 +16,41 @@ import spaceattack.game.GameFactory;
 import spaceattack.game.IGame;
 import spaceattack.game.factories.Factories;
 
-public class SpaceAttackGDX extends ApplicationAdapter
-{
-	private IGame game;
+public class SpaceAttackGDX extends ApplicationAdapter {
 
-	@Override
-	public void create()
-	{
-		initFactories();
-		game = GameFactory.INSTANCE.create();
-		game.create();
-	}
+    private IGame game;
 
-	private void initFactories()
-	{
-		Factories.setSoundFactory(ExtSoundFactory.INSTANCE);
-		Factories.setTextureFactory(ExtTextureFactory.INSTANCE);
-		Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-		Factories.setStageFactory(ExtStageFactory.INSTANCE);
-		Factories.setActorFactory(ExtActorFactory.INSTANCE);
-		Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
-		Factories.setTextButtonFactory(ExtTextButtonsFactory.INSTANCE);
-		Factories.setImageButtonFactory(ExtImageButtonFactory.INSTANCE);
-		Factories.setAnimationFactory(ExtAnimationFactory.INSTANCE);
-		Factories.setMusicFactory(ExtMusicFactory.INSTANCE);
-	}
+    @Override
+    public void create() {
 
-	@Override
-	public void render()
-	{
-		game.render();
-	}
+        initFactories();
+        game = GameFactory.INSTANCE.create();
+        game.create();
+    }
 
-	@Override
-	public void resize(int width,int height)
-	{
-		game.resize(width, height);
-	}
+    private void initFactories() {
+
+        Factories.setSoundFactory(ExtSoundFactory.INSTANCE);
+        Factories.setTextureFactory(ExtTextureFactory.INSTANCE);
+        Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
+        Factories.setStageFactory(ExtStageFactory.INSTANCE);
+        Factories.setActorFactory(ExtActorFactory.INSTANCE);
+        Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
+        Factories.setTextButtonFactory(ExtTextButtonsFactory.INSTANCE);
+        Factories.setImageButtonFactory(ExtImageButtonFactory.INSTANCE);
+        Factories.setAnimationFactory(ExtAnimationFactory.INSTANCE);
+        Factories.setMusicFactory(ExtMusicFactory.INSTANCE);
+    }
+
+    @Override
+    public void render() {
+
+        game.render();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+        game.resize(width, height);
+    }
 }

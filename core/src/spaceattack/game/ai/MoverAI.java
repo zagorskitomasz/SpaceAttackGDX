@@ -5,13 +5,13 @@ import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.system.notifiers.INotifier;
 
-public interface MoverAI extends INotifier<MoverAI>
-{
-	MoverType getType();
+public interface MoverAI extends INotifier<MoverAI> {
 
-	void setPlayerShip(RadarVisible playerShip);
+    MoverType getType();
 
-	void setOwner(IEnemyShip fighter);
+    void setPlayerShip(RadarVisible playerShip);
 
-	void updateDirection();
+    void setOwner(IEnemyShip fighter);
+
+    void updateDirection();
 }

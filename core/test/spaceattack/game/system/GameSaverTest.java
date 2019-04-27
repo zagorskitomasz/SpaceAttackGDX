@@ -14,38 +14,38 @@ import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.GameProgress;
 import spaceattack.game.utils.IUtils;
 
-public class GameSaverTest
-{
-	private IUtils utils;
+public class GameSaverTest {
 
-	private String fileContent;
+    private IUtils utils;
 
-	@Mock
-	private IFileHandle file;
+    private String fileContent;
 
-	private GameSaver saver;
+    @Mock
+    private IFileHandle file;
 
-	@Before
-	public void setUp()
-	{
-		utils = spy(ExtUtilsFactory.INSTANCE.create());
-		saver = new GameSaver();
-		saver.setUtils(utils);
-		initMocks(this);
+    private GameSaver saver;
 
-		fileContent = "{mission:3,level:5,experience:999888777666}";
-		doReturn(file).when(utils).loadFile(anyString());
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void gameProgressIsParsedProperly()
-	{
-		GameProgress progress = new GameProgress();
-		progress.setExperience(999888777666l);
-		progress.setLevel(5);
-		progress.setMission(3);
+        utils = spy(ExtUtilsFactory.INSTANCE.create());
+        saver = new GameSaver();
+        saver.setUtils(utils);
+        initMocks(this);
 
-		saver.save(progress);
-		verify(file).writeString(fileContent, false);
-	}
+        fileContent = "{mission:3,level:5,experience:999888777666}";
+        doReturn(file).when(utils).loadFile(anyString());
+    }
+
+    @Test
+    public void gameProgressIsParsedProperly() {
+
+        GameProgress progress = new GameProgress();
+        progress.setExperience(999888777666l);
+        progress.setLevel(5);
+        progress.setMission(3);
+
+        saver.save(progress);
+        verify(file).writeString(fileContent, false);
+    }
 }

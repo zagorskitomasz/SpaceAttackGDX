@@ -2,31 +2,31 @@ package spaceattack.game.system.sound;
 
 import java.util.function.Consumer;
 
-public interface IMusic 
-{
-	void setOnCompletionListener(Consumer<IMusic> listener);
+public interface IMusic {
 
-	void play();
+    void setOnCompletionListener(Consumer<IMusic> listener);
 
-	void pause();
+    void play();
 
-	void stop();
+    void pause();
 
-	boolean isPlaying();
+    void stop();
 
-	void setLooping(boolean isLooping);
+    boolean isPlaying();
 
-	boolean isLooping();
+    void setLooping(boolean isLooping);
 
-	void setVolume(float volume);
+    boolean isLooping();
 
-	float getVolume();
+    void setVolume(float volume);
 
-	void setPan(float pan, float volume);
+    float getVolume();
 
-	void setPosition(float position);
+    void setPan(float pan, float volume);
 
-	float getPosition();
+    void setPosition(float position);
 
-	void dispose();
+    float getPosition();
+
+    void dispose();
 }
