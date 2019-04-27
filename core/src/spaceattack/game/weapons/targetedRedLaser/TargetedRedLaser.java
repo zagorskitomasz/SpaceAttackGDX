@@ -11,12 +11,9 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class TargetedRedLaser extends Laser {
 
-    private float xDirection;
-    private float yDirection;
+    private Textures texture;
 
     private IVector movement;
-    private IVector shotPosition;
-    private Textures texture;
 
     TargetedRedLaser() {
 
@@ -24,14 +21,14 @@ public class TargetedRedLaser extends Laser {
     }
 
     @Override
-    public void setUtils(IUtils utils) {
+    public void setUtils(final IUtils utils) {
 
         super.setUtils(utils);
         frameController.reset(Consts.Weapons.TARGETED_LASER_ATTACKS_PER_SECOND);
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
 
         dmg = (Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL) * 0.75f;
         speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;
@@ -51,7 +48,7 @@ public class TargetedRedLaser extends Laser {
         missile.setSpeed(speed);
         missile.setAcceleration(0);
         missile.setMovement(movement);
-        missile.setPosition(shotPosition);
+        missile.setPosition(calculateTargetedShotPosition(0.7f));
         missile.setRadius(Consts.Weapons.LASER_RADIUS);
         missile.setSound(Sounds.RED_LASER);
         missile.setPlayersAttack(controller.isPlayer());
@@ -62,51 +59,28 @@ public class TargetedRedLaser extends Laser {
     private void prepareDirection() {
 
         movement = controller.getTargetedWeaponMovement();
-        xDirection = movement.getX();
-        yDirection = movement.getY();
-
-        setShotPosition();
         setTexture();
-    }
-
-    private void setShotPosition() {
-
-        IVector shipCoords = controller.getPrimaryWeaponUsePlacement();
-
-        float x;
-        float y;
-
-        if (xDirection < 0)
-            x = shipCoords.getX() - controller.getShipsWidth() * 0.7f;
-        else
-            if (xDirection > 0)
-                x = shipCoords.getX() + controller.getShipsWidth() * 0.7f;
-            else
-                x = shipCoords.getX();
-
-        if (yDirection < 0)
-            y = shipCoords.getY() - controller.getShipsHeight() * 0.7f;
-        else
-            if (yDirection > 0)
-                y = shipCoords.getY() + controller.getShipsHeight() * 0.7f;
-            else
-                y = shipCoords.getY();
-
-        shotPosition = Factories.getVectorFactory().create(x, y);
     }
 
     private void setTexture() {
 
-        if (xDirection < 0 && yDirection < -0 || xDirection > 0 && yDirection > 0)
+        float xDirection = movement.getX();
+        float yDirection = movement.getY();
+
+        if (xDirection < 0 && yDirection < -0 || xDirection > 0 && yDirection > 0) {
             texture = Textures.RED_LASER_S2;
+        }
         else
-            if (xDirection < 0 && yDirection > 0 || xDirection > 0 && yDirection < 0)
+            if (xDirection < 0 && yDirection > 0 || xDirection > 0 && yDirection < 0) {
                 texture = Textures.RED_LASER_S1;
+            }
             else
-                if (xDirection == 0f)
+                if (xDirection == 0f) {
                     texture = Textures.RED_LASER_NS;
-                else // yDirection == 0f
+                }
+                else {
                     texture = Textures.RED_LASER_WE;
+                }
     }
 
     Textures getTexture() {

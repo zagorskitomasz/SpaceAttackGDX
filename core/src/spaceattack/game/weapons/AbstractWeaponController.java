@@ -1,6 +1,7 @@
 package spaceattack.game.weapons;
 
 import spaceattack.game.ships.IShip;
+import spaceattack.game.utils.vector.IVector;
 
 public abstract class AbstractWeaponController implements IWeaponController {
 
@@ -10,31 +11,31 @@ public abstract class AbstractWeaponController implements IWeaponController {
     protected IWeapon secondaryWeapon;
 
     @Override
-    public void setShip(IShip ship) {
+    public void setShip(final IShip ship) {
 
         this.ship = ship;
     }
 
     @Override
-    public void setPrimaryWeapon(IWeapon weapon) {
+    public void setPrimaryWeapon(final IWeapon weapon) {
 
         primaryWeapon = weapon;
     }
 
     @Override
-    public void setSecondaryWeapon(IWeapon weapon) {
+    public void setSecondaryWeapon(final IWeapon weapon) {
 
         secondaryWeapon = weapon;
     }
 
     @Override
-    public boolean takeEnergy(float energyCost) {
+    public boolean takeEnergy(final float energyCost) {
 
         return ship.takeEnergy(energyCost);
     }
 
     @Override
-    public void updateSecondaryWeapon(IWeapon weapon) {
+    public void updateSecondaryWeapon(final IWeapon weapon) {
 
         secondaryWeapon = weapon;
     }
@@ -61,5 +62,11 @@ public abstract class AbstractWeaponController implements IWeaponController {
     public float getShipsHeight() {
 
         return ship.getHeight();
+    }
+
+    @Override
+    public IVector getTargetCoords() {
+
+        return null;
     }
 }

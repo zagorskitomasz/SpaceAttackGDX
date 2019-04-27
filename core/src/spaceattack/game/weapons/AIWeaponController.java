@@ -11,9 +11,9 @@ import spaceattack.game.utils.vector.IVectorFactory;
 public class AIWeaponController extends AbstractWeaponController {
 
     private RadarVisible target;
-    private IVectorFactory vectors;
+    private final IVectorFactory vectors;
 
-    private FrameController attacksInterval;
+    private final FrameController attacksInterval;
     private boolean shot;
 
     public AIWeaponController() {
@@ -43,15 +43,17 @@ public class AIWeaponController extends AbstractWeaponController {
     }
 
     @Override
-    public void performAttack(PossibleAttacks possibleAttack, RadarVisible target) {
+    public void performAttack(final PossibleAttacks possibleAttack, final RadarVisible target) {
 
-        if (shot && !attacksInterval.check())
+        if (shot && !attacksInterval.check()) {
             return;
+        }
 
         switch (possibleAttack) {
         case BOTH:
-            if (!tryUse(secondaryWeapon))
+            if (!tryUse(secondaryWeapon)) {
                 tryUse(primaryWeapon);
+            }
             break;
         case PRIMARY:
             tryUse(primaryWeapon);
@@ -65,12 +67,13 @@ public class AIWeaponController extends AbstractWeaponController {
         this.target = target;
     }
 
-    private boolean tryUse(IWeapon weapon) {
+    private boolean tryUse(final IWeapon weapon) {
 
         shot = weapon.use();
 
-        if (shot)
+        if (shot) {
             attacksInterval.reset(Consts.Weapons.LASER_ATTACKS_PER_SECOND);
+        }
 
         return shot;
     }
@@ -84,51 +87,73 @@ public class AIWeaponController extends AbstractWeaponController {
     @Override
     public IVector getTargetedWeaponMovement() {
 
-        if (target == null)
+        if (target == null) {
             return vectors.create(0, -1);
+        }
 
         float xDiff = target.getX() - ship.getX();
         float yDiff = target.getY() - ship.getY();
 
         if (xDiff <= 0 && yDiff <= 0) {
-            if (xDiff == 0 || yDiff / xDiff > 2)
+            if (xDiff == 0 || yDiff / xDiff > 2) {
                 return vectors.create(0, -1);
+            }
             else
-                if (yDiff == 0 || xDiff / yDiff > 2)
+                if (yDiff == 0 || xDiff / yDiff > 2) {
                     return vectors.create(-1, 0);
-                else
+                }
+                else {
                     return vectors.create(-0.7f, -0.7f);
+                }
         }
         else
             if (xDiff <= 0 && yDiff >= 0) {
-                if (xDiff == 0 || yDiff / xDiff < -2)
+                if (xDiff == 0 || yDiff / xDiff < -2) {
                     return vectors.create(0, 1);
+                }
                 else
-                    if (yDiff == 0 || xDiff / yDiff < -2)
+                    if (yDiff == 0 || xDiff / yDiff < -2) {
                         return vectors.create(-1, 0);
-                    else
+                    }
+                    else {
                         return vectors.create(-0.7f, 0.7f);
+                    }
             }
             else
                 if (xDiff >= 0 && yDiff >= 0) {
-                    if (xDiff == 0 || yDiff / xDiff > 2)
+                    if (xDiff == 0 || yDiff / xDiff > 2) {
                         return vectors.create(0, 1);
+                    }
                     else
-                        if (yDiff == 0 || xDiff / yDiff > 2)
+                        if (yDiff == 0 || xDiff / yDiff > 2) {
                             return vectors.create(1, 0);
-                        else
+                        }
+                        else {
                             return vectors.create(0.7f, 0.7f);
+                        }
                 }
                 else
                     if (xDiff >= 0 && yDiff <= 0) {
-                        if (xDiff == 0 || yDiff / xDiff < -2)
+                        if (xDiff == 0 || yDiff / xDiff < -2) {
                             return vectors.create(0, -1);
+                        }
                         else
-                            if (yDiff == 0 || xDiff / yDiff < -2)
+                            if (yDiff == 0 || xDiff / yDiff < -2) {
                                 return vectors.create(1, 0);
-                            else
+                            }
+                            else {
                                 return vectors.create(0.7f, -0.7f);
+                            }
                     }
         return vectors.create(0, -1);
+    }
+
+    @Override
+    public IVector getTargetCoords() {
+
+        if (target != null) {
+            return vectors.create(target.getX(), target.getY());
+        }
+        return null;
     }
 }

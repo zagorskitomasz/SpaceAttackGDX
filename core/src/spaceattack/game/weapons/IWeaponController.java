@@ -36,4 +36,6 @@ public interface IWeaponController {
     float getShipsWidth();
 
     float getShipsHeight();
+
+    IVector getTargetCoords();
 }
