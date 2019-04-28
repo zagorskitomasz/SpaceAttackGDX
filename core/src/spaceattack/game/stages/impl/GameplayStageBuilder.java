@@ -36,7 +36,6 @@ import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
-import spaceattack.game.weapons.WeaponsFactory;
 
 public abstract class GameplayStageBuilder implements IStageBuilder {
 
@@ -63,7 +62,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
     protected GameplayLabel levelLabel;
 
     @Override
-    public IGameStage build(GameProgress progress) {
+    public IGameStage build(final GameProgress progress) {
 
         synchronized (this) {
             gameProgress = progress;
@@ -123,13 +122,15 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
         weaponController = new PlayerWeaponController();
         missilesLauncher = new MissilesLauncher(stage);
         primaryWeapon = createPrimaryWeapon();
-        greenLaser = WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
+        greenLaser = createSecondaryWeapon();
         primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
         secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
         enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
     }
 
     protected abstract IWeapon createPrimaryWeapon();
+
+    protected abstract IWeapon createSecondaryWeapon();
 
     protected abstract EnemyBase createEnemyBase(IUtils utils);
 

@@ -20,6 +20,9 @@ public enum Textures {
     M4_BACKGROUND("graphics/m4Background.jpg"),
     M5_BACKGROUND("graphics/m5Background.jpg"),
     M6_BACKGROUND("graphics/m6Background.jpg"),
+    M7_BACKGROUND("graphics/m7Background.jpg"),
+    M8_BACKGROUND("graphics/m8Background.jpg"),
+    M9_BACKGROUND("graphics/m9Background.jpg"),
 
     // UI
     RED_BUTTON_UP("graphics/gui/redActive.png"),
@@ -45,17 +48,25 @@ public enum Textures {
     PLAYER_SHIP2_R("graphics/ships/player/form2R.png"),
     PLAYER_SHIP2_L("graphics/ships/player/form2L.png"),
 
+    PLAYER_SHIP3_F("graphics/ships/player/form3.png"),
+    PLAYER_SHIP3_R("graphics/ships/player/form3R.png"),
+    PLAYER_SHIP3_L("graphics/ships/player/form3L.png"),
+
     FIGHTER1("graphics/ships/fighter/form1.png"),
     FIGHTER2("graphics/ships/fighter/form2.png"),
+    FIGHTER3("graphics/ships/fighter/form3.png"),
 
     CHASER1("graphics/ships/chaser/form1.png"),
     CHASER2("graphics/ships/chaser/form2.png"),
+    CHASER3("graphics/ships/chaser/form3.png"),
 
     TANK1("graphics/ships/tank/form1.png"),
     TANK2("graphics/ships/tank/form2.png"),
+    TANK3("graphics/ships/tank/form3.png"),
 
     BOSS1("graphics/ships/boss/form1.png"),
     BOSS2("graphics/ships/boss/form2.png"),
+    BOSS3("graphics/ships/boss/form3.png"),
 
     // weapons
     RED_LASER_NS("graphics/weapons/laserNS.png"),
@@ -81,15 +92,16 @@ public enum Textures {
 
     private static boolean isTest;
 
-    Textures(String path) {
+    Textures(final String path) {
 
         this.path = path;
     }
 
     public static void load() {
 
-        for (Textures texture : values())
+        for (Textures texture : values()) {
             texture.texture = Factories.getTextureFactory().create(texture.path);
+        }
     }
 
     /**
@@ -104,8 +116,9 @@ public enum Textures {
 
     public ITexture getTexture() {
 
-        if (texture == null && !isTest)
+        if (texture == null && !isTest) {
             throw new ResourceNotLoadedException(name());
+        }
 
         return texture;
     }

@@ -1,6 +1,6 @@
 package spaceattack.game.stages.impl;
 
-import spaceattack.game.ai.Act1EnemyBase;
+import spaceattack.game.ai.Act3EnemyBase;
 import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.Acts;
@@ -13,18 +13,18 @@ import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 
-public abstract class Act1StageBuilder extends GameplayStageBuilder {
+public abstract class Act3StageBuilder extends GameplayStageBuilder {
 
     @Override
     protected Acts getAct() {
 
-        return Acts.I;
+        return Acts.III;
     }
 
     @Override
     protected EnemyBase createEnemyBase(final IUtils utils) {
 
-        return new Act1EnemyBase(utils);
+        return new Act3EnemyBase(utils);
     }
 
     @Override
@@ -36,8 +36,8 @@ public abstract class Act1StageBuilder extends GameplayStageBuilder {
         gameProgress.registerObserver(playersShip);
         playersShip.notify(gameProgress);
         playersShip.setActor(Factories.getActorFactory().create(playersShip));
-        playersShip.loadComplexGraphics(Textures.PLAYER_SHIP1_F.getTexture(), Textures.PLAYER_SHIP1_R.getTexture(),
-                Textures.PLAYER_SHIP1_L.getTexture());
+        playersShip.loadComplexGraphics(Textures.PLAYER_SHIP3_F.getTexture(), Textures.PLAYER_SHIP3_R.getTexture(),
+                Textures.PLAYER_SHIP3_L.getTexture());
         playersShip.setShipEngine(engine);
         playersShip.addWeapon(primaryWeapon);
         playersShip.addWeapon(greenLaser);
@@ -52,12 +52,12 @@ public abstract class Act1StageBuilder extends GameplayStageBuilder {
     @Override
     public IWeapon createPrimaryWeapon() {
 
-        return WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher);
+        return WeaponsFactory.INSTANCE.createDoubleRedLaser(weaponController, missilesLauncher);
     }
 
     @Override
     protected IWeapon createSecondaryWeapon() {
 
-        return WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
+        return WeaponsFactory.INSTANCE.createTripleGreenLaser(weaponController, missilesLauncher);
     }
 }

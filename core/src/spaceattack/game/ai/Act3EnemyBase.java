@@ -7,16 +7,16 @@ import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.system.Acts;
 import spaceattack.game.utils.IUtils;
 
-public class Act2EnemyBase extends EnemyBase {
+public class Act3EnemyBase extends EnemyBase {
 
-    public Act2EnemyBase(final IUtils utils) {
+    public Act3EnemyBase(IUtils utils) {
 
         super(utils);
-        setAct(Acts.III);
+        setAct(Acts.II);
     }
 
     @Override
-    protected ShooterAI createTankShooter(final IEnemyShip tank) {
+    protected ShooterAI createTankShooter(IEnemyShip tank) {
 
         return ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER.create();
     }
