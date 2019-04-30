@@ -12,6 +12,7 @@ import spaceattack.game.weapons.missiles.Missile;
 public class FlyingMiner extends AbstractWeapon {
 
     private int level;
+    private long mineExplosionDelay = Consts.Weapons.MINE_DELAY;
 
     @Override
     public float getWeaponsMovementFactor() {
@@ -42,7 +43,7 @@ public class FlyingMiner extends AbstractWeapon {
     @Override
     protected Missile buildMissile() {
 
-        FlyingMine missile = new FlyingMine(Consts.Weapons.MINE_DELAY);
+        FlyingMine missile = new FlyingMine(mineExplosionDelay);
 
         missile.setActor(Factories.getActorFactory().create(missile));
         missile.setTexture(Textures.MINE.getTexture());
@@ -64,5 +65,11 @@ public class FlyingMiner extends AbstractWeapon {
     float getDmg() {
 
         return dmg;
+    }
+
+    public void increaseDelay() {
+
+        mineExplosionDelay = Consts.Weapons.SLOW_MINE_DELAY;
+        frameController.reset(Consts.Weapons.SLOW_MINE_ATTACKS_PER_SECOND);
     }
 }

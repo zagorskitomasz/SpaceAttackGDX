@@ -13,7 +13,7 @@ import spaceattack.game.weapons.WeaponsFactory;
 public enum PowerUpBuilder {
     INSTANCE;
 
-    public IPowerUp hp(IPool hpPool) {
+    public IPowerUp hp(final IPool hpPool) {
 
         PoolIncreaser increaser = new PoolIncreaser();
         increaser.setPool(hpPool);
@@ -24,7 +24,7 @@ public enum PowerUpBuilder {
         return increaser;
     }
 
-    public IPowerUp energy(IPool energyPool) {
+    public IPowerUp energy(final IPool energyPool) {
 
         PoolIncreaser increaser = new PoolIncreaser();
         increaser.setPool(energyPool);
@@ -35,14 +35,15 @@ public enum PowerUpBuilder {
         return increaser;
     }
 
-    public IPowerUp rocketMissileHolder(IWeaponController controller, ComplexFireButton button, GameplayStage stage) {
+    public IPowerUp rocketMissileHolder(final IWeaponController controller, final ComplexFireButton button,
+            final GameplayStage stage) {
 
         IWeapon rocketMissile = WeaponsFactory.INSTANCE.createRocketMissile(controller, stage.getMissilesLauncher());
         rocketMissile.setLevel(stage.getGameProgress().getLevel());
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
-        holder.setAmmo(5);
+        holder.setAmmo(stage.getAct() != null ? stage.getAct().getPowerUpAmmo() : 0);
         holder.setTexture(Textures.ROCKET_POWER_UP);
         holder.setActor(Factories.getActorFactory().create(holder));
         holder.setWeapon(rocketMissile);
@@ -51,14 +52,15 @@ public enum PowerUpBuilder {
         return holder;
     }
 
-    public IPowerUp mineHolder(IWeaponController controller, ComplexFireButton button, GameplayStage stage) {
+    public IPowerUp mineHolder(final IWeaponController controller, final ComplexFireButton button,
+            final GameplayStage stage) {
 
         IWeapon mine = WeaponsFactory.INSTANCE.createMine(controller, stage.getMissilesLauncher());
         mine.setLevel(stage.getGameProgress().getLevel());
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
-        holder.setAmmo(5);
+        holder.setAmmo(stage.getAct().getPowerUpAmmo());
         holder.setTexture(Textures.MINE_POWER_UP);
         holder.setActor(Factories.getActorFactory().create(holder));
         holder.setWeapon(mine);

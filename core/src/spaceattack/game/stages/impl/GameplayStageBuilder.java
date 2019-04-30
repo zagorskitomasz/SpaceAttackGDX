@@ -111,6 +111,7 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
 
         gameProgress.registerObserver(stage);
         stage.setGameProgress(gameProgress);
+        stage.setAct(getAct());
     }
 
     protected void initComponents() {

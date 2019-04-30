@@ -19,4 +19,17 @@ public enum FlyingMinerBuilder {
 
         return miner;
     }
+
+    public IWeapon buildDelayed(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+
+        FlyingMiner miner = new FlyingMiner();
+
+        miner.setUtils(Factories.getUtilsFactory().create());
+        miner.setController(weaponController);
+        miner.setMissilesLauncher(missilesLauncher);
+        miner.setLevel(1);
+        miner.increaseDelay();
+
+        return miner;
+    }
 }

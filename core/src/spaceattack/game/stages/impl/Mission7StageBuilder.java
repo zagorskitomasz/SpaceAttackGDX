@@ -6,7 +6,7 @@ import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 
-public class Mission7StageBuilder extends Act2StageBuilder {
+public class Mission7StageBuilder extends Act3StageBuilder {
 
     @Override
     public void setMissionNumber() {

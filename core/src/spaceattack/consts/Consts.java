@@ -19,6 +19,7 @@ public class Consts {
         public static final float TARGETED_LASER_ATTACKS_PER_SECOND = 3.2f;
         public static final float ROCKET_ATTACKS_PER_SECOND = 1;
         public static final float MINE_ATTACKS_PER_SECOND = 1;
+        public static final float SLOW_MINE_ATTACKS_PER_SECOND = 0.5f;
 
         public static final float RED_LASER_BASE_DMG = 10;
         public static final float RED_LASER_DMG_PER_LEVEL = 3;
@@ -44,6 +45,7 @@ public class Consts {
         public static final float ROCKET_RADIUS = 10;
         public static final float MINE_RADIUS = 20;
         public static final long MINE_DELAY = 5000;
+        public static final long SLOW_MINE_DELAY = 7000;
         public static final long MINE_OVERHEAT_DELAY = 500;
         public static final float FLYING_MINE_SPEED = 3;
     }

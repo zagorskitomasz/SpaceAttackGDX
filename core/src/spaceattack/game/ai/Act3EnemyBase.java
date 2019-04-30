@@ -9,16 +9,16 @@ import spaceattack.game.utils.IUtils;
 
 public class Act3EnemyBase extends EnemyBase {
 
-    public Act3EnemyBase(IUtils utils) {
+    public Act3EnemyBase(final IUtils utils) {
 
         super(utils);
-        setAct(Acts.II);
+        setAct(Acts.III);
     }
 
     @Override
-    protected ShooterAI createTankShooter(IEnemyShip tank) {
+    protected ShooterAI createTankShooter(final IEnemyShip tank) {
 
-        return ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER.create();
+        return ShooterType.INSTANT_SHOOTER.create();
     }
 
     @Override

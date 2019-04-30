@@ -15,6 +15,7 @@ import spaceattack.game.weapons.AIWeaponController;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.miner.FlyingMinerBuilder;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
@@ -26,7 +27,7 @@ import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 public enum TankShipBuilder {
     INSTANCE;
 
-    public IEnemyShip buildActI(GameplayStage stage, boolean required) {
+    public IEnemyShip buildActI(final GameplayStage stage, final boolean required) {
 
         IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
         buildShipActI(stage, tank);
@@ -35,7 +36,7 @@ public enum TankShipBuilder {
         return tank;
     }
 
-    public IEnemyShip buildActII(GameplayStage stage, boolean required) {
+    public IEnemyShip buildActII(final GameplayStage stage, final boolean required) {
 
         IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
         buildShipActII(stage, tank);
@@ -44,7 +45,16 @@ public enum TankShipBuilder {
         return tank;
     }
 
-    private IEnemyShip buildShipActI(GameplayStage stage, IEnemyShip tank) {
+    public IEnemyShip buildActIII(final GameplayStage stage, final boolean required) {
+
+        IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+        buildShipActIII(stage, tank);
+        tank.setLevel(stage.getCurrentMission() * 2);
+
+        return tank;
+    }
+
+    private IEnemyShip buildShipActI(final GameplayStage stage, final IEnemyShip tank) {
 
         IEnemyShip ship = buildShip(stage, tank);
         ship.setTexture(Textures.TANK1.getTexture());
@@ -65,7 +75,7 @@ public enum TankShipBuilder {
         return ship;
     }
 
-    private IEnemyShip buildShipActII(GameplayStage stage, IEnemyShip tank) {
+    private IEnemyShip buildShipActII(final GameplayStage stage, final IEnemyShip tank) {
 
         IEnemyShip ship = buildShip(stage, tank);
         ship.setTexture(Textures.TANK2.getTexture());
@@ -86,7 +96,28 @@ public enum TankShipBuilder {
         return ship;
     }
 
-    private IEnemyShip buildShip(GameplayStage stage, IEnemyShip tank) {
+    private IEnemyShip buildShipActIII(final GameplayStage stage, final IEnemyShip tank) {
+
+        IEnemyShip ship = buildShip(stage, tank);
+        ship.setTexture(Textures.TANK3.getTexture());
+
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon flyingMiner = FlyingMinerBuilder.INSTANCE.buildDelayed(controller, launcher);
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(targetedRedLaser);
+        controller.setSecondaryWeapon(flyingMiner);
+        controller.setShip(ship);
+        ship.addWeapon(flyingMiner);
+        ship.addWeapon(targetedRedLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+
+        return ship;
+    }
+
+    private IEnemyShip buildShip(final GameplayStage stage, final IEnemyShip tank) {
 
         IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(tank);
         engine.setBaseSpeed(1f * Sizes.RADIUS_FACTOR);
