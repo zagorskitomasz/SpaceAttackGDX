@@ -10,7 +10,7 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
     INSTANCE;
 
     @Override
-    public IEnemyShip createFighter(Acts act, GameplayStage stage) {
+    public IEnemyShip createFighter(final Acts act, final GameplayStage stage) {
 
         switch (act) {
         case I:
@@ -18,12 +18,12 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
         case II:
             return FighterShipBuilder.INSTANCE.buildActII(stage);
         default:
-            return null;
+            return FighterShipBuilder.INSTANCE.buildActIII(stage);
         }
     }
 
     @Override
-    public IEnemyShip createChaser(Acts act, GameplayStage stage) {
+    public IEnemyShip createChaser(final Acts act, final GameplayStage stage) {
 
         switch (act) {
         case I:
@@ -31,12 +31,12 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
         case II:
             return ChaserShipBuilder.INSTANCE.buildActII(stage);
         default:
-            return null;
+            return ChaserShipBuilder.INSTANCE.buildActIII(stage);
         }
     }
 
     @Override
-    public IEnemyShip createTank(Acts act, GameplayStage stage) {
+    public IEnemyShip createTank(final Acts act, final GameplayStage stage) {
 
         switch (act) {
         case I:
@@ -49,7 +49,7 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
     }
 
     @Override
-    public IEnemyShip createSuperTank(Acts act, GameplayStage stage) {
+    public IEnemyShip createSuperTank(final Acts act, final GameplayStage stage) {
 
         switch (act) {
         case I:
@@ -62,7 +62,7 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
     }
 
     @Override
-    public IBoss createMinorBoss(Acts act, GameplayStage stage) {
+    public IBoss createMinorBoss(final Acts act, final GameplayStage stage) {
 
         switch (act) {
         case I:
@@ -74,7 +74,7 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
         }
     }
 
-    public IBoss createMajorBoss(Acts act, GameplayStage stage) {
+    public IBoss createMajorBoss(final Acts act, final GameplayStage stage) {
 
         switch (act) {
         case I:

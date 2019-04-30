@@ -17,31 +17,75 @@ import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
+import spaceattack.game.weapons.multiRedLaser.DoubleRedLaserBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 
 public enum FighterShipBuilder {
     INSTANCE;
 
-    public IEnemyShip buildActI(GameplayStage stage) {
+    public IEnemyShip buildActI(final GameplayStage stage) {
 
         IEnemyShip ship = build(stage);
         ship.setTexture(Textures.FIGHTER1.getTexture());
-        return ship;
-    }
-
-    public IEnemyShip buildActII(GameplayStage stage) {
-
-        IEnemyShip ship = build(stage);
-        ship.setTexture(Textures.FIGHTER2.getTexture());
-        return ship;
-    }
-
-    private IEnemyShip build(GameplayStage stage) {
-
-        IEnemyShip fighter = new BaseEnemyShip();
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
         IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(redLaser);
+        controller.setSecondaryWeapon(redLaser);
+        controller.setShip(ship);
+
+        ship.addWeapon(redLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+        ship.setLevel(stage.getCurrentMission() * 2);
+
+        return ship;
+    }
+
+    public IEnemyShip buildActII(final GameplayStage stage) {
+
+        IEnemyShip ship = build(stage);
+        ship.setTexture(Textures.FIGHTER2.getTexture());
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(redLaser);
+        controller.setSecondaryWeapon(redLaser);
+        controller.setShip(ship);
+
+        ship.addWeapon(redLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+        ship.setLevel(stage.getCurrentMission() * 2);
+
+        return ship;
+    }
+
+    public IEnemyShip buildActIII(final GameplayStage stage) {
+
+        IEnemyShip ship = build(stage);
+        ship.setTexture(Textures.FIGHTER3.getTexture());
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon doubleRedLaser = DoubleRedLaserBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(doubleRedLaser);
+        controller.setSecondaryWeapon(doubleRedLaser);
+        controller.setShip(ship);
+
+        ship.addWeapon(doubleRedLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+        ship.setLevel(stage.getCurrentMission() * 2);
+
+        return ship;
+    }
+
+    private IEnemyShip build(final GameplayStage stage) {
+
+        IEnemyShip fighter = new BaseEnemyShip();
         IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(fighter);
         Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 
@@ -58,18 +102,10 @@ public enum FighterShipBuilder {
                 Consts.Pools.FIGHTER_HP_BASE_REGEN,
                 Consts.Pools.FIGHTER_HP_REGEN_PER_LEVEL);
 
-        controller.setPrimaryWeapon(redLaser);
-        controller.setSecondaryWeapon(redLaser);
-        controller.setShip(fighter);
-
         fighter.setActor(Factories.getActorFactory().create(fighter));
         fighter.setShipEngine(engine);
-        fighter.addWeapon(redLaser);
         fighter.setEnergyPool(energyPool);
         fighter.setHpPool(hpPool);
-        fighter.setLevel(stage.getCurrentMission() * 2);
-        fighter.setWeaponController(controller);
-        fighter.setMissilesLauncher(launcher);
         fighter.setExplosion(explosion);
         fighter.setBar(new EnemyBar(fighter));
         fighter.setBurner(burner);
