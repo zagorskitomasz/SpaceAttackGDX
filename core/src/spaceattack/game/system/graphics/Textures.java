@@ -83,8 +83,10 @@ public enum Textures {
     ENERGY_POWER_UP("graphics/powerups/energyPU.png"),
     ROCKET_POWER_UP("graphics/powerups/rocketPU.png"),
     MINE_POWER_UP("graphics/powerups/minePU.png"),
+    SHIELD_POWER_UP("graphics/powerups/shieldPU.png"),
     ROCKET_ICON("graphics/powerups/rocketIcon.png"),
-    MINE_ICON("graphics/powerups/mineIcon.png");
+    MINE_ICON("graphics/powerups/mineIcon.png"),
+    SHIELD_ICON("graphics/powerups/shieldIcon.png");
     // @formatter:on
 
     private String path;

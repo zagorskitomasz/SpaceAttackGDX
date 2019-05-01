@@ -19,22 +19,22 @@ public class Burner {
         // do nothing
     }
 
-    public void setBurningAnimation(IAnimation animation) {
+    public void setBurningAnimation(final IAnimation animation) {
 
         burningAnimation = animation;
     }
 
-    public void setBurningController(FrameController controller) {
+    public void setBurningController(final FrameController controller) {
 
         burningController = controller;
     }
 
-    public void setIgnitable(Ignitable ignitable) {
+    public void setIgnitable(final Ignitable ignitable) {
 
         this.ignitable = ignitable;
     }
 
-    public void burn(float delta) {
+    public void burn(final float delta) {
 
         if (isBurning) {
             if (burningController.check()) {
@@ -47,21 +47,22 @@ public class Burner {
         }
     }
 
-    public void draw(IBatch batch) {
+    public void draw(final IBatch batch) {
 
         if (isBurning) {
             ITexture texture = burningAnimation.getFrame();
             batch.draw(texture,
                     ignitable.getDrawingX() + ignitable.getRadius() - texture.getWidth() / 2,
                     ignitable.getDrawingY() + ignitable.getRadius() - texture.getHeight() / 2,
-                    texture.getWidth(), texture.getWidth());
+                    texture.getWidth(), texture.getHeight());
         }
     }
 
-    public void ignite(float burningDPS, long fireDuration) {
+    public void ignite(final float burningDPS, final long fireDuration) {
 
-        if (burningDPS > this.burningDPS)
+        if (burningDPS > this.burningDPS) {
             this.burningDPS = burningDPS;
+        }
 
         burningController.reset(1000 / (float) fireDuration);
         isBurning = true;

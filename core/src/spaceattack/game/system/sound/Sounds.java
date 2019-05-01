@@ -9,6 +9,7 @@ public enum Sounds {
     ROCKET_MISSILE("sound/missileFly.mp3"), //
     MINE("sound/mine.mp3"), //
     TURBO_LASER("sound/greenShot.mp3"), //
+    SHIELD("sound/shield.mp3"), //
     POWER_UP("sound/powerUp.mp3"), //
 
     // explosions
@@ -21,24 +22,38 @@ public enum Sounds {
 
     private static boolean isTest;
 
-    Sounds(String path) {
+    Sounds(final String path) {
 
         this.path = path;
     }
 
     public static void load() {
 
-        for (Sounds sound : values())
+        for (Sounds sound : values()) {
             sound.sound = Factories.getSoundFactory().create(sound.path);
+        }
     }
 
     public void play() {
 
-        if (sound == null && !isTest)
+        if (sound == null && !isTest) {
             throw new ResourceNotLoadedException(name());
+        }
 
-        if (sound != null)
+        if (sound != null) {
             sound.play();
+        }
+    }
+
+    public void stop() {
+
+        if (sound == null && !isTest) {
+            throw new ResourceNotLoadedException(name());
+        }
+
+        if (sound != null) {
+            sound.stop();
+        }
     }
 
     /**

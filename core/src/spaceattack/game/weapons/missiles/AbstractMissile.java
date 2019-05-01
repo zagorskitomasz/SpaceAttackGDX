@@ -10,14 +10,14 @@ import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.NumbersUtils;
 import spaceattack.game.utils.vector.IVector;
 
-public abstract class AbstractMissile extends DrawableActor implements Launchable, Killable {
+public abstract class AbstractMissile extends DrawableActor implements Launchable, Killable, Collisionable {
 
     private boolean isToKill;
-    private Sounds sound;
+    protected Sounds sound;
     private float radius;
     protected boolean isPlayersAttack;
 
-    protected boolean checkCollision(Collisionable collisionable) {
+    protected boolean checkCollision(final Collisionable collisionable) {
 
         disappearIfNeeded();
 
@@ -27,16 +27,18 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
         return NumbersUtils.distance(missileCenter, vulnerableCenter) <= collisionable.getRadius() + getRadius();
     }
 
+    @Override
     public float getRadius() {
 
         return radius * Sizes.RADIUS_FACTOR;
     }
 
-    public void setRadius(float radius) {
+    public void setRadius(final float radius) {
 
         this.radius = radius;
     }
 
+    @Override
     public IVector getPosition() {
 
         return Factories.getVectorFactory().create(getActor().getX(), getActor().getY());
@@ -54,7 +56,7 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
         return isToKill;
     }
 
-    public void setSound(Sounds sound) {
+    public void setSound(final Sounds sound) {
 
         this.sound = sound;
     }
@@ -62,11 +64,12 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
     @Override
     public void playSound() {
 
-        if (sound != null)
+        if (sound != null) {
             sound.play();
+        }
     }
 
-    public void setPosition(IVector position) {
+    public void setPosition(final IVector position) {
 
         if (getActor() != null) {
             getActor().setX(position.getX());
@@ -74,7 +77,7 @@ public abstract class AbstractMissile extends DrawableActor implements Launchabl
         }
     }
 
-    public void setPlayersAttack(boolean isPlayer) {
+    public void setPlayersAttack(final boolean isPlayer) {
 
         isPlayersAttack = isPlayer;
     }

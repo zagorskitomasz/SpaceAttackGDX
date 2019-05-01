@@ -1,5 +1,6 @@
 package spaceattack.game.buttons.weapon;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.buttons.IImageButton;
 import spaceattack.game.factories.Factories;
@@ -18,19 +19,21 @@ public class FireButton implements IObserver<Float>, IFireButton {
 
     private IVector buttonCenter;
 
-    public void setImageButton(IImageButton imageButton) {
+    private boolean isPressed;
+
+    public void setImageButton(final IImageButton imageButton) {
 
         button = imageButton;
         button.setGameActor(this);
     }
 
     @Override
-    public void setWeapon(IWeapon weapon) {
+    public void setWeapon(final IWeapon weapon) {
 
         this.weapon = weapon;
     }
 
-    public void setPosition(float x, float y) {
+    public void setPosition(final float x, final float y) {
 
         button.setX(x);
         button.setY(y);
@@ -38,29 +41,38 @@ public class FireButton implements IObserver<Float>, IFireButton {
         buttonCenter = Factories.getVectorFactory().create(x + 0.5f * button.getWidth(), y + 0.5f * button.getHeight());
     }
 
-    private double distance(IVector object1, IVector object2) {
+    private double distance(final IVector object1, final IVector object2) {
 
         return NumbersUtils.distance(object1, object2);
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY) {
+    public boolean touchDown(final int screenX, final int screenY) {
 
-        return touch(screenX, screenY, InputType.TOUCH_DOWN);
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY) {
-
-        if (touch(screenX, screenY, InputType.TOUCH_UP)) {
-            if (weapon != null)
+        if (touch(screenX, screenY, InputType.TOUCH_DOWN)) {
+            if (weapon.isContinuousFire()) {
                 fire();
+            }
+            isPressed = true;
             return true;
         }
         return false;
     }
 
-    private boolean touch(int screenX, int screenY, InputType type) {
+    @Override
+    public boolean touchUp(final int screenX, final int screenY) {
+
+        if (touch(screenX, screenY, InputType.TOUCH_UP)) {
+            isPressed = false;
+            if (weapon != null && !weapon.isContinuousFire()) {
+                fire();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean touch(final int screenX, final int screenY, final InputType type) {
 
         if (touched(screenX, screenY)) {
             button.fire(type);
@@ -77,7 +89,7 @@ public class FireButton implements IObserver<Float>, IFireButton {
         return weapon.use();
     }
 
-    private boolean touched(int screenX, int screenY) {
+    private boolean touched(final int screenX, final int screenY) {
 
         IVector touch = Factories.getVectorFactory().create(screenX, screenY);
         touch = button.screenToStageCoordinates(touch);
@@ -85,13 +97,13 @@ public class FireButton implements IObserver<Float>, IFireButton {
         return distance(touch, buttonCenter) <= button.getWidth() * 0.5;
     }
 
-    void setButtonCenter(IVector center) {
+    void setButtonCenter(final IVector center) {
 
         buttonCenter = center;
     }
 
     @Override
-    public void notify(Float state) {
+    public void notify(final Float state) {
 
         if (!button.isDisabled() && energyPool.getAmount() < weapon.getEnergyCost()) {
             button.setEnabled(false);
@@ -103,7 +115,7 @@ public class FireButton implements IObserver<Float>, IFireButton {
     }
 
     @Override
-    public void setEnergyPool(IPool pool) {
+    public void setEnergyPool(final IPool pool) {
 
         this.energyPool = pool;
         pool.registerObserver(this);
@@ -118,5 +130,11 @@ public class FireButton implements IObserver<Float>, IFireButton {
     public IActor getActor() {
 
         return button;
+    }
+
+    @Override
+    public boolean isContinuousFireTriggered(final float energyCost) {
+
+        return isPressed && energyPool.take(energyCost / Consts.Metagame.FPS);
     }
 }

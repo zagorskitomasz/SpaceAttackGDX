@@ -12,7 +12,7 @@ public class Act2EnemyBase extends EnemyBase {
     public Act2EnemyBase(final IUtils utils) {
 
         super(utils);
-        setAct(Acts.III);
+        setAct(Acts.II);
     }
 
     @Override

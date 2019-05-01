@@ -156,4 +156,11 @@ public class AIWeaponController extends AbstractWeaponController {
         }
         return null;
     }
+
+    @Override
+    public boolean isContinuousFireTriggered(final float energyCost) {
+
+        // TODO
+        return false;
+    }
 }

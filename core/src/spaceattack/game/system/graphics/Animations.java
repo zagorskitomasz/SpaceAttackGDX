@@ -10,7 +10,8 @@ public enum Animations {
     BOSS_EX("graphics/animations/bossEx.atlas", false, 10),
     MISSILE_EX("graphics/animations/missileEx.atlas", false, 10),
     TANK_EX("graphics/animations/tankEx.atlas", false, 10),
-    FIRE("graphics/animations/fire.atlas", true, 10);
+    FIRE("graphics/animations/fire.atlas", true, 10),
+    SHIELD("graphics/animations/shield.atlas", true, 10);
     // @formatter:on
 
     private String path;
@@ -19,7 +20,7 @@ public enum Animations {
 
     private static boolean isTest;
 
-    Animations(String path, boolean loop, float fps) {
+    Animations(final String path, final boolean loop, final float fps) {
 
         this.path = path;
         this.loop = loop;
@@ -38,11 +39,13 @@ public enum Animations {
 
     public IAnimation getAnimation() {
 
-        if (isTest)
+        if (isTest) {
             return null;
+        }
 
-        if (loop)
+        if (loop) {
             return Factories.getAnimationFactory().createLooping(path, fps);
+        }
 
         return Factories.getAnimationFactory().create(path, fps);
     }

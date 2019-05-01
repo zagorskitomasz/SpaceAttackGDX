@@ -38,4 +38,8 @@ public interface IWeaponController {
     float getShipsHeight();
 
     IVector getTargetCoords();
+
+    boolean isContinuousFireTriggered(float energyCost);
+
+    IShip getShip();
 }

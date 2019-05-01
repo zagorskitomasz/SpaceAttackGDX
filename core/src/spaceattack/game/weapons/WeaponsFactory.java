@@ -5,6 +5,7 @@ import spaceattack.game.weapons.miner.MinerBuilder;
 import spaceattack.game.weapons.multiRedLaser.DoubleRedLaserBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
+import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum WeaponsFactory {
@@ -42,5 +43,10 @@ public enum WeaponsFactory {
     public IWeapon createMine(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
 
         return MinerBuilder.INSTANCE.build(weaponController, missilesLauncher);
+    }
+
+    public IWeapon createShield(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+
+        return ShieldBuilder.INSTANCE.build(weaponController, missilesLauncher);
     }
 }

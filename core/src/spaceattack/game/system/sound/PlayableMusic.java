@@ -13,10 +13,10 @@ class PlayableMusic {
 
     private static final int MAX_VOLUME = 70;
 
-    private IMusic music;
-    private AtomicBoolean isFadingOut;
+    private final IMusic music;
+    private final AtomicBoolean isFadingOut;
 
-    public PlayableMusic(Song[] playlist, Song nowPlaying, Consumer<PlayableMusic> updater) {
+    public PlayableMusic(final Song[] playlist, final Song nowPlaying, final Consumer<PlayableMusic> updater) {
 
         isFadingOut = new AtomicBoolean(false);
         Song song = chooseCurrentSong(playlist, nowPlaying);
@@ -30,12 +30,14 @@ class PlayableMusic {
             music.dispose();
             PlayableMusic nextMusic = new PlayableMusic(playlist, song, updater);
             nextMusic.play();
-            if (isFadingOut.get())
+            if (isFadingOut.get()) {
                 nextMusic.fadeOut();
+            }
         });
     }
 
-    public PlayableMusic(Acts act, Song[] playlist, Song nowPlaying, BiConsumer<Acts, PlayableMusic> updater) {
+    public PlayableMusic(final Acts act, final Song[] playlist, final Song nowPlaying,
+            final BiConsumer<Acts, PlayableMusic> updater) {
 
         isFadingOut = new AtomicBoolean(false);
         Song song = chooseCurrentSong(playlist, nowPlaying);
@@ -49,8 +51,9 @@ class PlayableMusic {
             music.dispose();
             PlayableMusic nextMusic = new PlayableMusic(act, playlist, song, updater);
             nextMusic.play();
-            if (isFadingOut.get())
+            if (isFadingOut.get()) {
                 nextMusic.fadeOut();
+            }
         });
     }
 
@@ -60,15 +63,17 @@ class PlayableMusic {
         music.play();
     }
 
-    private Song chooseCurrentSong(Song[] playlist, Song nowPlaying) {
+    private Song chooseCurrentSong(final Song[] playlist, final Song nowPlaying) {
 
-        if (playlist.length == 1)
+        if (playlist.length == 1) {
             return playlist[0];
-        else
+        }
+        else {
             return chooseSong(playlist, nowPlaying);
+        }
     }
 
-    private Song chooseSong(Song[] playlist, Song nowPlaying) {
+    private Song chooseSong(final Song[] playlist, final Song nowPlaying) {
 
         Song nextSong = null;
         do {
@@ -83,7 +88,14 @@ class PlayableMusic {
     public void fadeIn() {
 
         new Thread(() -> {
-
+            if (isFadingOut.get()) {
+                try {
+                    Thread.sleep(2000);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             music.setVolume(0);
             music.play();
 
@@ -96,14 +108,14 @@ class PlayableMusic {
                     e.printStackTrace();
                 }
             }
-
         }).start();
     }
 
     public void fadeOut() {
 
-        if (music == null || !music.isPlaying())
+        if (music == null || !music.isPlaying()) {
             return;
+        }
 
         new Thread(() -> {
             isFadingOut.set(true);
