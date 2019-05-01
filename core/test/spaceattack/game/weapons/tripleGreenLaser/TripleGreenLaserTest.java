@@ -52,6 +52,7 @@ public class TripleGreenLaserTest {
         tripleGreenLaser.setLevel(1);
 
         doReturn(true).when(controller).takeEnergy(anyFloat());
+        doReturn(false).when(controller).isPlayer();
         doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getSecondaryWeaponUsePlacement();
         doReturn(new FakeActor()).doReturn(new FakeActor()).doReturn(new FakeActor()).when(factory)
                 .create(any(IGameActor.class));
@@ -72,7 +73,7 @@ public class TripleGreenLaserTest {
     }
 
     @Test
-    public void missilesAreMoved() {
+    public void missilesAreMovedEnemy() {
 
         tripleGreenLaser.use();
 
@@ -83,5 +84,21 @@ public class TripleGreenLaserTest {
         assertEquals(100, launched.get(2).getActor().getX(), 0);
 
         assertEquals(80, launched.get(2).getActor().getY(), 0);
+    }
+
+    @Test
+    public void missilesAreMovedPlayer() {
+
+        doReturn(true).when(controller).isPlayer();
+
+        tripleGreenLaser.use();
+
+        List<Launchable> launched = launcher.getLaunched();
+
+        assertEquals(50, launched.get(0).getActor().getX(), 0);
+        assertEquals(150, launched.get(1).getActor().getX(), 0);
+        assertEquals(100, launched.get(2).getActor().getX(), 0);
+
+        assertEquals(120, launched.get(2).getActor().getY(), 0);
     }
 }

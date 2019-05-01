@@ -10,7 +10,7 @@ public abstract class DrawableActor implements IGameActor {
     private IActor actor;
 
     @Override
-    public void setActor(IActor actor) {
+    public void setActor(final IActor actor) {
 
         this.actor = actor;
     }
@@ -22,11 +22,12 @@ public abstract class DrawableActor implements IGameActor {
     }
 
     @Override
-    public void draw(IBatch batch, float alpha) {
+    public void draw(final IBatch batch, final float alpha) {
 
         ITexture texture = getTexture();
-        if (texture != null)
+        if (texture != null) {
             batch.draw(texture, getDrawingX(), getDrawingY(), texture.getWidth(), texture.getHeight());
+        }
     }
 
     public float getDrawingX() {
@@ -49,12 +50,12 @@ public abstract class DrawableActor implements IGameActor {
         return actor.getY();
     }
 
-    public void setX(float x) {
+    public void setX(final float x) {
 
         actor.setX(x);
     }
 
-    public void setY(float y) {
+    public void setY(final float y) {
 
         actor.setY(y);
     }

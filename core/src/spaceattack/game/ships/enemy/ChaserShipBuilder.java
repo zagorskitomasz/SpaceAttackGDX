@@ -24,7 +24,7 @@ import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 public enum ChaserShipBuilder {
     INSTANCE;
 
-    public IEnemyShip buildActI(GameplayStage stage) {
+    public IEnemyShip buildActI(final GameplayStage stage) {
 
         IEnemyShip ship = build(stage);
         ship.setTexture(Textures.CHASER1.getTexture());
@@ -46,7 +46,7 @@ public enum ChaserShipBuilder {
         return ship;
     }
 
-    public IEnemyShip buildActII(GameplayStage stage) {
+    public IEnemyShip buildActII(final GameplayStage stage) {
 
         IEnemyShip ship = build(stage);
         ship.setTexture(Textures.CHASER2.getTexture());
@@ -68,7 +68,29 @@ public enum ChaserShipBuilder {
         return ship;
     }
 
-    private IEnemyShip build(GameplayStage stage) {
+    public IEnemyShip buildActIII(final GameplayStage stage) {
+
+        IEnemyShip ship = build(stage);
+        ship.setTexture(Textures.CHASER3.getTexture());
+
+        IWeaponController controller = new AIWeaponController();
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(redLaser);
+        controller.setSecondaryWeapon(tripleGreenLaser);
+        controller.setShip(ship);
+        ship.addWeapon(redLaser);
+        ship.addWeapon(tripleGreenLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+        ship.setLevel(stage.getCurrentMission() * 2);
+
+        return ship;
+    }
+
+    private IEnemyShip build(final GameplayStage stage) {
 
         IEnemyShip chaser = new BaseEnemyShip();
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(chaser);

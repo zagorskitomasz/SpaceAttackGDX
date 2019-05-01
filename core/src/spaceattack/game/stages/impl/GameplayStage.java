@@ -16,6 +16,7 @@ import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.AbstractStage;
 import spaceattack.game.stages.Stages;
+import spaceattack.game.system.Acts;
 import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.weapons.MissilesLauncher;
@@ -24,6 +25,8 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
     private List<IObserver<GameplayStage>> observers;
     private int currentMission;
+    private Acts act;
+
     private boolean gameOver;
     private boolean won;
 
@@ -37,22 +40,22 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
     private MissilesLauncher missilesLauncher;
 
-    void setExpPool(IPool pool) {
+    void setExpPool(final IPool pool) {
 
         expPool = pool;
     }
 
-    void setLevelUpLabel(TimeLabel label) {
+    void setLevelUpLabel(final TimeLabel label) {
 
         levelUpLabel = label;
     }
 
-    void setCompletedLabel(TimeLabel label) {
+    void setCompletedLabel(final TimeLabel label) {
 
         completedLabel = label;
     }
 
-    void setFailedLabel(TimeLabel label) {
+    void setFailedLabel(final TimeLabel label) {
 
         failedLabel = label;
     }
@@ -64,28 +67,32 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
     }
 
     @Override
-    public void notify(GameProgress state) {
+    public void notify(final GameProgress state) {
 
-        if (state.getLevel() > getProgressBackup().getLevel())
+        if (state.getLevel() > getProgressBackup().getLevel()) {
             showLevelUpLabel();
+        }
     }
 
     void showLevelUpLabel() {
 
-        if (!getActors().contains(levelUpLabel))
+        if (!getActors().contains(levelUpLabel)) {
             addActor(levelUpLabel);
+        }
 
         levelUpLabel.show();
     }
 
     @Override
-    public void act(float delta) {
+    public void act(final float delta) {
 
-        if (gameOver && finalizeLabel == null)
+        if (gameOver && finalizeLabel == null) {
             showFinalizeLabel();
+        }
 
-        if (finalizeLabel != null && !finalizeLabel.isVisible())
+        if (finalizeLabel != null && !finalizeLabel.isVisible()) {
             finalizeStage();
+        }
 
         super.act(delta);
 
@@ -93,21 +100,25 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
         getActors().forEach(actor -> {
             if (actor instanceof Killable && ((Killable) actor).isToKill()) {
                 actorsToKill.add(actor);
-                if (actor instanceof RequiredOnStage)
+                if (actor instanceof RequiredOnStage) {
                     finishMission(actor);
-                if (actor instanceof IEnemyShip && ((IEnemyShip) actor).exploded())
+                }
+                if (actor instanceof IEnemyShip && ((IEnemyShip) actor).exploded()) {
                     getGameProgress().addExperience((long) ((IShip) actor).getHpPool().getMaxAmount());
+                }
             }
         });
         actorsToKill.forEach(actor -> stage.removeActor(actor));
     }
 
-    private void finishMission(IGameActor actor) {
+    private void finishMission(final IGameActor actor) {
 
-        if (actor instanceof PlayerShip)
+        if (actor instanceof PlayerShip) {
             lose();
-        else
+        }
+        else {
             win();
+        }
     }
 
     private void win() {
@@ -122,16 +133,19 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
         gameOver = true;
 
-        if (expPool != null)
+        if (expPool != null) {
             expPool.destroy();
+        }
     }
 
     private void showFinalizeLabel() {
 
-        if (won)
+        if (won) {
             finalizeLabel = completedLabel;
-        else
+        }
+        else {
             finalizeLabel = failedLabel;
+        }
 
         addActor(finalizeLabel);
         finalizeLabel.show();
@@ -157,17 +171,17 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
         return gameOver;
     }
 
-    void setGameOver(boolean gameOver) {
+    void setGameOver(final boolean gameOver) {
 
         this.gameOver = gameOver;
     }
 
-    void setWon(boolean won) {
+    void setWon(final boolean won) {
 
         this.won = won;
     }
 
-    public void setMissileLauncher(MissilesLauncher missilesLauncher) {
+    public void setMissileLauncher(final MissilesLauncher missilesLauncher) {
 
         this.missilesLauncher = missilesLauncher;
     }
@@ -177,7 +191,7 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
         return missilesLauncher;
     }
 
-    public void setCurrentMission(int mission) {
+    public void setCurrentMission(final int mission) {
 
         currentMission = mission;
         notifyObservers();
@@ -189,24 +203,37 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
     }
 
     @Override
-    public void registerObserver(IObserver<GameplayStage> observer) {
+    public void registerObserver(final IObserver<GameplayStage> observer) {
 
-        if (observers == null)
+        if (observers == null) {
             observers = new LinkedList<>();
+        }
 
         observers.add(observer);
     }
 
     @Override
-    public void unregisterObserver(IObserver<GameplayStage> observer) {
+    public void unregisterObserver(final IObserver<GameplayStage> observer) {
 
-        if (observers != null)
+        if (observers != null) {
             observers.remove(observer);
+        }
     }
 
     private void notifyObservers() {
 
-        if (observers != null)
+        if (observers != null) {
             observers.forEach(observer -> observer.notify(this));
+        }
+    }
+
+    public void setAct(final Acts act) {
+
+        this.act = act;
+    }
+
+    public Acts getAct() {
+
+        return act;
     }
 }

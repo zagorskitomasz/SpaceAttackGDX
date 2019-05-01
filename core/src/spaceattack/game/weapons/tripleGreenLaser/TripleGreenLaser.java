@@ -11,7 +11,7 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class TripleGreenLaser extends GreenLaser {
 
-    private IVectorFactory vectors;
+    private final IVectorFactory vectors;
 
     TripleGreenLaser() {
 
@@ -22,11 +22,13 @@ public class TripleGreenLaser extends GreenLaser {
     @Override
     public boolean use() {
 
-        if (!frameController.check())
+        if (!frameController.check()) {
             return false;
+        }
 
-        if (!controller.takeEnergy(energyCost))
+        if (!controller.takeEnergy(energyCost)) {
             return false;
+        }
 
         IVector centralPosition = controller.getSecondaryWeaponUsePlacement();
 
@@ -35,13 +37,15 @@ public class TripleGreenLaser extends GreenLaser {
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
 
         super.setLevel(level);
-        energyCost *= 2;
+        if (!controller.isPlayer()) {
+            energyCost *= 2;
+        }
     }
 
-    private void launchMissiles(IVector centralPosition) {
+    private void launchMissiles(final IVector centralPosition) {
 
         Missile left = buildMissile();
         left.setSound(null);
@@ -53,9 +57,12 @@ public class TripleGreenLaser extends GreenLaser {
         right.setPosition(
                 vectors.create(centralPosition.getX() + Sizes.MULTI_MISSILES_X_DISTANCE, centralPosition.getY()));
 
+        float centralShotMovement = controller.isPlayer() ? -1 : 1;
+
         Missile central = buildMissile();
         central.setPosition(
-                vectors.create(centralPosition.getX(), centralPosition.getY() - Sizes.MULTI_MISSILES_Y_DISTANCE));
+                vectors.create(centralPosition.getX(),
+                        centralPosition.getY() - Sizes.MULTI_MISSILES_Y_DISTANCE * centralShotMovement));
 
         launcher.launch(left);
         launcher.launch(right);

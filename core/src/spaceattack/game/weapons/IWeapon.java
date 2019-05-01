@@ -11,4 +11,9 @@ public interface IWeapon {
     float getEnergyCost();
 
     float getCollisionRadius();
+
+    default boolean isContinuousFire() {
+
+        return false;
+    }
 }

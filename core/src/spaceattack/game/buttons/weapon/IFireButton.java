@@ -9,28 +9,30 @@ import spaceattack.game.weapons.IWeapon;
 public interface IFireButton extends IGameActor {
 
     @Override
-    public default void setActor(IActor actor) {
+    default void setActor(final IActor actor) {
 
         // do nothing
     }
 
     @Override
-    public default void draw(IBatch batch, float alpha) {
+    default void draw(final IBatch batch, final float alpha) {
 
         // do nothing
     }
 
     @Override
-    public default void act(float delta) {
+    default void act(final float delta) {
 
         // do nothing
     }
 
-    public void setWeapon(IWeapon secondaryWeapon);
+    void setWeapon(IWeapon secondaryWeapon);
 
-    public void setEnergyPool(IPool pool);
+    void setEnergyPool(IPool pool);
 
-    public boolean touchDown(int screenX, int screenY);
+    boolean touchDown(int screenX, int screenY);
 
-    public boolean touchUp(int screenX, int screenY);
+    boolean touchUp(int screenX, int screenY);
+
+    boolean isContinuousFireTriggered(float energyCost);
 }

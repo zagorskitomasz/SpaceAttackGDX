@@ -12,12 +12,12 @@ public class PlayerWeaponController extends AbstractWeaponController {
     private IFireButton primaryFireButton;
     private IFireButton secondaryFireButton;
 
-    public void setPrimaryFireButton(IFireButton button) {
+    public void setPrimaryFireButton(final IFireButton button) {
 
         primaryFireButton = button;
     }
 
-    public void setSecondaryFireButton(IFireButton button) {
+    public void setSecondaryFireButton(final IFireButton button) {
 
         secondaryFireButton = button;
     }
@@ -29,7 +29,7 @@ public class PlayerWeaponController extends AbstractWeaponController {
     }
 
     @Override
-    public void updateSecondaryWeapon(IWeapon weapon) {
+    public void updateSecondaryWeapon(final IWeapon weapon) {
 
         super.updateSecondaryWeapon(weapon);
         secondaryFireButton.setWeapon(weapon);
@@ -50,7 +50,7 @@ public class PlayerWeaponController extends AbstractWeaponController {
     }
 
     @Override
-    public void performAttack(PossibleAttacks possibleAttack, RadarVisible target) {
+    public void performAttack(final PossibleAttacks possibleAttack, final RadarVisible target) {
 
         // do nothing
     }
@@ -65,5 +65,11 @@ public class PlayerWeaponController extends AbstractWeaponController {
     public IVector getTargetedWeaponMovement() {
 
         return getWeaponMovement();
+    }
+
+    @Override
+    public boolean isContinuousFireTriggered(final float energyCost) {
+
+        return secondaryFireButton.isContinuousFireTriggered(energyCost);
     }
 }

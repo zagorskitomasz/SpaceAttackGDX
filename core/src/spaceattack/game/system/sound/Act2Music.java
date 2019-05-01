@@ -7,7 +7,7 @@ public enum Act2Music implements Song {
     SONG_4("music/act2d.mp3"), //
     SONG_5("music/act2e.mp3");
 
-    Act2Music(String path) {
+    Act2Music(final String path) {
 
         this.path = path;
     }

@@ -69,4 +69,10 @@ public abstract class AbstractWeaponController implements IWeaponController {
 
         return null;
     }
+
+    @Override
+    public IShip getShip() {
+
+        return ship;
+    }
 }

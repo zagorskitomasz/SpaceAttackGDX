@@ -8,6 +8,7 @@ import spaceattack.game.stages.impl.Mission3StageBuilder;
 import spaceattack.game.stages.impl.Mission4StageBuilder;
 import spaceattack.game.stages.impl.Mission5StageBuilder;
 import spaceattack.game.stages.impl.Mission6StageBuilder;
+import spaceattack.game.stages.impl.Mission7StageBuilder;
 import spaceattack.game.stages.impl.MissionsStageBuilder;
 
 public enum Stages {
@@ -19,14 +20,15 @@ public enum Stages {
     MISSION_3(Mission3StageBuilder.class),
     MISSION_4(Mission4StageBuilder.class),
     MISSION_5(Mission5StageBuilder.class),
-    MISSION_6(Mission6StageBuilder.class);
+    MISSION_6(Mission6StageBuilder.class),
+    MISSION_7(Mission7StageBuilder.class);
     // @formatter:on
 
     private static final String MISSION_STAGE_PREFIX = "MISSION_";
 
     private Class<? extends IStageBuilder> stageBuilderClass;
 
-    private Stages(Class<? extends IStageBuilder> stageBuilderClass) {
+    private Stages(final Class<? extends IStageBuilder> stageBuilderClass) {
 
         this.stageBuilderClass = stageBuilderClass;
     }
@@ -42,11 +44,12 @@ public enum Stages {
         }
     }
 
-    public static Stages getMissionStage(int mission) {
+    public static Stages getMissionStage(final int mission) {
 
         for (Stages stage : values()) {
-            if (stage.name().equals(MISSION_STAGE_PREFIX + mission))
+            if (stage.name().equals(MISSION_STAGE_PREFIX + mission)) {
                 return stage;
+            }
         }
         return null;
     }

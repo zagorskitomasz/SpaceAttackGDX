@@ -22,7 +22,7 @@ public abstract class Act1StageBuilder extends GameplayStageBuilder {
     }
 
     @Override
-    protected EnemyBase createEnemyBase(IUtils utils) {
+    protected EnemyBase createEnemyBase(final IUtils utils) {
 
         return new Act1EnemyBase(utils);
     }
@@ -53,5 +53,11 @@ public abstract class Act1StageBuilder extends GameplayStageBuilder {
     public IWeapon createPrimaryWeapon() {
 
         return WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher);
+    }
+
+    @Override
+    protected IWeapon createSecondaryWeapon() {
+
+        return WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher);
     }
 }

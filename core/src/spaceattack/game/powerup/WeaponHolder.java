@@ -11,7 +11,7 @@ public class WeaponHolder extends AbstractPowerUp {
     private int ammo;
     private ITexture weaponIcon;
 
-    public void setWeapon(IWeapon weapon) {
+    public void setWeapon(final IWeapon weapon) {
 
         this.weapon = weapon;
     }
@@ -21,17 +21,17 @@ public class WeaponHolder extends AbstractPowerUp {
         return weapon;
     }
 
-    public void setFireButton(ComplexFireButton button) {
+    public void setFireButton(final ComplexFireButton button) {
 
         this.button = button;
     }
 
-    public void setAmmo(int ammo) {
+    public void setAmmo(final int ammo) {
 
         this.ammo = ammo;
     }
 
-    public void setWeaponIcon(ITexture weaponIcon) {
+    public void setWeaponIcon(final ITexture weaponIcon) {
 
         this.weaponIcon = weaponIcon;
     }

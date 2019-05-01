@@ -5,11 +5,12 @@ import spaceattack.game.ai.ShooterAI;
 public enum ShooterType {
     DIRECT_SHOOTER(DirectShooter.class),
     INSTANT_PRIMARY_DIRECT_SHOOTER(InstantPrimaryDirectShooter.class),
+    INSTANT_SHOOTER(InstantShooter.class),
     NOTIFIED_SNIPER(NotifiedSniper.class);
 
     private Class<? extends ShooterAI> type;
 
-    ShooterType(Class<? extends ShooterAI> type) {
+    ShooterType(final Class<? extends ShooterAI> type) {
 
         this.type = type;
     }
