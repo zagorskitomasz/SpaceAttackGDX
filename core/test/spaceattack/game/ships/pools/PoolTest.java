@@ -4,8 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyFloat;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import java.util.function.BooleanSupplier;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,11 +29,18 @@ public class PoolTest {
     private Pool pool;
 
     @Mock
+    private BooleanSupplier infinityChecker;
+
+    @Mock
+    private BooleanSupplier nextInfinityChecker;
+
+    @Mock
     private IObserver<Float> observer;
 
     @Before
     public void setUp() {
 
+        MockitoAnnotations.initMocks(this);
         Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
         pool = new Pool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
     }
@@ -128,8 +138,6 @@ public class PoolTest {
     @Test
     public void observerIsNotifiedWithPoolPercentAfterTake() {
 
-        MockitoAnnotations.initMocks(this);
-
         pool.registerObserver(observer);
         pool.take(10);
 
@@ -138,8 +146,6 @@ public class PoolTest {
 
     @Test
     public void observerIsNotifiedWithPoolPercentAfterLevelSet() {
-
-        MockitoAnnotations.initMocks(this);
 
         pool.registerObserver(observer);
         pool.setLevel(3);
@@ -150,8 +156,6 @@ public class PoolTest {
     @Test
     public void observerIsNotifiedWithPoolPercentAfterUpdate() {
 
-        MockitoAnnotations.initMocks(this);
-
         pool.take(30);
         pool.registerObserver(observer);
         pool.update();
@@ -161,8 +165,6 @@ public class PoolTest {
 
     @Test
     public void unregisteredObserverWontBeNotified() {
-
-        MockitoAnnotations.initMocks(this);
 
         pool.registerObserver(observer);
         pool.unregisterObserver(observer);
@@ -188,5 +190,57 @@ public class PoolTest {
 
         assertEquals(0, pool.getAmount(), 0);
         assertEquals(50, pool.getMaxAmount(), 0);
+    }
+
+    @Test
+    public void whenInfinityCheckerIsUpAmountIsNotDecreased() {
+
+        pool.addTemporalInfinityChecker(infinityChecker);
+        doReturn(true).when(infinityChecker).getAsBoolean();
+
+        pool.take(15);
+
+        assertEquals(50, pool.getAmount(), 0);
+    }
+
+    @Test
+    public void whenInfinityCheckerIsNoLongerUpAmountIsDecreased() {
+
+        pool.addTemporalInfinityChecker(infinityChecker);
+        doReturn(true, false).when(infinityChecker).getAsBoolean();
+
+        pool.take(15);
+        pool.take(12);
+
+        assertEquals(38, pool.getAmount(), 0);
+    }
+
+    @Test
+    public void whenInfinityCheckerIsUpAgainAmountIsDecreased() {
+
+        pool.addTemporalInfinityChecker(infinityChecker);
+        doReturn(true, false, true).when(infinityChecker).getAsBoolean();
+
+        pool.take(15);
+        pool.take(12);
+        pool.take(12);
+
+        assertEquals(26, pool.getAmount(), 0);
+    }
+
+    @Test
+    public void whenInfinityCheckerIsNoLongerUpButNextCheckerIsUpAmountIsNotDecreased() {
+
+        pool.addTemporalInfinityChecker(infinityChecker);
+        doReturn(true, false).when(infinityChecker).getAsBoolean();
+
+        pool.take(15);
+
+        pool.addTemporalInfinityChecker(nextInfinityChecker);
+        doReturn(true).when(nextInfinityChecker).getAsBoolean();
+
+        pool.take(12);
+
+        assertEquals(50, pool.getAmount(), 0);
     }
 }

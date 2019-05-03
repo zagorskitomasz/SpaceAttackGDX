@@ -101,4 +101,17 @@ public class EnergyShield extends Missile implements Undestructible {
 
         this.energyCost = energyCost;
     }
+
+    public boolean isUp() {
+
+        return !isToKill();
+    }
+
+    @Override
+    public void playSound() {
+
+        if (sound != null) {
+            sound.loop();
+        }
+    }
 }

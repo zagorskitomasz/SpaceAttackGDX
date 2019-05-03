@@ -1,6 +1,7 @@
 package spaceattack.game.ships;
 
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.GameProgress;
@@ -31,13 +32,13 @@ public class FakeShip implements IShip, IEnemyShip {
     private IPool hpPool;
 
     @Override
-    public void notify(GameProgress state) {
+    public void notify(final GameProgress state) {
 
         // do nothing
     }
 
     @Override
-    public void takeDmg(float dmg) {
+    public void takeDmg(final float dmg) {
 
         // do nothing
     }
@@ -73,25 +74,25 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setActor(IActor actor) {
+    public void setActor(final IActor actor) {
 
         // do nothing
     }
 
     @Override
-    public void act(float delta) {
+    public void act(final float delta) {
 
         // do nothing
     }
 
     @Override
-    public void draw(IBatch batch, float alpha) {
+    public void draw(final IBatch batch, final float alpha) {
 
         // do nothing
     }
 
     @Override
-    public void setDestination(IVector destination) {
+    public void setDestination(final IVector destination) {
 
         x = destination.getX();
         y = destination.getY();
@@ -110,30 +111,30 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setX(float x) {
+    public void setX(final float x) {
 
         this.x = x;
     }
 
     @Override
-    public void setY(float y) {
+    public void setY(final float y) {
 
         this.y = y;
     }
 
-    public void setRadius(float radius) {
+    public void setRadius(final float radius) {
 
         this.radius = radius;
     }
 
     @Override
-    public void setShipEngine(IEngine engine) {
+    public void setShipEngine(final IEngine engine) {
 
         // do nothing
     }
 
     @Override
-    public void addWeapon(IWeapon weapon) {
+    public void addWeapon(final IWeapon weapon) {
 
         // do nothing
     }
@@ -145,7 +146,7 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
 
         // do nothing
     }
@@ -163,13 +164,13 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public boolean takeEnergy(float energyCost) {
+    public boolean takeEnergy(final float energyCost) {
 
         return false;
     }
 
     @Override
-    public void setEnergyPool(IPool pool) {
+    public void setEnergyPool(final IPool pool) {
 
         // do nothing
     }
@@ -181,7 +182,7 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setTexture(ITexture texture) {
+    public void setTexture(final ITexture texture) {
 
         // do nothing
     }
@@ -193,7 +194,7 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setHpPool(IPool pool) {
+    public void setHpPool(final IPool pool) {
 
         hpPool = pool;
     }
@@ -205,7 +206,7 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setMissilesLauncher(MissilesLauncher launcher) {
+    public void setMissilesLauncher(final MissilesLauncher launcher) {
 
         // do nothing
     }
@@ -217,19 +218,19 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setExplosion(Launchable explosion) {
+    public void setExplosion(final Launchable explosion) {
 
         // do nothing
     }
 
     @Override
-    public void ignite(float fireDmg, long fireDuration) {
+    public void ignite(final float fireDmg, final long fireDuration) {
 
         // do nothing
     }
 
     @Override
-    public void setBurner(Burner burner) {
+    public void setBurner(final Burner burner) {
 
         // do nothing
     }
@@ -247,19 +248,19 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setPlayerShip(RadarVisible playerShip) {
+    public void setPlayerShip(final RadarVisible playerShip) {
 
         // do nothing
     }
 
     @Override
-    public void setMover(MoverAI mover) {
+    public void setMover(final MoverAI mover) {
 
         // do nothing
     }
 
     @Override
-    public void setShooter(ShooterAI shooter) {
+    public void setShooter(final ShooterAI shooter) {
 
         // do nothing
     }
@@ -277,7 +278,7 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setWeaponController(IWeaponController controller) {
+    public void setWeaponController(final IWeaponController controller) {
 
         // do nothing
     }
@@ -289,14 +290,26 @@ public class FakeShip implements IShip, IEnemyShip {
     }
 
     @Override
-    public void setBar(EnemyBar bar) {
+    public void setBar(final EnemyBar bar) {
 
         // do nothing
     }
 
     @Override
-    public void setPowerUp(IPowerUp powerUp) {
+    public void setPowerUp(final IPowerUp powerUp) {
 
         // do nothing
+    }
+
+    @Override
+    public void setTemporalImmortalityChecker(final BooleanSupplier checker) {
+
+        // do nothing
+    }
+
+    @Override
+    public boolean isImmortal() {
+
+        return false;
     }
 }

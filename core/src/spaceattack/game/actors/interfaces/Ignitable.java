@@ -4,11 +4,17 @@ import spaceattack.game.weapons.missiles.Burner;
 
 public interface Ignitable extends Vulnerable {
 
-    public void ignite(float burningDPS, long fireDuration);
+    void ignite(float burningDPS, long fireDuration);
 
-    public void setBurner(Burner burner);
+    void setBurner(Burner burner);
 
-    public float getDrawingX();
+    float getDrawingX();
 
-    public float getDrawingY();
+    float getDrawingY();
+
+    float getWidth();
+
+    float getHeight();
+
+    boolean isImmortal();
 }

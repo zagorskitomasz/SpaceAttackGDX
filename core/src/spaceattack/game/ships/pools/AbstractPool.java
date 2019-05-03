@@ -7,7 +7,7 @@ import spaceattack.game.system.notifiers.IObserver;
 
 public abstract class AbstractPool implements IPool {
 
-    private Set<IObserver<Float>> observers;
+    private final Set<IObserver<Float>> observers;
 
     protected float maxAmount;
     protected float amount;
@@ -18,29 +18,32 @@ public abstract class AbstractPool implements IPool {
     }
 
     @Override
-    public void registerObserver(IObserver<Float> observer) {
+    public void registerObserver(final IObserver<Float> observer) {
 
         observers.add(observer);
     }
 
     @Override
-    public void unregisterObserver(IObserver<Float> observer) {
+    public void unregisterObserver(final IObserver<Float> observer) {
 
-        if (observers == null)
+        if (observers == null) {
             return;
+        }
 
         observers.remove(observer);
     }
 
     protected void notifyObservers() {
 
-        if (observers == null || observers.size() <= 0)
+        if (observers == null || observers.size() <= 0) {
             return;
+        }
 
         float poolPercent = amount / maxAmount;
 
-        for (IObserver<Float> observer : observers)
+        for (IObserver<Float> observer : observers) {
             observer.notify(poolPercent);
+        }
     }
 
     @Override
@@ -56,7 +59,7 @@ public abstract class AbstractPool implements IPool {
     }
 
     @Override
-    public void regen(float amount) {
+    public void regen(final float amount) {
 
         this.amount = Math.min(this.amount + amount, maxAmount);
     }

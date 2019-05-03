@@ -1,7 +1,10 @@
 package spaceattack.game.ships.pools;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.BooleanSupplier;
 
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.FrameController;
@@ -10,21 +13,25 @@ public class Pool extends AbstractPool {
 
     public static final Integer UPDATES_PER_SECOND = 10;
 
-    private float baseAmount;
-    private float increasePerLevel;
-    private float baseRegen;
-    private float regenPerLevel;
+    private final float baseAmount;
+    private final float increasePerLevel;
+    private final float baseRegen;
+    private final float regenPerLevel;
 
     private float regenPerSecond;
 
     private boolean destroyed;
 
-    private Lock lock;
-    private FrameController controller;
+    private final Lock lock;
+    private final FrameController controller;
 
-    public Pool(float baseAmount, float increasePerLevel, float baseRegen, float regenPerLevel) {
+    private final List<BooleanSupplier> infinityCheckers;
+
+    public Pool(final float baseAmount, final float increasePerLevel, final float baseRegen,
+            final float regenPerLevel) {
 
         super();
+        infinityCheckers = new ArrayList<>();
         lock = new ReentrantLock();
         controller = new FrameController(Factories.getUtilsFactory().create(), UPDATES_PER_SECOND);
 
@@ -37,7 +44,7 @@ public class Pool extends AbstractPool {
     }
 
     @Override
-    public boolean take(float amountTaken) {
+    public boolean take(final float amountTaken) {
 
         try {
             lock.lock();
@@ -48,8 +55,11 @@ public class Pool extends AbstractPool {
         }
     }
 
-    boolean doTake(float amountTaken) {
+    boolean doTake(final float amountTaken) {
 
+        if (isInfinity()) {
+            return true;
+        }
         if (amountTaken <= amount) {
             amount -= amountTaken;
             notifyObservers();
@@ -60,7 +70,14 @@ public class Pool extends AbstractPool {
     }
 
     @Override
-    public void setLevel(int level) {
+    public boolean isInfinity() {
+
+        infinityCheckers.removeIf(checker -> !checker.getAsBoolean());
+        return !infinityCheckers.isEmpty();
+    }
+
+    @Override
+    public void setLevel(final int level) {
 
         try {
             lock.lock();
@@ -71,7 +88,7 @@ public class Pool extends AbstractPool {
         }
     }
 
-    void doSetLevel(int level) {
+    void doSetLevel(final int level) {
 
         maxAmount = baseAmount + (level - 1) * increasePerLevel;
         regenPerSecond = baseRegen + (level - 1) * regenPerLevel;
@@ -98,8 +115,9 @@ public class Pool extends AbstractPool {
         if (controller.check() && !destroyed) {
             amount += regenPerSecond / UPDATES_PER_SECOND;
 
-            if (amount > maxAmount)
+            if (amount > maxAmount) {
                 amount = maxAmount;
+            }
 
             notifyObservers();
         }
@@ -111,5 +129,11 @@ public class Pool extends AbstractPool {
         destroyed = true;
         amount = 0;
         notifyObservers();
+    }
+
+    @Override
+    public void addTemporalInfinityChecker(final BooleanSupplier checker) {
+
+        infinityCheckers.add(checker);
     }
 }

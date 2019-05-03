@@ -31,6 +31,12 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     }
 
     @Override
+    protected float getShotCost() {
+
+        return energyCost / 3;
+    }
+
+    @Override
     public void setUtils(final IUtils utils) {
 
         super.setUtils(utils);
@@ -51,6 +57,8 @@ public class EnergyShieldEmiter extends AbstractWeapon {
         shield.setRadius(Consts.Weapons.SHIELD_RADIUS);
         shield.setSound(Sounds.SHIELD);
         shield.setPlayersAttack(controller.isPlayer());
+
+        controller.getShip().setTemporalImmortalityChecker(shield::isUp);
 
         return shield;
     }

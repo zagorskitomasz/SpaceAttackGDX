@@ -1,14 +1,16 @@
 package spaceattack.game.ships.pools;
 
+import java.util.function.BooleanSupplier;
+
 import spaceattack.consts.Experience;
 import spaceattack.game.GameProgress;
 
 public class ExperiencePool extends AbstractPool {
 
     private GameProgress gameProgress;
-    private GameProgress backup;
+    private final GameProgress backup;
 
-    public ExperiencePool(GameProgress gameProgress, GameProgress backup) {
+    public ExperiencePool(final GameProgress gameProgress, final GameProgress backup) {
 
         super();
         this.gameProgress = gameProgress;
@@ -35,15 +37,27 @@ public class ExperiencePool extends AbstractPool {
     }
 
     @Override
-    public boolean take(float amount) {
+    public boolean take(final float amount) {
 
         // do nothing
         return true;
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
 
         // do nothing
+    }
+
+    @Override
+    public void addTemporalInfinityChecker(final BooleanSupplier checker) {
+
+        // do nothing
+    }
+
+    @Override
+    public boolean isInfinity() {
+
+        return false;
     }
 }

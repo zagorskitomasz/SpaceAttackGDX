@@ -6,21 +6,27 @@ public class HpPool extends Pool {
 
     private Supplier<Boolean> immunityChecker;
 
-    public HpPool(float baseAmount, float increasePerLevel, float baseRegen, float regenPerLevel) {
+    public HpPool(final float baseAmount, final float increasePerLevel, final float baseRegen,
+            final float regenPerLevel) {
 
         super(baseAmount, increasePerLevel, baseRegen, regenPerLevel);
     }
 
-    public void setImmunityChecker(Supplier<Boolean> supplier) {
+    public void setImmunityChecker(final Supplier<Boolean> supplier) {
 
         immunityChecker = supplier;
     }
 
     @Override
-    boolean doTake(float amountTaken) {
+    boolean doTake(final float amountTaken) {
 
-        if (immunityChecker != null && immunityChecker.get())
+        if (immunityChecker != null && immunityChecker.get()) {
             return true;
+        }
+
+        if (isInfinity()) {
+            return true;
+        }
 
         boolean result;
 

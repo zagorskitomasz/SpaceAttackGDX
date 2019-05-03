@@ -7,9 +7,9 @@ import spaceattack.game.system.sound.ISound;
 
 class GdxSound implements ISound, Sound {
 
-    private Sound sound;
+    private final Sound sound;
 
-    public GdxSound(String path) {
+    public GdxSound(final String path) {
 
         sound = Gdx.audio.newSound(Gdx.files.internal(path));
     }
@@ -21,13 +21,13 @@ class GdxSound implements ISound, Sound {
     }
 
     @Override
-    public long play(float volume) {
+    public long play(final float volume) {
 
         return sound.play(volume);
     }
 
     @Override
-    public long play(float volume, float pitch, float pan) {
+    public long play(final float volume, final float pitch, final float pan) {
 
         return sound.play(volume, pitch, pan);
     }
@@ -39,13 +39,13 @@ class GdxSound implements ISound, Sound {
     }
 
     @Override
-    public long loop(float volume) {
+    public long loop(final float volume) {
 
         return sound.loop(volume);
     }
 
     @Override
-    public long loop(float volume, float pitch, float pan) {
+    public long loop(final float volume, final float pitch, final float pan) {
 
         return sound.loop(volume, pitch, pan);
     }
@@ -75,43 +75,43 @@ class GdxSound implements ISound, Sound {
     }
 
     @Override
-    public void stop(long soundId) {
+    public void stop(final long soundId) {
 
         sound.stop(soundId);
     }
 
     @Override
-    public void pause(long soundId) {
+    public void pause(final long soundId) {
 
         sound.pause(soundId);
     }
 
     @Override
-    public void resume(long soundId) {
+    public void resume(final long soundId) {
 
         sound.resume(soundId);
     }
 
     @Override
-    public void setLooping(long soundId, boolean looping) {
+    public void setLooping(final long soundId, final boolean looping) {
 
         sound.setLooping(soundId, looping);
     }
 
     @Override
-    public void setPitch(long soundId, float pitch) {
+    public void setPitch(final long soundId, final float pitch) {
 
         sound.setPitch(soundId, pitch);
     }
 
     @Override
-    public void setVolume(long soundId, float volume) {
+    public void setVolume(final long soundId, final float volume) {
 
         sound.setVolume(soundId, volume);
     }
 
     @Override
-    public void setPan(long soundId, float pan, float volume) {
+    public void setPan(final long soundId, final float pan, final float volume) {
 
         sound.setPan(soundId, pan, volume);
     }

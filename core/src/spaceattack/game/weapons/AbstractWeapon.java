@@ -44,13 +44,18 @@ public abstract class AbstractWeapon implements IWeapon {
             return false;
         }
 
-        if (!controller.takeEnergy(energyCost)) {
+        if (!controller.takeEnergy(getShotCost())) {
             return false;
         }
 
         Missile missile = buildMissile();
         launcher.launch(missile);
         return true;
+    }
+
+    protected float getShotCost() {
+
+        return energyCost;
     }
 
     @Override

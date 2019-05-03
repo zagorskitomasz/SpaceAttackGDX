@@ -102,7 +102,6 @@ public class CorrectableJumperTest {
 
         doAnswer(invocation -> {
             IVector destination = invocation.getArgument(0);
-            System.out.println(destination);
             assertTrue(destination.getY() > 1300);
             return null;
         }).when(owner).setDestination(any(IVector.class));
@@ -133,7 +132,6 @@ public class CorrectableJumperTest {
 
         doAnswer(invocation -> {
             IVector destination = invocation.getArgument(0);
-            System.out.println(destination);
             assertTrue(destination.getY() > 1300);
             return null;
         }).when(owner).setDestination(any(IVector.class));

@@ -1,6 +1,7 @@
 package spaceattack.game.ships;
 
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.IGameActor;
@@ -20,41 +21,43 @@ public interface IShip extends IObserver<GameProgress>, Ignitable, IGameActor, R
         FRONT, LEFT, RIGHT;
     }
 
-    public void setDestination(IVector iVector);
+    void setDestination(IVector iVector);
 
     @Override
-    public float getX();
+    float getX();
 
     @Override
-    public float getY();
+    float getY();
 
-    public void setX(float x);
+    void setX(float x);
 
-    public void setY(float y);
+    void setY(float y);
 
-    public void setShipEngine(IEngine engine);
+    void setShipEngine(IEngine engine);
 
-    public void addWeapon(IWeapon weapon);
+    void addWeapon(IWeapon weapon);
 
-    public Set<IWeapon> getWeapons();
+    Set<IWeapon> getWeapons();
 
-    public void setLevel(int level);
+    void setLevel(int level);
 
-    public float getHeight();
+    float getHeight();
 
-    public float getWidth();
+    float getWidth();
 
-    public boolean takeEnergy(float energyCost);
+    boolean takeEnergy(float energyCost);
 
-    public void setHpPool(IPool pool);
+    void setHpPool(IPool pool);
 
-    public IPool getHpPool();
+    IPool getHpPool();
 
-    public void setEnergyPool(IPool pool);
+    void setEnergyPool(IPool pool);
 
-    public IPool getEnergyPool();
+    IPool getEnergyPool();
 
-    public void setTexture(ITexture texture);
+    void setTexture(ITexture texture);
 
-    public boolean exploded();
+    boolean exploded();
+
+    void setTemporalImmortalityChecker(BooleanSupplier checker);
 }

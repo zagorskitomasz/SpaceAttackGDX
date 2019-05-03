@@ -17,10 +17,10 @@ public enum Sounds {
     BOSS_EXPLOSION("sound/exBoss.mp3"), //
     MISSILE_EXPLOSION("sound/exMissile.mp3");
 
+    private static boolean isTest;
+
     private String path;
     private ISound sound;
-
-    private static boolean isTest;
 
     Sounds(final String path) {
 
@@ -53,6 +53,17 @@ public enum Sounds {
 
         if (sound != null) {
             sound.stop();
+        }
+    }
+
+    public void loop() {
+
+        if (sound == null && !isTest) {
+            throw new ResourceNotLoadedException(name());
+        }
+
+        if (sound != null) {
+            sound.loop();
         }
     }
 

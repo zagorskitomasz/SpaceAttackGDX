@@ -52,13 +52,17 @@ public class Burner {
         if (isBurning) {
             ITexture texture = burningAnimation.getFrame();
             batch.draw(texture,
-                    ignitable.getDrawingX() + ignitable.getRadius() - texture.getWidth() / 2,
-                    ignitable.getDrawingY() + ignitable.getRadius() - texture.getHeight() / 2,
+                    ignitable.getDrawingX() + ignitable.getWidth() / 2 - texture.getWidth() / 2,
+                    ignitable.getDrawingY() + ignitable.getHeight() / 2 - texture.getHeight() / 2,
                     texture.getWidth(), texture.getHeight());
         }
     }
 
     public void ignite(final float burningDPS, final long fireDuration) {
+
+        if (ignitable.isImmortal()) {
+            return;
+        }
 
         if (burningDPS > this.burningDPS) {
             this.burningDPS = burningDPS;

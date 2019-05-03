@@ -1,20 +1,26 @@
 package spaceattack.game.ships.pools;
 
+import java.util.function.BooleanSupplier;
+
 import spaceattack.game.system.notifiers.INotifier;
 
 public interface IPool extends INotifier<Float> {
 
-    public boolean take(float amount);
+    boolean take(float amount);
 
-    public float getAmount();
+    float getAmount();
 
-    public float getMaxAmount();
+    float getMaxAmount();
 
-    public void setLevel(int level);
+    void setLevel(int level);
 
-    public void update();
+    void update();
 
-    public void destroy();
+    void destroy();
 
-    public void regen(float amount);
+    void regen(float amount);
+
+    void addTemporalInfinityChecker(BooleanSupplier checker);
+
+    boolean isInfinity();
 }

@@ -5,4 +5,6 @@ public interface ISound {
     long play();
 
     void stop();
+
+    long loop();
 }

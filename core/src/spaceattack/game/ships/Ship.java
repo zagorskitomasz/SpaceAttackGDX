@@ -2,6 +2,7 @@ package spaceattack.game.ships;
 
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.BooleanSupplier;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.DrawableActor;
@@ -36,13 +37,13 @@ public abstract class Ship extends DrawableActor implements IShip {
     private Burner burner;
 
     @Override
-    public void setTexture(ITexture texture) {
+    public void setTexture(final ITexture texture) {
 
         currentTexture = texture;
     }
 
     @Override
-    public void setShipEngine(IEngine engine) {
+    public void setShipEngine(final IEngine engine) {
 
         this.engine = engine;
     }
@@ -54,43 +55,46 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
-    public void setDestination(IVector destination) {
+    public void setDestination(final IVector destination) {
 
-        if (engine != null)
+        if (engine != null) {
             engine.setDestination(destination);
+        }
     }
 
     @Override
-    public void setEnergyPool(IPool pool) {
+    public void setEnergyPool(final IPool pool) {
 
         energyPool = pool;
     }
 
     @Override
-    public void setHpPool(IPool pool) {
+    public void setHpPool(final IPool pool) {
 
         hpPool = pool;
     }
 
     @Override
-    public void setBurner(Burner burner) {
+    public void setBurner(final Burner burner) {
 
         this.burner = burner;
     }
 
     @Override
-    public void act(float delta) {
+    public void act(final float delta) {
 
-        if (energyPool != null)
+        if (energyPool != null) {
             energyPool.update();
+        }
 
         if (hpPool != null) {
             hpPool.update();
             burner.burn(delta);
         }
 
-        if (engine != null)
+        if (engine != null) {
             fly();
+        }
     }
 
     protected void fly() {
@@ -99,10 +103,11 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
-    public void addWeapon(IWeapon weapon) {
+    public void addWeapon(final IWeapon weapon) {
 
-        if (weapons == null)
+        if (weapons == null) {
             weapons = new CopyOnWriteArraySet<>();
+        }
 
         weapons.add(weapon);
     }
@@ -114,20 +119,25 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
 
-        if (engine != null)
+        if (engine != null) {
             engine.setLevel(level);
+        }
 
-        if (energyPool != null)
+        if (energyPool != null) {
             energyPool.setLevel(level);
+        }
 
-        if (hpPool != null)
+        if (hpPool != null) {
             hpPool.setLevel(level);
+        }
 
-        if (weapons != null)
-            for (IWeapon weapon : weapons)
+        if (weapons != null) {
+            for (IWeapon weapon : weapons) {
                 weapon.setLevel(level);
+            }
+        }
     }
 
     @Override
@@ -143,7 +153,7 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
-    public void takeDmg(float dmg) {
+    public void takeDmg(final float dmg) {
 
         if (!hpPool.take(dmg)) {
             setToKill();
@@ -168,8 +178,9 @@ public abstract class Ship extends DrawableActor implements IShip {
 
         if (!isToKill) {
             isToKill = true;
-            if (!isOutOfScreen())
+            if (!isOutOfScreen()) {
                 explode();
+            }
         }
     }
 
@@ -180,7 +191,7 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
-    public boolean takeEnergy(float energyCost) {
+    public boolean takeEnergy(final float energyCost) {
 
         return energyPool.take(energyCost);
     }
@@ -198,13 +209,13 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
-    public void notify(GameProgress state) {
+    public void notify(final GameProgress state) {
 
         setLevel(state.getLevel());
     }
 
     @Override
-    public void setMissilesLauncher(MissilesLauncher launcher) {
+    public void setMissilesLauncher(final MissilesLauncher launcher) {
 
         this.launcher = launcher;
     }
@@ -212,8 +223,9 @@ public abstract class Ship extends DrawableActor implements IShip {
     @Override
     public void explode() {
 
-        if (launcher == null || explosion == null)
+        if (launcher == null || explosion == null) {
             return;
+        }
 
         exploded = true;
         IActor actor = getActor();
@@ -222,20 +234,20 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
-    public void setExplosion(Launchable explosion) {
+    public void setExplosion(final Launchable explosion) {
 
         this.explosion = explosion;
     }
 
     @Override
-    public void draw(IBatch batch, float alpha) {
+    public void draw(final IBatch batch, final float alpha) {
 
         super.draw(batch, alpha);
         burner.draw(batch);
     }
 
     @Override
-    public void ignite(float burningDPS, long fireDuration) {
+    public void ignite(final float burningDPS, final long fireDuration) {
 
         burner.ignite(burningDPS, fireDuration);
     }
@@ -244,5 +256,17 @@ public abstract class Ship extends DrawableActor implements IShip {
     public boolean exploded() {
 
         return exploded;
+    }
+
+    @Override
+    public void setTemporalImmortalityChecker(final BooleanSupplier checker) {
+
+        hpPool.addTemporalInfinityChecker(checker);
+    }
+
+    @Override
+    public boolean isImmortal() {
+
+        return hpPool.isInfinity();
     }
 }

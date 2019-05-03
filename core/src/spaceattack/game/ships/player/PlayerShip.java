@@ -17,13 +17,13 @@ public class PlayerShip extends Ship implements RequiredOnStage, PowerUpConsumer
     private Map<IShip.Turn, ITexture> textures;
 
     @Override
-    public void setActor(IActor actor) {
+    public void setActor(final IActor actor) {
 
         super.setActor(actor);
         getActor().setPosition(Sizes.GAME_WIDTH * 0.5f, Sizes.GAME_HEIGHT * 0.4f);
     }
 
-    public void loadComplexGraphics(ITexture iTexture, ITexture iTexture2, ITexture iTexture3) {
+    public void loadComplexGraphics(final ITexture iTexture, final ITexture iTexture2, final ITexture iTexture3) {
 
         textures = new HashMap<>();
         textures.put(IShip.Turn.FRONT, iTexture);
@@ -38,12 +38,13 @@ public class PlayerShip extends Ship implements RequiredOnStage, PowerUpConsumer
 
         Turn turn = engine.fly();
 
-        if (textures != null)
+        if (textures != null) {
             currentTexture = textures.get(turn);
+        }
     }
 
     @Override
-    public void consume(IPowerUp powerUp) {
+    public void consume(final IPowerUp powerUp) {
 
         powerUp.consumed();
     }
