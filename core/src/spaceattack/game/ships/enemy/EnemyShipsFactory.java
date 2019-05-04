@@ -63,7 +63,7 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
         case II:
             return TankShipBuilder.INSTANCE.buildActII(stage, true);
         case III:
-            return TankShipBuilder.INSTANCE.buildActII(stage, true);
+            return TankShipBuilder.INSTANCE.buildActIII(stage, true);
         default:
             return null;
         }
@@ -77,6 +77,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return MinorBossShipBuilder.INSTANCE.buildActI(stage);
         case II:
             return MinorBossShipBuilder.INSTANCE.buildActII(stage);
+        case III:
+            return MinorBossShipBuilder.INSTANCE.buildActIII(stage);
         default:
             return null;
         }

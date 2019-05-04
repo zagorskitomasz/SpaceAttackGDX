@@ -9,6 +9,7 @@ import spaceattack.game.stages.impl.Mission4StageBuilder;
 import spaceattack.game.stages.impl.Mission5StageBuilder;
 import spaceattack.game.stages.impl.Mission6StageBuilder;
 import spaceattack.game.stages.impl.Mission7StageBuilder;
+import spaceattack.game.stages.impl.Mission8StageBuilder;
 import spaceattack.game.stages.impl.MissionsStageBuilder;
 
 public enum Stages {
@@ -21,7 +22,8 @@ public enum Stages {
     MISSION_4(Mission4StageBuilder.class),
     MISSION_5(Mission5StageBuilder.class),
     MISSION_6(Mission6StageBuilder.class),
-    MISSION_7(Mission7StageBuilder.class);
+    MISSION_7(Mission7StageBuilder.class),
+    MISSION_8(Mission8StageBuilder.class);
     // @formatter:on
 
     private static final String MISSION_STAGE_PREFIX = "MISSION_";

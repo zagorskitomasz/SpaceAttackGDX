@@ -70,6 +70,6 @@ public class PlayerWeaponController extends AbstractWeaponController {
     @Override
     public boolean isContinuousFireTriggered(final float energyCost) {
 
-        return secondaryFireButton.isContinuousFireTriggered(energyCost);
+        return secondaryFireButton.isPressed() && super.isContinuousFireTriggered(energyCost);
     }
 }

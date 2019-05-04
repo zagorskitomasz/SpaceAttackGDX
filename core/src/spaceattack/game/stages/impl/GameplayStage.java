@@ -19,6 +19,7 @@ import spaceattack.game.stages.Stages;
 import spaceattack.game.system.Acts;
 import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
+import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.weapons.MissilesLauncher;
 
 public class GameplayStage extends AbstractStage implements IObserver<GameProgress>, INotifier<GameplayStage> {
@@ -152,6 +153,8 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
     }
 
     public void finalizeStage() {
+
+        Sounds.stopAll();
 
         StageResult result = new StageResult();
         result.setNextStage(Stages.MISSIONS);

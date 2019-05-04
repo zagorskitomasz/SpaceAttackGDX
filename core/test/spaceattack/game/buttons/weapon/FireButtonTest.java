@@ -3,7 +3,6 @@ package spaceattack.game.buttons.weapon;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -146,53 +145,35 @@ public class FireButtonTest {
     }
 
     @Test
-    public void whenTouchedDownAndEnoughtEnergyContinuousFireIsTriggered() {
+    public void whenTouchedDownIsPressed() {
 
-        doReturn(true).when(weapon).isContinuousFire();
-        doReturn(true).when(energyPool).take(anyFloat());
         doReturn(factory.create(200, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
 
         fireButton.touchDown(200, 200);
 
-        assertTrue(fireButton.isContinuousFireTriggered(100));
+        assertTrue(fireButton.isPressed());
     }
 
     @Test
-    public void whenTouchedDownAndNotEnoughtEnergyContinuousFireIsNotTriggered() {
+    public void whenTouchedDownAndTouchedUpIsNotPressed() {
 
-        doReturn(true).when(weapon).isContinuousFire();
-        doReturn(false).when(energyPool).take(anyFloat());
-        doReturn(factory.create(200, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
-
-        fireButton.touchDown(200, 200);
-
-        assertFalse(fireButton.isContinuousFireTriggered(100));
-    }
-
-    @Test
-    public void whenTouchedDownAndTouchedUpAndEnoughtEnergyContinuousFireIsNotTriggered() {
-
-        doReturn(true).when(weapon).isContinuousFire();
-        doReturn(true).when(energyPool).take(anyFloat());
         doReturn(factory.create(200, 200)).when(extButton).screenToStageCoordinates(any(IVector.class));
 
         fireButton.touchDown(200, 200);
         fireButton.touchUp(200, 200);
 
-        assertFalse(fireButton.isContinuousFireTriggered(100));
+        assertFalse(fireButton.isPressed());
     }
 
     @Test
-    public void whenTouchedDownAndTouchedUpOutsideButtonAndEnoughtEnergyContinuousFireIsTriggered() {
+    public void whenTouchedDownAndTouchedUpOutsideButtonIsStillPressed() {
 
-        doReturn(true).when(weapon).isContinuousFire();
-        doReturn(true).when(energyPool).take(anyFloat());
         doReturn(factory.create(200, 200), factory.create(800, 800)).when(extButton)
                 .screenToStageCoordinates(any(IVector.class));
 
         fireButton.touchDown(200, 200);
         fireButton.touchUp(800, 800);
 
-        assertTrue(fireButton.isContinuousFireTriggered(100));
+        assertTrue(fireButton.isPressed());
     }
 }

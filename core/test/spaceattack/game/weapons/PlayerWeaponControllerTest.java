@@ -1,6 +1,9 @@
 package spaceattack.game.weapons;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -65,5 +68,35 @@ public class PlayerWeaponControllerTest {
         controller.updateSecondaryWeapon(secondaryWeapon);
 
         verify(secondaryButton).setWeapon(secondaryWeapon);
+    }
+
+    @Test
+    public void whenButtonPressedAndEnoughtEnergyContinuousFireIsTriggered() {
+
+        controller.setSecondaryFireButton(secondaryButton);
+        doReturn(true).when(secondaryButton).isPressed();
+        doReturn(true).when(ship).takeEnergy(anyFloat());
+
+        assertTrue(controller.isContinuousFireTriggered(100));
+    }
+
+    @Test
+    public void whenNotPressedContinuousFireIsNotTriggered() {
+
+        controller.setSecondaryFireButton(secondaryButton);
+        doReturn(false).when(secondaryButton).isPressed();
+        doReturn(true).when(ship).takeEnergy(anyFloat());
+
+        assertFalse(controller.isContinuousFireTriggered(100));
+    }
+
+    @Test
+    public void whenTouchedDownAndTouchedUpAndEnoughtEnergyContinuousFireIsNotTriggered() {
+
+        controller.setSecondaryFireButton(secondaryButton);
+        doReturn(true).when(secondaryButton).isPressed();
+        doReturn(false).when(ship).takeEnergy(anyFloat());
+
+        assertFalse(controller.isContinuousFireTriggered(100));
     }
 }

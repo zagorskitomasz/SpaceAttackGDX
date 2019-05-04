@@ -50,7 +50,7 @@ public class Consts {
         public static final float LASER_RADIUS = 8;
         public static final float ROCKET_RADIUS = 10;
         public static final float MINE_RADIUS = 20;
-        public static final float SHIELD_RADIUS = 160;
+        public static final float SHIELD_RADIUS = 130;
         public static final long MINE_DELAY = 5000;
         public static final long SLOW_MINE_DELAY = 7000;
         public static final long MINE_OVERHEAT_DELAY = 500;
@@ -177,7 +177,7 @@ public class Consts {
         public static final float TANK_EX_DMG = 40;
         public static final float TANK_EX_FIRE_BASE_DMG = 20;
         public static final float TANK_EX_FIRE_DMG_PER_STRENGTH = 4;
-        public static final float TANK_EX_RADIUS = 100;
+        public static final float TANK_EX_RADIUS = 125;
 
         public static final float BOSS_EX_DMG = 0;
         public static final float BOSS_EX_FIRE_BASE_DMG = 0;
@@ -192,7 +192,7 @@ public class Consts {
         public static final float MINE_EX_DMG = 20;
         public static final float MINE_EX_FIRE_BASE_DMG = 10;
         public static final float MINE_EX_FIRE_DMG_PER_STRENGTH = 2;
-        public static final float MINE_EX_RADIUS = 100;
+        public static final float MINE_EX_RADIUS = 125;
 
         public static final long FIRE_BASE_DURATION = 4000;
         public static final long FIRE_DURATION_PER_STRENGTH = 20;

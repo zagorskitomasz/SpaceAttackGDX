@@ -1,5 +1,6 @@
 package spaceattack.game.weapons;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
 
@@ -74,5 +75,11 @@ public abstract class AbstractWeaponController implements IWeaponController {
     public IShip getShip() {
 
         return ship;
+    }
+
+    @Override
+    public boolean isContinuousFireTriggered(final float energyCost) {
+
+        return ship.takeEnergy(energyCost / Consts.Metagame.FPS);
     }
 }
