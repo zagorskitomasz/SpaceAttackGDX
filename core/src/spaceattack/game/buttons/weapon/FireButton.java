@@ -1,6 +1,5 @@
 package spaceattack.game.buttons.weapon;
 
-import spaceattack.consts.Consts;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.buttons.IImageButton;
 import spaceattack.game.factories.Factories;
@@ -133,8 +132,8 @@ public class FireButton implements IObserver<Float>, IFireButton {
     }
 
     @Override
-    public boolean isContinuousFireTriggered(final float energyCost) {
+    public boolean isPressed() {
 
-        return isPressed && energyPool.take(energyCost / Consts.Metagame.FPS);
+        return isPressed;
     }
 }

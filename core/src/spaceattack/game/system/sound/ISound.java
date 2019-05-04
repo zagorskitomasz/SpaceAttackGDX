@@ -7,4 +7,6 @@ public interface ISound {
     void stop();
 
     long loop();
+
+    void stop(long instanceId);
 }

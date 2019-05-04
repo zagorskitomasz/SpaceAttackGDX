@@ -7,18 +7,18 @@ import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 
-public class Mission5StageBuilder extends Act2StageBuilder {
+public class Mission8StageBuilder extends Act3StageBuilder {
 
     @Override
     public void setMissionNumber() {
 
-        stage.setCurrentMission(5);
+        stage.setCurrentMission(8);
     }
 
     @Override
     public void addBackground() {
 
-        StaticImage background = StaticImageFactory.INSTANCE.create(Textures.M5_BACKGROUND.getTexture(), 0, 0);
+        StaticImage background = StaticImageFactory.INSTANCE.create(Textures.M8_BACKGROUND.getTexture(), 0, 0);
         stage.addBackground(background);
     }
 

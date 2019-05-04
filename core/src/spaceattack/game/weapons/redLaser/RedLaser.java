@@ -15,7 +15,7 @@ public class RedLaser extends Laser {
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
 
         dmg = Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL;
         speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;

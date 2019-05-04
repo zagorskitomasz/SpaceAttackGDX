@@ -34,5 +34,5 @@ public interface IFireButton extends IGameActor {
 
     boolean touchUp(int screenX, int screenY);
 
-    boolean isContinuousFireTriggered(float energyCost);
+    boolean isPressed();
 }

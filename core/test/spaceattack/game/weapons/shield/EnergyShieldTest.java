@@ -3,6 +3,7 @@ package spaceattack.game.weapons.shield;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyFloat;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -98,7 +99,7 @@ public class EnergyShieldTest {
 
         shield.act(10);
 
-        verify(sound).stop();
+        verify(sound).stop(anyLong());
     }
 
     @Test

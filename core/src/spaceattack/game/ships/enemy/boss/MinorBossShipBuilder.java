@@ -23,12 +23,13 @@ import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
+import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 
 public enum MinorBossShipBuilder {
     INSTANCE;
 
-    public IBoss buildActI(GameplayStage stage) {
+    public IBoss buildActI(final GameplayStage stage) {
 
         IBoss boss = new BossShip();
         boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
@@ -43,10 +44,13 @@ public enum MinorBossShipBuilder {
         IWeaponController controller = new AIWeaponController();
         IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
 
+        IPool energyPool = createEnergyPool(1);
+
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(targetedRedLaser);
         controller.setShip(boss);
 
+        boss.setEnergyPool(energyPool);
         boss.addWeapon(targetedRedLaser);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
@@ -55,7 +59,7 @@ public enum MinorBossShipBuilder {
         return boss;
     }
 
-    public IBoss buildActII(GameplayStage stage) {
+    public IBoss buildActII(final GameplayStage stage) {
 
         IBoss boss = new BossShip();
         boss.setDefaultMoverType(MoverType.CORRECTABLE_JUMPER);
@@ -71,10 +75,13 @@ public enum MinorBossShipBuilder {
         IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
         IWeapon miner = MinerBuilder.INSTANCE.build(controller, launcher);
 
+        IPool energyPool = createEnergyPool(1);
+
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(miner);
         controller.setShip(boss);
 
+        boss.setEnergyPool(energyPool);
         boss.addWeapon(targetedRedLaser);
         boss.addWeapon(miner);
         boss.setWeaponController(controller);
@@ -84,17 +91,44 @@ public enum MinorBossShipBuilder {
         return boss;
     }
 
-    private IBoss build(GameplayStage stage, IBoss boss) {
+    public IBoss buildActIII(final GameplayStage stage) {
+
+        IBoss boss = new BossShip();
+        boss.setDefaultMoverType(MoverType.DIRECT_CHASER);
+        boss.setDefaultShooterType(ShooterType.INSTANT_SHOOTER);
+
+        build(stage, boss);
+        boss.setTexture(Textures.TANK3.getTexture());
+        IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
+        boss.setShipEngine(engine);
+
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon shieldEmiter = ShieldBuilder.INSTANCE.build(controller, launcher);
+
+        IPool energyPool = createEnergyPool(1.4f);
+
+        controller.setPrimaryWeapon(targetedRedLaser);
+        controller.setSecondaryWeapon(shieldEmiter);
+        controller.setShip(boss);
+
+        boss.setEnergyPool(energyPool);
+        boss.addWeapon(targetedRedLaser);
+        boss.addWeapon(shieldEmiter);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    private IBoss build(final GameplayStage stage, final IBoss boss) {
 
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-        IPool energyPool = new Pool(
-                Consts.Pools.MINOR_BOSS_ENERGY_BASE_AMOUNT,
-                Consts.Pools.MINOR_BOSS_ENERGY_INCREASE_PER_LEVEL,
-                Consts.Pools.MINOR_BOSS_ENERGY_BASE_REGEN,
-                Consts.Pools.MINOR_BOSS_ENERGY_REGEN_PER_LEVEL);
         IPool hpPool = new HpPool(
                 Consts.Pools.MINOR_BOSS_HP_BASE_AMOUNT,
                 Consts.Pools.MINOR_BOSS_HP_INCREASE_PER_LEVEL,
@@ -102,7 +136,6 @@ public enum MinorBossShipBuilder {
                 Consts.Pools.MINOR_BOSS_HP_REGEN_PER_LEVEL);
 
         boss.setActor(Factories.getActorFactory().create(boss));
-        boss.setEnergyPool(energyPool);
         boss.setHpPool(hpPool);
         boss.setExplosion(explosion);
         boss.setBar(new BigEnemyBar(boss));
@@ -110,5 +143,16 @@ public enum MinorBossShipBuilder {
         boss.setX(Sizes.GAME_WIDTH * 0.2f + (float) Math.random() * Sizes.GAME_WIDTH * 0.6f);
 
         return boss;
+    }
+
+    private IPool createEnergyPool(final float additionalStrength) {
+
+        IPool energyPool = new Pool(
+                Consts.Pools.MINOR_BOSS_ENERGY_BASE_AMOUNT * additionalStrength,
+                Consts.Pools.MINOR_BOSS_ENERGY_INCREASE_PER_LEVEL * additionalStrength,
+                Consts.Pools.MINOR_BOSS_ENERGY_BASE_REGEN * additionalStrength,
+                Consts.Pools.MINOR_BOSS_ENERGY_REGEN_PER_LEVEL * additionalStrength);
+
+        return energyPool;
     }
 }

@@ -48,7 +48,7 @@ public class TargetedRedLaser extends Laser {
         missile.setSpeed(speed);
         missile.setAcceleration(0);
         missile.setMovement(movement);
-        missile.setPosition(calculateTargetedShotPosition(0.7f));
+        missile.setPosition(calculateTargetedShotPosition(1f));
         missile.setRadius(Consts.Weapons.LASER_RADIUS);
         missile.setSound(Sounds.RED_LASER);
         missile.setPlayersAttack(controller.isPlayer());
@@ -91,6 +91,6 @@ public class TargetedRedLaser extends Laser {
     @Override
     public float getWeaponsMovementFactor() {
 
-        return 0f;
+        return 0;
     }
 }

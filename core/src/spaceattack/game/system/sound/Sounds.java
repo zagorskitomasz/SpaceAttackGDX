@@ -1,5 +1,7 @@
 package spaceattack.game.system.sound;
 
+import java.util.Arrays;
+
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.ResourceNotLoadedException;
 
@@ -56,15 +58,27 @@ public enum Sounds {
         }
     }
 
-    public void loop() {
+    public void stop(final long instanceId) {
 
         if (sound == null && !isTest) {
             throw new ResourceNotLoadedException(name());
         }
 
         if (sound != null) {
-            sound.loop();
+            sound.stop(instanceId);
         }
+    }
+
+    public long loop() {
+
+        if (sound == null && !isTest) {
+            throw new ResourceNotLoadedException(name());
+        }
+
+        if (sound != null) {
+            return sound.loop();
+        }
+        return 0;
     }
 
     /**
@@ -75,5 +89,10 @@ public enum Sounds {
     public static void loadForTest() {
 
         isTest = true;
+    }
+
+    public static void stopAll() {
+
+        Arrays.asList(values()).forEach(sound -> sound.stop());
     }
 }

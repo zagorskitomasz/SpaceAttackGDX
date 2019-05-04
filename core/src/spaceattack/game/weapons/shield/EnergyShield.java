@@ -19,6 +19,7 @@ public class EnergyShield extends Missile implements Undestructible {
     private Supplier<IVector> positioner;
     private Predicate<Float> activityChecker;
     private float energyCost;
+    private long soundInstanceId;
 
     @Override
     public void draw(final IBatch batch, final float alpha) {
@@ -38,7 +39,7 @@ public class EnergyShield extends Missile implements Undestructible {
         move();
 
         if (!activityChecker.test(energyCost)) {
-            sound.stop();
+            sound.stop(soundInstanceId);
             setToKill();
         }
 
@@ -111,7 +112,7 @@ public class EnergyShield extends Missile implements Undestructible {
     public void playSound() {
 
         if (sound != null) {
-            sound.loop();
+            soundInstanceId = sound.loop();
         }
     }
 }
