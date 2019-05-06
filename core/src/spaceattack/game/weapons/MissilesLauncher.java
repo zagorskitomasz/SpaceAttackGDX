@@ -5,16 +5,16 @@ import spaceattack.game.stages.IGameStage;
 
 public class MissilesLauncher {
 
-    private IGameStage stage;
+    private final IGameStage stage;
 
-    public MissilesLauncher(IGameStage stage) {
+    public MissilesLauncher(final IGameStage stage) {
 
         this.stage = stage;
     }
 
-    public void launch(Launchable launchable) {
+    public void launch(final Launchable launchable) {
 
-        stage.addActorBeforeGUI(launchable);
+        stage.addActorJustBeforeGUI(launchable);
         launchable.setActors(stage.getActors());
         launchable.launched();
     }

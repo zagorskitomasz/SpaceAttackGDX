@@ -110,34 +110,34 @@ public class TargetedRedLaserTest {
 
         doReturn(ExtVectorFactory.INSTANCE.create(1, 1)).when(controller).getTargetedWeaponMovement();
         missile = laser.buildMissile();
-        assertEquals(ExtVectorFactory.INSTANCE.create(107, 114), missile.getPosition());
+        assertEquals(ExtVectorFactory.INSTANCE.create(110, 120), missile.getPosition());
 
         doReturn(ExtVectorFactory.INSTANCE.create(1, 0)).when(controller).getTargetedWeaponMovement();
         missile = laser.buildMissile();
-        assertEquals(ExtVectorFactory.INSTANCE.create(107, 100), missile.getPosition());
+        assertEquals(ExtVectorFactory.INSTANCE.create(110, 100), missile.getPosition());
 
         doReturn(ExtVectorFactory.INSTANCE.create(1, -1)).when(controller).getTargetedWeaponMovement();
         missile = laser.buildMissile();
-        assertEquals(ExtVectorFactory.INSTANCE.create(107, 86), missile.getPosition());
+        assertEquals(ExtVectorFactory.INSTANCE.create(110, 80), missile.getPosition());
 
         doReturn(ExtVectorFactory.INSTANCE.create(0, -1)).when(controller).getTargetedWeaponMovement();
         missile = laser.buildMissile();
-        assertEquals(ExtVectorFactory.INSTANCE.create(100, 86), missile.getPosition());
+        assertEquals(ExtVectorFactory.INSTANCE.create(100, 80), missile.getPosition());
 
         doReturn(ExtVectorFactory.INSTANCE.create(-1, -1)).when(controller).getTargetedWeaponMovement();
         missile = laser.buildMissile();
-        assertEquals(ExtVectorFactory.INSTANCE.create(93, 86), missile.getPosition());
+        assertEquals(ExtVectorFactory.INSTANCE.create(90, 80), missile.getPosition());
 
         doReturn(ExtVectorFactory.INSTANCE.create(-1, 0)).when(controller).getTargetedWeaponMovement();
         missile = laser.buildMissile();
-        assertEquals(ExtVectorFactory.INSTANCE.create(93, 100), missile.getPosition());
+        assertEquals(ExtVectorFactory.INSTANCE.create(90, 100), missile.getPosition());
 
         doReturn(ExtVectorFactory.INSTANCE.create(-1, 1)).when(controller).getTargetedWeaponMovement();
         missile = laser.buildMissile();
-        assertEquals(ExtVectorFactory.INSTANCE.create(93, 114), missile.getPosition());
+        assertEquals(ExtVectorFactory.INSTANCE.create(90, 120), missile.getPosition());
 
         doReturn(ExtVectorFactory.INSTANCE.create(0, 1)).when(controller).getTargetedWeaponMovement();
         missile = laser.buildMissile();
-        assertEquals(ExtVectorFactory.INSTANCE.create(100, 114), missile.getPosition());
+        assertEquals(ExtVectorFactory.INSTANCE.create(100, 120), missile.getPosition());
     }
 }

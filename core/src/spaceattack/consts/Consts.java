@@ -21,6 +21,7 @@ public class Consts {
         public static final float MINE_ATTACKS_PER_SECOND = 1;
         public static final float SLOW_MINE_ATTACKS_PER_SECOND = 0.5f;
         public static final float SHIELD_ATTACKS_PER_SECOND = 5;
+        public static final float TIME_WAVE_ATTACKS_PER_SECOND = 0.33f;
 
         public static final float RED_LASER_BASE_DMG = 10;
         public static final float RED_LASER_DMG_PER_LEVEL = 3;
@@ -46,6 +47,12 @@ public class Consts {
         public static final float SHIELD_DMG_PER_LEVEL = 9;
         public static final float SHIELD_BASE_COST = 60;
         public static final float SHIELD_COST_PER_LEVEL = 6;
+
+        public static final float TIME_WAVE_BASE_COST = 60;
+        public static final float TIME_WAVE_COST_PER_LEVEL = 6;
+
+        public static final float TIME_WAVE_BASE_LENGTH = 800;
+        public static final float TIME_WAVE_LENGTH_PER_LEVEL = 100;
 
         public static final float LASER_RADIUS = 8;
         public static final float ROCKET_RADIUS = 10;

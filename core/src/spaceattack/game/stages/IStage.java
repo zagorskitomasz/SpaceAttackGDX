@@ -6,19 +6,21 @@ import spaceattack.game.actors.IGameActor;
 
 public interface IStage {
 
-    public void addActorAtBegining(IGameActor actor);
+    void addActorAtBegining(IGameActor actor);
 
-    public void addBackground(IGameActor actor);
+    void addBackground(IGameActor actor);
 
-    public void addActor(IGameActor actor);
+    void addActor(IGameActor actor);
 
-    public List<IGameActor> getGameActors();
+    List<IGameActor> getGameActors();
 
-    public void removeActor(IGameActor actor);
+    void removeActor(IGameActor actor);
 
-    public void updateViewport(int width, int height, boolean centerCamera);
+    void updateViewport(int width, int height, boolean centerCamera);
 
-    public void draw();
+    void draw();
 
-    public void act(float delta);
+    void act(float delta);
+
+    void addActorJustBeforeGui(IGameActor newActor);
 }

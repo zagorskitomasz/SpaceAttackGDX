@@ -8,7 +8,7 @@ import spaceattack.game.stages.IStage;
 
 public class FakeStage implements IStage {
 
-    private List<IGameActor> actors;
+    private final List<IGameActor> actors;
 
     public FakeStage() {
 
@@ -16,13 +16,13 @@ public class FakeStage implements IStage {
     }
 
     @Override
-    public void addActorAtBegining(IGameActor actor) {
+    public void addActorAtBegining(final IGameActor actor) {
 
         actors.add(Math.min(1, actors.size()), actor);
     }
 
     @Override
-    public void addActor(IGameActor actor) {
+    public void addActor(final IGameActor actor) {
 
         actors.add(actor);
     }
@@ -34,13 +34,13 @@ public class FakeStage implements IStage {
     }
 
     @Override
-    public void removeActor(IGameActor actor) {
+    public void removeActor(final IGameActor actor) {
 
         actors.remove(actor);
     }
 
     @Override
-    public void updateViewport(int width, int height, boolean centerCamera) {
+    public void updateViewport(final int width, final int height, final boolean centerCamera) {
 
         // do nothing
     }
@@ -52,14 +52,20 @@ public class FakeStage implements IStage {
     }
 
     @Override
-    public void act(float delta) {
+    public void act(final float delta) {
 
         actors.forEach(actor -> actor.act(delta));
     }
 
     @Override
-    public void addBackground(IGameActor actor) {
+    public void addBackground(final IGameActor actor) {
 
         actors.add(0, actor);
+    }
+
+    @Override
+    public void addActorJustBeforeGui(final IGameActor actor) {
+
+        actors.add(Math.min(1, actors.size()), actor);
     }
 }

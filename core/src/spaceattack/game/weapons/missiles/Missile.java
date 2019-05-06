@@ -3,13 +3,14 @@ package spaceattack.game.weapons.missiles;
 import java.util.List;
 
 import spaceattack.game.actors.IGameActor;
+import spaceattack.game.actors.interfaces.Freezable;
 import spaceattack.game.actors.interfaces.Vulnerable;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 
-public class Missile extends AbstractMissile {
+public class Missile extends AbstractMissile implements Freezable {
 
     protected Iterable<IGameActor> actors;
 
@@ -18,6 +19,7 @@ public class Missile extends AbstractMissile {
     private float speed;
     private float acceleration;
     private IVector movement;
+    private Freezer freezer;
 
     @Override
     public void setActors(final List<IGameActor> iterable) {
@@ -28,7 +30,12 @@ public class Missile extends AbstractMissile {
     @Override
     public void act(final float delta) {
 
-        move();
+        if (freezer == null) {
+            move();
+        }
+        else {
+            freezer.act(delta);
+        }
 
         if (actors == null) {
             return;
@@ -114,5 +121,29 @@ public class Missile extends AbstractMissile {
     public void launched() {
 
         playSound();
+    }
+
+    @Override
+    public void freeze(final Freezer freezer) {
+
+        this.freezer = freezer;
+    }
+
+    @Override
+    public void unfreeze() {
+
+        freezer = null;
+    }
+
+    @Override
+    public float getWidth() {
+
+        return getTexture().getWidth();
+    }
+
+    @Override
+    public float getHeight() {
+
+        return getTexture().getHeight();
     }
 }

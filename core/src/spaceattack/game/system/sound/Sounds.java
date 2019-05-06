@@ -17,7 +17,8 @@ public enum Sounds {
     // explosions
     SMALL_SHIP_EXPLOSION("sound/exShip.mp3"), //
     BOSS_EXPLOSION("sound/exBoss.mp3"), //
-    MISSILE_EXPLOSION("sound/exMissile.mp3");
+    MISSILE_EXPLOSION("sound/exMissile.mp3"), //
+    TIME_WAVE("sound/timeWave.mp3");
 
     private static boolean isTest;
 

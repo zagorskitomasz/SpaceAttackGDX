@@ -23,6 +23,7 @@ import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
+import spaceattack.game.weapons.missiles.Freezer;
 
 public class FakeShip implements IShip, IEnemyShip {
 
@@ -311,5 +312,17 @@ public class FakeShip implements IShip, IEnemyShip {
     public boolean isImmortal() {
 
         return false;
+    }
+
+    @Override
+    public void freeze(final Freezer freezer) {
+
+        // do nothing
+    }
+
+    @Override
+    public void unfreeze() {
+
+        // do nothing
     }
 }

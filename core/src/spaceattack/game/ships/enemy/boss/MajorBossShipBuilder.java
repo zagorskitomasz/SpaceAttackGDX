@@ -24,7 +24,9 @@ import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.multiRedLaser.DistractedRedLaserBuilder;
+import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
+import spaceattack.game.weapons.timeWave.TimeWaveEmitterBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum MajorBossShipBuilder {
@@ -74,6 +76,31 @@ public enum MajorBossShipBuilder {
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
         boss.setTexture(Textures.BOSS2.getTexture());
+
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    public IBoss buildActIII(final GameplayStage stage) {
+
+        IBoss boss = build(stage);
+
+        boss.setDefaultMoverType(MoverType.FRONT_CHASER);
+        boss.setDefaultShooterType(ShooterType.DIRECT_SHOOTER);
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon rocketMissile = RocketMissileBuilder.INSTANCE.build(controller, launcher);
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(rocketMissile);
+        controller.setSecondaryWeapon(timeWaveEmitter);
+        controller.setShip(boss);
+        boss.addWeapon(rocketMissile);
+        boss.addWeapon(timeWaveEmitter);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        boss.setTexture(Textures.BOSS3.getTexture());
 
         boss.setLevel(stage.getCurrentMission() * 2);
 

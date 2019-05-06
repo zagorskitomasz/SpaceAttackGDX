@@ -24,7 +24,7 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     private EnemyBar bar;
 
     @Override
-    public void act(float delta) {
+    public void act(final float delta) {
 
         super.act(delta);
         mover.updateDirection();
@@ -35,24 +35,25 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     void performAttack() {
 
         PossibleAttacks possibleAttack = shooter.checkShot();
-        if (!PossibleAttacks.NONE.equals(possibleAttack))
+        if (!PossibleAttacks.NONE.equals(possibleAttack)) {
             controller.performAttack(possibleAttack, playerShip);
+        }
     }
 
     @Override
-    public void setPlayerShip(RadarVisible playerShip) {
+    public void setPlayerShip(final RadarVisible playerShip) {
 
         this.playerShip = playerShip;
     }
 
     @Override
-    public void setMover(MoverAI mover) {
+    public void setMover(final MoverAI mover) {
 
         this.mover = mover;
     }
 
     @Override
-    public void setShooter(ShooterAI shooter) {
+    public void setShooter(final ShooterAI shooter) {
 
         this.shooter = shooter;
     }
@@ -70,20 +71,20 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     }
 
     @Override
-    public void setWeaponController(IWeaponController controller) {
+    public void setWeaponController(final IWeaponController controller) {
 
         this.controller = controller;
     }
 
     @Override
-    public void setActor(IActor actor) {
+    public void setActor(final IActor actor) {
 
         super.setActor(actor);
         getActor().setPosition((float) (Math.random() * Sizes.GAME_WIDTH), Sizes.GAME_HEIGHT);
     }
 
     @Override
-    public void setBar(EnemyBar bar) {
+    public void setBar(final EnemyBar bar) {
 
         this.bar = bar;
     }
@@ -95,16 +96,17 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     }
 
     @Override
-    public void draw(IBatch batch, float alpha) {
+    public void draw(final IBatch batch, final float alpha) {
 
         super.draw(batch, alpha);
 
-        if (bar != null)
+        if (bar != null) {
             bar.draw(batch);
+        }
     }
 
     @Override
-    public void setPowerUp(IPowerUp powerUp) {
+    public void setPowerUp(final IPowerUp powerUp) {
 
         this.powerUp = powerUp;
     }

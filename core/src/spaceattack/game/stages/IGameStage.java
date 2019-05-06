@@ -39,6 +39,8 @@ public interface IGameStage {
 
     void addActorBeforeGUI(IGameActor actor);
 
+    void addActorJustBeforeGUI(IGameActor actor);
+
     void updateViewport(int width, int height, boolean b);
 
     IStage getStage();
