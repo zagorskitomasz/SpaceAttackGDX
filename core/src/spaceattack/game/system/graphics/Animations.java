@@ -12,7 +12,7 @@ public enum Animations {
     TANK_EX("graphics/animations/tankEx.atlas", false, 10),
     FIRE("graphics/animations/fire.atlas", true, 10),
     SHIELD("graphics/animations/shield.atlas", true, 10),
-    TIME_WAVE("graphics/animations/timeWaveUse.atlas", true, 10),
+    TIME_WAVE("graphics/animations/timeWaveUse.atlas", false, 25),
     TIME_FREEZE("graphics/animations/timeWave.atlas", true, 10);
     // @formatter:on
 

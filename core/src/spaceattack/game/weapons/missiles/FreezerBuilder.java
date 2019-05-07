@@ -8,12 +8,11 @@ import spaceattack.game.system.graphics.Animations;
 public enum FreezerBuilder {
     INSTANCE;
 
-    public Freezer build(final Freezable freezable, final long duration) {
+    public Freezer build(final Freezable freezable, final float duration) {
 
         Freezer freezer = new Freezer();
-
         freezer.setFreezeAnimation(Animations.TIME_FREEZE.getAnimation());
-        freezer.setFreezeController(new FrameController(Factories.getUtilsFactory().create(), 1000 / duration));
+        freezer.setFreezeController(new FrameController(Factories.getUtilsFactory().create(), 1000f / duration));
         freezer.setFreezable(freezable);
 
         return freezer;

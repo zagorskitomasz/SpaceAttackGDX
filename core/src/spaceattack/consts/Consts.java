@@ -50,9 +50,8 @@ public class Consts {
 
         public static final float TIME_WAVE_BASE_COST = 60;
         public static final float TIME_WAVE_COST_PER_LEVEL = 6;
-
-        public static final float TIME_WAVE_BASE_LENGTH = 800;
-        public static final float TIME_WAVE_LENGTH_PER_LEVEL = 100;
+        public static final float TIME_WAVE_BASE_LENGTH = 600;
+        public static final float TIME_WAVE_LENGTH_PER_LEVEL = 60;
 
         public static final float LASER_RADIUS = 8;
         public static final float ROCKET_RADIUS = 10;

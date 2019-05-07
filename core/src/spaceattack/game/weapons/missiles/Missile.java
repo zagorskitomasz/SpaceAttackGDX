@@ -5,6 +5,7 @@ import java.util.List;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.interfaces.Freezable;
 import spaceattack.game.actors.interfaces.Vulnerable;
+import spaceattack.game.batch.IBatch;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.system.graphics.ITexture;
@@ -50,7 +51,8 @@ public class Missile extends AbstractMissile implements Freezable {
 
     protected boolean differentFraction(final IGameActor actor) {
 
-        return (isPlayersAttack && actor instanceof IEnemyShip) || (!isPlayersAttack && actor instanceof PlayerShip);
+        return (isPlayersAttack && actor instanceof IEnemyShip) || (!isPlayersAttack && actor instanceof PlayerShip)
+                || (actor instanceof Missile && isPlayersAttack != ((Missile) actor).isPlayersAttack);
     }
 
     protected void move() {
@@ -145,5 +147,14 @@ public class Missile extends AbstractMissile implements Freezable {
     public float getHeight() {
 
         return getTexture().getHeight();
+    }
+
+    @Override
+    public void draw(final IBatch batch, final float alpha) {
+
+        super.draw(batch, alpha);
+        if (freezer != null) {
+            freezer.draw(batch);
+        }
     }
 }

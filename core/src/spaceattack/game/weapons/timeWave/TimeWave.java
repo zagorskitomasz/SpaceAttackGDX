@@ -23,7 +23,7 @@ public class TimeWave extends Missile implements Undestructible {
             setToKill();
         }
 
-        if (getTexture() == null && animation != null) {
+        if (animation != null) {
             setTexture(animation.getFrame());
         }
         move();

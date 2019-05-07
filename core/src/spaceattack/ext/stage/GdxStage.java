@@ -74,13 +74,19 @@ public class GdxStage extends Stage implements IStage {
     @Override
     public void addActorJustBeforeGui(final IGameActor newActor) {
 
-        int index = 0;
-        for (IGameActor actor : actorProxies) {
-            if (!(actor instanceof IActorGUI)) {
-                index = Math.max(0, actorProxies.indexOf(actor));
-            }
-        }
+        int index = findIndexBeforeGui();
+
         actorProxies.add(index, newActor);
         getRoot().addActorAt(index, (GdxActor) newActor.getActor());
+    }
+
+    private int findIndexBeforeGui() {
+
+        for (IGameActor actor : actorProxies) {
+            if (!(actor instanceof IActorGUI)) {
+                return Math.max(0, actorProxies.indexOf(actor) + 1);
+            }
+        }
+        return 0;
     }
 }
