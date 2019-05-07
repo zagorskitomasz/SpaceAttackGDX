@@ -26,9 +26,9 @@ public abstract class AbstractStage implements IGameStage {
     private GameProgress gameProgress;
     private GameProgress progressBackup;
 
-    private Map<IButton, Predicate<IButton>> buttonsToEnable;
-    private Map<IButton, Predicate<IButton>> buttonsToHide;
-    private Map<IButton, Function<IButton, String>> changeTextButtons;
+    private final Map<IButton, Predicate<IButton>> buttonsToEnable;
+    private final Map<IButton, Predicate<IButton>> buttonsToHide;
+    private final Map<IButton, Function<IButton, String>> changeTextButtons;
 
     public AbstractStage() {
 
@@ -37,17 +37,17 @@ public abstract class AbstractStage implements IGameStage {
         changeTextButtons = new HashMap<>();
     }
 
-    public void setStage(IStage stage) {
+    public void setStage(final IStage stage) {
 
         this.stage = stage;
     }
 
-    public void setGameSaver(GameSaver saver) {
+    public void setGameSaver(final GameSaver saver) {
 
         gameSaver = saver;
     }
 
-    public void setGameLoader(GameLoader loader) {
+    public void setGameLoader(final GameLoader loader) {
 
         gameLoader = loader;
     }
@@ -65,13 +65,14 @@ public abstract class AbstractStage implements IGameStage {
     }
 
     @Override
-    public void setResult(StageResult result) {
+    public void setResult(final StageResult result) {
 
         this.result = result;
 
         if (result.getGameProgress() != null
-                && !(result.getGameProgress().equals(progressBackup) && gameLoader.fileExists()))
+                && !(result.getGameProgress().equals(progressBackup) && gameLoader.fileExists())) {
             gameSaver.save(result.getGameProgress());
+        }
     }
 
     @Override
@@ -81,7 +82,7 @@ public abstract class AbstractStage implements IGameStage {
     }
 
     @Override
-    public void setType(Stages type) {
+    public void setType(final Stages type) {
 
         this.type = type;
     }
@@ -93,22 +94,29 @@ public abstract class AbstractStage implements IGameStage {
     }
 
     @Override
-    public void setGameProgress(GameProgress gameProgress) {
+    public void setGameProgress(final GameProgress gameProgress) {
 
         this.gameProgress = gameProgress;
 
-        if (progressBackup == null)
+        if (progressBackup == null) {
             progressBackup = gameProgress.clone();
+        }
     }
 
     @Override
-    public void addActorBeforeGUI(IGameActor newActor) {
+    public void addActorBeforeGUI(final IGameActor newActor) {
 
         stage.addActorAtBegining(newActor);
     }
 
     @Override
-    public void addActor(IGameActor actor) {
+    public void addActorJustBeforeGUI(final IGameActor newActor) {
+
+        stage.addActorJustBeforeGui(newActor);
+    }
+
+    @Override
+    public void addActor(final IGameActor actor) {
 
         stage.addActor(actor);
     }
@@ -119,7 +127,7 @@ public abstract class AbstractStage implements IGameStage {
     }
 
     @Override
-    public void act(float delta) {
+    public void act(final float delta) {
 
         stage.act(delta);
     }
@@ -137,7 +145,7 @@ public abstract class AbstractStage implements IGameStage {
     }
 
     @Override
-    public void updateViewport(int width, int height, boolean centerCamera) {
+    public void updateViewport(final int width, final int height, final boolean centerCamera) {
 
         stage.updateViewport(width, height, centerCamera);
     }
@@ -157,25 +165,25 @@ public abstract class AbstractStage implements IGameStage {
     }
 
     @Override
-    public void addButtonsEnabledPredicate(IButton button, Predicate<IButton> predicate) {
+    public void addButtonsEnabledPredicate(final IButton button, final Predicate<IButton> predicate) {
 
         buttonsToEnable.put(button, predicate);
     }
 
     @Override
-    public void addButtonsVisiblePredicate(IButton button, Predicate<IButton> predicate) {
+    public void addButtonsVisiblePredicate(final IButton button, final Predicate<IButton> predicate) {
 
         buttonsToHide.put(button, predicate);
     }
 
     @Override
-    public void addButtonsTextFunction(IButton button, Function<IButton, String> predicate) {
+    public void addButtonsTextFunction(final IButton button, final Function<IButton, String> predicate) {
 
         changeTextButtons.put(button, predicate);
     }
 
     @Override
-    public void addBackground(StaticImage background) {
+    public void addBackground(final StaticImage background) {
 
         stage.addBackground(background);
     }

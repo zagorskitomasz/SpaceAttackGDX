@@ -10,12 +10,13 @@ public enum MoverType {
     SLOW_DOWNER(SlowDowner.class, true), //
     CORNERS_CHASER(CornersChaser.class, true), //
     ALL_CORNERS_CHASER(AllCornersChaser.class, true),
-    CORRECTABLE_JUMPER(CorrectableJumper.class, true);
+    CORRECTABLE_JUMPER(CorrectableJumper.class, true),
+    CORRECTABLE_FRONT_CHASER(CorrectableFrontChaser.class, true);
 
     private Class<? extends MoverAI> type;
     private boolean special;
 
-    MoverType(Class<? extends MoverAI> type, boolean special) {
+    MoverType(final Class<? extends MoverAI> type, final boolean special) {
 
         this.type = type;
         this.special = special;

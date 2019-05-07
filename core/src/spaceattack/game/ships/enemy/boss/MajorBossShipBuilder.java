@@ -24,7 +24,9 @@ import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.multiRedLaser.DistractedRedLaserBuilder;
+import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
+import spaceattack.game.weapons.timeWave.TimeWaveEmitterBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum MajorBossShipBuilder {
@@ -40,6 +42,7 @@ public enum MajorBossShipBuilder {
         IWeaponController controller = new AIWeaponController();
         IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
         IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+        IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(tripleGreenLaser);
@@ -48,6 +51,7 @@ public enum MajorBossShipBuilder {
         boss.addWeapon(tripleGreenLaser);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
+        boss.setShipEngine(engine);
         boss.setTexture(Textures.BOSS1.getTexture());
 
         boss.setLevel(stage.getCurrentMission() * 2);
@@ -65,6 +69,7 @@ public enum MajorBossShipBuilder {
         IWeaponController controller = new AIWeaponController();
         IWeapon distractedRedLaser = DistractedRedLaserBuilder.INSTANCE.build(controller, launcher);
         IWeapon flyingMine = FlyingMinerBuilder.INSTANCE.build(controller, launcher);
+        IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 
         controller.setPrimaryWeapon(distractedRedLaser);
         controller.setSecondaryWeapon(flyingMine);
@@ -73,7 +78,35 @@ public enum MajorBossShipBuilder {
         boss.addWeapon(flyingMine);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
+        boss.setShipEngine(engine);
         boss.setTexture(Textures.BOSS2.getTexture());
+
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    public IBoss buildActIII(final GameplayStage stage) {
+
+        IBoss boss = build(stage);
+
+        boss.setDefaultMoverType(MoverType.CORRECTABLE_FRONT_CHASER);
+        boss.setDefaultShooterType(ShooterType.DIRECT_SHOOTER);
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon rocketMissile = RocketMissileBuilder.INSTANCE.build(controller, launcher);
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
+        IEngine engine = ShipEngineBuilder.INSTANCE.createFastDestinationEngine(boss);
+
+        controller.setPrimaryWeapon(rocketMissile);
+        controller.setSecondaryWeapon(timeWaveEmitter);
+        controller.setShip(boss);
+        boss.addWeapon(rocketMissile);
+        boss.addWeapon(timeWaveEmitter);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        boss.setShipEngine(engine);
+        boss.setTexture(Textures.BOSS3.getTexture());
 
         boss.setLevel(stage.getCurrentMission() * 2);
 
@@ -83,7 +116,6 @@ public enum MajorBossShipBuilder {
     private IBoss build(final GameplayStage stage) {
 
         IBoss boss = new BossShip();
-        IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
@@ -100,7 +132,6 @@ public enum MajorBossShipBuilder {
                 Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
 
         boss.setActor(Factories.getActorFactory().create(boss));
-        boss.setShipEngine(engine);
         boss.setEnergyPool(energyPool);
         boss.setHpPool(hpPool);
         boss.setExplosion(explosion);

@@ -2,10 +2,11 @@ package spaceattack.game.system.graphics;
 
 import spaceattack.consts.Sizes;
 import spaceattack.game.actors.IActor;
+import spaceattack.game.actors.IActorGUI;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.batch.IBatch;
 
-public class StaticImage implements IGameActor {
+public class StaticImage implements IGameActor, IActorGUI {
 
     private IActor actor;
 
@@ -14,7 +15,7 @@ public class StaticImage implements IGameActor {
 
     protected ITexture texture;
 
-    StaticImage(ITexture texture, float x, float y) {
+    StaticImage(final ITexture texture, final float x, final float y) {
 
         this.texture = texture;
         this.x = x;
@@ -22,7 +23,7 @@ public class StaticImage implements IGameActor {
     }
 
     @Override
-    public void setActor(IActor actor) {
+    public void setActor(final IActor actor) {
 
         this.actor = actor;
     }
@@ -34,18 +35,18 @@ public class StaticImage implements IGameActor {
     }
 
     @Override
-    public void draw(IBatch batch, float alpha) {
+    public void draw(final IBatch batch, final float alpha) {
 
         batch.draw(texture, x, y, texture.getWidth(), texture.getHeight());
     }
 
     @Override
-    public void act(float delta) {
+    public void act(final float delta) {
 
         // do nothing
     }
 
-    public void setTexture(ITexture newTexture) {
+    public void setTexture(final ITexture newTexture) {
 
         texture = newTexture;
     }

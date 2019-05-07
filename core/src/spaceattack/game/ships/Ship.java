@@ -17,6 +17,7 @@ import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
+import spaceattack.game.weapons.missiles.Freezer;
 
 public abstract class Ship extends DrawableActor implements IShip {
 
@@ -35,6 +36,7 @@ public abstract class Ship extends DrawableActor implements IShip {
     private Launchable explosion;
 
     private Burner burner;
+    private Freezer freezer;
 
     @Override
     public void setTexture(final ITexture texture) {
@@ -92,8 +94,12 @@ public abstract class Ship extends DrawableActor implements IShip {
             burner.burn(delta);
         }
 
-        if (engine != null) {
+        if (engine != null && freezer == null) {
             fly();
+        }
+
+        if (freezer != null) {
+            freezer.act(delta);
         }
     }
 
@@ -244,6 +250,10 @@ public abstract class Ship extends DrawableActor implements IShip {
 
         super.draw(batch, alpha);
         burner.draw(batch);
+
+        if (freezer != null) {
+            freezer.draw(batch);
+        }
     }
 
     @Override
@@ -268,5 +278,17 @@ public abstract class Ship extends DrawableActor implements IShip {
     public boolean isImmortal() {
 
         return hpPool.isInfinity();
+    }
+
+    @Override
+    public void freeze(final Freezer freezer) {
+
+        this.freezer = freezer;
+    }
+
+    @Override
+    public void unfreeze() {
+
+        freezer = null;
     }
 }

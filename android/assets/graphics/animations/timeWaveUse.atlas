@@ -1,0 +1,33 @@
+timeWaveUse.png
+size: 1160, 400
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+frame_0_delay-0.22s
+  rotate: false
+  xy: 0, 0
+  size: 290, 400
+  orig: 290, 400
+  offset: 0, 0
+  index: -1
+frame_1_delay-0.22s
+  rotate: false
+  xy: 290, 0
+  size: 290, 400
+  orig: 290, 400
+  offset: 0, 0
+  index: -1
+frame_2_delay-0.22s
+  rotate: false
+  xy: 580, 0
+  size: 290, 400
+  orig: 290, 400
+  offset: 0, 0
+  index: -1
+frame_4_delay-0.22s
+  rotate: false
+  xy: 870, 0
+  size: 290, 400
+  orig: 290, 400
+  offset: 0, 0
+  index: -1

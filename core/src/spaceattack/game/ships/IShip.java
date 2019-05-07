@@ -6,6 +6,7 @@ import java.util.function.BooleanSupplier;
 import spaceattack.game.GameProgress;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.interfaces.Explosive;
+import spaceattack.game.actors.interfaces.Freezable;
 import spaceattack.game.actors.interfaces.Ignitable;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.engines.IEngine;
@@ -15,7 +16,7 @@ import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
 
-public interface IShip extends IObserver<GameProgress>, Ignitable, IGameActor, RadarVisible, Explosive {
+public interface IShip extends IObserver<GameProgress>, Ignitable, Freezable, IGameActor, RadarVisible, Explosive {
 
     public enum Turn {
         FRONT, LEFT, RIGHT;
@@ -41,8 +42,10 @@ public interface IShip extends IObserver<GameProgress>, Ignitable, IGameActor, R
 
     void setLevel(int level);
 
+    @Override
     float getHeight();
 
+    @Override
     float getWidth();
 
     boolean takeEnergy(float energyCost);

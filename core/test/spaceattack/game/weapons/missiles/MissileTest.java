@@ -32,6 +32,9 @@ public class MissileTest {
     private Missile missile;
 
     @Mock
+    private Freezer freezer;
+
+    @Mock
     private ITexture texture;
 
     @Mock
@@ -107,5 +110,30 @@ public class MissileTest {
         missile.act(0);
 
         assertTrue(missile.isToKill());
+    }
+
+    @Test
+    public void frozenMissileWontMove() {
+
+        missile.freeze(freezer);
+
+        missile.act(0);
+        missile.act(0);
+        missile.act(0);
+
+        assertEquals(factory.create(200, 200), missile.getPosition());
+    }
+
+    @Test
+    public void unfrozenMissileMoves() {
+
+        missile.freeze(freezer);
+        missile.unfreeze();
+
+        missile.act(0);
+        missile.act(0);
+        missile.act(0);
+
+        assertEquals(factory.create(239, 200), missile.getPosition());
     }
 }
