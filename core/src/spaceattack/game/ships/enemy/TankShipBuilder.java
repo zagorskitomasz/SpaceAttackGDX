@@ -22,6 +22,7 @@ import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
+import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 
 public enum TankShipBuilder {
@@ -49,6 +50,15 @@ public enum TankShipBuilder {
 
         IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
         buildShipActIII(stage, tank);
+        tank.setLevel(stage.getCurrentMission() * 2);
+
+        return tank;
+    }
+
+    public IEnemyShip buildActIV(final GameplayStage stage, final boolean required) {
+
+        IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+        buildShipActIV(stage, tank);
         tank.setLevel(stage.getCurrentMission() * 2);
 
         return tank;
@@ -110,6 +120,27 @@ public enum TankShipBuilder {
         controller.setSecondaryWeapon(flyingMiner);
         controller.setShip(ship);
         ship.addWeapon(flyingMiner);
+        ship.addWeapon(targetedRedLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+
+        return ship;
+    }
+
+    private IEnemyShip buildShipActIV(final GameplayStage stage, final IEnemyShip tank) {
+
+        IEnemyShip ship = buildShip(stage, tank);
+        ship.setTexture(Textures.TANK4.getTexture());
+
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(targetedRedLaser);
+        controller.setSecondaryWeapon(shieldEmitter);
+        controller.setShip(ship);
+        ship.addWeapon(shieldEmitter);
         ship.addWeapon(targetedRedLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);

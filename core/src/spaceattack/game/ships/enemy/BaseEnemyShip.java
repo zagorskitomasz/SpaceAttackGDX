@@ -11,6 +11,7 @@ import spaceattack.game.batch.IBatch;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.ships.Ship;
 import spaceattack.game.weapons.IWeaponController;
+import spaceattack.game.weapons.missiles.Freezer;
 
 public class BaseEnemyShip extends Ship implements IEnemyShip {
 
@@ -128,5 +129,19 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     public boolean isToKill() {
 
         return super.isToKill();
+    }
+
+    @Override
+    public void freeze(final Freezer freezer) {
+
+        super.freeze(freezer);
+        controller.freeze();
+    }
+
+    @Override
+    public void unfreeze() {
+
+        controller.unfreeze();
+        super.unfreeze();
     }
 }

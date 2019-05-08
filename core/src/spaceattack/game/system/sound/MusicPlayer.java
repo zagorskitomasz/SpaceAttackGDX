@@ -19,6 +19,7 @@ public enum MusicPlayer {
         actMusic.put(Acts.I, new PlayableMusic(Acts.I, Act1Music.values(), null, this::updateActMusic));
         actMusic.put(Acts.II, new PlayableMusic(Acts.II, Act2Music.values(), null, this::updateActMusic));
         actMusic.put(Acts.III, new PlayableMusic(Acts.III, Act3Music.values(), null, this::updateActMusic));
+        actMusic.put(Acts.IV, new PlayableMusic(Acts.IV, Act4Music.values(), null, this::updateActMusic));
     }
 
     public void updateMenuMusic(final PlayableMusic song) {

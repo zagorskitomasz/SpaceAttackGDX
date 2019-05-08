@@ -19,6 +19,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return FighterShipBuilder.INSTANCE.buildActII(stage);
         case III:
             return FighterShipBuilder.INSTANCE.buildActIII(stage);
+        case IV:
+            return FighterShipBuilder.INSTANCE.buildActIV(stage);
         default:
             return null;
         }
@@ -34,6 +36,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return ChaserShipBuilder.INSTANCE.buildActII(stage);
         case III:
             return ChaserShipBuilder.INSTANCE.buildActIII(stage);
+        case IV:
+            return ChaserShipBuilder.INSTANCE.buildActIV(stage);
         default:
             return null;
         }
@@ -49,6 +53,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return TankShipBuilder.INSTANCE.buildActII(stage, false);
         case III:
             return TankShipBuilder.INSTANCE.buildActIII(stage, false);
+        case IV:
+            return TankShipBuilder.INSTANCE.buildActIV(stage, false);
         default:
             return null;
         }
@@ -64,6 +70,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return TankShipBuilder.INSTANCE.buildActII(stage, true);
         case III:
             return TankShipBuilder.INSTANCE.buildActIII(stage, true);
+        case IV:
+            return TankShipBuilder.INSTANCE.buildActIV(stage, true);
         default:
             return null;
         }
