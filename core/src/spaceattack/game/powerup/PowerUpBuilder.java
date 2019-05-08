@@ -85,4 +85,21 @@ public enum PowerUpBuilder {
 
         return holder;
     }
+
+    public IPowerUp waveHolder(final IWeaponController controller, final ComplexFireButton button,
+            final GameplayStage stage) {
+
+        IWeapon wave = WeaponsFactory.INSTANCE.createTimeWave(controller, stage.getMissilesLauncher());
+        wave.setLevel(stage.getGameProgress().getLevel());
+
+        WeaponHolder holder = new WeaponHolder();
+        holder.setFireButton(button);
+        holder.setAmmo(stage.getAct().getPowerUpAmmo());
+        holder.setTexture(Textures.WAVE_POWER_UP);
+        holder.setActor(Factories.getActorFactory().create(holder));
+        holder.setWeapon(wave);
+        holder.setWeaponIcon(Textures.WAVE_ICON.getTexture());
+
+        return holder;
+    }
 }

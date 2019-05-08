@@ -42,4 +42,8 @@ public interface IWeaponController {
     boolean isContinuousFireTriggered(float energyCost);
 
     IShip getShip();
+
+    void freeze();
+
+    void unfreeze();
 }

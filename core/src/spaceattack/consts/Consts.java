@@ -9,7 +9,7 @@ public class Consts {
     public static class Metagame {
 
         public static final int MISSIONS_IN_ACT = 3;
-        public static final int ACTS_NUMBER = 3;
+        public static final int ACTS_NUMBER = 4;
         public static final int FPS = 20;
     }
 

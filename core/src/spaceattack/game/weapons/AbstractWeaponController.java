@@ -11,6 +11,8 @@ public abstract class AbstractWeaponController implements IWeaponController {
     protected IWeapon primaryWeapon;
     protected IWeapon secondaryWeapon;
 
+    protected boolean frozen;
+
     @Override
     public void setShip(final IShip ship) {
 
@@ -81,5 +83,17 @@ public abstract class AbstractWeaponController implements IWeaponController {
     public boolean isContinuousFireTriggered(final float energyCost) {
 
         return ship.takeEnergy(energyCost / Consts.Metagame.FPS);
+    }
+
+    @Override
+    public void freeze() {
+
+        frozen = true;
+    }
+
+    @Override
+    public void unfreeze() {
+
+        frozen = false;
     }
 }

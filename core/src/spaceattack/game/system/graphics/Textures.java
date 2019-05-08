@@ -11,6 +11,7 @@ public enum Textures {
     ACT_1_LOGO("graphics/actLogo1.png"),
     ACT_2_LOGO("graphics/actLogo2.png"),
     ACT_3_LOGO("graphics/actLogo3.png"),
+    ACT_4_LOGO("graphics/actLogo4.png"),
 
     // backgrounds
     MENU_BACKGROUND("graphics/menuBackground.jpg"),
@@ -23,6 +24,9 @@ public enum Textures {
     M7_BACKGROUND("graphics/m7Background.jpg"),
     M8_BACKGROUND("graphics/m8Background.jpg"),
     M9_BACKGROUND("graphics/m9Background.jpg"),
+    M10_BACKGROUND("graphics/m10Background.jpg"),
+    M11_BACKGROUND("graphics/m11Background.jpg"),
+    M12_BACKGROUND("graphics/m12Background.jpg"),
 
     // UI
     RED_BUTTON_UP("graphics/gui/redActive.png"),
@@ -52,21 +56,29 @@ public enum Textures {
     PLAYER_SHIP3_R("graphics/ships/player/form3R.png"),
     PLAYER_SHIP3_L("graphics/ships/player/form3L.png"),
 
+    PLAYER_SHIP4_F("graphics/ships/player/form4.png"),
+    PLAYER_SHIP4_R("graphics/ships/player/form4R.png"),
+    PLAYER_SHIP4_L("graphics/ships/player/form4L.png"),
+
     FIGHTER1("graphics/ships/fighter/form1.png"),
     FIGHTER2("graphics/ships/fighter/form2.png"),
     FIGHTER3("graphics/ships/fighter/form3.png"),
+    FIGHTER4("graphics/ships/fighter/form4.png"),
 
     CHASER1("graphics/ships/chaser/form1.png"),
     CHASER2("graphics/ships/chaser/form2.png"),
     CHASER3("graphics/ships/chaser/form3.png"),
+    CHASER4("graphics/ships/chaser/form4.png"),
 
     TANK1("graphics/ships/tank/form1.png"),
     TANK2("graphics/ships/tank/form2.png"),
     TANK3("graphics/ships/tank/form3.png"),
+    TANK4("graphics/ships/tank/form4.png"),
 
     BOSS1("graphics/ships/boss/form1.png"),
     BOSS2("graphics/ships/boss/form2.png"),
     BOSS3("graphics/ships/boss/form3.png"),
+    BOSS4("graphics/ships/boss/form4.png"),
 
     // weapons
     RED_LASER_NS("graphics/weapons/laserNS.png"),
@@ -84,9 +96,11 @@ public enum Textures {
     ROCKET_POWER_UP("graphics/powerups/rocketPU.png"),
     MINE_POWER_UP("graphics/powerups/minePU.png"),
     SHIELD_POWER_UP("graphics/powerups/shieldPU.png"),
+    WAVE_POWER_UP("graphics/powerups/wavePU.png"),
     ROCKET_ICON("graphics/powerups/rocketIcon.png"),
     MINE_ICON("graphics/powerups/mineIcon.png"),
-    SHIELD_ICON("graphics/powerups/shieldIcon.png");
+    SHIELD_ICON("graphics/powerups/shieldIcon.png"),
+    WAVE_ICON("graphics/powerups/waveIcon.png");
     // @formatter:on
 
     private String path;

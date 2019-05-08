@@ -6,6 +6,7 @@ import spaceattack.game.weapons.multiRedLaser.DoubleRedLaserBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 import spaceattack.game.weapons.shield.ShieldBuilder;
+import spaceattack.game.weapons.timeWave.TimeWaveEmitterBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum WeaponsFactory {
@@ -48,5 +49,10 @@ public enum WeaponsFactory {
     public IWeapon createShield(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
 
         return ShieldBuilder.INSTANCE.build(weaponController, missilesLauncher);
+    }
+
+    public IWeapon createTimeWave(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+
+        return TimeWaveEmitterBuilder.INSTANCE.build(weaponController, missilesLauncher);
     }
 }

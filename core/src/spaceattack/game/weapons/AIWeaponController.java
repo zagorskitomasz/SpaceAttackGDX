@@ -45,7 +45,7 @@ public class AIWeaponController extends AbstractWeaponController {
     @Override
     public void performAttack(final PossibleAttacks possibleAttack, final RadarVisible target) {
 
-        if (shot && !attacksInterval.check()) {
+        if (frozen || (shot && !attacksInterval.check())) {
             return;
         }
 
