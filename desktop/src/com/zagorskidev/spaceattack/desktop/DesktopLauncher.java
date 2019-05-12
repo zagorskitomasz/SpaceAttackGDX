@@ -6,17 +6,17 @@ import com.zagorskidev.spaceattack.SpaceAttackGDX;
 
 import spaceattack.consts.Sizes;
 
-public class DesktopLauncher
-{
-	public static void main(String[] arg)
-	{
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+public class DesktopLauncher {
 
-		config.title = "Space Attack";
-		config.useGL30 = true;
-		config.height = Math.round(Sizes.GAME_HEIGHT);
-		config.width = Math.round(Sizes.GAME_WIDTH);
+    public static void main(final String[] arg) {
 
-		new LwjglApplication(new SpaceAttackGDX(), config);
-	}
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+
+        config.title = "Space Attack";
+        config.useGL30 = true;
+        config.height = Math.round(Sizes.GAME_HEIGHT);
+        config.width = Math.round(Sizes.GAME_WIDTH);
+
+        new LwjglApplication(new SpaceAttackGDX(), config);
+    }
 }
