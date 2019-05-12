@@ -107,4 +107,15 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return null;
         }
     }
+
+    @Override
+    public IEnemyShip createSuperChaser(final Acts act, final GameplayStage stage) {
+
+        switch (act) {
+        case IV:
+            return ChaserShipBuilder.INSTANCE.buildSuperActIV(stage);
+        default:
+            return null;
+        }
+    }
 }

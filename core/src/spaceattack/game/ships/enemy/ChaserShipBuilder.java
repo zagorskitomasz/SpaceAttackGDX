@@ -20,6 +20,7 @@ import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
+import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum ChaserShipBuilder {
@@ -106,6 +107,26 @@ public enum ChaserShipBuilder {
         controller.setShip(ship);
         ship.addWeapon(redLaser);
         ship.addWeapon(miner);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+        ship.setLevel(stage.getCurrentMission() * 2);
+
+        return ship;
+    }
+
+    public IEnemyShip buildSuperActIV(final GameplayStage stage) {
+
+        IEnemyShip ship = build(stage);
+        ship.setTexture(Textures.CHASER4.getTexture());
+
+        IWeaponController controller = new AIWeaponController();
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeapon targetdRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(targetdRedLaser);
+        controller.setSecondaryWeapon(targetdRedLaser);
+        controller.setShip(ship);
+        ship.addWeapon(targetdRedLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
         ship.setLevel(stage.getCurrentMission() * 2);

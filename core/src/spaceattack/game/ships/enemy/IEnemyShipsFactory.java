@@ -15,4 +15,6 @@ public interface IEnemyShipsFactory {
     IEnemyShip createSuperTank(Acts act, GameplayStage stage);
 
     IBoss createMinorBoss(Acts act, GameplayStage stage);
+
+    IEnemyShip createSuperChaser(Acts act, GameplayStage stage);
 }

@@ -1,6 +1,7 @@
 package spaceattack.game.ai;
 
 import spaceattack.game.actors.interfaces.RadarVisible;
+import spaceattack.game.ai.EnemyBase.Direction;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.system.notifiers.INotifier;
@@ -14,4 +15,9 @@ public interface MoverAI extends INotifier<MoverAI> {
     void setOwner(IEnemyShip fighter);
 
     void updateDirection();
+
+    default void setSiderDirection(final Direction direction) {
+
+        // do nothing
+    }
 }
