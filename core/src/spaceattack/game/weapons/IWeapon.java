@@ -16,4 +16,6 @@ public interface IWeapon {
 
         return false;
     }
+
+    void setNoEnergyCost();
 }

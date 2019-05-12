@@ -87,6 +87,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return MinorBossShipBuilder.INSTANCE.buildActII(stage);
         case III:
             return MinorBossShipBuilder.INSTANCE.buildActIII(stage);
+        case IV:
+            return MinorBossShipBuilder.INSTANCE.buildActIV(stage);
         default:
             return null;
         }
@@ -101,6 +103,17 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return MajorBossShipBuilder.INSTANCE.buildActII(stage);
         case III:
             return MajorBossShipBuilder.INSTANCE.buildActIII(stage);
+        default:
+            return null;
+        }
+    }
+
+    @Override
+    public IEnemyShip createSuperChaser(final Acts act, final GameplayStage stage) {
+
+        switch (act) {
+        case IV:
+            return ChaserShipBuilder.INSTANCE.buildSuperActIV(stage);
         default:
             return null;
         }

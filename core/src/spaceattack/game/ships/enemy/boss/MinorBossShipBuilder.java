@@ -25,6 +25,7 @@ import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
+import spaceattack.game.weapons.timeWave.TimeWaveEmitterBuilder;
 
 public enum MinorBossShipBuilder {
     INSTANCE;
@@ -116,6 +117,40 @@ public enum MinorBossShipBuilder {
         boss.setEnergyPool(energyPool);
         boss.addWeapon(targetedRedLaser);
         boss.addWeapon(shieldEmiter);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    public IBoss buildActIV(final GameplayStage stage) {
+
+        IBoss boss = new BossShip();
+        boss.setDefaultMoverType(MoverType.CORRECTABLE_JUMPER);
+        boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
+
+        build(stage, boss);
+        boss.setTexture(Textures.TANK4.getTexture());
+        IEngine engine = ShipEngineBuilder.INSTANCE.createFastDestinationEngine(boss);
+        boss.setShipEngine(engine);
+
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher);
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
+
+        timeWaveEmitter.setNoEnergyCost();
+
+        IPool energyPool = createEnergyPool(1.4f);
+
+        controller.setPrimaryWeapon(shieldEmitter);
+        controller.setSecondaryWeapon(timeWaveEmitter);
+        controller.setShip(boss);
+
+        boss.setEnergyPool(energyPool);
+        boss.addWeapon(shieldEmitter);
+        boss.addWeapon(timeWaveEmitter);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
         boss.setLevel(stage.getCurrentMission() * 2);

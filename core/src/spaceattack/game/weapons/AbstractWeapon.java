@@ -19,6 +19,8 @@ public abstract class AbstractWeapon implements IWeapon {
     protected float speed;
     protected float energyCost;
 
+    private boolean noEnergyCost;
+
     protected abstract Missile buildMissile();
 
     public void setUtils(final IUtils utils) {
@@ -54,6 +56,10 @@ public abstract class AbstractWeapon implements IWeapon {
     }
 
     protected float getShotCost() {
+
+        if (noEnergyCost) {
+            return 0;
+        }
 
         return energyCost;
     }
@@ -97,5 +103,11 @@ public abstract class AbstractWeapon implements IWeapon {
             }
 
         return Factories.getVectorFactory().create(x, y);
+    }
+
+    @Override
+    public void setNoEnergyCost() {
+
+        noEnergyCost = true;
     }
 }
