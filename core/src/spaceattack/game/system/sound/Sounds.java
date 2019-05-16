@@ -12,6 +12,7 @@ public enum Sounds {
     MINE("sound/mine.mp3"), //
     TURBO_LASER("sound/greenShot.mp3"), //
     SHIELD("sound/shield.mp3"), //
+    FLAME("sound/flame.mp3"), //
     POWER_UP("sound/powerUp.mp3"), //
 
     // explosions

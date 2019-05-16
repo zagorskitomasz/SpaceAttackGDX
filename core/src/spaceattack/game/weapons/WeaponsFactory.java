@@ -1,5 +1,6 @@
 package spaceattack.game.weapons;
 
+import spaceattack.game.weapons.flame.FlamethrowerBuilder;
 import spaceattack.game.weapons.greenLaser.GreenLaserBuilder;
 import spaceattack.game.weapons.miner.MinerBuilder;
 import spaceattack.game.weapons.multiRedLaser.DoubleRedLaserBuilder;
@@ -49,6 +50,11 @@ public enum WeaponsFactory {
     public IWeapon createShield(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
 
         return ShieldBuilder.INSTANCE.build(weaponController, missilesLauncher);
+    }
+
+    public IWeapon createFlamethrower(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+
+        return FlamethrowerBuilder.INSTANCE.build(weaponController, missilesLauncher);
     }
 
     public IWeapon createTimeWave(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {

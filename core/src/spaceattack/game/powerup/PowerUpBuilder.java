@@ -72,7 +72,7 @@ public enum PowerUpBuilder {
     public IPowerUp shieldHolder(final IWeaponController controller, final ComplexFireButton button,
             final GameplayStage stage) {
 
-        IWeapon shield = WeaponsFactory.INSTANCE.createShield(controller, stage.getMissilesLauncher());
+        IWeapon shield = WeaponsFactory.INSTANCE.createFlamethrower(controller, stage.getMissilesLauncher());
         shield.setLevel(stage.getGameProgress().getLevel());
 
         WeaponHolder holder = new WeaponHolder();

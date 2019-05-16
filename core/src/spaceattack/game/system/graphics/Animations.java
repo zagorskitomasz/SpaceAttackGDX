@@ -13,7 +13,9 @@ public enum Animations {
     FIRE("graphics/animations/fire.atlas", true, 10),
     SHIELD("graphics/animations/shield.atlas", true, 10),
     TIME_WAVE("graphics/animations/timeWaveUse.atlas", false, 25),
-    TIME_FREEZE("graphics/animations/timeWave.atlas", true, 10);
+    TIME_FREEZE("graphics/animations/timeWave.atlas", true, 10),
+    FLAME_P("graphics/animations/flameP.atlas", true, 10),
+    FLAME_E("graphics/animations/flameE.atlas", true, 10);
     // @formatter:on
 
     private String path;
