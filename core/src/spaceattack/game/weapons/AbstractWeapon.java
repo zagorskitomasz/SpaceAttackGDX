@@ -110,4 +110,10 @@ public abstract class AbstractWeapon implements IWeapon {
 
         noEnergyCost = true;
     }
+
+    @Override
+    public void setInterval(final float interval) {
+
+        frameController.reset(interval);
+    }
 }

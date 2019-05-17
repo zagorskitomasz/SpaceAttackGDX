@@ -12,8 +12,6 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class Flamethrower extends AbstractWeapon {
 
-    private float yMov;
-
     @Override
     public float getWeaponsMovementFactor() {
 
@@ -29,8 +27,8 @@ public class Flamethrower extends AbstractWeapon {
     @Override
     public void setLevel(final int level) {
 
-        dmg = Consts.Weapons.SHIELD_BASE_DMG + (level - 1) * Consts.Weapons.SHIELD_DMG_PER_LEVEL;
-        energyCost = Consts.Weapons.SHIELD_BASE_COST + (level - 1) * Consts.Weapons.SHIELD_COST_PER_LEVEL;
+        dmg = Consts.Weapons.FLAME_BASE_DMG + (level - 1) * Consts.Weapons.FLAME_DMG_PER_LEVEL;
+        energyCost = Consts.Weapons.FLAME_BASE_COST + (level - 1) * Consts.Weapons.FLAME_COST_PER_LEVEL;
         speed = 0;
     }
 
@@ -51,16 +49,13 @@ public class Flamethrower extends AbstractWeapon {
     public void setController(final IWeaponController weaponController) {
 
         this.controller = weaponController;
-
-        yMov = controller.getShip().getHeight() / 2 + Animations.FLAME_P.getAnimation().getFrame().getHeight() / 2;
-
-        if (!controller.isPlayer()) {
-            yMov *= -1;
-        }
     }
 
     @Override
     protected Missile buildMissile() {
+
+        final float yMov = (controller.getShip().getHeight() / 2
+                + Animations.FLAME_P.getAnimation().getFrame().getHeight() / 2) * (controller.isPlayer() ? 1 : -1);
 
         Flame flame = new Flame();
 

@@ -21,7 +21,6 @@ public class Consts {
         public static final float MINE_ATTACKS_PER_SECOND = 1;
         public static final float SLOW_MINE_ATTACKS_PER_SECOND = 0.5f;
         public static final float SHIELD_ATTACKS_PER_SECOND = 5;
-        public static final float FLAME_ATTACKS_PER_SECOND = 5;
         public static final float TIME_WAVE_ATTACKS_PER_SECOND = 0.33f;
 
         public static final float RED_LASER_BASE_DMG = 10;
@@ -49,9 +48,9 @@ public class Consts {
         public static final float SHIELD_BASE_COST = 60;
         public static final float SHIELD_COST_PER_LEVEL = 6;
 
-        public static final float FLAME_BASE_DMG = 40;
-        public static final float FLAME_DMG_PER_LEVEL = 12;
-        public static final float FLAME_BASE_COST = 90;
+        public static final float FLAME_BASE_DMG = 30;
+        public static final float FLAME_DMG_PER_LEVEL = 15;
+        public static final float FLAME_BASE_COST = 120;
         public static final float FLAME_COST_PER_LEVEL = 9;
         public static final long FLAME_DURATION = 5000;
 
@@ -78,8 +77,6 @@ public class Consts {
         public static final int NO_BOSS_TANKS_POOL = 6;
         public static final int BOSS_TANKS_POOL = 5;
         public static final int MAX_EXP_LEVEL = 99;
-        public static final long LEVEL_1_EXP = 1500;
-        public static final double EXP_FACTOR = 0.5;
     }
 
     public static class Align {
