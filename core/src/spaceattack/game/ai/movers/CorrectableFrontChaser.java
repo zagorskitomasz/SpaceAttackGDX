@@ -33,12 +33,17 @@ public class CorrectableFrontChaser extends AbstractMover {
         }
 
         IVector destination = vectors.create(playerShip.getX(),
-                playerShip.getY() + Consts.AI.FRONT_CHASER_DISTANCE * 1.5f);
+                playerShip.getY() + getDistance());
 
         if (isInRadius(destination)) {
             return;
         }
 
         owner.setDestination(destination);
+    }
+
+    protected float getDistance() {
+
+        return Consts.AI.FRONT_CHASER_DISTANCE * 1.5f;
     }
 }

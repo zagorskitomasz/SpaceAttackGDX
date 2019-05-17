@@ -12,7 +12,8 @@ public enum MoverType {
     CORNERS_CHASER(CornersChaser.class, true), //
     ALL_CORNERS_CHASER(AllCornersChaser.class, true),
     CORRECTABLE_JUMPER(CorrectableJumper.class, true),
-    CORRECTABLE_FRONT_CHASER(CorrectableFrontChaser.class, true);
+    CORRECTABLE_FRONT_CHASER(CorrectableFrontChaser.class, true),
+    CORRECTABLE_CLOSE_FRONT_CHASER(CorrectableCloseFrontChaser.class, true);
 
     private Class<? extends MoverAI> type;
     private boolean special;

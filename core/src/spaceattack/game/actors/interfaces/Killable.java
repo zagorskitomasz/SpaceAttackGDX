@@ -4,27 +4,27 @@ import spaceattack.consts.Sizes;
 
 public interface Killable {
 
-    public static final float DOWN_MARGIN = 100;
-    public static final float MARGIN = DOWN_MARGIN + 380 * Sizes.Y_FACTOR;
+    float downMargin = 100;
+    float margin = downMargin + 600 * Sizes.Y_FACTOR;
 
-    public void setToKill();
+    void setToKill();
 
-    public boolean isToKill();
+    boolean isToKill();
 
-    public default void disappearIfNeeded() {
+    default void disappearIfNeeded() {
 
         if (isOutOfScreen()) {
             setToKill();
         }
     }
 
-    public default boolean isOutOfScreen() {
+    default boolean isOutOfScreen() {
 
-        return getX() < 0 - MARGIN || getX() > Sizes.GAME_WIDTH + MARGIN || getY() < 0 - DOWN_MARGIN
-                || getY() > Sizes.GAME_HEIGHT + MARGIN;
+        return getX() < 0 - margin || getX() > Sizes.GAME_WIDTH + margin || getY() < 0 - downMargin
+                || getY() > Sizes.GAME_HEIGHT + margin;
     }
 
-    public float getX();
+    float getX();
 
-    public float getY();
+    float getY();
 }

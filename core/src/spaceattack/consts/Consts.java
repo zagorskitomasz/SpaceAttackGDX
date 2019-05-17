@@ -48,6 +48,12 @@ public class Consts {
         public static final float SHIELD_BASE_COST = 60;
         public static final float SHIELD_COST_PER_LEVEL = 6;
 
+        public static final float FLAME_BASE_DMG = 30;
+        public static final float FLAME_DMG_PER_LEVEL = 15;
+        public static final float FLAME_BASE_COST = 120;
+        public static final float FLAME_COST_PER_LEVEL = 9;
+        public static final long FLAME_DURATION = 5000;
+
         public static final float TIME_WAVE_BASE_COST = 60;
         public static final float TIME_WAVE_COST_PER_LEVEL = 6;
         public static final float TIME_WAVE_BASE_LENGTH = 600;
@@ -57,6 +63,7 @@ public class Consts {
         public static final float ROCKET_RADIUS = 10;
         public static final float MINE_RADIUS = 20;
         public static final float SHIELD_RADIUS = 130;
+        public static final float FLAME_RADIUS = 100;
         public static final long MINE_DELAY = 5000;
         public static final long SLOW_MINE_DELAY = 7000;
         public static final long MINE_OVERHEAT_DELAY = 500;
@@ -70,8 +77,6 @@ public class Consts {
         public static final int NO_BOSS_TANKS_POOL = 6;
         public static final int BOSS_TANKS_POOL = 5;
         public static final int MAX_EXP_LEVEL = 99;
-        public static final long LEVEL_1_EXP = 1500;
-        public static final double EXP_FACTOR = 0.5;
     }
 
     public static class Align {
