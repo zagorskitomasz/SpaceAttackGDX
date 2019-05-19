@@ -7,7 +7,8 @@ public enum Acts {
     I(Textures.ACT_1_LOGO, 5), //
     II(Textures.ACT_2_LOGO, 5), //
     III(Textures.ACT_3_LOGO, 5), //
-    IV(Textures.ACT_4_LOGO, 8);
+    IV(Textures.ACT_4_LOGO, 8), //
+    V(Textures.ACT_5_LOGO, 8);
 
     private Textures logo;
     private int powerUpAmmo;
