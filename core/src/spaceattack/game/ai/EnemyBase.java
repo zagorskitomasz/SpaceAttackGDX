@@ -339,7 +339,7 @@ public abstract class EnemyBase extends InvisibleActor {
     protected ShooterAI createDirectShooter(final IEnemyShip fighter) {
 
         ShooterAI shooter;
-        shooter = ShooterType.DIRECT_SHOOTER.create();
+        shooter = createFighterShooter();
 
         shooter.setFriends(enemyShips);
         shooter.setPlayerShip(playerShip);
@@ -398,5 +398,10 @@ public abstract class EnemyBase extends InvisibleActor {
 
             return factor;
         }
+    }
+
+    protected ShooterAI createFighterShooter() {
+
+        return ShooterType.DIRECT_SHOOTER.create();
     }
 }
