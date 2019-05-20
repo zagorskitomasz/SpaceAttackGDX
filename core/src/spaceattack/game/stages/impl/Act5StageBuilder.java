@@ -1,6 +1,6 @@
 package spaceattack.game.stages.impl;
 
-import spaceattack.game.ai.Act4EnemyBase;
+import spaceattack.game.ai.Act5EnemyBase;
 import spaceattack.game.ai.EnemyBase;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.Acts;
@@ -18,13 +18,13 @@ public abstract class Act5StageBuilder extends GameplayStageBuilder {
     @Override
     protected Acts getAct() {
 
-        return Acts.IV;
+        return Acts.V;
     }
 
     @Override
     protected EnemyBase createEnemyBase(final IUtils utils) {
 
-        return new Act4EnemyBase(utils);
+        return new Act5EnemyBase(utils);
     }
 
     @Override
@@ -36,8 +36,8 @@ public abstract class Act5StageBuilder extends GameplayStageBuilder {
         gameProgress.registerObserver(playersShip);
         playersShip.notify(gameProgress);
         playersShip.setActor(Factories.getActorFactory().create(playersShip));
-        playersShip.loadComplexGraphics(Textures.PLAYER_SHIP4_F.getTexture(), Textures.PLAYER_SHIP4_R.getTexture(),
-                Textures.PLAYER_SHIP4_L.getTexture());
+        playersShip.loadComplexGraphics(Textures.PLAYER_SHIP5_F.getTexture(), Textures.PLAYER_SHIP5_R.getTexture(),
+                Textures.PLAYER_SHIP5_L.getTexture());
         playersShip.setShipEngine(engine);
         playersShip.addWeapon(primaryWeapon);
         playersShip.addWeapon(greenLaser);
@@ -52,7 +52,7 @@ public abstract class Act5StageBuilder extends GameplayStageBuilder {
     @Override
     public IWeapon createPrimaryWeapon() {
 
-        return WeaponsFactory.INSTANCE.createDoubleRedLaser(weaponController, missilesLauncher);
+        return WeaponsFactory.INSTANCE.createMassiveRedLaser(weaponController, missilesLauncher);
     }
 
     @Override

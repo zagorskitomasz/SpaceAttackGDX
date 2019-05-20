@@ -19,6 +19,7 @@ import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
 import spaceattack.game.weapons.multiRedLaser.DoubleRedLaserBuilder;
 import spaceattack.game.weapons.redLaser.RedLaserBuilder;
+import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum FighterShipBuilder {
@@ -98,6 +99,28 @@ public enum FighterShipBuilder {
         controller.setShip(ship);
 
         ship.addWeapon(doubleRedLaser);
+        ship.addWeapon(tripleGreenLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+        ship.setLevel(stage.getCurrentMission() * 2);
+
+        return ship;
+    }
+
+    public IEnemyShip buildActV(final GameplayStage stage) {
+
+        IEnemyShip ship = build(stage);
+        ship.setTexture(Textures.FIGHTER5.getTexture());
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(targetedRedLaser);
+        controller.setSecondaryWeapon(tripleGreenLaser);
+        controller.setShip(ship);
+
+        ship.addWeapon(targetedRedLaser);
         ship.addWeapon(tripleGreenLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
