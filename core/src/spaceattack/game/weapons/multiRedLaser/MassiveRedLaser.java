@@ -1,6 +1,5 @@
 package spaceattack.game.weapons.multiRedLaser;
 
-import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.utils.vector.IVector;
@@ -77,13 +76,5 @@ public class MassiveRedLaser extends MultiShotRedLaser {
         launcher.launch(straight2);
         launcher.launch(straight3);
         launcher.launch(straight4);
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        dmg = (Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL) * 0.75f;
-        speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;
-        energyCost = 0;
     }
 }

@@ -125,6 +125,8 @@ public enum ChaserShipBuilder {
         IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
         IWeapon flamethrower = FlamethrowerBuilder.INSTANCE.build(controller, launcher);
 
+        flamethrower.setNoEnergyCost();
+
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(flamethrower);
         controller.setShip(ship);

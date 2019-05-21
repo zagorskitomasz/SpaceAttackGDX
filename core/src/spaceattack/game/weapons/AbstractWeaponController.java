@@ -82,7 +82,7 @@ public abstract class AbstractWeaponController implements IWeaponController {
     @Override
     public boolean isContinuousFireTriggered(final float energyCost) {
 
-        return ship.takeEnergy(energyCost / Consts.Metagame.FPS);
+        return !ship.isToKill() && ship.takeEnergy(energyCost / Consts.Metagame.FPS);
     }
 
     @Override

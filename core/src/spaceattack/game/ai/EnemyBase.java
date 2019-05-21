@@ -133,7 +133,7 @@ public abstract class EnemyBase extends InvisibleActor {
         IEnemyShip fighter = shipsFactory.createFighter(act, stage);
 
         MoverAI mover = chooseMover(fighter);
-        ShooterAI shooter = chooseShooter(fighter);
+        ShooterAI shooter = buildShooter(fighter, createFighterShooter());
         IPowerUp powerUp = choosePowerUp(fighter);
 
         fighter.setPlayerShip(radar.getPlayerShip());
@@ -151,7 +151,7 @@ public abstract class EnemyBase extends InvisibleActor {
         IEnemyShip chaser = shipsFactory.createChaser(act, stage);
 
         MoverAI mover = MoverType.FRONT_CHASER.create();
-        ShooterAI shooter = createDirectShooter(chaser);
+        ShooterAI shooter = buildShooter(chaser, createChaserShooter());
         IPowerUp powerUp = choosePowerUp(chaser);
 
         mover.setPlayerShip(playerShip);
@@ -331,15 +331,7 @@ public abstract class EnemyBase extends InvisibleActor {
         return lessFrequentMovers;
     }
 
-    private ShooterAI chooseShooter(final IEnemyShip fighter) {
-
-        return createDirectShooter(fighter);
-    }
-
-    protected ShooterAI createDirectShooter(final IEnemyShip fighter) {
-
-        ShooterAI shooter;
-        shooter = createFighterShooter();
+    protected ShooterAI buildShooter(final IEnemyShip fighter, final ShooterAI shooter) {
 
         shooter.setFriends(enemyShips);
         shooter.setPlayerShip(playerShip);
@@ -401,6 +393,11 @@ public abstract class EnemyBase extends InvisibleActor {
     }
 
     protected ShooterAI createFighterShooter() {
+
+        return ShooterType.DIRECT_SHOOTER.create();
+    }
+
+    protected ShooterAI createChaserShooter() {
 
         return ShooterType.DIRECT_SHOOTER.create();
     }

@@ -12,6 +12,8 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class Flamethrower extends AbstractWeapon {
 
+    private Flame lastFlame;
+
     @Override
     public float getWeaponsMovementFactor() {
 
@@ -54,6 +56,15 @@ public class Flamethrower extends AbstractWeapon {
     @Override
     protected Missile buildMissile() {
 
+        if (lastFlame != null) {
+            if (lastFlame.isToKill()) {
+                lastFlame = null;
+            }
+            else {
+                return null;
+            }
+        }
+
         final float yMov = (controller.getShip().getHeight() / 2
                 + Animations.FLAME_P.getAnimation().getFrame().getHeight() / 2) * (controller.isPlayer() ? 1 : -1);
 
@@ -63,7 +74,7 @@ public class Flamethrower extends AbstractWeapon {
         flame.setAnimation(
                 controller.isPlayer() ? Animations.FLAME_P.getAnimation() : Animations.FLAME_E.getAnimation());
         flame.setDmg(dmg);
-        flame.setEnergyCost(energyCost);
+        flame.setEnergyCost(getEnergyCost());
         flame.setPositionSupplier(() -> {
             IVector basePosition = controller.getShip().getPosition();
             return Factories.getVectorFactory().create(basePosition.getX(), basePosition.getY() + yMov);
@@ -72,6 +83,8 @@ public class Flamethrower extends AbstractWeapon {
         flame.setRadius(Consts.Weapons.FLAME_RADIUS);
         flame.setSound(Sounds.FLAME);
         flame.setPlayersAttack(controller.isPlayer());
+
+        lastFlame = flame;
 
         return flame;
     }

@@ -16,7 +16,6 @@ import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.miner.FlyingMinerBuilder;
-import spaceattack.game.weapons.miner.MinerBuilder;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
@@ -25,6 +24,7 @@ import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
+import spaceattack.game.weapons.timeWave.TimeWaveEmitterBuilder;
 
 public enum TankShipBuilder {
     INSTANCE;
@@ -165,15 +165,17 @@ public enum TankShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon miner = MinerBuilder.INSTANCE.build(controller, launcher);
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
         IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher);
-        miner.setInterval(0.33f);
 
-        controller.setPrimaryWeapon(miner);
+        timeWaveEmitter.setInterval(0.33f);
+        timeWaveEmitter.setNoEnergyCost();
+
+        controller.setPrimaryWeapon(timeWaveEmitter);
         controller.setSecondaryWeapon(shieldEmitter);
         controller.setShip(ship);
         ship.addWeapon(shieldEmitter);
-        ship.addWeapon(miner);
+        ship.addWeapon(timeWaveEmitter);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
 
