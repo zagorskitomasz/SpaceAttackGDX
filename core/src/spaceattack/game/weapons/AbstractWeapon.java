@@ -51,7 +51,9 @@ public abstract class AbstractWeapon implements IWeapon {
         }
 
         Missile missile = buildMissile();
-        launcher.launch(missile);
+        if (missile != null) {
+            launcher.launch(missile);
+        }
         return true;
     }
 
@@ -66,6 +68,10 @@ public abstract class AbstractWeapon implements IWeapon {
 
     @Override
     public float getEnergyCost() {
+
+        if (noEnergyCost) {
+            return 0;
+        }
 
         return energyCost;
     }

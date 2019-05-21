@@ -102,4 +102,21 @@ public enum PowerUpBuilder {
 
         return holder;
     }
+
+    public IPowerUp flameHolder(final IWeaponController controller, final ComplexFireButton button,
+            final GameplayStage stage) {
+
+        IWeapon flamethrower = WeaponsFactory.INSTANCE.createFlamethrower(controller, stage.getMissilesLauncher());
+        flamethrower.setLevel(stage.getGameProgress().getLevel());
+
+        WeaponHolder holder = new WeaponHolder();
+        holder.setFireButton(button);
+        holder.setAmmo(stage.getAct().getPowerUpAmmo());
+        holder.setTexture(Textures.FLAME_POWER_UP);
+        holder.setActor(Factories.getActorFactory().create(holder));
+        holder.setWeapon(flamethrower);
+        holder.setWeaponIcon(Textures.FLAME_ICON.getTexture());
+
+        return holder;
+    }
 }

@@ -24,6 +24,7 @@ import spaceattack.game.weapons.redLaser.RedLaserBuilder;
 import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
+import spaceattack.game.weapons.timeWave.TimeWaveEmitterBuilder;
 
 public enum TankShipBuilder {
     INSTANCE;
@@ -59,6 +60,15 @@ public enum TankShipBuilder {
 
         IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
         buildShipActIV(stage, tank);
+        tank.setLevel(stage.getCurrentMission() * 2);
+
+        return tank;
+    }
+
+    public IEnemyShip buildActV(final GameplayStage stage, final boolean required) {
+
+        IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+        buildShipActV(stage, tank);
         tank.setLevel(stage.getCurrentMission() * 2);
 
         return tank;
@@ -142,6 +152,30 @@ public enum TankShipBuilder {
         controller.setShip(ship);
         ship.addWeapon(shieldEmitter);
         ship.addWeapon(targetedRedLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+
+        return ship;
+    }
+
+    private IEnemyShip buildShipActV(final GameplayStage stage, final IEnemyShip tank) {
+
+        IEnemyShip ship = buildShip(stage, tank);
+        ship.setTexture(Textures.TANK5.getTexture());
+
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
+        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher);
+
+        timeWaveEmitter.setInterval(0.33f);
+        timeWaveEmitter.setNoEnergyCost();
+
+        controller.setPrimaryWeapon(timeWaveEmitter);
+        controller.setSecondaryWeapon(shieldEmitter);
+        controller.setShip(ship);
+        ship.addWeapon(shieldEmitter);
+        ship.addWeapon(timeWaveEmitter);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
 

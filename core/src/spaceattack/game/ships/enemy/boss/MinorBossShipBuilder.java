@@ -23,6 +23,7 @@ import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
+import spaceattack.game.weapons.rocketMissile.DoubleRocketBuilder;
 import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
 import spaceattack.game.weapons.timeWave.TimeWaveEmitterBuilder;
@@ -150,6 +151,41 @@ public enum MinorBossShipBuilder {
 
         boss.setEnergyPool(energyPool);
         boss.addWeapon(shieldEmitter);
+        boss.addWeapon(timeWaveEmitter);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    public IBoss buildActV(final GameplayStage stage) {
+
+        IBoss boss = new BossShip();
+        boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
+        boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
+
+        build(stage, boss);
+        boss.setTexture(Textures.TANK4.getTexture());
+        IEngine engine = ShipEngineBuilder.INSTANCE.createFastDestinationEngine(boss);
+        boss.setShipEngine(engine);
+
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
+        IWeapon doubleRocket = DoubleRocketBuilder.INSTANCE.build(controller, launcher);
+
+        timeWaveEmitter.setInterval(0.20f);
+        doubleRocket.setInterval(0.33f);
+
+        IPool energyPool = createEnergyPool(1.4f);
+
+        controller.setPrimaryWeapon(timeWaveEmitter);
+        controller.setSecondaryWeapon(doubleRocket);
+        controller.setShip(boss);
+
+        boss.setEnergyPool(energyPool);
+        boss.addWeapon(doubleRocket);
         boss.addWeapon(timeWaveEmitter);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
