@@ -10,6 +10,8 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class EnergyShieldEmiter extends AbstractWeapon {
 
+    private EnergyShield lastShield;
+
     @Override
     public float getWeaponsMovementFactor() {
 
@@ -33,7 +35,7 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     @Override
     protected float getShotCost() {
 
-        return energyCost / 3;
+        return getEnergyCost() / 3;
     }
 
     @Override
@@ -46,12 +48,21 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     @Override
     protected Missile buildMissile() {
 
+        if (lastShield != null) {
+            if (lastShield.isToKill()) {
+                lastShield = null;
+            }
+            else {
+                return null;
+            }
+        }
+
         EnergyShield shield = new EnergyShield();
 
         shield.setActor(Factories.getActorFactory().create(shield));
         shield.setAnimation(Animations.SHIELD.getAnimation());
         shield.setDmg(dmg);
-        shield.setEnergyCost(energyCost);
+        shield.setEnergyCost(getEnergyCost());
         shield.setPositionSupplier(() -> controller.getShip().getPosition());
         shield.setActivityPredicate(controller::isContinuousFireTriggered);
         shield.setRadius(Consts.Weapons.SHIELD_RADIUS);
@@ -59,6 +70,8 @@ public class EnergyShieldEmiter extends AbstractWeapon {
         shield.setPlayersAttack(controller.isPlayer());
 
         controller.getShip().setTemporalImmortalityChecker(shield::isUp);
+
+        lastShield = shield;
 
         return shield;
     }

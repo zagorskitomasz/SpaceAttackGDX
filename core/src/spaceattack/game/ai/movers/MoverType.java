@@ -9,6 +9,7 @@ public enum MoverType {
     FRONT_CHASER(FrontChaser.class, true), //
     SIDE_FRONT_CHASER(SideFrontChaser.class, true), //
     SLOW_DOWNER(SlowDowner.class, true), //
+    CENTRAL_STATION(CentralStation.class, true), //
     CORNERS_CHASER(CornersChaser.class, true), //
     ALL_CORNERS_CHASER(AllCornersChaser.class, true),
     CORRECTABLE_JUMPER(CorrectableJumper.class, true),

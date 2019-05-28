@@ -19,5 +19,5 @@ public interface IWeapon {
 
     void setNoEnergyCost();
 
-    void setInterval(float interval);
+    void setInterval(float checksPerSecond);
 }
