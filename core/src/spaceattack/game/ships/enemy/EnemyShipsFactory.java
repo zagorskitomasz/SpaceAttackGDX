@@ -115,6 +115,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
             return MajorBossShipBuilder.INSTANCE.buildActIII(stage);
         case IV:
             return MajorBossShipBuilder.INSTANCE.buildActIV(stage);
+        case V:
+            return MajorBossShipBuilder.INSTANCE.buildActV(stage);
         default:
             return null;
         }
@@ -126,6 +128,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
         switch (act) {
         case IV:
             return ChaserShipBuilder.INSTANCE.buildSuperActIV(stage);
+        case V:
+            return ChaserShipBuilder.INSTANCE.buildSuperActV(stage);
         default:
             return null;
         }

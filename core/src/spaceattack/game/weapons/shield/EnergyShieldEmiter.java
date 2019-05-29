@@ -1,5 +1,7 @@
 package spaceattack.game.weapons.shield;
 
+import java.util.function.Predicate;
+
 import spaceattack.consts.Consts;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Animations;
@@ -9,6 +11,9 @@ import spaceattack.game.weapons.AbstractWeapon;
 import spaceattack.game.weapons.missiles.Missile;
 
 public class EnergyShieldEmiter extends AbstractWeapon {
+
+    private EnergyShield lastShield;
+    private Predicate<Float> activityChecker;
 
     @Override
     public float getWeaponsMovementFactor() {
@@ -33,7 +38,7 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     @Override
     protected float getShotCost() {
 
-        return energyCost / 3;
+        return getEnergyCost() / 3;
     }
 
     @Override
@@ -46,19 +51,33 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     @Override
     protected Missile buildMissile() {
 
+        if (lastShield != null) {
+            if (lastShield.isToKill()) {
+                lastShield = null;
+            }
+            else {
+                return null;
+            }
+        }
+        if (activityChecker == null) {
+            activityChecker = controller::isContinuousFireTriggered;
+        }
+
         EnergyShield shield = new EnergyShield();
 
         shield.setActor(Factories.getActorFactory().create(shield));
         shield.setAnimation(Animations.SHIELD.getAnimation());
         shield.setDmg(dmg);
-        shield.setEnergyCost(energyCost);
+        shield.setEnergyCost(getEnergyCost());
         shield.setPositionSupplier(() -> controller.getShip().getPosition());
-        shield.setActivityPredicate(controller::isContinuousFireTriggered);
+        shield.setActivityPredicate(activityChecker);
         shield.setRadius(Consts.Weapons.SHIELD_RADIUS);
         shield.setSound(Sounds.SHIELD);
         shield.setPlayersAttack(controller.isPlayer());
 
         controller.getShip().setTemporalImmortalityChecker(shield::isUp);
+
+        lastShield = shield;
 
         return shield;
     }
@@ -72,5 +91,10 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     public boolean isContinuousFire() {
 
         return true;
+    }
+
+    public void setActivityPredicate(final Predicate<Float> predicate) {
+
+        activityChecker = predicate;
     }
 }

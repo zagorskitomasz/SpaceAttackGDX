@@ -1,8 +1,9 @@
 package spaceattack.game.ai.movers;
 
+import spaceattack.consts.Sizes;
 import spaceattack.game.utils.vector.IVector;
 
-public class SlowDowner extends AbstractMover {
+public class CentralStation extends AbstractMover {
 
     @Override
     public MoverType getType() {
@@ -21,7 +22,7 @@ public class SlowDowner extends AbstractMover {
             return;
         }
 
-        IVector destination = vectors.create(owner.getX(), -100);
+        IVector destination = vectors.create(Sizes.GAME_WIDTH * 0.5f, Sizes.GAME_HEIGHT - 200 * Sizes.Y_FACTOR);
         owner.setDestination(destination);
     }
 }

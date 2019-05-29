@@ -10,21 +10,21 @@ import spaceattack.game.weapons.IWeaponController;
 
 public interface IEnemyShip extends IShip {
 
-    public void setPlayerShip(RadarVisible playerShip);
+    void setPlayerShip(RadarVisible playerShip);
 
-    public void setMover(MoverAI mover);
+    void setMover(MoverAI mover);
 
-    public void setShooter(ShooterAI shooter);
+    void setShooter(ShooterAI shooter);
 
-    public IWeaponController getWeaponController();
+    IWeaponController getWeaponController();
 
-    public boolean isMoving();
+    boolean isMoving();
 
-    public void setWeaponController(IWeaponController controller);
+    void setWeaponController(IWeaponController controller);
 
-    public MoverType getMoverType();
+    MoverType getMoverType();
 
-    public void setBar(EnemyBar bar);
+    void setBar(EnemyBar bar);
 
-    public void setPowerUp(IPowerUp powerUp);
+    void setPowerUp(IPowerUp powerUp);
 }

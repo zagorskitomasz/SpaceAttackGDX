@@ -38,7 +38,6 @@ public class Flame extends Missile implements Undestructible {
             setTexture(flameAnimation.getFrame());
         }
         move();
-        System.out.println(energyCost + " " + activityChecker.test(energyCost));
         if (!activityChecker.test(energyCost)) {
             sound.stop(soundInstanceId);
             setToKill();

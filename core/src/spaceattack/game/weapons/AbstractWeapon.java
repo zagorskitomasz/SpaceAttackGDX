@@ -118,8 +118,8 @@ public abstract class AbstractWeapon implements IWeapon {
     }
 
     @Override
-    public void setInterval(final float interval) {
+    public void setInterval(final float checksPerSecond) {
 
-        frameController.reset(interval);
+        frameController.reset(checksPerSecond);
     }
 }

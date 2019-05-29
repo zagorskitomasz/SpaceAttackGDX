@@ -13,6 +13,7 @@ public class FlyingMiner extends AbstractWeapon {
 
     private int level;
     private long mineExplosionDelay = Consts.Weapons.MINE_DELAY;
+    private float distanceToShip = 0.3f;
 
     @Override
     public float getWeaponsMovementFactor() {
@@ -51,7 +52,7 @@ public class FlyingMiner extends AbstractWeapon {
         missile.setSpeed(Consts.Weapons.FLYING_MINE_SPEED * level / 6);
         missile.setAcceleration(0);
         missile.setMovement(Factories.getVectorFactory().create(0, 0));
-        missile.setPosition(calculateTargetedShotPosition(0.3f));
+        missile.setPosition(calculateTargetedShotPosition(distanceToShip));
         missile.setTargetCoordsSupplier(controller::getTargetCoords);
         missile.setRadius(Consts.Weapons.MINE_RADIUS);
         missile.setSound(Sounds.MINE);
@@ -71,5 +72,10 @@ public class FlyingMiner extends AbstractWeapon {
 
         mineExplosionDelay = Consts.Weapons.SLOW_MINE_DELAY;
         frameController.reset(Consts.Weapons.SLOW_MINE_ATTACKS_PER_SECOND);
+    }
+
+    public void setDistanceToShip(final float distanceToShip) {
+
+        this.distanceToShip = distanceToShip;
     }
 }

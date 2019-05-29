@@ -159,6 +159,26 @@ public enum ChaserShipBuilder {
         return ship;
     }
 
+    public IEnemyShip buildSuperActV(final GameplayStage stage) {
+
+        IEnemyShip ship = build(stage);
+        ship.setTexture(Textures.CHASER5.getTexture());
+
+        IWeaponController controller = new AIWeaponController();
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeapon targetdRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+
+        controller.setPrimaryWeapon(targetdRedLaser);
+        controller.setSecondaryWeapon(targetdRedLaser);
+        controller.setShip(ship);
+        ship.addWeapon(targetdRedLaser);
+        ship.setWeaponController(controller);
+        ship.setMissilesLauncher(launcher);
+        ship.setLevel(stage.getCurrentMission() * 2);
+
+        return ship;
+    }
+
     private IEnemyShip build(final GameplayStage stage) {
 
         IEnemyShip chaser = new BaseEnemyShip();
