@@ -128,6 +128,8 @@ public enum EnemyShipsFactory implements IEnemyShipsFactory {
         switch (act) {
         case IV:
             return ChaserShipBuilder.INSTANCE.buildSuperActIV(stage);
+        case V:
+            return ChaserShipBuilder.INSTANCE.buildSuperActV(stage);
         default:
             return null;
         }

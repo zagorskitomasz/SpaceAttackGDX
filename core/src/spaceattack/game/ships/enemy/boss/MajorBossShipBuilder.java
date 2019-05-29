@@ -182,9 +182,8 @@ public enum MajorBossShipBuilder {
         IWeaponController controller = new AIWeaponController();
         FlyingMiner miner = (FlyingMiner) FlyingMinerBuilder.INSTANCE.build(controller, launcher);
         miner.setInterval(0.2f);
-        miner.setDistanceToShip(0.4f);
+        miner.setDistanceToShip(0.6f);
         IWeapon shield = ShieldBuilder.INSTANCE.build(controller, launcher);
-        shield.setNoEnergyCost();
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 
         IPool hpPool = new HpPool(

@@ -46,4 +46,8 @@ public interface IWeaponController {
     void freeze();
 
     void unfreeze();
+
+    IWeapon getPrimaryWeapon();
+
+    IWeapon getSecondaryWeapon();
 }

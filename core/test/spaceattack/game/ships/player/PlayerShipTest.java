@@ -148,7 +148,7 @@ public class PlayerShipTest {
     @Test
     public void wontExplodeOutOfScreen() {
 
-        ship.setX(-500);
+        ship.setX(-800);
         ship.setToKill();
 
         verify(launcher, times(0)).launch(explosion);

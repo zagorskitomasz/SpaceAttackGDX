@@ -1,5 +1,7 @@
 package spaceattack.game.weapons.shield;
 
+import java.util.function.Predicate;
+
 import spaceattack.consts.Consts;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Animations;
@@ -11,6 +13,7 @@ import spaceattack.game.weapons.missiles.Missile;
 public class EnergyShieldEmiter extends AbstractWeapon {
 
     private EnergyShield lastShield;
+    private Predicate<Float> activityChecker;
 
     @Override
     public float getWeaponsMovementFactor() {
@@ -56,6 +59,9 @@ public class EnergyShieldEmiter extends AbstractWeapon {
                 return null;
             }
         }
+        if (activityChecker == null) {
+            activityChecker = controller::isContinuousFireTriggered;
+        }
 
         EnergyShield shield = new EnergyShield();
 
@@ -64,7 +70,7 @@ public class EnergyShieldEmiter extends AbstractWeapon {
         shield.setDmg(dmg);
         shield.setEnergyCost(getEnergyCost());
         shield.setPositionSupplier(() -> controller.getShip().getPosition());
-        shield.setActivityPredicate(controller::isContinuousFireTriggered);
+        shield.setActivityPredicate(activityChecker);
         shield.setRadius(Consts.Weapons.SHIELD_RADIUS);
         shield.setSound(Sounds.SHIELD);
         shield.setPlayersAttack(controller.isPlayer());
@@ -85,5 +91,10 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     public boolean isContinuousFire() {
 
         return true;
+    }
+
+    public void setActivityPredicate(final Predicate<Float> predicate) {
+
+        activityChecker = predicate;
     }
 }

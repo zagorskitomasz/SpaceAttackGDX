@@ -167,6 +167,13 @@ public abstract class EnemyBase extends InvisibleActor {
 
     protected void addSuperChaser(final Direction direction) {
 
+        IEnemyShip chaser = buildSuperChaser(direction);
+
+        stage.addActorBeforeGUI(chaser);
+    }
+
+    protected IEnemyShip buildSuperChaser(final Direction direction) {
+
         updateRadar();
 
         IEnemyShip chaser = shipsFactory.createSuperChaser(act, stage);
@@ -185,8 +192,7 @@ public abstract class EnemyBase extends InvisibleActor {
         chaser.setMover(mover);
         chaser.setShooter(shooter);
         chaser.getHpPool().addTemporalInfinityChecker(() -> boss != null && !boss.isToKill());
-
-        stage.addActorBeforeGUI(chaser);
+        return chaser;
     }
 
     private void addTank() {

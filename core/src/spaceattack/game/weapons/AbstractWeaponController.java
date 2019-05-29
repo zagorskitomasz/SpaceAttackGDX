@@ -96,4 +96,16 @@ public abstract class AbstractWeaponController implements IWeaponController {
 
         frozen = false;
     }
+
+    @Override
+    public IWeapon getPrimaryWeapon() {
+
+        return primaryWeapon;
+    }
+
+    @Override
+    public IWeapon getSecondaryWeapon() {
+
+        return secondaryWeapon;
+    }
 }
