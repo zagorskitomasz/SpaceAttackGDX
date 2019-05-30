@@ -46,7 +46,7 @@ public abstract class EnemyBase extends InvisibleActor {
     private final FrameController tankTimer;
 
     protected IBoss boss;
-    private boolean isBossOnField;
+    protected boolean isBossOnField;
 
     public EnemyBase(final IUtils utils) {
 
