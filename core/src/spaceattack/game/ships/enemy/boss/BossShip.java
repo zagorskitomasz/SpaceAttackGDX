@@ -1,12 +1,11 @@
 package spaceattack.game.ships.enemy.boss;
 
-import spaceattack.game.actors.interfaces.RequiredOnStage;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.BaseEnemyShip;
 
-public class BossShip extends BaseEnemyShip implements RequiredOnStage, IBoss {
+public class BossShip extends BaseEnemyShip implements IBoss {
 
     private MoverType moverType;
     private ShooterType shooterType;
@@ -24,13 +23,13 @@ public class BossShip extends BaseEnemyShip implements RequiredOnStage, IBoss {
     }
 
     @Override
-    public void setDefaultMoverType(MoverType type) {
+    public void setDefaultMoverType(final MoverType type) {
 
         moverType = type;
     }
 
     @Override
-    public void setDefaultShooterType(ShooterType type) {
+    public void setDefaultShooterType(final ShooterType type) {
 
         shooterType = type;
     }

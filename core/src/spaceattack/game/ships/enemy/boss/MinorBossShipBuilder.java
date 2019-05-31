@@ -33,7 +33,7 @@ public enum MinorBossShipBuilder {
 
     public IBoss buildActI(final GameplayStage stage) {
 
-        IBoss boss = new BossShip();
+        IBoss boss = new RequiredBossShip();
         boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
         boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
 
@@ -63,7 +63,7 @@ public enum MinorBossShipBuilder {
 
     public IBoss buildActII(final GameplayStage stage) {
 
-        IBoss boss = new BossShip();
+        IBoss boss = new RequiredBossShip();
         boss.setDefaultMoverType(MoverType.CORRECTABLE_JUMPER);
         boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
 
@@ -95,7 +95,7 @@ public enum MinorBossShipBuilder {
 
     public IBoss buildActIII(final GameplayStage stage) {
 
-        IBoss boss = new BossShip();
+        IBoss boss = new RequiredBossShip();
         boss.setDefaultMoverType(MoverType.DIRECT_CHASER);
         boss.setDefaultShooterType(ShooterType.INSTANT_SHOOTER);
 
@@ -127,7 +127,7 @@ public enum MinorBossShipBuilder {
 
     public IBoss buildActIV(final GameplayStage stage) {
 
-        IBoss boss = new BossShip();
+        IBoss boss = new RequiredBossShip();
         boss.setDefaultMoverType(MoverType.CORRECTABLE_JUMPER);
         boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
 
@@ -161,7 +161,7 @@ public enum MinorBossShipBuilder {
 
     public IBoss buildActV(final GameplayStage stage) {
 
-        IBoss boss = new BossShip();
+        IBoss boss = new RequiredBossShip();
         boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
         boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
 

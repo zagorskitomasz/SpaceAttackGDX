@@ -1,7 +1,11 @@
 package spaceattack.game.ai;
 
 import spaceattack.consts.Sizes;
+import spaceattack.game.ai.movers.Follower;
+import spaceattack.game.ai.movers.MoverType;
+import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.enemy.boss.IFinalBossShipBuilder;
 import spaceattack.game.system.Acts;
 import spaceattack.game.utils.IUtils;
@@ -61,6 +65,36 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
     private void addSpaceStationIShip() {
 
         boss = bossShipBuilder.createSpaceStationI(stage);
+        addBoss();
+
+        IEnemyShip leftWeaponHolder = bossShipBuilder.createWeaponHolder(stage);
+        IEnemyShip rightWeaponHolder = bossShipBuilder.createWeaponHolder(stage);
+
+        addInvisibleShip(leftWeaponHolder, Direction.LEFT);
+        addInvisibleShip(rightWeaponHolder, Direction.RIGHT);
+    }
+
+    private void addInvisibleShip(final IEnemyShip holder, final Direction direction) {
+
+        ShooterAI shooter = ShooterType.INSTANT_SHOOTER.create();
+        shooter.setFriends(enemyShips);
+        shooter.setOwner(holder);
+        shooter.setPlayerShip(playerShip);
+
+        float xFactor = Direction.LEFT.equals(direction) ? -1 : 1;
+
+        Follower mover = (Follower) MoverType.FOLLOWER.create();
+        mover.setPlayerShip(playerShip);
+        mover.setOwner(holder);
+        mover.setCoordsSupplier(() -> Factories.getVectorFactory()
+                .create(boss.getX() + (boss.getRadius() * 0.45f * xFactor), boss.getY() - boss.getRadius() * 0.45f));
+
+        holder.setMover(mover);
+        holder.setShooter(shooter);
+        holder.getHpPool().addTemporalInfinityChecker(() -> true);
+        holder.setPlayerShip(playerShip);
+
+        stage.addActorBeforeGUI(holder);
     }
 
     private boolean isHpPercentBelow(final float percent) {

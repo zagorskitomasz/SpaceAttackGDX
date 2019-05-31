@@ -210,7 +210,7 @@ public enum MajorBossShipBuilder {
 
     private IBoss build(final GameplayStage stage) {
 
-        IBoss boss = new BossShip();
+        IBoss boss = new RequiredBossShip();
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
