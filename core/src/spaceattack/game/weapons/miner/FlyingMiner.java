@@ -52,7 +52,7 @@ public class FlyingMiner extends AbstractWeapon {
         missile.setSpeed(Consts.Weapons.FLYING_MINE_SPEED * level / 6);
         missile.setAcceleration(0);
         missile.setMovement(Factories.getVectorFactory().create(0, 0));
-        missile.setPosition(calculateTargetedShotPosition(distanceToShip));
+        missile.setPosition(calculateTargetedShotPosition(distanceToShip, 0, 0));
         missile.setTargetCoordsSupplier(controller::getTargetCoords);
         missile.setRadius(Consts.Weapons.MINE_RADIUS);
         missile.setSound(Sounds.MINE);

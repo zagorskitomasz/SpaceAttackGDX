@@ -32,7 +32,8 @@ public class AIWeaponController extends AbstractWeaponController {
     public IVector getPrimaryWeaponUsePlacement() {
 
         return Factories.getVectorFactory().create(ship.getX(),
-                ship.getY() - ship.getHeight() * primaryWeapon.getWeaponsMovementFactor());
+                ship.getY()
+                        - ship.getHeight() * (primaryWeapon != null ? primaryWeapon.getWeaponsMovementFactor() : 0));
     }
 
     @Override
@@ -48,6 +49,7 @@ public class AIWeaponController extends AbstractWeaponController {
         if (frozen || (shot && !attacksInterval.check())) {
             return;
         }
+        passiveWeapons.forEach(weapon -> weapon.use());
 
         switch (possibleAttack) {
         case BOTH:
@@ -69,6 +71,9 @@ public class AIWeaponController extends AbstractWeaponController {
 
     private boolean tryUse(final IWeapon weapon) {
 
+        if (weapon == null) {
+            return false;
+        }
         shot = weapon.use();
 
         if (shot) {

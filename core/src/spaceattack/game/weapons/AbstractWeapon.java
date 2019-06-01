@@ -9,8 +9,7 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public abstract class AbstractWeapon implements IWeapon {
 
-    @SuppressWarnings("unused")
-    private IUtils utils;
+    protected IUtils utils;
     protected FrameController frameController;
     protected IWeaponController controller;
     protected MissilesLauncher launcher;
@@ -45,11 +44,9 @@ public abstract class AbstractWeapon implements IWeapon {
         if (!frameController.check()) {
             return false;
         }
-
         if (!controller.takeEnergy(getShotCost())) {
             return false;
         }
-
         Missile missile = buildMissile();
         if (missile != null) {
             launcher.launch(missile);
@@ -76,7 +73,8 @@ public abstract class AbstractWeapon implements IWeapon {
         return energyCost;
     }
 
-    protected IVector calculateTargetedShotPosition(final float distanceFromShip) {
+    protected IVector calculateTargetedShotPosition(final float distanceFromShip, final float gunMovX,
+            final float gunMovY) {
 
         IVector shipCoords = controller.getPrimaryWeaponUsePlacement();
         IVector movement = controller.getTargetedWeaponMovement();
@@ -108,6 +106,10 @@ public abstract class AbstractWeapon implements IWeapon {
                 y = shipCoords.getY();
             }
 
+        if (gunMovX != 0 || gunMovY != 0) {
+            return Factories.getVectorFactory().create(x + gunMovX * controller.getShip().getRadius(),
+                    y + gunMovY * controller.getShip().getRadius());
+        }
         return Factories.getVectorFactory().create(x, y);
     }
 

@@ -226,7 +226,8 @@ public abstract class EnemyBase extends InvisibleActor {
 
         updateRadar();
 
-        MoverAI mover = boss.getDefaultMoverType().create();
+        MoverAI mover = boss.getDefaultMoverType() != null ? boss.getDefaultMoverType().create()
+                : MoverType.FRONT_CHASER.create();
         ShooterAI shooter = createBossShooter(boss);
 
         mover.setPlayerShip(playerShip);
@@ -243,7 +244,8 @@ public abstract class EnemyBase extends InvisibleActor {
     private ShooterAI createBossShooter(final IBoss boss) {
 
         ShooterAI shooter;
-        shooter = boss.getDefaultShooterType().create();
+        shooter = boss.getDefaultShooterType() != null ? boss.getDefaultShooterType().create()
+                : ShooterType.DIRECT_SHOOTER.create();
 
         shooter.setFriends(enemyShips);
         shooter.setPlayerShip(playerShip);

@@ -27,6 +27,9 @@ public class Act5Mission15EnemyBaseTest {
     @Mock
     private GameplayStage stage;
 
+    @Mock
+    private Radar radar;
+
     private Act5Mission15EnemyBase base;
 
     private IBoss spaceStationI;
@@ -41,6 +44,7 @@ public class Act5Mission15EnemyBaseTest {
         MockitoAnnotations.initMocks(this);
         base = new Act5Mission15EnemyBase(ExtUtilsFactory.INSTANCE.create(), builder);
         base.setStage(stage);
+        base.setRadar(radar);
 
         spaceStationI = new FakeShip();
         hpPoolSpaceStationI = new HpPool(100, 0, 0, 0);

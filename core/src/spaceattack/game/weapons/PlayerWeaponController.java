@@ -52,7 +52,7 @@ public class PlayerWeaponController extends AbstractWeaponController {
     @Override
     public void performAttack(final PossibleAttacks possibleAttack, final RadarVisible target) {
 
-        // do nothing
+        passiveWeapons.forEach(weapon -> weapon.use());
     }
 
     @Override

@@ -37,7 +37,6 @@ public class EnergyShield extends Missile implements Undestructible {
             setTexture(shieldAnimation.getFrame());
         }
         move();
-
         if (!activityChecker.test(energyCost)) {
             sound.stop(soundInstanceId);
             setToKill();

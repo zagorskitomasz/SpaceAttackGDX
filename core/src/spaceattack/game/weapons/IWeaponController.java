@@ -50,4 +50,6 @@ public interface IWeaponController {
     IWeapon getPrimaryWeapon();
 
     IWeapon getSecondaryWeapon();
+
+    void addPassiveWeapon(IWeapon weapon);
 }

@@ -14,6 +14,9 @@ public class TargetedRedLaser extends Laser {
     private Textures texture;
 
     private IVector movement;
+    private float distanceFromShip = 1f;
+    private float gunMovX;
+    private float gunMovY;
 
     TargetedRedLaser() {
 
@@ -48,7 +51,7 @@ public class TargetedRedLaser extends Laser {
         missile.setSpeed(speed);
         missile.setAcceleration(0);
         missile.setMovement(movement);
-        missile.setPosition(calculateTargetedShotPosition(1f));
+        missile.setPosition(calculateTargetedShotPosition(distanceFromShip, gunMovX, gunMovY));
         missile.setRadius(Consts.Weapons.LASER_RADIUS);
         missile.setSound(Sounds.RED_LASER);
         missile.setPlayersAttack(controller.isPlayer());
@@ -92,5 +95,16 @@ public class TargetedRedLaser extends Laser {
     public float getWeaponsMovementFactor() {
 
         return 0;
+    }
+
+    public void setDistanceFromShip(final float dist) {
+
+        distanceFromShip = dist;
+    }
+
+    public void setGunMovement(final float gunMovX, final float gunMovY) {
+
+        this.gunMovX = gunMovX;
+        this.gunMovY = gunMovY;
     }
 }
