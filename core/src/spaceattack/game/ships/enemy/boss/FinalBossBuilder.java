@@ -16,16 +16,19 @@ import spaceattack.game.ships.pools.Pool;
 import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.AIWeaponController;
+import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
+import spaceattack.game.weapons.rocketMissile.RocketMissileBuilder;
 import spaceattack.game.weapons.shield.EnergyShieldEmiter;
 import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaser;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
+import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum FinalBossBuilder implements IFinalBossShipBuilder {
     INSTANCE;
@@ -71,7 +74,6 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         emitter.setNoEnergyCost();
         emitter.setInterval(0.25f);
         emitter.setShieldDuration(3000);
-        emitter.setNoEnergyCost();
         controller.addPassiveWeapon(emitter);
         boss.addWeapon(emitter);
 
@@ -101,5 +103,60 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         }
         boss.getWeaponController().addPassiveWeapon(centralLaser);
         boss.addWeapon(centralLaser);
+    }
+
+    @Override
+    public IBoss createHelperI(final GameplayStage stage) {
+
+        IBoss boss = new BossShip();
+        Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
+
+        Burner burner = BurnerBuilder.INSTANCE.build(boss);
+
+        IPool energyPool = new Pool(
+                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_AMOUNT,
+                Consts.Pools.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL,
+                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_REGEN,
+                Consts.Pools.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+
+        IPool hpPool = new HpPool(
+                Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT * 2,
+                Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL * 2,
+                Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
+                Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+
+        boss.setActor(Factories.getActorFactory().create(boss));
+        boss.setEnergyPool(energyPool);
+        boss.setHpPool(hpPool);
+        boss.setExplosion(explosion);
+        boss.setBar(new BigEnemyBar(boss));
+        boss.setBurner(burner);
+        boss.setX(Sizes.GAME_WIDTH * 0.2f + (float) Math.random() * Sizes.GAME_WIDTH * 0.6f);
+
+        boss.setDefaultMoverType(MoverType.CORRECTABLE_CLOSE_FRONT_CHASER);
+        boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        controller.setShip(boss);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        IEngine engine = ShipEngineBuilder.INSTANCE.createFastDestinationEngine(boss);
+
+        IWeapon rocketMissile = RocketMissileBuilder.INSTANCE.build(controller, launcher);
+        rocketMissile.setNoEnergyCost();
+        rocketMissile.setInterval(0.4f);
+        controller.setPrimaryWeapon(rocketMissile);
+        boss.addWeapon(rocketMissile);
+
+        IWeapon greenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+        controller.setSecondaryWeapon(greenLaser);
+        boss.addWeapon(greenLaser);
+
+        boss.setShipEngine(engine);
+        boss.setTexture(Textures.BOSS_HELPER_1.getTexture());
+
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
     }
 }

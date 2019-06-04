@@ -35,6 +35,8 @@ public class Act5Mission15EnemyBaseTest {
     private IBoss spaceStationI;
     private IPool hpPoolSpaceStationI;
 
+    private IBoss helperI;
+
     @Before
     public void setUp() {
 
@@ -50,6 +52,10 @@ public class Act5Mission15EnemyBaseTest {
         hpPoolSpaceStationI = new HpPool(100, 0, 0, 0);
         spaceStationI.setHpPool(hpPoolSpaceStationI);
         doReturn(spaceStationI).when(builder).createSpaceStationI(stage);
+
+        helperI = new FakeShip();
+        helperI.setHpPool(new HpPool(100, 0, 0, 0));
+        doReturn(helperI).when(builder).createHelperI(stage);
     }
 
     @Test
@@ -80,5 +86,15 @@ public class Act5Mission15EnemyBaseTest {
         spaceStationI.takeDmg(40);
 
         assertEquals(50, spaceStationI.getHpPool().getAmount(), 0);
+    }
+
+    @Test
+    public void afterKillingStationIHeplerIisInvoked() {
+
+        base.act(0);
+        spaceStationI.takeDmg(50);
+        base.act(0);
+        base.act(0);
+        verify(builder).createHelperI(stage);
     }
 }

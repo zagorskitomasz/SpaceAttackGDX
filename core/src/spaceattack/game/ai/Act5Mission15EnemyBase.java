@@ -36,6 +36,7 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
             actSpaceStationI();
             break;
         case HELPER_I:
+            actHelperI();
             break;
         case SPACE_STATION_II:
             break;
@@ -51,11 +52,12 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
         if (boss == null) {
             addSpaceStationIShip();
         }
-        else
+        else {
             if (isHpPercentBelow(0.67f)) {
                 sendBossHome();
                 goToNextStage();
             }
+        }
     }
 
     private void addSpaceStationIShip() {
@@ -75,7 +77,27 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
         boss.setDestination(ENEMY_HOME);
     }
 
+    private void actHelperI() {
+
+        if (boss == null) {
+            addHelperIShip();
+        }
+        else {
+            if (boss.isToKill()) {
+                goToNextStage();
+            }
+        }
+    }
+
+    private void addHelperIShip() {
+
+        boss = bossShipBuilder.createHelperI(stage);
+        addBoss();
+    }
+
     private void goToNextStage() {
+
+        boss = null;
 
         if (fightStage.nextStage != null) {
             fightStage = fightStage.nextStage;
