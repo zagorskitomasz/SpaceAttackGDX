@@ -134,7 +134,7 @@ public abstract class EnemyBase extends InvisibleActor {
 
         MoverAI mover = chooseMover(fighter);
         ShooterAI shooter = buildShooter(fighter, createFighterShooter());
-        IPowerUp powerUp = choosePowerUp(fighter);
+        IPowerUp powerUp = choosePowerUp();
 
         fighter.setPlayerShip(radar.getPlayerShip());
         fighter.setMover(mover);
@@ -152,7 +152,7 @@ public abstract class EnemyBase extends InvisibleActor {
 
         MoverAI mover = MoverType.FRONT_CHASER.create();
         ShooterAI shooter = buildShooter(chaser, createChaserShooter());
-        IPowerUp powerUp = choosePowerUp(chaser);
+        IPowerUp powerUp = choosePowerUp();
 
         mover.setPlayerShip(playerShip);
         mover.setOwner(chaser);
@@ -203,7 +203,7 @@ public abstract class EnemyBase extends InvisibleActor {
 
         MoverAI mover = MoverType.SLOW_DOWNER.create();
         ShooterAI shooter = createTankShooter(tank);
-        IPowerUp powerUp = choosePowerUp(tank);
+        IPowerUp powerUp = choosePowerUp();
 
         shooter.setFriends(enemyShips);
         shooter.setPlayerShip(playerShip);
@@ -359,7 +359,7 @@ public abstract class EnemyBase extends InvisibleActor {
         enemyShips = radar.getEnemyShips();
     }
 
-    private IPowerUp choosePowerUp(final IEnemyShip fighter) {
+    private IPowerUp choosePowerUp() {
 
         IPowerUp powerUp = null;
 
@@ -374,13 +374,13 @@ public abstract class EnemyBase extends InvisibleActor {
                     powerUp = PowerUpBuilder.INSTANCE.energy(energyPool);
                 }
                 else {
-                    powerUp = choosePowerUp();
+                    powerUp = chooseWeaponPowerUp();
                 }
         }
         return powerUp;
     }
 
-    protected abstract IPowerUp choosePowerUp();
+    protected abstract IPowerUp chooseWeaponPowerUp();
 
     public enum Direction {
 

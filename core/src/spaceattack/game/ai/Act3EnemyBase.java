@@ -22,7 +22,7 @@ public class Act3EnemyBase extends EnemyBase {
     }
 
     @Override
-    protected IPowerUp choosePowerUp() {
+    protected IPowerUp chooseWeaponPowerUp() {
 
         return PowerUpBuilder.INSTANCE.shieldHolder(controller, fireButton, stage);
     }

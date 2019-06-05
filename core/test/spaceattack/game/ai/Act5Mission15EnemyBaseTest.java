@@ -16,7 +16,6 @@ import spaceattack.game.ships.FakeShip;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.boss.IFinalBossShipBuilder;
 import spaceattack.game.ships.pools.HpPool;
-import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.impl.GameplayStage;
 
 public class Act5Mission15EnemyBaseTest {
@@ -33,7 +32,7 @@ public class Act5Mission15EnemyBaseTest {
     private Act5Mission15EnemyBase base;
 
     private IBoss spaceStationI;
-    private IPool hpPoolSpaceStationI;
+    private IBoss spaceStationII;
 
     private IBoss helperI;
 
@@ -49,13 +48,16 @@ public class Act5Mission15EnemyBaseTest {
         base.setRadar(radar);
 
         spaceStationI = new FakeShip();
-        hpPoolSpaceStationI = new HpPool(100, 0, 0, 0);
-        spaceStationI.setHpPool(hpPoolSpaceStationI);
+        spaceStationI.setHpPool(new HpPool(100, 0, 0, 0));
         doReturn(spaceStationI).when(builder).createSpaceStationI(stage);
 
         helperI = new FakeShip();
         helperI.setHpPool(new HpPool(100, 0, 0, 0));
         doReturn(helperI).when(builder).createHelperI(stage);
+
+        spaceStationII = new FakeShip();
+        spaceStationII.setHpPool(new HpPool(100, 0, 0, 0));
+        doReturn(spaceStationII).when(builder).createSpaceStationII(stage);
     }
 
     @Test
@@ -67,7 +69,7 @@ public class Act5Mission15EnemyBaseTest {
     }
 
     @Test
-    public void spaceStationIIsSendHomeWhenHpBelowGivenPercent() {
+    public void spaceStationIisSendHomeWhenHpBelowGivenPercent() {
 
         base.act(0);
         spaceStationI.takeDmg(50);
@@ -78,7 +80,7 @@ public class Act5Mission15EnemyBaseTest {
     }
 
     @Test
-    public void afterSendingHomeSpaceStationIIsImmortal() {
+    public void afterSendingHomeSpaceStationIisImmortal() {
 
         base.act(0);
         spaceStationI.takeDmg(50);
@@ -96,5 +98,52 @@ public class Act5Mission15EnemyBaseTest {
         base.act(0);
         base.act(0);
         verify(builder).createHelperI(stage);
+    }
+
+    @Test
+    public void afterKillingHeplerIStationIIisInvoked() {
+
+        base.act(0);
+        spaceStationI.takeDmg(50);
+        base.act(0);
+        base.act(0);
+        helperI.setToKill();
+        base.act(0);
+        base.act(0);
+        verify(builder).createSpaceStationII(stage);
+    }
+
+    @Test
+    public void spaceStationIIisSendHomeWhenHpBelowGivenPercent() {
+
+        base.act(0);
+        spaceStationI.takeDmg(50);
+        base.act(0);
+        base.act(0);
+        helperI.setToKill();
+        base.act(0);
+        base.act(0);
+        spaceStationII.takeDmg(70);
+        base.act(0);
+
+        assertEquals(360, spaceStationII.getX(), 0);
+        assertEquals(4280, spaceStationII.getY(), 0);
+    }
+
+    @Test
+    public void afterSendingHomeSpaceStationIIisImmortal() {
+
+        base.act(0);
+        spaceStationI.takeDmg(50);
+        base.act(0);
+        base.act(0);
+        helperI.setToKill();
+        base.act(0);
+        base.act(0);
+        spaceStationII.takeDmg(70);
+        base.act(0);
+        spaceStationII.takeDmg(10);
+
+        assertEquals(30, spaceStationII.getHpPool().getAmount(), 0);
     }
 }

@@ -19,6 +19,8 @@ import spaceattack.game.weapons.AIWeaponController;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
+import spaceattack.game.weapons.miner.FlyingMiner;
+import spaceattack.game.weapons.miner.FlyingMinerBuilder;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
@@ -35,6 +37,15 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
     @Override
     public IBoss createSpaceStationI(final GameplayStage stage) {
+
+        IBoss boss = buildBasicSpaceStation(stage);
+
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    private IBoss buildBasicSpaceStation(final GameplayStage stage) {
 
         IBoss boss = new BossShip();
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
@@ -83,9 +94,6 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         boss.setShipEngine(engine);
         boss.setTexture(Textures.SPACE_STATION.getTexture());
-
-        boss.setLevel(stage.getCurrentMission() * 2);
-
         return boss;
     }
 
@@ -156,6 +164,24 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         boss.setTexture(Textures.BOSS_HELPER_1.getTexture());
 
         boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    @Override
+    public IBoss createSpaceStationII(final GameplayStage stage) {
+
+        IBoss boss = buildBasicSpaceStation(stage);
+
+        FlyingMiner miner = (FlyingMiner) FlyingMinerBuilder.INSTANCE.build(boss.getWeaponController(),
+                stage.getMissilesLauncher());
+        miner.setInterval(0.33f);
+        miner.setDistanceToShip(-0.2f);
+        boss.getWeaponController().setPrimaryWeapon(miner);
+        boss.addWeapon(miner);
+
+        boss.setLevel(stage.getCurrentMission() * 2);
+        boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.33f);
 
         return boss;
     }

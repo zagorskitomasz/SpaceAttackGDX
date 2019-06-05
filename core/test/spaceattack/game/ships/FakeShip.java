@@ -32,6 +32,7 @@ public class FakeShip implements IShip, IEnemyShip, IBoss {
     private float y;
     private float radius;
     private IPool hpPool;
+    private boolean isToKill = false;
 
     @Override
     public void notify(final GameProgress state) {
@@ -62,13 +63,13 @@ public class FakeShip implements IShip, IEnemyShip, IBoss {
     @Override
     public void setToKill() {
 
-        // do nothing
+        isToKill = true;
     }
 
     @Override
     public boolean isToKill() {
 
-        return false;
+        return isToKill;
     }
 
     @Override
