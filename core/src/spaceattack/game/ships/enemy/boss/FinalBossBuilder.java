@@ -30,6 +30,7 @@ import spaceattack.game.weapons.shield.EnergyShieldEmiter;
 import spaceattack.game.weapons.shield.ShieldBuilder;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaser;
 import spaceattack.game.weapons.targetedRedLaser.TargetedRedLaserBuilder;
+import spaceattack.game.weapons.timeWave.TimeWaveEmitterBuilder;
 import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 
 public enum FinalBossBuilder implements IFinalBossShipBuilder {
@@ -38,16 +39,23 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
     @Override
     public IBoss createSpaceStationI(final GameplayStage stage) {
 
-        IBoss boss = buildBasicSpaceStation(stage);
+        IBoss boss = buildBasicSpaceStation(stage, false);
 
         boss.setLevel(stage.getCurrentMission() * 2);
 
         return boss;
     }
 
-    private IBoss buildBasicSpaceStation(final GameplayStage stage) {
+    private IBoss buildBasicSpaceStation(final GameplayStage stage, final boolean required) {
 
-        IBoss boss = new BossShip();
+        IBoss boss;
+        if (required) {
+            boss = new RequiredBossShip();
+        }
+        else {
+            boss = new BossShip();
+        }
+
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
@@ -171,7 +179,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
     @Override
     public IBoss createSpaceStationII(final GameplayStage stage) {
 
-        IBoss boss = buildBasicSpaceStation(stage);
+        IBoss boss = buildBasicSpaceStation(stage, false);
 
         FlyingMiner miner = (FlyingMiner) FlyingMinerBuilder.INSTANCE.build(boss.getWeaponController(),
                 stage.getMissilesLauncher());
@@ -182,6 +190,82 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         boss.setLevel(stage.getCurrentMission() * 2);
         boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.33f);
+
+        return boss;
+    }
+
+    @Override
+    public IBoss createHelperII(final GameplayStage stage) {
+
+        IBoss boss = new BossShip();
+        Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
+
+        Burner burner = BurnerBuilder.INSTANCE.build(boss);
+
+        IPool energyPool = new Pool(
+                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_AMOUNT,
+                Consts.Pools.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL,
+                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_REGEN,
+                Consts.Pools.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+
+        IPool hpPool = new HpPool(
+                Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT * 2,
+                Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL * 2,
+                Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
+                Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+
+        boss.setActor(Factories.getActorFactory().create(boss));
+        boss.setEnergyPool(energyPool);
+        boss.setHpPool(hpPool);
+        boss.setExplosion(explosion);
+        boss.setBar(new BigEnemyBar(boss));
+        boss.setBurner(burner);
+        boss.setX(Sizes.GAME_WIDTH * 0.2f + (float) Math.random() * Sizes.GAME_WIDTH * 0.6f);
+
+        boss.setDefaultMoverType(MoverType.ALL_CORNERS_CHASER);
+        boss.setDefaultShooterType(ShooterType.INSTANT_SHOOTER);
+        MissilesLauncher launcher = stage.getMissilesLauncher();
+        IWeaponController controller = new AIWeaponController();
+        controller.setShip(boss);
+        boss.setWeaponController(controller);
+        boss.setMissilesLauncher(launcher);
+        IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
+
+        IWeapon waveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
+        waveEmitter.setNoEnergyCost();
+        waveEmitter.setInterval(0.25f);
+        controller.setPrimaryWeapon(waveEmitter);
+        controller.setSecondaryWeapon(waveEmitter);
+        boss.addWeapon(waveEmitter);
+
+        boss.setShipEngine(engine);
+        boss.setTexture(Textures.BOSS_HELPER_2.getTexture());
+
+        boss.setLevel(stage.getCurrentMission() * 2);
+
+        return boss;
+    }
+
+    @Override
+    public IBoss createSpaceStationIII(final GameplayStage stage) {
+
+        IBoss boss = buildBasicSpaceStation(stage, true);
+
+        FlyingMiner miner = (FlyingMiner) FlyingMinerBuilder.INSTANCE.build(boss.getWeaponController(),
+                stage.getMissilesLauncher());
+        miner.setInterval(0.33f);
+        miner.setDistanceToShip(-0.2f);
+        boss.getWeaponController().setPrimaryWeapon(miner);
+        boss.addWeapon(miner);
+
+        IWeapon timeWave = TimeWaveEmitterBuilder.INSTANCE.build(boss.getWeaponController(),
+                stage.getMissilesLauncher());
+        timeWave.setInterval(0.14f);
+        boss.getWeaponController().setSecondaryWeapon(timeWave);
+        boss.addWeapon(timeWave);
+
+        boss.setLevel(stage.getCurrentMission() * 2);
+        boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.67f);
 
         return boss;
     }

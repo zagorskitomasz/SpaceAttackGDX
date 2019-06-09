@@ -11,4 +11,8 @@ public interface IFinalBossShipBuilder {
 
     IBoss createSpaceStationII(GameplayStage stage);
 
+    IBoss createHelperII(GameplayStage stage);
+
+    IBoss createSpaceStationIII(GameplayStage stage);
+
 }

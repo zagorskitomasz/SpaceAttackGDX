@@ -44,7 +44,9 @@ public class FakeShip implements IShip, IEnemyShip, IBoss {
     public void takeDmg(final float dmg) {
 
         if (hpPool != null) {
-            hpPool.take(dmg);
+            if (!hpPool.take(dmg)) {
+                setToKill();
+            }
         }
     }
 

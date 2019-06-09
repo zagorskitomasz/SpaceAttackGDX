@@ -2,7 +2,6 @@ package spaceattack.game.ai;
 
 import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.powerup.IPowerUp;
-import spaceattack.game.powerup.PowerUpBuilder;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.system.Acts;
 import spaceattack.game.utils.IUtils;
@@ -24,6 +23,6 @@ public class Act4EnemyBase extends EnemyBase {
     @Override
     protected IPowerUp chooseWeaponPowerUp() {
 
-        return PowerUpBuilder.INSTANCE.waveHolder(controller, fireButton, stage);
+        return powerUpBuilder.waveHolder(controller, fireButton, stage);
     }
 }

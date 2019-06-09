@@ -14,6 +14,7 @@ import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.powerup.IPowerUp;
+import spaceattack.game.powerup.IPowerUpBuilder;
 import spaceattack.game.powerup.PowerUpBuilder;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.IEnemyShip;
@@ -26,6 +27,8 @@ import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeaponController;
 
 public abstract class EnemyBase extends InvisibleActor {
+
+    protected IPowerUpBuilder powerUpBuilder;
 
     protected GameplayStage stage;
     protected Radar radar;
@@ -41,7 +44,7 @@ public abstract class EnemyBase extends InvisibleActor {
 
     private int tanksPool;
 
-    private final FrameController fighterTimer;
+    protected final FrameController fighterTimer;
     private final FrameController chaserTimer;
     private final FrameController tankTimer;
 
@@ -53,6 +56,8 @@ public abstract class EnemyBase extends InvisibleActor {
         fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, Consts.AI.FIRST_FIGHTER_AFTER_MILLIS);
         chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, Consts.AI.FIRST_CHASER_AFTER_MILLIS);
         tankTimer = new FrameController(utils, Consts.AI.TANKS_PER_SECOND, Consts.AI.FIRST_TANK_AFTER_MILLIS);
+
+        powerUpBuilder = PowerUpBuilder.INSTANCE;
     }
 
     public void setStage(final GameplayStage stage) {
@@ -126,7 +131,7 @@ public abstract class EnemyBase extends InvisibleActor {
         }
     }
 
-    private void addFighter() {
+    protected void addFighter() {
 
         updateRadar();
 
@@ -367,11 +372,11 @@ public abstract class EnemyBase extends InvisibleActor {
             double randomNumber = Math.random();
 
             if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE) {
-                powerUp = PowerUpBuilder.INSTANCE.hp(hpPool);
+                powerUp = powerUpBuilder.hp(hpPool);
             }
             else
                 if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE + Consts.AI.FIGHTER_ENE_UP_CHANCE) {
-                    powerUp = PowerUpBuilder.INSTANCE.energy(energyPool);
+                    powerUp = powerUpBuilder.energy(energyPool);
                 }
                 else {
                     powerUp = chooseWeaponPowerUp();

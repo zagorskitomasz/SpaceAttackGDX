@@ -10,7 +10,7 @@ import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.WeaponsFactory;
 
-public enum PowerUpBuilder {
+public enum PowerUpBuilder implements IPowerUpBuilder {
     INSTANCE;
 
     public IPowerUp hp(final IPool hpPool) {
