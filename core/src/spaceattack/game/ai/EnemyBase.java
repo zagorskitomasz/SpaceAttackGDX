@@ -14,6 +14,7 @@ import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.powerup.IPowerUp;
+import spaceattack.game.powerup.IPowerUpBuilder;
 import spaceattack.game.powerup.PowerUpBuilder;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.IEnemyShip;
@@ -26,6 +27,8 @@ import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeaponController;
 
 public abstract class EnemyBase extends InvisibleActor {
+
+    protected IPowerUpBuilder powerUpBuilder;
 
     protected GameplayStage stage;
     protected Radar radar;
@@ -41,18 +44,20 @@ public abstract class EnemyBase extends InvisibleActor {
 
     private int tanksPool;
 
-    private final FrameController fighterTimer;
+    protected final FrameController fighterTimer;
     private final FrameController chaserTimer;
     private final FrameController tankTimer;
 
     protected IBoss boss;
-    private boolean isBossOnField;
+    protected boolean isBossOnField;
 
     public EnemyBase(final IUtils utils) {
 
         fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, Consts.AI.FIRST_FIGHTER_AFTER_MILLIS);
         chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, Consts.AI.FIRST_CHASER_AFTER_MILLIS);
         tankTimer = new FrameController(utils, Consts.AI.TANKS_PER_SECOND, Consts.AI.FIRST_TANK_AFTER_MILLIS);
+
+        powerUpBuilder = PowerUpBuilder.INSTANCE;
     }
 
     public void setStage(final GameplayStage stage) {
@@ -126,7 +131,7 @@ public abstract class EnemyBase extends InvisibleActor {
         }
     }
 
-    private void addFighter() {
+    protected void addFighter() {
 
         updateRadar();
 
@@ -134,7 +139,7 @@ public abstract class EnemyBase extends InvisibleActor {
 
         MoverAI mover = chooseMover(fighter);
         ShooterAI shooter = buildShooter(fighter, createFighterShooter());
-        IPowerUp powerUp = choosePowerUp(fighter);
+        IPowerUp powerUp = choosePowerUp();
 
         fighter.setPlayerShip(radar.getPlayerShip());
         fighter.setMover(mover);
@@ -152,7 +157,7 @@ public abstract class EnemyBase extends InvisibleActor {
 
         MoverAI mover = MoverType.FRONT_CHASER.create();
         ShooterAI shooter = buildShooter(chaser, createChaserShooter());
-        IPowerUp powerUp = choosePowerUp(chaser);
+        IPowerUp powerUp = choosePowerUp();
 
         mover.setPlayerShip(playerShip);
         mover.setOwner(chaser);
@@ -203,7 +208,7 @@ public abstract class EnemyBase extends InvisibleActor {
 
         MoverAI mover = MoverType.SLOW_DOWNER.create();
         ShooterAI shooter = createTankShooter(tank);
-        IPowerUp powerUp = choosePowerUp(tank);
+        IPowerUp powerUp = choosePowerUp();
 
         shooter.setFriends(enemyShips);
         shooter.setPlayerShip(playerShip);
@@ -226,7 +231,8 @@ public abstract class EnemyBase extends InvisibleActor {
 
         updateRadar();
 
-        MoverAI mover = boss.getDefaultMoverType().create();
+        MoverAI mover = boss.getDefaultMoverType() != null ? boss.getDefaultMoverType().create()
+                : MoverType.FRONT_CHASER.create();
         ShooterAI shooter = createBossShooter(boss);
 
         mover.setPlayerShip(playerShip);
@@ -243,7 +249,8 @@ public abstract class EnemyBase extends InvisibleActor {
     private ShooterAI createBossShooter(final IBoss boss) {
 
         ShooterAI shooter;
-        shooter = boss.getDefaultShooterType().create();
+        shooter = boss.getDefaultShooterType() != null ? boss.getDefaultShooterType().create()
+                : ShooterType.DIRECT_SHOOTER.create();
 
         shooter.setFriends(enemyShips);
         shooter.setPlayerShip(playerShip);
@@ -357,7 +364,7 @@ public abstract class EnemyBase extends InvisibleActor {
         enemyShips = radar.getEnemyShips();
     }
 
-    private IPowerUp choosePowerUp(final IEnemyShip fighter) {
+    protected IPowerUp choosePowerUp() {
 
         IPowerUp powerUp = null;
 
@@ -365,20 +372,20 @@ public abstract class EnemyBase extends InvisibleActor {
             double randomNumber = Math.random();
 
             if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE) {
-                powerUp = PowerUpBuilder.INSTANCE.hp(hpPool);
+                powerUp = powerUpBuilder.hp(hpPool);
             }
             else
                 if (randomNumber < Consts.AI.FIGHTER_HP_UP_CHANCE + Consts.AI.FIGHTER_ENE_UP_CHANCE) {
-                    powerUp = PowerUpBuilder.INSTANCE.energy(energyPool);
+                    powerUp = powerUpBuilder.energy(energyPool);
                 }
                 else {
-                    powerUp = choosePowerUp();
+                    powerUp = chooseWeaponPowerUp();
                 }
         }
         return powerUp;
     }
 
-    protected abstract IPowerUp choosePowerUp();
+    protected abstract IPowerUp chooseWeaponPowerUp();
 
     public enum Direction {
 

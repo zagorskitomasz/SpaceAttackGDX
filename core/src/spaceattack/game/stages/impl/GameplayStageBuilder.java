@@ -170,6 +170,9 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
                 Consts.Pools.PLAYER_HP_BASE_REGEN,
                 Consts.Pools.PLAYER_HP_REGEN_PER_LEVEL);
         hpPool.setImmunityChecker(stage::isGameOver);
+        // hpPool.addTemporalInfinityChecker(() -> true);
+        // TODO immortal ship for test purposes;
+        // remove before release
 
         expBar = BarBuilder.INSTANCE.experienceBar(expPool);
         hpEnergyBar = BarBuilder.INSTANCE.hpEnergyBar(hpPool, energyPool);

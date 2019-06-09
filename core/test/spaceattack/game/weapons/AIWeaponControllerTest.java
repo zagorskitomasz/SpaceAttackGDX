@@ -30,6 +30,9 @@ public class AIWeaponControllerTest {
     @Mock
     private IWeapon weapon2;
 
+    @Mock
+    private IWeapon passiveWeapon;
+
     private IWeaponController controller;
 
     private IVectorFactory vectors;
@@ -95,6 +98,16 @@ public class AIWeaponControllerTest {
         controller.performAttack(PossibleAttacks.PRIMARY, null);
 
         verify(weapon2, times(0)).use();
+    }
+
+    @Test
+    public void passiveWeaponIsAlwaysUsed() {
+
+        controller.addPassiveWeapon(passiveWeapon);
+
+        controller.performAttack(PossibleAttacks.NONE, null);
+
+        verify(passiveWeapon).use();
     }
 
     @Test

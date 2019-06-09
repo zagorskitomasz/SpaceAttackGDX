@@ -91,7 +91,9 @@ public abstract class Ship extends DrawableActor implements IShip {
 
         if (hpPool != null) {
             hpPool.update();
-            burner.burn(delta);
+            if (burner != null) {
+                burner.burn(delta);
+            }
         }
 
         if (engine != null && freezer == null) {
@@ -149,13 +151,13 @@ public abstract class Ship extends DrawableActor implements IShip {
     @Override
     public float getHeight() {
 
-        return currentTexture.getHeight();
+        return currentTexture != null ? currentTexture.getHeight() : 0;
     }
 
     @Override
     public float getWidth() {
 
-        return currentTexture.getWidth();
+        return currentTexture != null ? currentTexture.getWidth() : 0;
     }
 
     @Override
@@ -249,7 +251,9 @@ public abstract class Ship extends DrawableActor implements IShip {
     public void draw(final IBatch batch, final float alpha) {
 
         super.draw(batch, alpha);
-        burner.draw(batch);
+        if (burner != null) {
+            burner.draw(batch);
+        }
 
         if (freezer != null) {
             freezer.draw(batch);

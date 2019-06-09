@@ -14,6 +14,7 @@ public class EnergyShieldEmiter extends AbstractWeapon {
 
     private EnergyShield lastShield;
     private Predicate<Float> activityChecker;
+    private long duration;
 
     @Override
     public float getWeaponsMovementFactor() {
@@ -70,7 +71,14 @@ public class EnergyShieldEmiter extends AbstractWeapon {
         shield.setDmg(dmg);
         shield.setEnergyCost(getEnergyCost());
         shield.setPositionSupplier(() -> controller.getShip().getPosition());
-        shield.setActivityPredicate(activityChecker);
+        if (duration > 0) {
+            long launched = utils.millis();
+            shield.setActivityPredicate(
+                    unrealtedNumber -> !controller.getShip().isToKill() && launched + 3000 > utils.millis());
+        }
+        else {
+            shield.setActivityPredicate(activityChecker);
+        }
         shield.setRadius(Consts.Weapons.SHIELD_RADIUS);
         shield.setSound(Sounds.SHIELD);
         shield.setPlayersAttack(controller.isPlayer());
@@ -96,5 +104,10 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     public void setActivityPredicate(final Predicate<Float> predicate) {
 
         activityChecker = predicate;
+    }
+
+    public void setShieldDuration(final long duration) {
+
+        this.duration = duration;
     }
 }

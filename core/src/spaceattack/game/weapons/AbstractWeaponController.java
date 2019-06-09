@@ -1,5 +1,8 @@
 package spaceattack.game.weapons;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import spaceattack.consts.Consts;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVector;
@@ -10,6 +13,7 @@ public abstract class AbstractWeaponController implements IWeaponController {
 
     protected IWeapon primaryWeapon;
     protected IWeapon secondaryWeapon;
+    protected List<IWeapon> passiveWeapons = new LinkedList<>();
 
     protected boolean frozen;
 
@@ -107,5 +111,11 @@ public abstract class AbstractWeaponController implements IWeaponController {
     public IWeapon getSecondaryWeapon() {
 
         return secondaryWeapon;
+    }
+
+    @Override
+    public void addPassiveWeapon(final IWeapon weapon) {
+
+        passiveWeapons.add(weapon);
     }
 }

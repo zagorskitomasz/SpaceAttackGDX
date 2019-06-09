@@ -114,6 +114,8 @@ public class Consts {
         public static final float JUMPER_CORRECTIONS_PER_SEC = 1;
         public static final double JUMPER_PLAYER_DISTANCE = 280 * Sizes.Y_FACTOR;
         public static final float SIDE_CHASER_MOVEMENT = 220 * Sizes.X_FACTOR;
+        public static final float POWER_UP_FINAL_BOSS_FREQ = 0.2f;
+        public static final float FINAL_EXPLOSIONS_FREQ = 2;
     }
 
     public static class Pools {

@@ -11,6 +11,7 @@ import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.MoverAI;
 import spaceattack.game.ai.ShooterAI;
 import spaceattack.game.ai.movers.MoverType;
+import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.powerup.IPowerUp;
@@ -25,12 +26,13 @@ import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.Freezer;
 
-public class FakeShip implements IShip, IEnemyShip {
+public class FakeShip implements IShip, IEnemyShip, IBoss {
 
     private float x;
     private float y;
     private float radius;
     private IPool hpPool;
+    private boolean isToKill = false;
 
     @Override
     public void notify(final GameProgress state) {
@@ -41,7 +43,11 @@ public class FakeShip implements IShip, IEnemyShip {
     @Override
     public void takeDmg(final float dmg) {
 
-        // do nothing
+        if (hpPool != null) {
+            if (!hpPool.take(dmg)) {
+                setToKill();
+            }
+        }
     }
 
     @Override
@@ -59,13 +65,13 @@ public class FakeShip implements IShip, IEnemyShip {
     @Override
     public void setToKill() {
 
-        // do nothing
+        isToKill = true;
     }
 
     @Override
     public boolean isToKill() {
 
-        return false;
+        return isToKill;
     }
 
     @Override
@@ -324,5 +330,17 @@ public class FakeShip implements IShip, IEnemyShip {
     public void unfreeze() {
 
         // do nothing
+    }
+
+    @Override
+    public MoverType getDefaultMoverType() {
+
+        return null;
+    }
+
+    @Override
+    public ShooterType getDefaultShooterType() {
+
+        return null;
     }
 }
