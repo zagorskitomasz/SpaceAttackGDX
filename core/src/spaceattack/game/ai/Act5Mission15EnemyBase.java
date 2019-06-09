@@ -1,9 +1,12 @@
 package spaceattack.game.ai;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.ships.enemy.boss.IFinalBossShipBuilder;
 import spaceattack.game.system.Acts;
+import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.utils.vector.IVector;
 
@@ -14,6 +17,7 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
 
     private FinalFightStage fightStage;
     private final IFinalBossShipBuilder bossShipBuilder;
+    private final FrameController powerUpController;
 
     public Act5Mission15EnemyBase(final IUtils utils, final IFinalBossShipBuilder builder) {
 
@@ -22,6 +26,7 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
         fightStage = FinalFightStage.SPACE_STATION_I;
         bossShipBuilder = builder;
         boss = null;
+        powerUpController = new FrameController(utils, Consts.AI.POWER_UP_FINAL_BOSS_FREQ);
     }
 
     @Override
@@ -30,6 +35,8 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
         if (fightStage == null) {
             return;
         }
+
+        tryLaunchPowerUp();
 
         switch (fightStage) {
         case SPACE_STATION_I:
@@ -46,6 +53,23 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
         case SPACE_STATION_III:
             break;
         }
+    }
+
+    private void tryLaunchPowerUp() {
+
+        if (!powerUpController.check()) {
+            return;
+        }
+
+        IPowerUp powerUp = choosePowerUp();
+
+        if (powerUp == null) {
+            return;
+        }
+
+        powerUp.setX((float) (Sizes.GAME_WIDTH * 0.1f + Math.random() * Sizes.GAME_WIDTH * 0.8f));
+        powerUp.setY(Sizes.GAME_HEIGHT * 1.1f);
+        stage.getMissilesLauncher().launch(powerUp);
     }
 
     private void actSpaceStationI() {

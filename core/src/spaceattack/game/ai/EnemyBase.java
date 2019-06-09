@@ -359,7 +359,7 @@ public abstract class EnemyBase extends InvisibleActor {
         enemyShips = radar.getEnemyShips();
     }
 
-    private IPowerUp choosePowerUp() {
+    protected IPowerUp choosePowerUp() {
 
         IPowerUp powerUp = null;
 
