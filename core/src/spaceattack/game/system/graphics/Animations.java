@@ -4,29 +4,25 @@ import spaceattack.game.factories.Factories;
 
 public enum Animations {
     // @formatter:off
-
-    // explosions
-    FIGHTER_EX("graphics/animations/fighterEx.atlas", false, 10),
-    BOSS_EX("graphics/animations/bossEx.atlas", false, 10),
-    MISSILE_EX("graphics/animations/missileEx.atlas", false, 10),
-    TANK_EX("graphics/animations/tankEx.atlas", false, 10),
-    FIRE("graphics/animations/fire.atlas", true, 10),
-    SHIELD("graphics/animations/shield.atlas", true, 10),
-    TIME_WAVE("graphics/animations/timeWaveUse.atlas", false, 25),
-    TIME_FREEZE("graphics/animations/timeWave.atlas", true, 10),
-    FLAME_P("graphics/animations/flameP.atlas", true, 10),
-    FLAME_E("graphics/animations/flameE.atlas", true, 10);
+    FIGHTER_EX(false, 10),
+    BOSS_EX(false, 10),
+    MISSILE_EX(false, 10),
+    TANK_EX(false, 10),
+    FIRE(true, 10),
+    SHIELD(true, 10),
+    TIME_WAVE(false, 25),
+    TIME_FREEZE(true, 10),
+    FLAME_P(true, 10),
+    FLAME_E(true, 10);
     // @formatter:on
 
-    private String path;
     private boolean loop;
     private float fps;
 
     private static boolean isTest;
 
-    Animations(final String path, final boolean loop, final float fps) {
+    Animations(final boolean loop, final float fps) {
 
-        this.path = path;
         this.loop = loop;
         this.fps = fps;
     }
@@ -48,9 +44,9 @@ public enum Animations {
         }
 
         if (loop) {
-            return Factories.getAnimationFactory().createLooping(path, fps);
+            return Factories.getAnimationFactory().createLooping(this, fps);
         }
 
-        return Factories.getAnimationFactory().create(path, fps);
+        return Factories.getAnimationFactory().create(this, fps);
     }
 }
