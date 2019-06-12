@@ -7,17 +7,19 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import spaceattack.ext.texture.GdxTextureReg;
+import spaceattack.game.ext.system.Atlases;
+import spaceattack.game.system.graphics.Animations;
 import spaceattack.game.system.graphics.IAnimation;
 import spaceattack.game.system.graphics.ITexture;
 
 public class GdxAnimation implements IAnimation {
 
-    private Animation<TextureRegion> gdxAnimation;
+    private final Animation<TextureRegion> gdxAnimation;
     float elapsed = 0;
 
-    public GdxAnimation(String path, boolean loop, float fps) {
+    public GdxAnimation(final Animations animation, final boolean loop, final float fps) {
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal(path));
+        TextureAtlas atlas = Atlases.getAtlas(animation);
         gdxAnimation = new Animation<>(1 / fps, atlas.getRegions(), loop ? PlayMode.LOOP : PlayMode.NORMAL);
     }
 
