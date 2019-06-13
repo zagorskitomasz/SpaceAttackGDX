@@ -41,28 +41,38 @@ public abstract class EnemyBase extends InvisibleActor {
     private IEnemyShipsFactory shipsFactory;
     private IPool hpPool;
     private IPool energyPool;
+    protected IUtils utils;
 
     private int tanksPool;
 
-    protected final FrameController fighterTimer;
-    private final FrameController chaserTimer;
-    private final FrameController tankTimer;
+    protected FrameController fighterTimer;
+    private FrameController chaserTimer;
+    private FrameController tankTimer;
 
     protected IBoss boss;
     protected boolean isBossOnField;
 
     public EnemyBase(final IUtils utils) {
 
-        fighterTimer = new FrameController(utils, Consts.AI.FIGHTERS_PER_SECOND, Consts.AI.FIRST_FIGHTER_AFTER_MILLIS);
-        chaserTimer = new FrameController(utils, Consts.AI.CHASERS_PER_SECOND, Consts.AI.FIRST_CHASER_AFTER_MILLIS);
-        tankTimer = new FrameController(utils, Consts.AI.TANKS_PER_SECOND, Consts.AI.FIRST_TANK_AFTER_MILLIS);
-
         powerUpBuilder = PowerUpBuilder.INSTANCE;
+        this.utils = utils;
     }
 
     public void setStage(final GameplayStage stage) {
 
         this.stage = stage;
+
+        fighterTimer = new FrameController(utils, calculateEnemySpawnFrequency(Consts.AI.FIGHTERS_PER_SECOND),
+                Consts.AI.FIRST_FIGHTER_AFTER_MILLIS);
+        chaserTimer = new FrameController(utils, calculateEnemySpawnFrequency(Consts.AI.CHASERS_PER_SECOND),
+                Consts.AI.FIRST_CHASER_AFTER_MILLIS);
+        tankTimer = new FrameController(utils, calculateEnemySpawnFrequency(Consts.AI.TANKS_PER_SECOND),
+                Consts.AI.FIRST_TANK_AFTER_MILLIS);
+    }
+
+    protected float calculateEnemySpawnFrequency(final float baseValue) {
+
+        return baseValue + baseValue * Consts.Metagame.ACTS_NUMBER * Consts.Metagame.MISSIONS_IN_ACT / 15;
     }
 
     public void setShipsFactory(final IEnemyShipsFactory factory) {

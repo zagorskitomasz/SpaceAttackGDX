@@ -6,6 +6,7 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.powerup.IPowerUpBuilder;
 import spaceattack.game.ships.enemy.boss.IFinalBossShipBuilder;
+import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.Acts;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
@@ -34,7 +35,13 @@ public class Act5Mission15EnemyBase extends Act5EnemyBase {
         boss = null;
         powerUpController = new FrameController(utils, Consts.AI.POWER_UP_FINAL_BOSS_FREQ);
         finalExplosionsController = new FrameController(utils, Consts.AI.FINAL_EXPLOSIONS_FREQ);
-        fighterTimer.reset(Consts.AI.FIGHTERS_PER_SECOND * 3);
+    }
+
+    @Override
+    public void setStage(final GameplayStage stage) {
+
+        super.setStage(stage);
+        fighterTimer.reset(calculateEnemySpawnFrequency(Consts.AI.FIGHTERS_PER_SECOND * 2));
     }
 
     @Override

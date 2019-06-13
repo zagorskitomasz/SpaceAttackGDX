@@ -74,8 +74,9 @@ public class Consts {
 
         public static final long LABEL_SHOW_TIME = 4500;
         public static final float SHIP_TURN_THRESHOLD = 2.5f;
-        public static final int NO_BOSS_TANKS_POOL = 6;
-        public static final int BOSS_TANKS_POOL = 5;
+        public static final int NO_BOSS_TANKS_POOL = 5;
+        public static final int MINOR_BOSS_TANKS_POOL = 5;
+        public static final int MAJOR_BOSS_TANKS_POOL = 4;
         public static final int MAX_EXP_LEVEL = 99;
     }
 
@@ -96,8 +97,8 @@ public class Consts {
     public static class AI {
 
         public static final float FIGHTERS_PER_SECOND = 0.1f;
-        public static final float CHASERS_PER_SECOND = 0.06f;
-        public static final float TANKS_PER_SECOND = 0.03f;
+        public static final float CHASERS_PER_SECOND = 0.07f;
+        public static final float TANKS_PER_SECOND = 0.04f;
 
         public static final long FIRST_FIGHTER_AFTER_MILLIS = 3000;
         public static final long FIRST_CHASER_AFTER_MILLIS = 10000;
