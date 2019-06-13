@@ -25,7 +25,7 @@ public class Mission8StageBuilder extends Act3StageBuilder {
     @Override
     protected void setTanks(final EnemyBase enemyBase) {
 
-        enemyBase.setTanksPool(Consts.Gameplay.BOSS_TANKS_POOL);
+        enemyBase.setTanksPool(Consts.Gameplay.MINOR_BOSS_TANKS_POOL + getAct().getNumber());
         enemyBase.setBoss(EnemyShipsFactory.INSTANCE.createMinorBoss(getAct(), stage));
     }
 }

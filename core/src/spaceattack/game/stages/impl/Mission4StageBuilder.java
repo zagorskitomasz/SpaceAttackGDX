@@ -22,8 +22,8 @@ public class Mission4StageBuilder extends Act2StageBuilder {
     }
 
     @Override
-    protected void setTanks(EnemyBase enemyBase) {
+    protected void setTanks(final EnemyBase enemyBase) {
 
-        enemyBase.setTanksPool(Consts.Gameplay.NO_BOSS_TANKS_POOL);
+        enemyBase.setTanksPool(Consts.Gameplay.NO_BOSS_TANKS_POOL + getAct().getNumber());
     }
 }
