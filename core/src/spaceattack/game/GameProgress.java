@@ -12,6 +12,7 @@ public class GameProgress implements INotifier<GameProgress> {
     private Integer mission;
     private Integer level;
     private Long experience;
+    private String playerName;
 
     private transient List<IObserver<GameProgress>> observers;
 
@@ -29,7 +30,7 @@ public class GameProgress implements INotifier<GameProgress> {
         return mission;
     }
 
-    public void setMission(Integer mission) {
+    public void setMission(final Integer mission) {
 
         this.mission = mission;
         notifyObservers();
@@ -40,7 +41,7 @@ public class GameProgress implements INotifier<GameProgress> {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(final Integer level) {
 
         this.level = level;
         notifyObservers();
@@ -51,47 +52,47 @@ public class GameProgress implements INotifier<GameProgress> {
         return experience;
     }
 
-    public void setExperience(Long experience) {
+    public void setExperience(final Long experience) {
 
         this.experience = experience;
     }
 
-    public void addExperience(long amount) {
+    public String getPlayerName() {
+
+        return playerName;
+    }
+
+    public void setPlayerName(final String playerName) {
+
+        this.playerName = playerName;
+    }
+
+    public void addExperience(final long amount) {
 
         experience += amount;
 
-        if (experience >= Experience.INSTANCE.expForLevel(level + 1))
+        if (experience >= Experience.INSTANCE.expForLevel(level + 1)) {
             setLevel(level + 1);
+        }
     }
 
     @Override
-    public boolean equals(Object other) {
-
-        if (other == null || !(other instanceof GameProgress))
-            return false;
-
-        GameProgress otherProgress = (GameProgress) other;
-
-        return otherProgress.experience == experience && otherProgress.level == level
-                && otherProgress.mission == mission;
-    }
-
-    @Override
-    public void registerObserver(IObserver<GameProgress> observer) {
+    public void registerObserver(final IObserver<GameProgress> observer) {
 
         observers.add(observer);
     }
 
     @Override
-    public void unregisterObserver(IObserver<GameProgress> observer) {
+    public void unregisterObserver(final IObserver<GameProgress> observer) {
 
         observers.remove(observer);
     }
 
     public void notifyObservers() {
 
-        for (IObserver<GameProgress> observer : observers)
+        for (IObserver<GameProgress> observer : observers) {
             observer.notify(this);
+        }
     }
 
     @Override
@@ -102,13 +103,79 @@ public class GameProgress implements INotifier<GameProgress> {
         newProgress.experience = this.experience;
         newProgress.level = this.level;
         newProgress.mission = this.mission;
+        newProgress.playerName = this.playerName;
 
         return newProgress;
     }
 
-    public void missionCompleted(int currentMission) {
+    public void missionCompleted(final int currentMission) {
 
-        if (currentMission + 1 > getMission())
+        if (currentMission + 1 > getMission()) {
             setMission(currentMission + 1);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((experience == null) ? 0 : experience.hashCode());
+        result = prime * result + ((level == null) ? 0 : level.hashCode());
+        result = prime * result + ((mission == null) ? 0 : mission.hashCode());
+        result = prime * result + ((playerName == null) ? 0 : playerName.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        GameProgress other = (GameProgress) obj;
+        if (experience == null) {
+            if (other.experience != null) {
+                return false;
+            }
+        }
+        else
+            if (!experience.equals(other.experience)) {
+                return false;
+            }
+        if (level == null) {
+            if (other.level != null) {
+                return false;
+            }
+        }
+        else
+            if (!level.equals(other.level)) {
+                return false;
+            }
+        if (mission == null) {
+            if (other.mission != null) {
+                return false;
+            }
+        }
+        else
+            if (!mission.equals(other.mission)) {
+                return false;
+            }
+        if (playerName == null) {
+            if (other.playerName != null) {
+                return false;
+            }
+        }
+        else
+            if (!playerName.equals(other.playerName)) {
+                return false;
+            }
+        return true;
     }
 }

@@ -13,8 +13,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.GameStageFactory;
+import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.system.GameLoader;
@@ -59,13 +59,6 @@ public class GameTest {
 
         game.create();
         assertEquals(Stages.MAIN_MENU, game.getCurrentStage());
-    }
-
-    @Test
-    public void gameIsLoadedDuringCreate() {
-
-        game.create();
-        verify(gameLoader).load();
     }
 
     @Test

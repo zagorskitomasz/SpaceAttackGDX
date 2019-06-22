@@ -9,6 +9,7 @@ public enum GameLoaderFactory {
 
         GameLoader loader = new GameLoader();
         loader.setUtils(Factories.getUtilsFactory().create());
+        loader.setSaver(GameSaverFactory.INSTANCE.create());
 
         return loader;
     }

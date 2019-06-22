@@ -13,40 +13,57 @@ public class GameLoader {
     private IUtils utils;
     private IFileHandle file;
 
-    private Lock lock;
+    private final Lock lock;
+
+    private GameSaver saver;
 
     GameLoader() {
 
         lock = new ReentrantLock();
     }
 
-    void setUtils(IUtils utils) {
+    void setUtils(final IUtils utils) {
 
         this.utils = utils;
     }
 
-    public GameProgress load() {
+    void setSaver(final GameSaver saver) {
+
+        this.saver = saver;
+    }
+
+    public GameProgress load(final String playerName) {
 
         try {
             lock.lock();
 
             loadFromFilesystem();
 
-            if (fileExists())
-                return parse();
+            if (fileExists()) {
+                return parse(playerName);
+            }
 
-            return new GameProgress();
+            return null;
         }
         finally {
             lock.unlock();
         }
     }
 
-    private GameProgress parse() {
+    private GameProgress parse(final String playerName) {
 
         InputStream fileContent = readData();
 
-        return utils.streamToObject(GameProgress.class, fileContent);
+        SaveFile save = utils.streamToObject(SaveFile.class, fileContent);
+
+        GameProgress progress = save.getProgress(playerName);
+
+        if (progress == null) {
+            progress = new GameProgress();
+            progress.setPlayerName(playerName);
+            saver.save(progress);
+        }
+        return progress;
     }
 
     private void loadFromFilesystem() {
@@ -59,8 +76,9 @@ public class GameLoader {
         try {
             lock.lock();
 
-            if (file == null)
+            if (file == null) {
                 loadFromFilesystem();
+            }
 
             return file.exists();
         }
@@ -71,8 +89,9 @@ public class GameLoader {
 
     private InputStream readData() {
 
-        if (file == null)
+        if (file == null) {
             loadFromFilesystem();
+        }
 
         return file.read();
     }
