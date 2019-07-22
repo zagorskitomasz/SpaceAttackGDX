@@ -1,8 +1,10 @@
 package spaceattack.game.system;
 
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -20,7 +22,7 @@ public class GameSaverTest {
 
     private IUtils utils;
 
-    private static final String CONTENT = "{savedProgress:{class:java.util.HashMap,PlayerOne:{mission:16,level:40,experience:163900,playerName:PlayerOne}}}";
+    private static final String CONTENT = "{savedProgress:{class:java.util.HashMap,2:{mission:16,level:40,experience:163900,playerName:PlayerOne}}}";
 
     @Mock
     private IFileHandle file;
@@ -48,9 +50,9 @@ public class GameSaverTest {
         progress.setMission(3);
         progress.setPlayerName("PlayerOne");
 
-        saver.save(progress);
+        saver.save(progress, "2");
         verify(file).writeString(
-                "{savedProgress:{class:java.util.HashMap,PlayerOne:{mission:3,level:5,experience:999888777666,playerName:PlayerOne}}}",
+                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne}}}",
                 false);
     }
 
@@ -63,9 +65,22 @@ public class GameSaverTest {
         progress.setMission(3);
         progress.setPlayerName("PlayerTwo");
 
-        saver.save(progress);
+        saver.save(progress, "3");
         verify(file).writeString(
-                "{savedProgress:{class:java.util.HashMap,PlayerTwo:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo},PlayerOne:{mission:16,level:40,experience:163900,playerName:PlayerOne}}}",
+                "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne},3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}",
                 false);
+    }
+
+    @Test
+    public void validateNotIntegerValues() {
+
+        GameProgress progress = new GameProgress();
+        progress.setExperience(999888777666l);
+        progress.setLevel(5);
+        progress.setMission(3);
+        progress.setPlayerName("PlayerTwo");
+
+        saver.save(progress, "test");
+        verify(file, times(0)).writeString(anyString(), anyBoolean());
     }
 }

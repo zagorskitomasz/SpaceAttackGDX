@@ -1,6 +1,9 @@
 package spaceattack.game.system;
 
+import static java.util.stream.Collectors.toMap;
+
 import java.io.InputStream;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -15,8 +18,6 @@ public class GameLoader {
 
     private final Lock lock;
 
-    private GameSaver saver;
-
     GameLoader() {
 
         lock = new ReentrantLock();
@@ -27,12 +28,7 @@ public class GameLoader {
         this.utils = utils;
     }
 
-    void setSaver(final GameSaver saver) {
-
-        this.saver = saver;
-    }
-
-    public GameProgress load(final String playerName) {
+    public GameProgress load(final String slotIndex) {
 
         try {
             lock.lock();
@@ -40,7 +36,7 @@ public class GameLoader {
             loadFromFilesystem();
 
             if (fileExists()) {
-                return parse(playerName);
+                return parse(slotIndex);
             }
 
             return null;
@@ -50,19 +46,12 @@ public class GameLoader {
         }
     }
 
-    private GameProgress parse(final String playerName) {
+    private GameProgress parse(final String slotIndex) {
 
-        InputStream fileContent = readData();
+        SaveFile save = readFile();
 
-        SaveFile save = utils.streamToObject(SaveFile.class, fileContent);
+        GameProgress progress = save.getProgress(slotIndex);
 
-        GameProgress progress = save.getProgress(playerName);
-
-        if (progress == null) {
-            progress = new GameProgress();
-            progress.setPlayerName(playerName);
-            saver.save(progress);
-        }
         return progress;
     }
 
@@ -94,5 +83,46 @@ public class GameLoader {
         }
 
         return file.read();
+    }
+
+    public Map<String, String> loadAll() {
+
+        try {
+            lock.lock();
+
+            loadFromFilesystem();
+
+            if (fileExists()) {
+                return parseAll();
+            }
+
+            return null;
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    private Map<String, String> parseAll() {
+
+        SaveFile save = readFile();
+
+        return save //
+                .getSavedProgress() //
+                .entrySet() //
+                .stream() //
+                .collect(
+                        toMap(entry -> {
+                            return entry.getKey().toString();
+                        }, entry -> {
+                            return entry.getValue().getPlayerName();
+                        }));
+    }
+
+    protected SaveFile readFile() {
+
+        InputStream fileContent = readData();
+
+        return utils.streamToObject(SaveFile.class, fileContent);
     }
 }

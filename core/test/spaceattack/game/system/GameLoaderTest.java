@@ -5,11 +5,11 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +22,7 @@ import spaceattack.game.utils.IUtils;
 public class GameLoaderTest {
 
     private static final String PLAYER_NAME = "PlayerOne";
+    private static final String SLOT_INDEX = "2";
 
     private IUtils utils;
 
@@ -30,9 +31,6 @@ public class GameLoaderTest {
 
     private GameLoader loader;
 
-    @Mock
-    private GameSaver saver;
-
     @Before
     public void setUp() {
 
@@ -40,9 +38,8 @@ public class GameLoaderTest {
         loader = new GameLoader();
         loader.setUtils(utils);
         initMocks(this);
-        loader.setSaver(saver);
 
-        String fileContent = "{savedProgress:{class:java.util.HashMap,PlayerOne:{mission:16,level:40,experience:163900,playerName:PlayerOne}}}";
+        String fileContent = "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne}}}";
         InputStream fileContentStream = new ByteArrayInputStream(fileContent.getBytes());
 
         doReturn(file).when(utils).loadFile(anyString());
@@ -54,7 +51,7 @@ public class GameLoaderTest {
 
         doReturn(false).when(file).exists();
 
-        GameProgress progress = loader.load(PLAYER_NAME);
+        GameProgress progress = loader.load(SLOT_INDEX);
 
         assertNull(progress);
     }
@@ -64,7 +61,7 @@ public class GameLoaderTest {
 
         doReturn(true).when(file).exists();
 
-        GameProgress progress = loader.load(PLAYER_NAME);
+        GameProgress progress = loader.load(SLOT_INDEX);
 
         assertEquals(Integer.valueOf(16), progress.getMission());
         assertEquals(Integer.valueOf(40), progress.getLevel());
@@ -73,25 +70,22 @@ public class GameLoaderTest {
     }
 
     @Test
-    public void ifPlayerNotExistsReturnInitialProgress() {
+    public void ifPlayerNotExistsReturnNull() {
 
         doReturn(true).when(file).exists();
 
-        GameProgress progress = loader.load("PlayerTwo");
+        GameProgress progress = loader.load("4");
 
-        assertEquals(Integer.valueOf(1), progress.getMission());
-        assertEquals(Integer.valueOf(1), progress.getLevel());
-        assertEquals(Long.valueOf(0l), progress.getExperience());
-        assertEquals("PlayerTwo", progress.getPlayerName());
+        assertNull(progress);
     }
 
     @Test
-    public void ifPlayerNotExistsSaveInitialProgress() {
+    public void loadingPlayersNames() {
 
         doReturn(true).when(file).exists();
 
-        GameProgress progress = loader.load("PlayerTwo");
+        Map<String, String> allPlayers = loader.loadAll();
 
-        verify(saver).save(progress);
+        assertEquals(PLAYER_NAME, allPlayers.get(SLOT_INDEX));
     }
 }
