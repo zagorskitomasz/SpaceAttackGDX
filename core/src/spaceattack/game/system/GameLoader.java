@@ -3,6 +3,7 @@ package spaceattack.game.system;
 import static java.util.stream.Collectors.toMap;
 
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -105,18 +106,23 @@ public class GameLoader {
 
     private Map<String, String> parseAll() {
 
-        SaveFile save = readFile();
+        try {
+            SaveFile save = readFile();
 
-        return save //
-                .getSavedProgress() //
-                .entrySet() //
-                .stream() //
-                .collect(
-                        toMap(entry -> {
-                            return entry.getKey().toString();
-                        }, entry -> {
-                            return entry.getValue().getPlayerName();
-                        }));
+            return save //
+                    .getSavedProgress() //
+                    .entrySet() //
+                    .stream() //
+                    .collect(
+                            toMap(entry -> {
+                                return entry.getKey().toString();
+                            }, entry -> {
+                                return entry.getValue().getPlayerName();
+                            }));
+        }
+        catch (Exception lvEx) {
+            return Collections.emptyMap();
+        }
     }
 
     protected SaveFile readFile() {

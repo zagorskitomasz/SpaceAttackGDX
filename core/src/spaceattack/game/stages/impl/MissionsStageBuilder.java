@@ -17,14 +17,14 @@ import spaceattack.game.system.sound.MusicPlayer;
 public class MissionsStageBuilder implements IStageBuilder {
 
     @Override
-    public IGameStage build(GameProgress progress) {
+    public IGameStage build(final GameProgress progress) {
 
         MissionsStage stage = new MissionsStage();
 
         stage.setStage(Factories.getStageFactory().create());
         stage.setGameSaver(GameSaverFactory.INSTANCE.create());
         stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
-        stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load());
+        stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load(""));
 
         Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
 

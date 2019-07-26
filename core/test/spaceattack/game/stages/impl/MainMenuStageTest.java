@@ -62,7 +62,7 @@ public class MainMenuStageTest {
         stage.setGameProgress(new GameProgress());
         stage.setResult(result);
 
-        verify(saver).save(eq(progress));
+        verify(saver).save(eq(progress), eq(""));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class MainMenuStageTest {
 
         stage.setResult(result);
 
-        verify(saver, times(0)).save(any(GameProgress.class));
+        verify(saver, times(0)).save(any(GameProgress.class), eq(""));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class MainMenuStageTest {
         stage.setGameProgress(progress);
         stage.setResult(result);
 
-        verify(saver, times(0)).save(any(GameProgress.class));
+        verify(saver, times(0)).save(any(GameProgress.class), eq(""));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class MainMenuStageTest {
         stage.setGameProgress(progress);
         stage.setResult(result);
 
-        verify(saver).save(eq(progress));
+        verify(saver).save(eq(progress), eq(""));
     }
 
     @Test

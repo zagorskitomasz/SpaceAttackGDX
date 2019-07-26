@@ -108,7 +108,7 @@ public class GameplayStageTest {
         stage.lose();
         stage.finalizeStage();
 
-        verify(saver).save(eq(backupProgress));
+        verify(saver).save(eq(backupProgress), eq(""));
     }
 
     @Test
@@ -124,7 +124,7 @@ public class GameplayStageTest {
         stage.setWon(true);
         stage.finalizeStage();
 
-        verify(saver).save(eq(baseProgress));
+        verify(saver).save(eq(baseProgress), eq(""));
     }
 
     @Test
@@ -174,7 +174,7 @@ public class GameplayStageTest {
         doReturn(false).when(failedLabel).isVisible();
         stage.act(0);
 
-        verify(saver).save(eq(progress));
+        verify(saver).save(eq(progress), eq(""));
     }
 
     @Test

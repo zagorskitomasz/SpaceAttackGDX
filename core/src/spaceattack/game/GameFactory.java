@@ -4,7 +4,6 @@ import spaceattack.consts.Consts;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.stages.GameStageFactory;
 import spaceattack.game.system.FrameController;
-import spaceattack.game.system.GameLoaderFactory;
 import spaceattack.game.utils.IUtils;
 
 public enum GameFactory {
@@ -17,7 +16,6 @@ public enum GameFactory {
         Game game = new Game(false);
 
         game.setExtUtils(utils);
-        game.setGameLoader(GameLoaderFactory.INSTANCE.create());
         game.setStageBuilder(GameStageFactory.INSTANCE);
         game.setFrameController(new FrameController(utils, Consts.Metagame.FPS));
 

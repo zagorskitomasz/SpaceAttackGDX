@@ -71,7 +71,7 @@ public abstract class AbstractStage implements IGameStage {
 
         if (result.getGameProgress() != null
                 && !(result.getGameProgress().equals(progressBackup) && gameLoader.fileExists())) {
-            gameSaver.save(result.getGameProgress());
+            gameSaver.save(result.getGameProgress(), "");
         }
     }
 
