@@ -51,7 +51,9 @@ public class PlayerSelectionStageBuilder implements IStageBuilder {
                         loader, stage));
                 stage.addActor(PlayerButtonsBuilder.INSTANCE.createDeletePlayerButton(buttonIndex, saver, stage));
             }
-            stage.addActor(PlayerButtonsBuilder.INSTANCE.createEmptySlotButton(buttonIndex, saver, stage));
+            else {
+                stage.addActor(PlayerButtonsBuilder.INSTANCE.createEmptySlotButton(buttonIndex, saver, stage));
+            }
         }
         IButton exitButton = MenuButtonsBuilder.INSTANCE.exitGameButton(stage);
         exitButton.setPosition(exitButton.getX(), exitButton.getY() - Sizes.GAME_HEIGHT * 0.04f);

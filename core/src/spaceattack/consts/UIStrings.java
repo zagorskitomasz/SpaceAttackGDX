@@ -13,4 +13,6 @@ public class UIStrings {
     public static final String EXIT_QUESTION = "\nExit game?\n";
     public static final String X = "X";
     public static final String EMPTY_SLOT = "[ empty slot ]";
+    public static final String ENTER_YOUR_NAME_TITLE = "Name";
+    public static final String ENTER_YOUR_NAME = "Enter your name:";
 }

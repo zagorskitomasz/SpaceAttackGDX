@@ -23,4 +23,8 @@ public interface IStage {
     void act(float delta);
 
     void addActorJustBeforeGui(IGameActor newActor);
+
+    void setTextInputListener(IInputListener listener);
+
+    void askPlayer(String title, String question);
 }
