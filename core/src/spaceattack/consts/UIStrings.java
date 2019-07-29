@@ -15,4 +15,5 @@ public class UIStrings {
     public static final String EMPTY_SLOT = "[ empty slot ]";
     public static final String ENTER_YOUR_NAME_TITLE = "Name";
     public static final String ENTER_YOUR_NAME = "Enter your name:";
+    public static final String DELETE_PLAYER_QUESTION = "\nDelete player?";
 }

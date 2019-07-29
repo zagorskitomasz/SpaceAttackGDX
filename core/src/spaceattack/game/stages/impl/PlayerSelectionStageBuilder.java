@@ -43,6 +43,8 @@ public class PlayerSelectionStageBuilder implements IStageBuilder {
 
         Map<String, String> players = loader.loadAll();
 
+        boolean playerExists = false;
+
         for (int buttonIndex = 0; buttonIndex < Consts.Metagame.PLAYER_SLOTS; buttonIndex++) {
             String index = String.valueOf(buttonIndex);
 
@@ -50,11 +52,17 @@ public class PlayerSelectionStageBuilder implements IStageBuilder {
                 stage.addActor(PlayerButtonsBuilder.INSTANCE.createExistingPlayerButton(buttonIndex, players.get(index),
                         loader, stage));
                 stage.addActor(PlayerButtonsBuilder.INSTANCE.createDeletePlayerButton(buttonIndex, saver, stage));
+                playerExists = true;
             }
             else {
                 stage.addActor(PlayerButtonsBuilder.INSTANCE.createEmptySlotButton(buttonIndex, saver, stage));
             }
         }
+
+        if (!playerExists) {
+            saver.clear();
+        }
+
         IButton exitButton = MenuButtonsBuilder.INSTANCE.exitGameButton(stage);
         exitButton.setPosition(exitButton.getX(), exitButton.getY() - Sizes.GAME_HEIGHT * 0.04f);
         stage.addActor(exitButton);

@@ -66,4 +66,39 @@ public class GameSaver {
 
         return file.read();
     }
+
+    public void delete(final int slotIndex) {
+
+        try {
+            lock.lock();
+
+            loadFromFilesystem();
+
+            SaveFile save = utils.streamToObject(SaveFile.class, readData());
+            save.getSavedProgress().remove(String.valueOf(slotIndex));
+
+            String content = utils.objectToString(save, SaveFile.class);
+            writeToFile(content);
+        }
+        catch (NumberFormatException ex) {
+            System.err.println("Invalid slot index: " + slotIndex);
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    public void clear() {
+
+        try {
+            lock.lock();
+
+            loadFromFilesystem();
+            String content = utils.objectToString(new SaveFile(), SaveFile.class);
+            writeToFile(content);
+        }
+        finally {
+            lock.unlock();
+        }
+    }
 }
