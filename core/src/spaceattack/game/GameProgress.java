@@ -14,6 +14,7 @@ public class GameProgress implements INotifier<GameProgress> {
     private Long experience;
     private String playerName;
 
+    private transient int slot;
     private transient List<IObserver<GameProgress>> observers;
 
     public GameProgress() {
@@ -65,6 +66,16 @@ public class GameProgress implements INotifier<GameProgress> {
     public void setPlayerName(final String playerName) {
 
         this.playerName = playerName;
+    }
+
+    public int getSlot() {
+
+        return slot;
+    }
+
+    public void setSlot(final int slot) {
+
+        this.slot = slot;
     }
 
     public void addExperience(final long amount) {

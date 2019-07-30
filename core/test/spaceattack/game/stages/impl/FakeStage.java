@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import spaceattack.game.actors.IGameActor;
+import spaceattack.game.stages.IInputListener;
 import spaceattack.game.stages.IStage;
 
 public class FakeStage implements IStage {
@@ -67,5 +68,17 @@ public class FakeStage implements IStage {
     public void addActorJustBeforeGui(final IGameActor actor) {
 
         actors.add(Math.min(1, actors.size()), actor);
+    }
+
+    @Override
+    public void setTextInputListener(final IInputListener listener) {
+
+        // do nothing
+    }
+
+    @Override
+    public void askPlayer(final String title, final String question) {
+
+        // do nothing
     }
 }

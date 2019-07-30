@@ -24,7 +24,7 @@ public class MissionsStageBuilder implements IStageBuilder {
         stage.setStage(Factories.getStageFactory().create());
         stage.setGameSaver(GameSaverFactory.INSTANCE.create());
         stage.setGameLoader(GameLoaderFactory.INSTANCE.create());
-        stage.setGameProgress(GameLoaderFactory.INSTANCE.create().load(""));
+        stage.setGameProgress(progress);
 
         Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
 

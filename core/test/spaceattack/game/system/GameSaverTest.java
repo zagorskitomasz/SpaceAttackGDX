@@ -1,10 +1,8 @@
 package spaceattack.game.system;
 
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -49,8 +47,9 @@ public class GameSaverTest {
         progress.setLevel(5);
         progress.setMission(3);
         progress.setPlayerName("PlayerOne");
+        progress.setSlot(2);
 
-        saver.save(progress, "2");
+        saver.save(progress);
         verify(file).writeString(
                 "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne}}}",
                 false);
@@ -64,23 +63,29 @@ public class GameSaverTest {
         progress.setLevel(5);
         progress.setMission(3);
         progress.setPlayerName("PlayerTwo");
+        progress.setSlot(3);
 
-        saver.save(progress, "3");
+        saver.save(progress);
         verify(file).writeString(
                 "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne},3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}",
                 false);
     }
 
     @Test
-    public void validateNotIntegerValues() {
+    public void clearing() {
 
-        GameProgress progress = new GameProgress();
-        progress.setExperience(999888777666l);
-        progress.setLevel(5);
-        progress.setMission(3);
-        progress.setPlayerName("PlayerTwo");
+        saver.clear();
+        verify(file).writeString("{}", false);
+    }
 
-        saver.save(progress, "test");
-        verify(file, times(0)).writeString(anyString(), anyBoolean());
+    @Test
+    public void deleting() {
+
+        String content = "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne},3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}";
+        doReturn(new ByteArrayInputStream(content.getBytes())).when(file).read();
+
+        saver.delete(2);
+        verify(file).writeString("{savedProgress:{3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}",
+                false);
     }
 }

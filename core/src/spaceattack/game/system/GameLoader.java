@@ -53,6 +53,12 @@ public class GameLoader {
 
         GameProgress progress = save.getProgress(slotIndex);
 
+        if (progress == null) {
+            return null;
+        }
+
+        progress.setSlot(Integer.parseInt(slotIndex));
+
         return progress;
     }
 

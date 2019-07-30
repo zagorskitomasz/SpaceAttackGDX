@@ -20,6 +20,7 @@ import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.stages.IStage;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
+import spaceattack.game.system.sound.Sounds;
 
 public class GameplayStageTest {
 
@@ -56,6 +57,8 @@ public class GameplayStageTest {
 
     @Before
     public void setUp() {
+
+        Sounds.loadForTest();
 
         MockitoAnnotations.initMocks(this);
 
@@ -108,7 +111,7 @@ public class GameplayStageTest {
         stage.lose();
         stage.finalizeStage();
 
-        verify(saver).save(eq(backupProgress), eq(""));
+        verify(saver).save(eq(backupProgress));
     }
 
     @Test
@@ -124,7 +127,7 @@ public class GameplayStageTest {
         stage.setWon(true);
         stage.finalizeStage();
 
-        verify(saver).save(eq(baseProgress), eq(""));
+        verify(saver).save(eq(baseProgress));
     }
 
     @Test
@@ -174,7 +177,7 @@ public class GameplayStageTest {
         doReturn(false).when(failedLabel).isVisible();
         stage.act(0);
 
-        verify(saver).save(eq(progress), eq(""));
+        verify(saver).save(eq(progress));
     }
 
     @Test

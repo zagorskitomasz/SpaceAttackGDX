@@ -25,23 +25,18 @@ public class GameSaver {
         this.utils = utils;
     }
 
-    public void save(final GameProgress progress, final String slotIndex) {
+    public void save(final GameProgress progress) {
 
         try {
             lock.lock();
 
-            Integer.parseInt(slotIndex);
-
             loadFromFilesystem();
 
             SaveFile save = utils.streamToObject(SaveFile.class, readData());
-            save.getSavedProgress().put(slotIndex, progress);
+            save.getSavedProgress().put(String.valueOf(progress.getSlot()), progress);
 
             String content = utils.objectToString(save, SaveFile.class);
             writeToFile(content);
-        }
-        catch (NumberFormatException ex) {
-            System.err.println("Invalid slot index: " + slotIndex);
         }
         finally {
             lock.unlock();

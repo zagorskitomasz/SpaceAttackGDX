@@ -34,7 +34,8 @@ public class CreatePlayerListener implements IListener, IInputListener {
         if (validate(input)) {
             GameProgress newPlayerProgress = new GameProgress();
             newPlayerProgress.setPlayerName(input);
-            saver.save(newPlayerProgress, String.valueOf(buttonIndex));
+            newPlayerProgress.setSlot(buttonIndex);
+            saver.save(newPlayerProgress);
 
             StageResult result = new StageResult();
             result.setNextStage(Stages.MISSIONS);
