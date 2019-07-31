@@ -1,24 +1,32 @@
 package spaceattack.game.buttons;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import spaceattack.consts.UIStrings;
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
-import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.IInputListener;
 import spaceattack.game.stages.Stages;
+import spaceattack.game.stages.UIStage;
+import spaceattack.game.stages.UIStage.Message;
 import spaceattack.game.system.GameSaver;
 
 public class CreatePlayerListener implements IListener, IInputListener {
 
     private final int buttonIndex;
     private final GameSaver saver;
-    private final IGameStage stage;
+    private final UIStage stage;
 
-    public CreatePlayerListener(final int buttonIndex, final GameSaver saver, final IGameStage stage) {
+    private final Pattern namePattern;
+
+    public CreatePlayerListener(final int buttonIndex, final GameSaver saver, final UIStage stage) {
 
         this.buttonIndex = buttonIndex;
         this.saver = saver;
         this.stage = stage;
+
+        namePattern = Pattern.compile("[A-Za-z0-9]{1,10}");
     }
 
     @Override
@@ -42,10 +50,14 @@ public class CreatePlayerListener implements IListener, IInputListener {
             result.setGameProgress(newPlayerProgress);
             stage.setResult(result);
         }
+        else {
+            stage.showMessage(new Message(UIStrings.NAME_VALID_TITLE, UIStrings.NAME_VALID_TEXT));
+        }
     }
 
-    private boolean validate(final String input) {
+    boolean validate(final String input) {
 
-        return true; // TODO
+        Matcher matcher = namePattern.matcher(input);
+        return matcher.matches();
     }
 }

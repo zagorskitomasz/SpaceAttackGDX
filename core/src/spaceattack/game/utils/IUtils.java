@@ -11,39 +11,41 @@ import spaceattack.game.utils.vector.IVector;
 
 public interface IUtils {
 
-    public void clearScreen();
+    void clearScreen();
 
-    public float getDeltaTime();
+    float getDeltaTime();
 
-    public long getCurrentTime();
+    long getCurrentTime();
 
-    public <T> T streamToObject(Class<T> clazz, InputStream fileContent);
+    <T> T streamToObject(Class<T> clazz, InputStream fileContent);
 
-    public IFileHandle loadFile(String save);
+    IFileHandle loadFile(String save);
 
-    public double pow(double value, double exponent);
+    double pow(double value, double exponent);
 
-    public double sqrt(double value);
+    double sqrt(double value);
 
-    public <T> String objectToString(T object, Class<T> clazz);
+    <T> String objectToString(T object, Class<T> clazz);
 
-    public void setInputProcessor(IStage stage);
+    void setInputProcessor(IStage stage);
 
-    public void setInputProcessor(IInputProcessor inputProcessor);
+    void setInputProcessor(IInputProcessor inputProcessor);
 
-    public void confirmDialog(String caption, String question, IStage stage, Consumer<Boolean> resultProcessor);
+    void confirmDialog(String caption, String question, IStage stage, Consumer<Boolean> resultProcessor);
 
-    public void exit();
+    void exit();
 
-    public float atan2(float x, float y);
+    float atan2(float x, float y);
 
-    public float radiansToDegrees();
+    float radiansToDegrees();
 
-    public long millis();
+    long millis();
 
-    public ILabel createTimeLabel(String text, int color);
+    ILabel createTimeLabel(String text, int color);
 
-    public ILabel createBarLabel();
+    ILabel createBarLabel();
 
-    public IVector getTouch();
+    IVector getTouch();
+
+    void infoDialog(String caption, String info, IStage stage);
 }

@@ -1,5 +1,7 @@
 package spaceattack.game.buttons;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
@@ -10,8 +12,8 @@ import org.mockito.MockitoAnnotations;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
-import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.Stages;
+import spaceattack.game.stages.UIStage;
 import spaceattack.game.system.GameSaver;
 
 public class CreatePlayerListenerTest {
@@ -22,7 +24,7 @@ public class CreatePlayerListenerTest {
     private GameSaver saver;
 
     @Mock
-    private IGameStage stage;
+    private UIStage stage;
 
     @Before
     public void setUp() {
@@ -49,5 +51,29 @@ public class CreatePlayerListenerTest {
 
         listener.process("Test");
         verify(stage).setResult(expected);
+    }
+
+    @Test
+    public void nameCantCointainSpaces() {
+
+        assertFalse(listener.validate(" test"));
+    }
+
+    @Test
+    public void nameCantCointainSpecialChars() {
+
+        assertFalse(listener.validate("te$#st"));
+    }
+
+    @Test
+    public void nameCantBeMoreThan10Chars() {
+
+        assertFalse(listener.validate("testtesttest"));
+    }
+
+    @Test
+    public void nameHasLettersAndNumbers() {
+
+        assertTrue(listener.validate("test1234"));
     }
 }

@@ -5,6 +5,7 @@ import spaceattack.consts.UIStrings;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.stages.IGameStage;
+import spaceattack.game.stages.UIStage;
 import spaceattack.game.stages.impl.MainMenuStage;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
@@ -20,7 +21,7 @@ public enum PlayerButtonsBuilder {
         factory = Factories.getTextButtonFactory();
     }
 
-    public IButton createEmptySlotButton(final int buttonIndex, final GameSaver saver, final IGameStage stage) {
+    public IButton createEmptySlotButton(final int buttonIndex, final GameSaver saver, final UIStage stage) {
 
         IButton button = factory.create(UIStrings.EMPTY_SLOT);
 

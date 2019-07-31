@@ -16,4 +16,6 @@ public class UIStrings {
     public static final String ENTER_YOUR_NAME_TITLE = "Name";
     public static final String ENTER_YOUR_NAME = "Enter your name:";
     public static final String DELETE_PLAYER_QUESTION = "\nDelete player?";
+    public static final String NAME_VALID_TITLE = "Name invalid";
+    public static final String NAME_VALID_TEXT = "\nName can't be longer\nthan 10 characters.\n\nOnly letters and\nnumbers are allowed.";
 }
