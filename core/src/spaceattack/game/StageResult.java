@@ -9,7 +9,7 @@ public class StageResult {
 
     public StageResult() {
 
-        nextStage = Stages.MAIN_MENU;
+        nextStage = Stages.PLAYERS_MENU;
     }
 
     public Stages getNextStage() {
@@ -17,7 +17,7 @@ public class StageResult {
         return nextStage;
     }
 
-    public void setNextStage(Stages nextStage) {
+    public void setNextStage(final Stages nextStage) {
 
         this.nextStage = nextStage;
     }
@@ -27,16 +27,17 @@ public class StageResult {
         return gameProgress;
     }
 
-    public void setGameProgress(GameProgress gameProgress) {
+    public void setGameProgress(final GameProgress gameProgress) {
 
         this.gameProgress = gameProgress;
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
 
-        if (other == null || !(other instanceof StageResult))
+        if (other == null || !(other instanceof StageResult)) {
             return false;
+        }
 
         StageResult otherResult = (StageResult) other;
 

@@ -20,6 +20,7 @@ import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.stages.IStage;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
+import spaceattack.game.system.sound.Sounds;
 
 public class GameplayStageTest {
 
@@ -56,6 +57,8 @@ public class GameplayStageTest {
 
     @Before
     public void setUp() {
+
+        Sounds.loadForTest();
 
         MockitoAnnotations.initMocks(this);
 

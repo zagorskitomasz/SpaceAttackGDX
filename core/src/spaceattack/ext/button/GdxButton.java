@@ -15,13 +15,13 @@ public class GdxButton extends TextButton implements IButton {
 
     private int columnPosition;
 
-    public GdxButton(String text) {
+    public GdxButton(final String text) {
 
         super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), Consts.DEFAULT);
         getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
     }
 
-    public GdxButton(String text, String styleName) {
+    public GdxButton(final String text, final String styleName) {
 
         super(text, ExtUtilsFactory.INSTANCE.getGdxUtils().getUiSkin(), styleName);
     }
@@ -33,26 +33,26 @@ public class GdxButton extends TextButton implements IButton {
     }
 
     @Override
-    public void addListener(IListener listener) {
+    public void addListener(final IListener listener) {
 
         addListener(new ListenerProxy(listener));
     }
 
     @Override
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(final boolean enabled) {
 
         setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
         setDisabled(!enabled);
     }
 
     @Override
-    public void setColumnPosition(int position) {
+    public void setColumnPosition(final int position) {
 
         columnPosition = position;
     }
 
     @Override
-    public void draw(Batch batch, float alpha) {
+    public void draw(final Batch batch, final float alpha) {
 
         getText();
         super.draw(batch, alpha);
@@ -62,5 +62,11 @@ public class GdxButton extends TextButton implements IButton {
     public int getGridPosition() {
 
         return columnPosition;
+    }
+
+    @Override
+    public void setDisabledStyle(final boolean disabled) {
+
+        super.setDisabled(disabled);
     }
 }

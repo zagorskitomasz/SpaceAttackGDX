@@ -49,45 +49,45 @@ enum GdxUtils implements IGdxUtils {
     }
 
     @Override
-    public <T> T streamToObject(Class<T> clazz, InputStream fileContent) {
+    public <T> T streamToObject(final Class<T> clazz, final InputStream fileContent) {
 
         Json json = new Json();
         return json.fromJson(clazz, fileContent);
     }
 
     @Override
-    public IFileHandle loadFile(String save) {
+    public IFileHandle loadFile(final String save) {
 
         return new GdxFileHandle(Gdx.files.local(Paths.SAVE));
     }
 
     @Override
-    public double pow(double value, double exponent) {
+    public double pow(final double value, final double exponent) {
 
         return Math.pow(value, exponent);
     }
 
     @Override
-    public double sqrt(double value) {
+    public double sqrt(final double value) {
 
         return Math.sqrt(value);
     }
 
     @Override
-    public <T> String objectToString(T object, Class<T> clazz) {
+    public <T> String objectToString(final T object, final Class<T> clazz) {
 
         Json json = new Json();
         return json.toJson(object, clazz);
     }
 
     @Override
-    public void setInputProcessor(IStage stage) {
+    public void setInputProcessor(final IStage stage) {
 
         Gdx.input.setInputProcessor((GdxStage) stage);
     }
 
     @Override
-    public void setInputProcessor(IInputProcessor inputProcessor) {
+    public void setInputProcessor(final IInputProcessor inputProcessor) {
 
         Gdx.input.setInputProcessor(new GdxInput(inputProcessor));
     }
@@ -95,8 +95,9 @@ enum GdxUtils implements IGdxUtils {
     @Override
     public IVector getTouch() {
 
-        if (!Gdx.input.isTouched())
+        if (!Gdx.input.isTouched()) {
             return null;
+        }
 
         return Factories.getVectorFactory().create(Gdx.input.getX(), Gdx.input.getY());
     }
@@ -108,7 +109,8 @@ enum GdxUtils implements IGdxUtils {
     }
 
     @Override
-    public void confirmDialog(String caption, String question, IStage stage, Consumer<Boolean> resultProcessor) {
+    public void confirmDialog(final String caption, final String question, final IStage stage,
+            final Consumer<Boolean> resultProcessor) {
 
         GdxDialog dialog = new GdxDialog(caption);
 
@@ -132,13 +134,32 @@ enum GdxUtils implements IGdxUtils {
     }
 
     @Override
+    public void infoDialog(final String caption, final String info, final IStage stage) {
+
+        GdxDialog dialog = new GdxDialog(caption);
+
+        TextButton okButton = new TextButton("Ok", getUiSkin().get(TextButton.TextButtonStyle.class));
+        Label questionLabel = new Label(info, getUiSkin().get(Label.LabelStyle.class));
+
+        okButton.getLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+        questionLabel.setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+
+        dialog.text(questionLabel);
+        dialog.button(okButton, true);
+        dialog.key(Keys.ENTER, true);
+
+        dialog.getTitleLabel().setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
+        dialog.show((GdxStage) stage);
+    }
+
+    @Override
     public void exit() {
 
         Gdx.app.exit();
     }
 
     @Override
-    public float atan2(float x, float y) {
+    public float atan2(final float x, final float y) {
 
         return MathUtils.atan2(y, x);
     }
@@ -156,7 +177,7 @@ enum GdxUtils implements IGdxUtils {
     }
 
     @Override
-    public ILabel createTimeLabel(String text, int color) {
+    public ILabel createTimeLabel(final String text, final int color) {
 
         BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
         Label.LabelStyle style = new Label.LabelStyle(font, new Color(color));

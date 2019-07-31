@@ -3,6 +3,8 @@ package spaceattack.ext.stage;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -10,11 +12,13 @@ import spaceattack.ext.actor.GdxActor;
 import spaceattack.ext.batch.BatchProxyHolder;
 import spaceattack.game.actors.IActorGUI;
 import spaceattack.game.actors.IGameActor;
+import spaceattack.game.stages.IInputListener;
 import spaceattack.game.stages.IStage;
 
-public class GdxStage extends Stage implements IStage {
+public class GdxStage extends Stage implements TextInputListener, IStage {
 
     private final List<IGameActor> actorProxies;
+    private IInputListener inputListener;
 
     public GdxStage() {
 
@@ -88,5 +92,31 @@ public class GdxStage extends Stage implements IStage {
             }
         }
         return 0;
+    }
+
+    @Override
+    public void setTextInputListener(final IInputListener listener) {
+
+        inputListener = listener;
+    }
+
+    @Override
+    public void input(final String text) {
+
+        if (inputListener != null) {
+            inputListener.process(text);
+        }
+    }
+
+    @Override
+    public void canceled() {
+
+        // do nothing
+    }
+
+    @Override
+    public void askPlayer(final String title, final String question) {
+
+        Gdx.input.getTextInput(this, title, "", question);
     }
 }

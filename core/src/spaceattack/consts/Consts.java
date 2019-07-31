@@ -11,6 +11,7 @@ public class Consts {
         public static final int MISSIONS_IN_ACT = 3;
         public static final int ACTS_NUMBER = 5;
         public static final int FPS = 20;
+        public static final int PLAYER_SLOTS = 6;
     }
 
     public static class Weapons {

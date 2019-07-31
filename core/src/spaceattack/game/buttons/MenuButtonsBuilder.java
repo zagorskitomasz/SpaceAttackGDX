@@ -18,7 +18,7 @@ public enum MenuButtonsBuilder {
         factory = Factories.getTextButtonFactory();
     }
 
-    public IButton newGameButton(MainMenuStage stage) {
+    public IButton newGameButton(final MainMenuStage stage) {
 
         IButton button = factory.create(UIStrings.NEW_GAME);
 
@@ -29,7 +29,7 @@ public enum MenuButtonsBuilder {
         return button;
     }
 
-    public IButton continueGameButton(MainMenuStage stage) {
+    public IButton continueGameButton(final MainMenuStage stage) {
 
         IButton button = factory.create(UIStrings.CONTINUE);
 
@@ -40,7 +40,7 @@ public enum MenuButtonsBuilder {
         return button;
     }
 
-    public IButton exitGameButton(MainMenuStage stage) {
+    public IButton exitGameButton(final MainMenuStage stage) {
 
         IButton button = factory.create(UIStrings.EXIT);
 
@@ -51,18 +51,18 @@ public enum MenuButtonsBuilder {
         return button;
     }
 
-    public IButton backToMenuButton(MissionsStage stage) {
+    public IButton backToMenuButton(final MissionsStage stage) {
 
         IButton button = factory.createAlertButton(UIStrings.BACK);
 
         button.setPosition(Sizes.GAME_WIDTH * 0.2f, Sizes.GAME_HEIGHT * 0.04f);
         button.setSize(Sizes.BUTTON_WIDTH, Sizes.BUTTON_HEIGHT);
-        button.addListener(new ChangeStageButtonListener(stage, Stages.MAIN_MENU));
+        button.addListener(new ChangeStageButtonListener(stage, Stages.PLAYERS_MENU));
 
         return button;
     }
 
-    public IButton previousActButton(MissionsStage stage) {
+    public IButton previousActButton(final MissionsStage stage) {
 
         IButton button = factory.create(UIStrings.PREV_ACT);
 
@@ -73,7 +73,7 @@ public enum MenuButtonsBuilder {
         return button;
     }
 
-    public IButton nextActButton(MissionsStage stage) {
+    public IButton nextActButton(final MissionsStage stage) {
 
         IButton button = factory.create(UIStrings.NEXT_ACT);
 
@@ -84,7 +84,7 @@ public enum MenuButtonsBuilder {
         return button;
     }
 
-    public IButton missionButton(MissionsStage stage, int gridPosition) {
+    public IButton missionButton(final MissionsStage stage, final int gridPosition) {
 
         IButton button = factory.create(UIStrings.MISSION);
 

@@ -4,7 +4,6 @@ import spaceattack.game.stages.GameStageFactory;
 import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.system.FrameController;
-import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.graphics.Animations;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.Sounds;
@@ -12,36 +11,30 @@ import spaceattack.game.utils.IUtils;
 
 class Game implements IGame {
 
-    private boolean isTest;
+    private final boolean isTest;
 
     private IUtils extUtils;
-    private GameLoader gameLoader;
     private GameStageFactory stageBuilder;
     private FrameController frameController;
 
     private IGameStage stage;
 
-    public Game(boolean isTest) {
+    public Game(final boolean isTest) {
 
         this.isTest = isTest;
     }
 
-    public void setExtUtils(IUtils extUtils) {
+    public void setExtUtils(final IUtils extUtils) {
 
         this.extUtils = extUtils;
     }
 
-    public void setGameLoader(GameLoader gameLoader) {
-
-        this.gameLoader = gameLoader;
-    }
-
-    public void setStageBuilder(GameStageFactory stageBuilder) {
+    public void setStageBuilder(final GameStageFactory stageBuilder) {
 
         this.stageBuilder = stageBuilder;
     }
 
-    public void setFrameController(FrameController frameController) {
+    public void setFrameController(final FrameController frameController) {
 
         this.frameController = frameController;
     }
@@ -69,11 +62,7 @@ class Game implements IGame {
 
     private StageResult prepareInitialResult() {
 
-        StageResult defaultResult = new StageResult();
-        GameProgress progress = gameLoader.load();
-        defaultResult.setGameProgress(progress);
-
-        return defaultResult;
+        return new StageResult();
     }
 
     @Override
@@ -81,8 +70,9 @@ class Game implements IGame {
 
         extUtils.clearScreen();
 
-        if (checkFrame())
+        if (checkFrame()) {
             stage.act(extUtils.getDeltaTime());
+        }
 
         stage.draw();
 
@@ -103,10 +93,11 @@ class Game implements IGame {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(final int width, final int height) {
 
-        if (stage == null)
+        if (stage == null) {
             return;
+        }
 
         stage.updateViewport(width, height, true);
     }
