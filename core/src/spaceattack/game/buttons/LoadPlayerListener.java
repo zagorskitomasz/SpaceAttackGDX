@@ -25,7 +25,7 @@ public class LoadPlayerListener implements IListener {
         GameProgress loadedPlayerProgress = loader.load(String.valueOf(buttonIndex));
 
         StageResult result = new StageResult();
-        result.setNextStage(Stages.MISSIONS);
+        result.setNextStage(Stages.MAIN_MENU);
         result.setGameProgress(loadedPlayerProgress);
         stage.setResult(result);
     }

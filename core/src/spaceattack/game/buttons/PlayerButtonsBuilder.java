@@ -25,8 +25,7 @@ public enum PlayerButtonsBuilder {
 
         IButton button = factory.create(UIStrings.EMPTY_SLOT);
 
-        button.setPosition(Sizes.GAME_WIDTH * 0.25f,
-                Sizes.GAME_HEIGHT * 0.65f - Sizes.BUTTON_HEIGHT * 1.1f * buttonIndex);
+        button.setPosition(Sizes.GAME_WIDTH * 0.25f, slotButtonYPosition(buttonIndex));
         button.setSize(Sizes.BUTTON_WIDTH - Sizes.GAME_WIDTH * 0.1f, Sizes.BUTTON_HEIGHT * 0.9f);
         button.addListener(new CreatePlayerListener(buttonIndex, saver, stage));
         button.setDisabledStyle(true);
@@ -39,12 +38,16 @@ public enum PlayerButtonsBuilder {
 
         IButton button = factory.create(name);
 
-        button.setPosition(Sizes.GAME_WIDTH * 0.2f,
-                Sizes.GAME_HEIGHT * 0.65f - Sizes.BUTTON_HEIGHT * 1.1f * buttonIndex);
+        button.setPosition(Sizes.GAME_WIDTH * 0.2f, slotButtonYPosition(buttonIndex));
         button.setSize(Sizes.BUTTON_WIDTH * 0.95f, Sizes.BUTTON_HEIGHT * 0.9f);
         button.addListener(new LoadPlayerListener(buttonIndex, loader, stage));
 
         return button;
+    }
+
+    protected float slotButtonYPosition(final int buttonIndex) {
+
+        return Sizes.GAME_HEIGHT * 0.58f - Sizes.BUTTON_HEIGHT * buttonIndex;
     }
 
     public IGameActor createDeletePlayerButton(final int buttonIndex, final GameSaver saver,
@@ -52,8 +55,7 @@ public enum PlayerButtonsBuilder {
 
         IButton button = factory.createAlertButton(UIStrings.X);
 
-        button.setPosition(Sizes.GAME_WIDTH * 0.3f + Sizes.BUTTON_WIDTH * 0.8f,
-                Sizes.GAME_HEIGHT * 0.65f - Sizes.BUTTON_HEIGHT * 1.1f * buttonIndex);
+        button.setPosition(Sizes.GAME_WIDTH * 0.3f + Sizes.BUTTON_WIDTH * 0.8f, slotButtonYPosition(buttonIndex));
         button.setSize(Sizes.BUTTON_WIDTH * 0.20f, Sizes.BUTTON_HEIGHT * 0.9f);
         button.addListener(new DeletePlayerListener(buttonIndex, saver, stage));
 

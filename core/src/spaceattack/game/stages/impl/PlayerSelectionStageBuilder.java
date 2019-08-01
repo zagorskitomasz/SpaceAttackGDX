@@ -4,7 +4,9 @@ import java.util.Map;
 
 import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
+import spaceattack.consts.UIStrings;
 import spaceattack.game.GameProgress;
+import spaceattack.game.actors.ILabel;
 import spaceattack.game.buttons.IButton;
 import spaceattack.game.buttons.MenuButtonsBuilder;
 import spaceattack.game.buttons.PlayerButtonsBuilder;
@@ -18,6 +20,7 @@ import spaceattack.game.system.graphics.StaticImage;
 import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.MusicPlayer;
+import spaceattack.game.utils.GameplayLabel;
 
 public class PlayerSelectionStageBuilder implements IStageBuilder {
 
@@ -63,9 +66,13 @@ public class PlayerSelectionStageBuilder implements IStageBuilder {
             saver.clear();
         }
 
+        ILabel label = Factories.getUtilsFactory().create().createMenuLabel(UIStrings.CHOOSE_PLAYER,
+                Sizes.GAME_HEIGHT * 0.69f, 0xdaa520ff);
+
         IButton exitButton = MenuButtonsBuilder.INSTANCE.exitGameButton(stage);
         exitButton.setPosition(exitButton.getX(), exitButton.getY() - Sizes.GAME_HEIGHT * 0.04f);
         stage.addActor(exitButton);
+        stage.addActor(new GameplayLabel(label));
 
         MusicPlayer.INSTANCE.playMenu();
 
