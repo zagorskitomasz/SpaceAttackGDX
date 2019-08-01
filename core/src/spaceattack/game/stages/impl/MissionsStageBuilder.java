@@ -33,7 +33,7 @@ public class MissionsStageBuilder implements IStageBuilder {
         StaticImage actLogo = StaticImageFactory.INSTANCE.create(Textures.ACT_1_LOGO.getTexture(), 0,
                 Sizes.GAME_HEIGHT * 0.27f);
 
-        IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToMenuButton(stage);
+        IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToMainMenuButton(stage);
         IButton previouwActButton = MenuButtonsBuilder.INSTANCE.previousActButton(stage);
         IButton nextActButton = MenuButtonsBuilder.INSTANCE.nextActButton(stage);
 

@@ -119,6 +119,7 @@ public class GameLoader {
                     .getSavedProgress() //
                     .entrySet() //
                     .stream() //
+                    .filter(entry -> entry.getValue() != null && entry.getValue().getPlayerName() != null) //
                     .collect(
                             toMap(entry -> {
                                 return entry.getKey().toString();
@@ -127,6 +128,7 @@ public class GameLoader {
                             }));
         }
         catch (Exception lvEx) {
+            lvEx.printStackTrace();
             return Collections.emptyMap();
         }
     }

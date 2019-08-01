@@ -194,4 +194,16 @@ enum GdxUtils implements IGdxUtils {
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
         return new GdxLabel("", style);
     }
+
+    @Override
+    public ILabel createMenuLabel(final String text, final float yPos, final int color) {
+
+        BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
+        Label.LabelStyle style = new Label.LabelStyle(font, new Color(color));
+        GdxLabel label = new GdxLabel(text, style);
+        label.setX(Sizes.GAME_WIDTH * 0.5f - label.getWidth() * 0.5f);
+        label.setY(yPos);
+
+        return label;
+    }
 }

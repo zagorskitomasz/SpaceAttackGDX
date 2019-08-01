@@ -45,6 +45,8 @@ public interface IUtils {
 
     ILabel createBarLabel();
 
+    ILabel createMenuLabel(String text, float yPos, int color);
+
     IVector getTouch();
 
     void infoDialog(String caption, String info, IStage stage);

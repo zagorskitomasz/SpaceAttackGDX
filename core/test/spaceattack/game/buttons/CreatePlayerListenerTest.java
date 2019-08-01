@@ -41,12 +41,12 @@ public class CreatePlayerListenerTest {
     }
 
     @Test
-    public void newPlayerHasInitialProgressIntoMissionsStage() {
+    public void newPlayerHasInitialProgressIntoMainMenuStage() {
 
         GameProgress progress = new GameProgress();
         progress.setPlayerName("Test");
         StageResult expected = new StageResult();
-        expected.setNextStage(Stages.MISSIONS);
+        expected.setNextStage(Stages.MAIN_MENU);
         expected.setGameProgress(progress);
 
         listener.process("Test");

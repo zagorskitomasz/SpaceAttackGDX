@@ -46,7 +46,7 @@ public class CreatePlayerListener implements IListener, IInputListener {
             saver.save(newPlayerProgress);
 
             StageResult result = new StageResult();
-            result.setNextStage(Stages.MISSIONS);
+            result.setNextStage(Stages.MAIN_MENU);
             result.setGameProgress(newPlayerProgress);
             stage.setResult(result);
         }
