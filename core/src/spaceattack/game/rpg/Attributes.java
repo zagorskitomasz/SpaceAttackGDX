@@ -8,7 +8,7 @@ public class Attributes {
 
     private transient Lock lock;
 
-    private HashMap<Attribute, Integer> attributes;
+    private HashMap<String, Integer> attributes;
     private int freePoints;
 
     public Attributes() {
@@ -16,7 +16,7 @@ public class Attributes {
         attributes = new HashMap<>();
 
         Attribute.stream() //
-                .forEach(attrib -> attributes.put(attrib, Attribute.MIN_VALUE));
+                .forEach(attrib -> attributes.put(attrib.name(), Attribute.MIN_VALUE));
 
         lock = new ReentrantLock();
     }
@@ -25,7 +25,7 @@ public class Attributes {
 
         try {
             lock.lock();
-            return attributes.get(attribute);
+            return attributes.get(attribute.name());
         }
         finally {
             lock.unlock();
@@ -41,7 +41,7 @@ public class Attributes {
                 return false;
             }
 
-            attributes.put(attribute, attributes.get(attribute) + 1);
+            attributes.put(attribute.name(), attributes.get(attribute.name()) + 1);
             freePoints--;
 
             return true;
@@ -56,11 +56,11 @@ public class Attributes {
         try {
             lock.lock();
 
-            if (attributes.get(attribute) - 1 < Attribute.MIN_VALUE) {
+            if (attributes.get(attribute.name()) - 1 < Attribute.MIN_VALUE) {
                 return false;
             }
 
-            attributes.put(attribute, attributes.get(attribute) - 1);
+            attributes.put(attribute.name(), attributes.get(attribute.name()) - 1);
             freePoints++;
 
             return true;
@@ -70,12 +70,12 @@ public class Attributes {
         }
     }
 
-    public HashMap<Attribute, Integer> getAttributes() {
+    public HashMap<String, Integer> getAttributes() {
 
         return attributes;
     }
 
-    public void setAttributes(final HashMap<Attribute, Integer> attributes) {
+    public void setAttributes(final HashMap<String, Integer> attributes) {
 
         this.attributes = attributes;
     }
@@ -88,5 +88,10 @@ public class Attributes {
     public void setFreePoints(final int freePoints) {
 
         this.freePoints = freePoints;
+    }
+
+    public void addFreePoints(final int additionalPoints) {
+
+        freePoints += additionalPoints;
     }
 }

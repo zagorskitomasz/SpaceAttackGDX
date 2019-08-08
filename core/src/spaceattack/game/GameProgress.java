@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import spaceattack.consts.Experience;
+import spaceattack.game.rpg.Attributes;
 import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
 
@@ -13,6 +14,7 @@ public class GameProgress implements INotifier<GameProgress> {
     private Integer level;
     private Long experience;
     private String playerName;
+    private Attributes attributes;
 
     private transient int slot;
     private transient List<IObserver<GameProgress>> observers;
@@ -22,6 +24,7 @@ public class GameProgress implements INotifier<GameProgress> {
         mission = 1;
         level = 1;
         experience = 0l;
+        attributes = new Attributes();
 
         observers = new LinkedList<>();
     }
@@ -76,6 +79,16 @@ public class GameProgress implements INotifier<GameProgress> {
     public void setSlot(final int slot) {
 
         this.slot = slot;
+    }
+
+    public Attributes getAttributes() {
+
+        return attributes;
+    }
+
+    public void setAttributes(final Attributes attributes) {
+
+        this.attributes = attributes;
     }
 
     public void addExperience(final long amount) {
