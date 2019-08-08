@@ -1,8 +1,13 @@
 package spaceattack.game.buttons;
 
+import java.util.function.Consumer;
+
 import spaceattack.consts.Sizes;
 import spaceattack.consts.UIStrings;
+import spaceattack.game.GameProgress;
+import spaceattack.game.actors.ILabel;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.stages.Stages;
 import spaceattack.game.stages.UIStage;
 import spaceattack.game.stages.impl.MainMenuStage;
@@ -125,6 +130,56 @@ public enum MenuButtonsBuilder {
         button.setPosition(Sizes.GAME_WIDTH * 0.2f, Sizes.GAME_HEIGHT * (0.48f - (gridPosition + 1) * 0.1f));
         button.setSize(Sizes.BUTTON_WIDTH, Sizes.BUTTON_HEIGHT);
         button.addListener(new LaunchMissionButtonListener(stage, gridPosition));
+
+        return button;
+    }
+
+    public IButton attributeDecreaserButton(final UIStage stage, final GameProgress progress, final Attribute attribute,
+            final Consumer<String> valueConsumer, final Consumer<String> freePointsMsgConsumer,
+            final ILabel attributeInfoLabel, final float yPos) {
+
+        IButton button = factory.create("-");
+
+        button.setPosition(0f, yPos);
+        button.setSize(Sizes.SQUARE_BUTTON_SIZE, Sizes.SQUARE_BUTTON_SIZE);
+        button.addHoverListener(() -> {
+            attributeInfoLabel.setText(attribute.getDetails());
+            attributeInfoLabel.pack();
+            attributeInfoLabel.setX((Sizes.GAME_WIDTH - attributeInfoLabel.getWidth()) * 0.5f);
+        });
+        button.addListener(() -> {
+            synchronized (stage) {
+                progress.getAttributes().decrease(attribute);
+                valueConsumer.accept(String.format("%03d", progress.getAttributes().get(attribute)));
+                freePointsMsgConsumer.accept("Free points: " + progress.getAttributes().getFreePoints());
+                stage.updateControls();
+            }
+        });
+
+        return button;
+    }
+
+    public IButton attributeIncreaserButton(final UIStage stage, final GameProgress progress, final Attribute attribute,
+            final Consumer<String> valueConsumer, final Consumer<String> freePointsMsgConsumer,
+            final ILabel attributeInfoLabel, final float yPos) {
+
+        IButton button = factory.create("+");
+
+        button.setPosition(0f, yPos);
+        button.setSize(Sizes.SQUARE_BUTTON_SIZE, Sizes.SQUARE_BUTTON_SIZE);
+        button.addHoverListener(() -> {
+            attributeInfoLabel.setText(attribute.getDetails());
+            attributeInfoLabel.pack();
+            attributeInfoLabel.setX((Sizes.GAME_WIDTH - attributeInfoLabel.getWidth()) * 0.5f);
+        });
+        button.addListener(() -> {
+            synchronized (stage) {
+                progress.getAttributes().increase(attribute);
+                valueConsumer.accept(String.format("%03d", progress.getAttributes().get(attribute)));
+                freePointsMsgConsumer.accept("Free points: " + progress.getAttributes().getFreePoints());
+                stage.updateControls();
+            }
+        });
 
         return button;
     }

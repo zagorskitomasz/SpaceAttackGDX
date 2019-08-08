@@ -36,7 +36,8 @@ public class MainMenuStageBuilder implements IStageBuilder {
                 Sizes.GAME_HEIGHT * 0.68f, 0x00ff00ff);
 
         IButton missionsButton = MenuButtonsBuilder.INSTANCE.missionsMenuButton(stage);
-        IButton statsButton = MenuButtonsBuilder.INSTANCE.statsMenuButton(stage, 0);
+        IButton statsButton = MenuButtonsBuilder.INSTANCE.statsMenuButton(stage,
+                progress.getAttributes().getFreePoints());
         IButton skillsButton = MenuButtonsBuilder.INSTANCE.skillsMenuButton(stage, 1);
         IButton weaponsButton = MenuButtonsBuilder.INSTANCE.weaponsMenuButton(stage);
         IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToPlayersMenuButton(stage);

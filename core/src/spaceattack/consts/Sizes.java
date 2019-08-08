@@ -20,4 +20,5 @@ public class Sizes {
     public static final float SIDE_MARGIN = 40 * Y_FACTOR;
     public static final float MULTI_MISSILES_X_DISTANCE = 50 * X_FACTOR;
     public static final float MULTI_MISSILES_Y_DISTANCE = 20 * Y_FACTOR;
+    public static final float SQUARE_BUTTON_SIZE = BUTTON_HEIGHT * 0.8f;
 }

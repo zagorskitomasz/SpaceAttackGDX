@@ -50,4 +50,6 @@ public interface IUtils {
     IVector getTouch();
 
     void infoDialog(String caption, String info, IStage stage);
+
+    ILabel createDetailerToucher(float yPos, String details, ILabel infoLabel);
 }
