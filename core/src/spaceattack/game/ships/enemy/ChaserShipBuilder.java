@@ -4,6 +4,7 @@ import spaceattack.consts.Consts;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
@@ -34,8 +35,10 @@ public enum ChaserShipBuilder {
 
         IWeaponController controller = new AIWeaponController();
         MissilesLauncher launcher = stage.getMissilesLauncher();
-        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon greenLaser = GreenLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon greenLaser = GreenLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(redLaser);
         controller.setSecondaryWeapon(greenLaser);
@@ -44,7 +47,6 @@ public enum ChaserShipBuilder {
         ship.addWeapon(greenLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -56,8 +58,10 @@ public enum ChaserShipBuilder {
 
         IWeaponController controller = new AIWeaponController();
         MissilesLauncher launcher = stage.getMissilesLauncher();
-        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(redLaser);
         controller.setSecondaryWeapon(tripleGreenLaser);
@@ -66,7 +70,6 @@ public enum ChaserShipBuilder {
         ship.addWeapon(tripleGreenLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -78,8 +81,10 @@ public enum ChaserShipBuilder {
 
         IWeaponController controller = new AIWeaponController();
         MissilesLauncher launcher = stage.getMissilesLauncher();
-        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(redLaser);
         controller.setSecondaryWeapon(tripleGreenLaser);
@@ -88,7 +93,6 @@ public enum ChaserShipBuilder {
         ship.addWeapon(tripleGreenLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -100,8 +104,10 @@ public enum ChaserShipBuilder {
 
         IWeaponController controller = new AIWeaponController();
         MissilesLauncher launcher = stage.getMissilesLauncher();
-        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon miner = FlyingMinerBuilder.INSTANCE.build(controller, launcher);
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon miner = FlyingMinerBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(redLaser);
         controller.setSecondaryWeapon(miner);
@@ -110,7 +116,6 @@ public enum ChaserShipBuilder {
         ship.addWeapon(miner);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -122,8 +127,10 @@ public enum ChaserShipBuilder {
 
         IWeaponController controller = new AIWeaponController();
         MissilesLauncher launcher = stage.getMissilesLauncher();
-        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon flamethrower = FlamethrowerBuilder.INSTANCE.build(controller, launcher);
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon flamethrower = FlamethrowerBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         flamethrower.setNoEnergyCost();
 
@@ -134,7 +141,6 @@ public enum ChaserShipBuilder {
         ship.addWeapon(flamethrower);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -146,7 +152,8 @@ public enum ChaserShipBuilder {
 
         IWeaponController controller = new AIWeaponController();
         MissilesLauncher launcher = stage.getMissilesLauncher();
-        IWeapon targetdRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon targetdRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(targetdRedLaser);
         controller.setSecondaryWeapon(targetdRedLaser);
@@ -154,7 +161,6 @@ public enum ChaserShipBuilder {
         ship.addWeapon(targetdRedLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -166,7 +172,8 @@ public enum ChaserShipBuilder {
 
         IWeaponController controller = new AIWeaponController();
         MissilesLauncher launcher = stage.getMissilesLauncher();
-        IWeapon targetdRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon targetdRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(targetdRedLaser);
         controller.setSecondaryWeapon(targetdRedLaser);
@@ -174,29 +181,20 @@ public enum ChaserShipBuilder {
         ship.addWeapon(targetdRedLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
 
     private IEnemyShip build(final GameplayStage stage) {
 
-        IEnemyShip chaser = new BaseEnemyShip();
+        IEnemyShip chaser = new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()));
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(chaser);
         Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 
         Burner burner = BurnerBuilder.INSTANCE.build(chaser);
 
-        IPool energyPool = new Pool(
-                Consts.Pools.CHASER_ENERGY_BASE_AMOUNT,
-                Consts.Pools.CHASER_ENERGY_INCREASE_PER_LEVEL,
-                Consts.Pools.CHASER_ENERGY_BASE_REGEN,
-                Consts.Pools.CHASER_ENERGY_REGEN_PER_LEVEL);
-        IPool hpPool = new HpPool(
-                Consts.Pools.CHASER_HP_BASE_AMOUNT,
-                Consts.Pools.CHASER_HP_INCREASE_PER_LEVEL,
-                Consts.Pools.CHASER_HP_BASE_REGEN,
-                Consts.Pools.CHASER_HP_REGEN_PER_LEVEL);
+        IPool energyPool = new Pool(chaser.getAttributes().get(Attribute.BATTERY));
+        IPool hpPool = new HpPool(chaser.getAttributes().get(Attribute.SHIELDS));
 
         chaser.setActor(Factories.getActorFactory().create(chaser));
         chaser.setShipEngine(engine);

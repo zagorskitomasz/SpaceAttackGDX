@@ -1,5 +1,7 @@
 package spaceattack.consts;
 
+import spaceattack.game.rpg.Attributes;
+
 public class Consts {
 
     public static final String DEFAULT = "default";
@@ -24,41 +26,58 @@ public class Consts {
         public static final float SHIELD_ATTACKS_PER_SECOND = 5;
         public static final float TIME_WAVE_ATTACKS_PER_SECOND = 0.33f;
 
-        public static final float RED_LASER_BASE_DMG = 10;
-        public static final float RED_LASER_DMG_PER_LEVEL = 3;
-        public static final float RED_LASER_BASE_SPEED = 15 * Sizes.Y_FACTOR;
-        public static final float RED_LASER_SPEED_PER_LEVEL = 2 * Sizes.Y_FACTOR;
-        public static final float RED_LASER_BASE_COST = 10;
-        public static final float RED_LASER_COST_PER_LEVEL = 2;
+        public static final float RED_LASER_DMG_PER_ATTR = 2;
+        public static final float RED_LASER_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float RED_LASER_COST_PER_ATTR = 2;
 
-        public static final float GREEN_LASER_BASE_DMG = 20;
-        public static final float GREEN_LASER_DMG_PER_LEVEL = 5;
-        public static final float GREEN_LASER_BASE_SPEED = 10 * Sizes.Y_FACTOR;
-        public static final float GREEN_LASER_SPEED_PER_LEVEL = 1.5f * Sizes.Y_FACTOR;
-        public static final float GREEN_LASER_BASE_COST = 20;
-        public static final float GREEN_LASER_COST_PER_LEVEL = 3;
+        public static final float TRED_LASER_DMG_PER_ATTR = 2;
+        public static final float TRED_LASER_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float TRED_LASER_COST_PER_ATTR = 0;
 
-        public static final float ROCKET_BASE_COST = 20;
-        public static final float ROCKET_COST_PER_LEVEL = 3;
+        public static final float DISTRACTED_RED_DMG_PER_ATTR = 2;
+        public static final float DISTRACTED_RED_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float DISTRACTED_RED_COST_PER_ATTR = 2;
 
-        public static final float MINE_BASE_COST = 20;
-        public static final float MINE_COST_PER_LEVEL = 3;
+        public static final float MASSIVE_RED_DMG_PER_ATTR = 2;
+        public static final float MASSIVE_RED_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float MASSIVE_RED_COST_PER_ATTR = 2;
 
-        public static final float SHIELD_BASE_DMG = 30;
-        public static final float SHIELD_DMG_PER_LEVEL = 9;
-        public static final float SHIELD_BASE_COST = 60;
-        public static final float SHIELD_COST_PER_LEVEL = 6;
+        public static final float DOUBLE_RED_DMG_PER_ATTR = 2;
+        public static final float DOUBLE_RED_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float DOUBLE_RED_COST_PER_ATTR = 2;
 
-        public static final float FLAME_BASE_DMG = 30;
-        public static final float FLAME_DMG_PER_LEVEL = 15;
-        public static final float FLAME_BASE_COST = 120;
-        public static final float FLAME_COST_PER_LEVEL = 9;
+        public static final float GREEN_LASER_DMG_PER_ATTR = 4;
+        public static final float GREEN_LASER_SPEED_PER_ATTR = 1.7f * Sizes.Y_FACTOR;
+        public static final float GREEN_LASER_COST_PER_ATTR = 3;
+
+        public static final float TRIPLE_GREEN_DMG_PER_ATTR = 4;
+        public static final float TRIPLE_GREEN_SPEED_PER_ATTR = 1.7f * Sizes.Y_FACTOR;
+        public static final float TRIPLE_GREEN_COST_PER_ATTR = 3;
+
+        public static final float ROCKET_DMG_PER_ATTR = 4;
+        public static final float ROCKET_SPEED_PER_ATTR = 0;
+        public static final float ROCKET_COST_PER_ATTR = 3;
+
+        public static final float DROCKET_DMG_PER_ATTR = 4;
+        public static final float DROCKET_SPEED_PER_ATTR = 0;
+        public static final float DROCKET_COST_PER_ATTR = 3;
+
+        public static final float MINER_DMG_PER_ATTR = 4;
+        public static final float MINER_SPEED_PER_ATTR = 0;
+        public static final float MINER_COST_PER_ATTR = 3;
+
+        public static final float SHIELD_DMG_PER_ATTR = 4;
+        public static final float SHIELD_SPEED_PER_ATTR = 0;
+        public static final float SHIELD_COST_PER_ATTR = 3;
+
+        public static final float FLAME_DMG_PER_ATTR = 4;
+        public static final float FLAME_SPEED_PER_ATTR = 0;
+        public static final float FLAME_COST_PER_ATTR = 3;
         public static final long FLAME_DURATION = 5000;
 
-        public static final float TIME_WAVE_BASE_COST = 60;
-        public static final float TIME_WAVE_COST_PER_LEVEL = 6;
-        public static final float TIME_WAVE_BASE_LENGTH = 600;
-        public static final float TIME_WAVE_LENGTH_PER_LEVEL = 60;
+        public static final float WAVE_DMG_PER_ATTR = 4;
+        public static final float WAVE_SPEED_PER_ATTR = 0;
+        public static final float WAVE_COST_PER_ATTR = 3;
 
         public static final float LASER_RADIUS = 8;
         public static final float ROCKET_RADIUS = 10;
@@ -83,16 +102,12 @@ public class Consts {
 
     public static class Align {
 
-        static public final int center = 1 << 0;
         static public final int top = 1 << 1;
-        static public final int bottom = 1 << 2;
         static public final int left = 1 << 3;
         static public final int right = 1 << 4;
 
         static public final int topLeft = top | left;
         static public final int topRight = top | right;
-        static public final int bottomLeft = bottom | left;
-        static public final int bottomRight = bottom | right;
     }
 
     public static class AI {
@@ -122,65 +137,11 @@ public class Consts {
 
     public static class Pools {
 
-        public static final int PLAYER_HP_BASE_AMOUNT = 80;
-        public static final int PLAYER_HP_INCREASE_PER_LEVEL = 15;
-        public static final int PLAYER_HP_BASE_REGEN = 10;
-        public static final int PLAYER_HP_REGEN_PER_LEVEL = 2;
+        public static final float HP_PER_ATTR = 6;
+        public static final float HP_REGEN_PER_ATTR = 1f;
 
-        public static final int PLAYER_ENERGY_BASE_AMOUNT = 80;
-        public static final int PLAYER_ENERGY_INCREASE_PER_LEVEL = 20;
-        public static final int PLAYER_ENERGY_BASE_REGEN = 20;
-        public static final int PLAYER_ENERGY_REGEN_PER_LEVEL = 4;
-
-        public static final int FIGHTER_HP_BASE_AMOUNT = 50;
-        public static final int FIGHTER_HP_INCREASE_PER_LEVEL = 10;
-        public static final int FIGHTER_HP_BASE_REGEN = 5;
-        public static final int FIGHTER_HP_REGEN_PER_LEVEL = 1;
-
-        public static final int FIGHTER_ENERGY_BASE_AMOUNT = 20;
-        public static final int FIGHTER_ENERGY_INCREASE_PER_LEVEL = 10;
-        public static final int FIGHTER_ENERGY_BASE_REGEN = 10;
-        public static final int FIGHTER_ENERGY_REGEN_PER_LEVEL = 2;
-
-        public static final int CHASER_HP_BASE_AMOUNT = 30;
-        public static final int CHASER_HP_INCREASE_PER_LEVEL = 8;
-        public static final int CHASER_HP_BASE_REGEN = 4;
-        public static final int CHASER_HP_REGEN_PER_LEVEL = 1;
-
-        public static final int CHASER_ENERGY_BASE_AMOUNT = 30;
-        public static final int CHASER_ENERGY_INCREASE_PER_LEVEL = 15;
-        public static final int CHASER_ENERGY_BASE_REGEN = 10;
-        public static final int CHASER_ENERGY_REGEN_PER_LEVEL = 2;
-
-        public static final int TANK_HP_BASE_AMOUNT = 80;
-        public static final int TANK_HP_INCREASE_PER_LEVEL = 25;
-        public static final int TANK_HP_BASE_REGEN = 5;
-        public static final int TANK_HP_REGEN_PER_LEVEL = 1;
-
-        public static final int TANK_ENERGY_BASE_AMOUNT = 30;
-        public static final int TANK_ENERGY_INCREASE_PER_LEVEL = 15;
-        public static final int TANK_ENERGY_BASE_REGEN = 15;
-        public static final int TANK_ENERGY_REGEN_PER_LEVEL = 3;
-
-        public static final int MINOR_BOSS_HP_BASE_AMOUNT = 200;
-        public static final int MINOR_BOSS_HP_INCREASE_PER_LEVEL = 50;
-        public static final int MINOR_BOSS_HP_BASE_REGEN = 0;
-        public static final int MINOR_BOSS_HP_REGEN_PER_LEVEL = 0;
-
-        public static final int MINOR_BOSS_ENERGY_BASE_AMOUNT = 50;
-        public static final int MINOR_BOSS_ENERGY_INCREASE_PER_LEVEL = 10;
-        public static final int MINOR_BOSS_ENERGY_BASE_REGEN = 20;
-        public static final int MINOR_BOSS_ENERGY_REGEN_PER_LEVEL = 5;
-
-        public static final int MAJOR_BOSS_HP_BASE_AMOUNT = 400;
-        public static final int MAJOR_BOSS_HP_INCREASE_PER_LEVEL = 100;
-        public static final int MAJOR_BOSS_HP_BASE_REGEN = 0;
-        public static final int MAJOR_BOSS_HP_REGEN_PER_LEVEL = 0;
-
-        public static final int MAJOR_BOSS_ENERGY_BASE_AMOUNT = 100;
-        public static final int MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL = 20;
-        public static final int MAJOR_BOSS_ENERGY_BASE_REGEN = 40;
-        public static final int MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL = 10;
+        public static final float ENERGY_PER_ATTR = 10;
+        public static final float ENERGY_REGEN_PER_ATTR = 2;
     }
 
     public static class Explosions {
@@ -197,20 +158,75 @@ public class Consts {
 
         public static final float BOSS_EX_DMG = 0;
         public static final float BOSS_EX_FIRE_BASE_DMG = 0;
-        public static final float BOSS_EX_FIRE_DMG_PER_STRENGTH = 0;
         public static final float BOSS_EX_RADIUS = 0;
 
-        public static final float MISSILE_EX_DMG = 20;
-        public static final float MISSILE_EX_FIRE_BASE_DMG = 10;
-        public static final float MISSILE_EX_FIRE_DMG_PER_STRENGTH = 2;
+        public static final float MISSILE_EX_DMG = 2;
+        public static final float MISSILE_EX_FIRE_DMG = 0.5f;
         public static final float MISSILE_EX_RADIUS = 100;
 
-        public static final float MINE_EX_DMG = 20;
-        public static final float MINE_EX_FIRE_BASE_DMG = 10;
-        public static final float MINE_EX_FIRE_DMG_PER_STRENGTH = 2;
+        public static final float MINE_EX_DMG = 2;
+        public static final float MINE_EX_FIRE_DMG = 0.5f;
         public static final float MINE_EX_RADIUS = 125;
 
         public static final long FIRE_BASE_DURATION = 4000;
-        public static final long FIRE_DURATION_PER_STRENGTH = 20;
+        public static final long FIRE_DURATION_PER_DMG = 5;
+    }
+
+    public static class AttributesStarters {
+
+        public static final Starter FIGHTER = new Starter(3, 7, 5, 5, 1, 1.5f, 1, 1);
+        public static final Starter CHASER = new Starter(5, 3, 5, 7, 1, 1, 1, 1.5f);
+        public static final Starter TANK = new Starter(5, 7, 5, 3, 1, 1.5f, 1, 0.5f);
+
+        public static final Starter MINOR_AI = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MINOR_AII = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MINOR_AIII = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MINOR_AIV = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MINOR_AV = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+
+        public static final Starter MAJOR_AI = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MAJOR_AII = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MAJOR_AIII = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MAJOR_AIV = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MAJOR_AV = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+
+        public static final Starter SPACE_STATION = new Starter(10, 50, 10, 5, 2, 5, 2, 1);
+        public static final Starter STATION_HELPER_I = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter STATION_HELPER_II = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+    }
+
+    public static class Starter {
+
+        private final int baseArmory;
+        private final int baseShields;
+        private final int baseBattery;
+        private final int baseEngine;
+        private final float armoryPerLevel;
+        private final float shieldsPerLevel;
+        private final float batteryPerLevel;
+        private final float enginePerLevel;
+
+        public Starter(final int baseArmory, final int baseShields, final int baseBattery, final int baseEngine,
+                final float armoryPerLevel, final float shieldsPerLevel, final float batteryPerLevel,
+                final float enginePerLevel) {
+
+            this.baseArmory = baseArmory;
+            this.baseShields = baseShields;
+            this.baseBattery = baseBattery;
+            this.baseEngine = baseEngine;
+            this.armoryPerLevel = armoryPerLevel;
+            this.shieldsPerLevel = shieldsPerLevel;
+            this.batteryPerLevel = batteryPerLevel;
+            this.enginePerLevel = enginePerLevel;
+        }
+
+        public Attributes get(final int level) {
+
+            return new Attributes(
+                    baseArmory + Math.round(armoryPerLevel * level),
+                    baseShields + Math.round(shieldsPerLevel * level),
+                    baseBattery + Math.round(batteryPerLevel * level),
+                    baseEngine + Math.round(enginePerLevel * level));
+        }
     }
 }

@@ -1,6 +1,5 @@
 package spaceattack.game.weapons.rocketMissile;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.doReturn;
@@ -47,7 +46,7 @@ public class RocketMissileTest {
         Textures.loadForTest();
         Animations.loadForTest();
 
-        missile = new RocketMissile();
+        missile = new RocketMissile(10);
         MockitoAnnotations.initMocks(this);
 
         Factories.setActorFactory(actorFactory);
@@ -55,13 +54,6 @@ public class RocketMissileTest {
         doReturn(true).when(controller).takeEnergy(anyFloat());
         doReturn(new FakeActor()).when(actorFactory).create(any(IGameActor.class));
         doReturn(ExtVectorFactory.INSTANCE.create(10, 10)).when(controller).getSecondaryWeaponUsePlacement();
-    }
-
-    @Test
-    public void missileHasNoOwnDamage() {
-
-        missile.setLevel(10);
-        assertEquals(0, missile.getDmg(), 0);
     }
 
     @Test

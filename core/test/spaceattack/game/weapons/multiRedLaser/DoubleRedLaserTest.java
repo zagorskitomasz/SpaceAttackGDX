@@ -22,7 +22,6 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.missiles.FakeLauncher;
-import spaceattack.game.weapons.multiRedLaser.DoubleRedLaser;
 
 public class DoubleRedLaserTest {
 
@@ -45,12 +44,11 @@ public class DoubleRedLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        laser = new DoubleRedLaser();
+        laser = new DoubleRedLaser(10);
 
         laser.setUtils(ExtUtilsFactory.INSTANCE.create());
         laser.setController(controller);
         laser.setMissilesLauncher(launcher);
-        laser.setLevel(1);
 
         doReturn(true).when(controller).takeEnergy(anyFloat());
         doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getPrimaryWeaponUsePlacement();

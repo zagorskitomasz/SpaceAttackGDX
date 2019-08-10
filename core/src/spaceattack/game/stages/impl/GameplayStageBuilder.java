@@ -18,6 +18,7 @@ import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.MissionInputHandler;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.ships.enemy.EnemyShipsFactory;
 import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.ships.pools.ExperiencePool;
@@ -117,21 +118,22 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
     protected void initComponents() {
 
         playersShip = new PlayerShip();
+        playersShip.setAttributes(gameProgress.getAttributes());
         accelerator = AcceleratorFactory.INSTANCE.create();
         engine = ShipEngineBuilder.INSTANCE.createInputEngine(playersShip, accelerator);
         processor = new MissionInputHandler();
         weaponController = new PlayerWeaponController();
         missilesLauncher = new MissilesLauncher(stage);
-        primaryWeapon = createPrimaryWeapon();
-        greenLaser = createSecondaryWeapon();
+        primaryWeapon = createPrimaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY));
+        greenLaser = createSecondaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY));
         primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
         secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
         enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
     }
 
-    protected abstract IWeapon createPrimaryWeapon();
+    protected abstract IWeapon createPrimaryWeapon(final int armory);
 
-    protected abstract IWeapon createSecondaryWeapon();
+    protected abstract IWeapon createSecondaryWeapon(final int armory);
 
     protected abstract EnemyBase createEnemyBase(IUtils utils);
 
@@ -159,18 +161,10 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
     private void initPools() {
 
         expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
-        energyPool = new Pool(
-                Consts.Pools.PLAYER_ENERGY_BASE_AMOUNT,
-                Consts.Pools.PLAYER_ENERGY_INCREASE_PER_LEVEL,
-                Consts.Pools.PLAYER_ENERGY_BASE_REGEN,
-                Consts.Pools.PLAYER_ENERGY_REGEN_PER_LEVEL);
-        hpPool = new HpPool(
-                Consts.Pools.PLAYER_HP_BASE_AMOUNT,
-                Consts.Pools.PLAYER_HP_INCREASE_PER_LEVEL,
-                Consts.Pools.PLAYER_HP_BASE_REGEN,
-                Consts.Pools.PLAYER_HP_REGEN_PER_LEVEL);
+        energyPool = new Pool(gameProgress.getAttributes().get(Attribute.BATTERY));
+        hpPool = new HpPool(gameProgress.getAttributes().get(Attribute.SHIELDS));
         hpPool.setImmunityChecker(stage::isGameOver);
-        hpPool.addTemporalInfinityChecker(() -> true);
+        // hpPool.addTemporalInfinityChecker(() -> true);
         // TODO immortal ship for test purposes;
         // remove before release
 

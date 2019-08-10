@@ -9,6 +9,7 @@ import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.powerup.IPowerUp;
+import spaceattack.game.rpg.Attributes;
 import spaceattack.game.ships.Ship;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.missiles.Freezer;
@@ -23,6 +24,12 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     private IWeaponController controller;
 
     private EnemyBar bar;
+    private final Attributes attributes;
+
+    public BaseEnemyShip(final Attributes attributes) {
+
+        this.attributes = attributes;
+    }
 
     @Override
     public void act(final float delta) {
@@ -143,5 +150,11 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
 
         controller.unfreeze();
         super.unfreeze();
+    }
+
+    @Override
+    public Attributes getAttributes() {
+
+        return attributes;
     }
 }

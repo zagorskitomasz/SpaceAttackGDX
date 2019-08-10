@@ -69,4 +69,10 @@ public class GdxButton extends TextButton implements IButton {
 
         super.setDisabled(disabled);
     }
+
+    @Override
+    public void addHoverListener(final IListener listener) {
+
+        addListener(new HoverListenerProxy(listener));
+    }
 }

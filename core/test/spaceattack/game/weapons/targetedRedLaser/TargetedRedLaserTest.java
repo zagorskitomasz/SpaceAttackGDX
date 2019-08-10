@@ -43,12 +43,11 @@ public class TargetedRedLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        laser = new TargetedRedLaser();
+        laser = new TargetedRedLaser(10);
 
         laser.setUtils(ExtUtilsFactory.INSTANCE.create());
         laser.setController(controller);
         laser.setMissilesLauncher(launcher);
-        laser.setLevel(1);
 
         doReturn(true).when(controller).takeEnergy(anyFloat());
         doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getPrimaryWeaponUsePlacement();

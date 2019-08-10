@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import spaceattack.consts.Experience;
+import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Attributes;
 import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
 
@@ -13,6 +15,7 @@ public class GameProgress implements INotifier<GameProgress> {
     private Integer level;
     private Long experience;
     private String playerName;
+    private Attributes attributes;
 
     private transient int slot;
     private transient List<IObserver<GameProgress>> observers;
@@ -22,6 +25,7 @@ public class GameProgress implements INotifier<GameProgress> {
         mission = 1;
         level = 1;
         experience = 0l;
+        attributes = new Attributes();
 
         observers = new LinkedList<>();
     }
@@ -78,12 +82,23 @@ public class GameProgress implements INotifier<GameProgress> {
         this.slot = slot;
     }
 
+    public Attributes getAttributes() {
+
+        return attributes;
+    }
+
+    public void setAttributes(final Attributes attributes) {
+
+        this.attributes = attributes;
+    }
+
     public void addExperience(final long amount) {
 
         experience += amount;
 
         if (experience >= Experience.INSTANCE.expForLevel(level + 1)) {
             setLevel(level + 1);
+            attributes.addFreePoints(Attribute.POINTS_PER_LEVEL);
         }
     }
 
@@ -115,6 +130,7 @@ public class GameProgress implements INotifier<GameProgress> {
         newProgress.level = this.level;
         newProgress.mission = this.mission;
         newProgress.playerName = this.playerName;
+        newProgress.attributes = this.attributes.clone();
 
         return newProgress;
     }
@@ -131,6 +147,7 @@ public class GameProgress implements INotifier<GameProgress> {
 
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
         result = prime * result + ((experience == null) ? 0 : experience.hashCode());
         result = prime * result + ((level == null) ? 0 : level.hashCode());
         result = prime * result + ((mission == null) ? 0 : mission.hashCode());
@@ -151,6 +168,15 @@ public class GameProgress implements INotifier<GameProgress> {
             return false;
         }
         GameProgress other = (GameProgress) obj;
+        if (attributes == null) {
+            if (other.attributes != null) {
+                return false;
+            }
+        }
+        else
+            if (!attributes.equals(other.attributes)) {
+                return false;
+            }
         if (experience == null) {
             if (other.experience != null) {
                 return false;

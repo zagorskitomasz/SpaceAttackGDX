@@ -2,14 +2,19 @@ package spaceattack.game.ships.pools;
 
 import java.util.function.Supplier;
 
+import spaceattack.consts.Consts;
+
 public class HpPool extends Pool {
 
     private Supplier<Boolean> immunityChecker;
 
-    public HpPool(final float baseAmount, final float increasePerLevel, final float baseRegen,
-            final float regenPerLevel) {
+    public HpPool(final int shields) {
 
-        super(baseAmount, increasePerLevel, baseRegen, regenPerLevel);
+        super(shields);
+
+        this.maxAmount = Consts.Pools.HP_PER_ATTR * shields;
+        this.regenPerSecond = Consts.Pools.HP_REGEN_PER_ATTR * shields;
+        this.amount = maxAmount;
     }
 
     public void setImmunityChecker(final Supplier<Boolean> supplier) {

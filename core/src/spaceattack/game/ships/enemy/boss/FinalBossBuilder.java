@@ -8,6 +8,7 @@ import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.BigEnemyBar;
 import spaceattack.game.ships.pools.HpPool;
@@ -41,8 +42,6 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IBoss boss = buildBasicSpaceStation(stage, false);
 
-        boss.setLevel(stage.getCurrentMission() * 2);
-
         return boss;
     }
 
@@ -50,27 +49,19 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IBoss boss;
         if (required) {
-            boss = new RequiredBossShip();
+            boss = new RequiredBossShip(Consts.AttributesStarters.SPACE_STATION.get(stage.getCurrentMission()));
         }
         else {
-            boss = new BossShip();
+            boss = new BossShip(Consts.AttributesStarters.SPACE_STATION.get(stage.getCurrentMission()));
         }
 
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-        IPool energyPool = new Pool(
-                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_AMOUNT,
-                Consts.Pools.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL,
-                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_REGEN * 0.5f,
-                Consts.Pools.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+        IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(
-                Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT * 6,
-                Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL * 6,
-                Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
-                Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
@@ -89,7 +80,8 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         boss.setMissilesLauncher(launcher);
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 
-        EnergyShieldEmiter emitter = (EnergyShieldEmiter) ShieldBuilder.INSTANCE.build(controller, launcher);
+        EnergyShieldEmiter emitter = (EnergyShieldEmiter) ShieldBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
         emitter.setNoEnergyCost();
         emitter.setInterval(0.25f);
         emitter.setShieldDuration(3000);
@@ -108,7 +100,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
     protected void addPassiveLaser(final IBoss boss, final MissilesLauncher launcher, final Direction direction) {
 
         TargetedRedLaser centralLaser = (TargetedRedLaser) TargetedRedLaserBuilder.INSTANCE
-                .build(boss.getWeaponController(), launcher);
+                .build(boss.getWeaponController(), launcher, boss.getAttributes().get(Attribute.ARMORY));
         centralLaser.setNoEnergyCost();
         centralLaser.setDistanceFromShip(0);
         if (direction == null) {
@@ -124,22 +116,14 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
     @Override
     public IBoss createHelperI(final GameplayStage stage) {
 
-        IBoss boss = new BossShip();
+        IBoss boss = new BossShip(Consts.AttributesStarters.STATION_HELPER_I.get(stage.getCurrentMission()));
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-        IPool energyPool = new Pool(
-                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_AMOUNT,
-                Consts.Pools.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL,
-                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_REGEN,
-                Consts.Pools.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+        IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(
-                Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT * 2,
-                Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL * 2,
-                Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
-                Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
@@ -158,20 +142,20 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         boss.setMissilesLauncher(launcher);
         IEngine engine = ShipEngineBuilder.INSTANCE.createFastDestinationEngine(boss);
 
-        IWeapon rocketMissile = RocketMissileBuilder.INSTANCE.build(controller, launcher);
+        IWeapon rocketMissile = RocketMissileBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
         rocketMissile.setNoEnergyCost();
         rocketMissile.setInterval(0.4f);
         controller.setPrimaryWeapon(rocketMissile);
         boss.addWeapon(rocketMissile);
 
-        IWeapon greenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon greenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
         controller.setSecondaryWeapon(greenLaser);
         boss.addWeapon(greenLaser);
 
         boss.setShipEngine(engine);
         boss.setTexture(Textures.BOSS_HELPER_1.getTexture());
-
-        boss.setLevel(stage.getCurrentMission() * 2);
 
         return boss;
     }
@@ -182,13 +166,12 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         IBoss boss = buildBasicSpaceStation(stage, false);
 
         FlyingMiner miner = (FlyingMiner) FlyingMinerBuilder.INSTANCE.build(boss.getWeaponController(),
-                stage.getMissilesLauncher());
+                stage.getMissilesLauncher(), boss.getAttributes().get(Attribute.ARMORY));
         miner.setInterval(0.33f);
         miner.setDistanceToShip(-0.2f);
         boss.getWeaponController().setPrimaryWeapon(miner);
         boss.addWeapon(miner);
 
-        boss.setLevel(stage.getCurrentMission() * 2);
         boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.33f);
 
         return boss;
@@ -197,22 +180,14 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
     @Override
     public IBoss createHelperII(final GameplayStage stage) {
 
-        IBoss boss = new BossShip();
+        IBoss boss = new BossShip(Consts.AttributesStarters.STATION_HELPER_II.get(stage.getCurrentMission()));
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-        IPool energyPool = new Pool(
-                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_AMOUNT,
-                Consts.Pools.MAJOR_BOSS_ENERGY_INCREASE_PER_LEVEL,
-                Consts.Pools.MAJOR_BOSS_ENERGY_BASE_REGEN,
-                Consts.Pools.MAJOR_BOSS_ENERGY_REGEN_PER_LEVEL);
+        IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(
-                Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT * 2,
-                Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL * 2,
-                Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
-                Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
@@ -231,7 +206,8 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         boss.setMissilesLauncher(launcher);
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 
-        IWeapon waveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
+        IWeapon waveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
         waveEmitter.setNoEnergyCost();
         waveEmitter.setInterval(0.25f);
         controller.setPrimaryWeapon(waveEmitter);
@@ -240,8 +216,6 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         boss.setShipEngine(engine);
         boss.setTexture(Textures.BOSS_HELPER_2.getTexture());
-
-        boss.setLevel(stage.getCurrentMission() * 2);
 
         return boss;
     }
@@ -252,19 +226,18 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         IBoss boss = buildBasicSpaceStation(stage, true);
 
         FlyingMiner miner = (FlyingMiner) FlyingMinerBuilder.INSTANCE.build(boss.getWeaponController(),
-                stage.getMissilesLauncher());
+                stage.getMissilesLauncher(), boss.getAttributes().get(Attribute.ARMORY));
         miner.setInterval(0.33f);
         miner.setDistanceToShip(-0.2f);
         boss.getWeaponController().setPrimaryWeapon(miner);
         boss.addWeapon(miner);
 
         IWeapon timeWave = TimeWaveEmitterBuilder.INSTANCE.build(boss.getWeaponController(),
-                stage.getMissilesLauncher());
+                stage.getMissilesLauncher(), boss.getAttributes().get(Attribute.ARMORY));
         timeWave.setInterval(0.14f);
         boss.getWeaponController().setSecondaryWeapon(timeWave);
         boss.addWeapon(timeWave);
 
-        boss.setLevel(stage.getCurrentMission() * 2);
         boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.67f);
 
         return boss;

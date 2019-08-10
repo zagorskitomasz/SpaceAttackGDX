@@ -2,10 +2,16 @@ package spaceattack.game.ships.enemy.boss;
 
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.ShooterType;
+import spaceattack.game.rpg.Attributes;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.BaseEnemyShip;
 
 public class BossShip extends BaseEnemyShip implements IBoss {
+
+    public BossShip(final Attributes attributes) {
+
+        super(attributes);
+    }
 
     private MoverType moverType;
     private ShooterType shooterType;

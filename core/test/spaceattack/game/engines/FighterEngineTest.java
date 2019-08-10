@@ -30,12 +30,7 @@ public class FighterEngineTest {
         ship.setX(20);
         ship.setY(20);
 
-        engine = new FighterEngine(ship, ExtUtilsFactory.INSTANCE.create());
-        engine.setBaseSpeed(2);
-        engine.setAcceleration(1);
-        engine.setBraking(1);
-        engine.setAgility(2);
-        engine.setLevel(1);
+        engine = new FighterEngine(ship, ExtUtilsFactory.INSTANCE.create(), 10);
     }
 
     @Test
@@ -51,11 +46,10 @@ public class FighterEngineTest {
     @Test
     public void shipIsMovingToDestinationAndDownInBaseSpeed() {
 
-        engine.setLevel(3);
         engine.setDestination(vectors.create(50, 50));
 
         engine.fly();
 
-        assertEquals(vectors.create(24.2f, 17.2f), vectors.create(ship.getX(), ship.getY()));
+        assertEquals(vectors.create(22, 18), vectors.create(ship.getX(), ship.getY()));
     }
 }

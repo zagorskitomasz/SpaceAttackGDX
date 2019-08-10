@@ -9,17 +9,11 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class RedLaser extends Laser {
 
-    protected RedLaser() {
+    protected RedLaser(final int armory) {
 
-        // do nothing
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        dmg = Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL;
-        speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;
-        energyCost = Consts.Weapons.RED_LASER_BASE_COST + (level - 1) * Consts.Weapons.RED_LASER_COST_PER_LEVEL;
+        dmg = Consts.Weapons.RED_LASER_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.RED_LASER_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.RED_LASER_COST_PER_ATTR * armory;
     }
 
     @Override

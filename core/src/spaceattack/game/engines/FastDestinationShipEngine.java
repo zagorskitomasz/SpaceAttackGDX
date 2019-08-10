@@ -5,14 +5,8 @@ import spaceattack.game.utils.IUtils;
 
 public class FastDestinationShipEngine extends DestinationShipEngine {
 
-    FastDestinationShipEngine(IShip ship, IUtils utils) {
+    FastDestinationShipEngine(final IShip ship, final IUtils utils, final int engineAttr) {
 
-        super(ship, utils);
-    }
-
-    @Override
-    public void setLevel(int level) {
-
-        super.setLevel(level * 2);
+        super(ship, utils, engineAttr * 2);
     }
 }

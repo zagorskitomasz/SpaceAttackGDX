@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.function.BooleanSupplier;
 
 import spaceattack.ext.vector.ExtVectorFactory;
-import spaceattack.game.GameProgress;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.actors.interfaces.RadarVisible;
@@ -15,6 +14,7 @@ import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.powerup.IPowerUp;
+import spaceattack.game.rpg.Attributes;
 import spaceattack.game.ships.enemy.EnemyBar;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.pools.IPool;
@@ -33,12 +33,6 @@ public class FakeShip implements IShip, IEnemyShip, IBoss {
     private float radius;
     private IPool hpPool;
     private boolean isToKill = false;
-
-    @Override
-    public void notify(final GameProgress state) {
-
-        // do nothing
-    }
 
     @Override
     public void takeDmg(final float dmg) {
@@ -150,12 +144,6 @@ public class FakeShip implements IShip, IEnemyShip, IBoss {
     public Set<IWeapon> getWeapons() {
 
         return null;
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        // do nothing
     }
 
     @Override
@@ -340,6 +328,12 @@ public class FakeShip implements IShip, IEnemyShip, IBoss {
 
     @Override
     public ShooterType getDefaultShooterType() {
+
+        return null;
+    }
+
+    @Override
+    public Attributes getAttributes() {
 
         return null;
     }

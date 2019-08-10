@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import spaceattack.consts.Consts;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.actors.IActorFactory;
@@ -43,12 +42,11 @@ public class RedLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        redLaser = new RedLaser();
+        redLaser = new RedLaser(5);
 
         redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
         redLaser.setController(controller);
         redLaser.setMissilesLauncher(launcher);
-        redLaser.setLevel(1);
 
         doReturn(true).when(controller).takeEnergy(anyFloat());
     }
@@ -82,21 +80,8 @@ public class RedLaserTest {
 
         Missile missile = redLaser.buildMissile();
 
-        assertEquals(Consts.Weapons.RED_LASER_BASE_DMG, missile.getDmg(), 0);
-        assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED, missile.getSpeed(), 0);
-        assertEquals(0, missile.getAcceleration(), 0);
-    }
-
-    @Test
-    public void buildingHigherLevelMissile() {
-
-        redLaser.setLevel(4);
-        Missile missile = redLaser.buildMissile();
-
-        assertEquals(Consts.Weapons.RED_LASER_BASE_DMG + 3 * Consts.Weapons.RED_LASER_DMG_PER_LEVEL, missile.getDmg(),
-                0);
-        assertEquals(Consts.Weapons.RED_LASER_BASE_SPEED + 3 * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL,
-                missile.getSpeed(), 0);
+        assertEquals(10, missile.getDmg(), 0);
+        assertEquals(10, missile.getSpeed(), 0);
         assertEquals(0, missile.getAcceleration(), 0);
     }
 

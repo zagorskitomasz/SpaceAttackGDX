@@ -206,4 +206,21 @@ enum GdxUtils implements IGdxUtils {
 
         return label;
     }
+
+    @Override
+    public ILabel createDetailerToucher(final float yPos, final String details, final ILabel infoLabel) {
+
+        BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
+        Label.LabelStyle style = new Label.LabelStyle(font, new Color(0xdaa520ff));
+        GdxLabel label = new GdxLabel(" ", style);
+        label.setX(0);
+        label.setY(yPos);
+        label.setWidth(Sizes.GAME_WIDTH);
+        label.addListener(event -> {
+            infoLabel.update(details);
+            return true;
+        });
+
+        return label;
+    }
 }

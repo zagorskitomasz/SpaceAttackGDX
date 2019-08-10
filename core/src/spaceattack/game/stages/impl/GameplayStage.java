@@ -157,7 +157,7 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
         Sounds.stopAll();
 
         StageResult result = new StageResult();
-        result.setNextStage(Stages.MISSIONS);
+        result.setNextStage(chooseStage());
 
         if (won) {
             getGameProgress().missionCompleted(currentMission);
@@ -167,6 +167,15 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
             result.setGameProgress(getProgressBackup());
         }
         setResult(result);
+    }
+
+    private Stages chooseStage() {
+
+        if (getGameProgress() != null && getGameProgress().getAttributes() != null
+                && getGameProgress().getAttributes().getFreePoints() > 0) {
+            return Stages.MAIN_MENU;
+        }
+        return Stages.MISSIONS;
     }
 
     boolean isGameOver() {

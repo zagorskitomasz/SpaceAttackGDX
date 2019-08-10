@@ -1,18 +1,23 @@
 package spaceattack.game.weapons.multiRedLaser;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.missiles.Missile;
 
 public class DoubleRedLaser extends MultiShotRedLaser {
 
-    DoubleRedLaser() {
+    DoubleRedLaser(final int armory) {
 
-        super();
+        super(armory);
+
+        dmg = Consts.Weapons.DOUBLE_RED_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.DOUBLE_RED_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.DOUBLE_RED_COST_PER_ATTR * armory;
     }
 
     @Override
-    protected void launchMissiles(IVector centralPosition) {
+    protected void launchMissiles(final IVector centralPosition) {
 
         Missile left = buildMissile();
         left.setSound(null);

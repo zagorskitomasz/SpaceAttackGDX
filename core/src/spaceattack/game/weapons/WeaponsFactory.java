@@ -14,59 +14,69 @@ import spaceattack.game.weapons.tripleGreenLaser.TripleGreenLaserBuilder;
 public enum WeaponsFactory {
     INSTANCE;
 
-    public IWeapon createRedLaser(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon createRedLaser(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return RedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return RedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
     public IWeapon createGreenLaser(final PlayerWeaponController weaponController,
-            final MissilesLauncher missilesLauncher) {
+            final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return GreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return GreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
     public IWeapon createRocketMissile(final IWeaponController weaponController,
-            final MissilesLauncher missilesLauncher) {
+            final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return RocketMissileBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return RocketMissileBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
     public IWeapon createDoubleRedLaser(final PlayerWeaponController weaponController,
-            final MissilesLauncher missilesLauncher) {
+            final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return DoubleRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return DoubleRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
     public IWeapon createTripleGreenLaser(final PlayerWeaponController weaponController,
-            final MissilesLauncher missilesLauncher) {
+            final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return TripleGreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return TripleGreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
-    public IWeapon createMine(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon createMine(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return MinerBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return MinerBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
-    public IWeapon createShield(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon createShield(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return ShieldBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return ShieldBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
     public IWeapon createFlamethrower(final IWeaponController weaponController,
-            final MissilesLauncher missilesLauncher) {
+            final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return FlamethrowerBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return FlamethrowerBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
-    public IWeapon createTimeWave(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon createTimeWave(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return TimeWaveEmitterBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return TimeWaveEmitterBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 
     public IWeapon createMassiveRedLaser(final PlayerWeaponController weaponController,
-            final MissilesLauncher missilesLauncher) {
+            final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        return MassiveRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher);
+        return MassiveRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
     }
 }

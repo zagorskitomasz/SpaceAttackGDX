@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import spaceattack.ext.system.Atlases;
 import spaceattack.ext.texture.GdxTextureReg;
-import spaceattack.game.ext.system.Atlases;
 import spaceattack.game.system.graphics.Animations;
 import spaceattack.game.system.graphics.IAnimation;
 import spaceattack.game.system.graphics.ITexture;

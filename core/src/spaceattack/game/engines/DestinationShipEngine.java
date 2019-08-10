@@ -3,6 +3,7 @@ package spaceattack.game.engines;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import spaceattack.consts.Sizes;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.IShip.Turn;
 import spaceattack.game.utils.IUtils;
@@ -10,24 +11,29 @@ import spaceattack.game.utils.vector.IVector;
 
 public class DestinationShipEngine extends AbstractShipEngine {
 
-    private IUtils utils;
+    private final IUtils utils;
 
     protected IVector destination;
     private IVector nextDestination;
 
     private boolean isTurning;
 
-    private Lock lock;
+    private final Lock lock;
 
-    DestinationShipEngine(IShip ship, IUtils utils) {
+    DestinationShipEngine(final IShip ship, final IUtils utils, final int engineAttr) {
 
         super(ship);
         this.utils = utils;
         lock = new ReentrantLock();
+
+        baseSpeed = 0.2f * engineAttr * Sizes.RADIUS_FACTOR;
+        acceleration = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+        braking = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+        agility = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
     }
 
     @Override
-    public void setDestination(IVector destination) {
+    public void setDestination(final IVector destination) {
 
         try {
             lock.lock();
@@ -58,12 +64,14 @@ public class DestinationShipEngine extends AbstractShipEngine {
         try {
             lock.lock();
 
-            if (destination == null)
+            if (destination == null) {
                 return IShip.Turn.FRONT;
+            }
 
             if (isDestinationReached()) {
-                if (isTurning)
+                if (isTurning) {
                     doTurn();
+                }
 
                 return IShip.Turn.FRONT;
             }
@@ -107,13 +115,15 @@ public class DestinationShipEngine extends AbstractShipEngine {
         return vectorFactory.create(destination.getX() - ship.getX(), destination.getY() - ship.getY());
     }
 
-    private Turn calculateShipTurning(IVector movement) {
+    private Turn calculateShipTurning(final IVector movement) {
 
-        if (movement.getX() >= 0.3)
+        if (movement.getX() >= 0.3) {
             return Turn.RIGHT;
+        }
 
-        if (movement.getX() <= -0.3)
+        if (movement.getX() <= -0.3) {
             return Turn.LEFT;
+        }
 
         return Turn.FRONT;
     }
@@ -123,19 +133,24 @@ public class DestinationShipEngine extends AbstractShipEngine {
         IVector movement = computeMovement();
 
         if (isTurning) {
-            if (canTurnWithThisSpeed(movement.copy().normalize()))
+            if (canTurnWithThisSpeed(movement.copy().normalize())) {
                 doTurn();
-            else
+            }
+            else {
                 brake();
+            }
         }
         else {
-            if (movement.length() > brakingWay())
+            if (movement.length() > brakingWay()) {
                 accelerate();
-            else
+            }
+            else {
                 brake();
+            }
 
-            if (currentSpeed <= baseSpeed)
+            if (currentSpeed <= baseSpeed) {
                 currentSpeed = baseSpeed;
+            }
         }
     }
 
@@ -149,7 +164,7 @@ public class DestinationShipEngine extends AbstractShipEngine {
         currentSpeed -= braking;
     }
 
-    private boolean canTurnWithThisSpeed(IVector currentDirection) {
+    private boolean canTurnWithThisSpeed(final IVector currentDirection) {
 
         IVector newDirection = vectorFactory
                 .create(nextDestination.getX() - ship.getX(), nextDestination.getY() - ship.getY()).normalize();
@@ -159,7 +174,7 @@ public class DestinationShipEngine extends AbstractShipEngine {
         return currentSpeed <= baseSpeed || (currentSpeed * currentSpeed / agility) < angle;
     }
 
-    private float computeAngle(IVector first, IVector second) {
+    private float computeAngle(final IVector first, final IVector second) {
 
         float angle = (utils.atan2(first.getX(), first.getY()) - utils.atan2(second.getX(), second.getY()));
 

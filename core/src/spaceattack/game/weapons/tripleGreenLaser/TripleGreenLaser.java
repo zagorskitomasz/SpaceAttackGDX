@@ -1,5 +1,6 @@
 package spaceattack.game.weapons.tripleGreenLaser;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.graphics.Textures;
@@ -13,10 +14,14 @@ public class TripleGreenLaser extends GreenLaser {
 
     private final IVectorFactory vectors;
 
-    TripleGreenLaser() {
+    TripleGreenLaser(final int armory) {
 
         super();
         vectors = Factories.getVectorFactory();
+
+        dmg = Consts.Weapons.TRIPLE_GREEN_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.TRIPLE_GREEN_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.TRIPLE_GREEN_COST_PER_ATTR * armory;
     }
 
     @Override
@@ -34,15 +39,6 @@ public class TripleGreenLaser extends GreenLaser {
 
         launchMissiles(centralPosition);
         return true;
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        super.setLevel(level);
-        if (!controller.isPlayer()) {
-            energyCost *= 2;
-        }
     }
 
     private void launchMissiles(final IVector centralPosition) {

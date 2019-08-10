@@ -8,14 +8,14 @@ import spaceattack.game.weapons.MissilesLauncher;
 public enum FlamethrowerBuilder {
     INSTANCE;
 
-    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        Flamethrower flamethrower = new Flamethrower();
+        Flamethrower flamethrower = new Flamethrower(armory);
 
         flamethrower.setUtils(Factories.getUtilsFactory().create());
         flamethrower.setController(weaponController);
         flamethrower.setMissilesLauncher(missilesLauncher);
-        flamethrower.setLevel(1);
 
         return flamethrower;
     }

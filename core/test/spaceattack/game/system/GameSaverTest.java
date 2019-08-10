@@ -14,6 +14,7 @@ import org.mockito.Mock;
 
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.GameProgress;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.utils.IUtils;
 
 public class GameSaverTest {
@@ -81,11 +82,32 @@ public class GameSaverTest {
     @Test
     public void deleting() {
 
-        String content = "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne},3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}";
+        String content = "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne,attributes:{}},3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo,attributes:{}}}}";
         doReturn(new ByteArrayInputStream(content.getBytes())).when(file).read();
 
         saver.delete(2);
-        verify(file).writeString("{savedProgress:{3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}",
+        verify(file).writeString(
+                "{savedProgress:{3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}",
+                false);
+    }
+
+    @Test
+    public void attributesAreSaved() {
+
+        GameProgress progress = new GameProgress();
+        progress.setExperience(999888777666l);
+        progress.setLevel(5);
+        progress.setMission(3);
+        progress.setPlayerName("PlayerOne");
+        progress.setSlot(2);
+        progress.getAttributes().addFreePoints(5);
+        progress.getAttributes().increase(Attribute.ARMORY);
+        progress.getAttributes().increase(Attribute.ARMORY);
+        progress.getAttributes().increase(Attribute.BATTERY);
+
+        saver.save(progress);
+        verify(file).writeString(
+                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne,attributes:{attributes:{BATTERY:11,ARMORY:12,ENGINE:10,SHIELDS:10},freePoints:2}}}}",
                 false);
     }
 }

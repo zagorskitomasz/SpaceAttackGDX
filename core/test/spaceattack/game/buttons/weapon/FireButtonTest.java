@@ -115,7 +115,7 @@ public class FireButtonTest {
     public void disabledWhenNotifiedAndNotEnoughEnergy() {
 
         doReturn(100f).when(weapon).getEnergyCost();
-        IPool pool = new Pool(10, 10, 10, 10);
+        IPool pool = new Pool(5);
         fireButton.setEnergyPool(pool);
         pool.update();
 

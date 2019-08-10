@@ -17,6 +17,7 @@ import org.mockito.Mock;
 
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.GameProgress;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.utils.IUtils;
 
 public class GameLoaderTest {
@@ -39,7 +40,7 @@ public class GameLoaderTest {
         loader.setUtils(utils);
         initMocks(this);
 
-        String fileContent = "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne}}}";
+        String fileContent = "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne,attributes:{attributes:{ENGINE:8,ARMORY:10,SHIELDS:8,BATTERY:9},freePoints:2}}}}";
         InputStream fileContentStream = new ByteArrayInputStream(fileContent.getBytes());
 
         doReturn(file).when(utils).loadFile(anyString());
@@ -87,5 +88,19 @@ public class GameLoaderTest {
         Map<String, String> allPlayers = loader.loadAll();
 
         assertEquals(PLAYER_NAME, allPlayers.get(SLOT_INDEX));
+    }
+
+    @Test
+    public void loadingAttributes() {
+
+        doReturn(true).when(file).exists();
+
+        GameProgress progress = loader.load(SLOT_INDEX);
+
+        assertEquals(2, progress.getAttributes().getFreePoints());
+        assertEquals(10, progress.getAttributes().get(Attribute.ARMORY));
+        assertEquals(9, progress.getAttributes().get(Attribute.BATTERY));
+        assertEquals(8, progress.getAttributes().get(Attribute.ENGINE));
+        assertEquals(8, progress.getAttributes().get(Attribute.SHIELDS));
     }
 }

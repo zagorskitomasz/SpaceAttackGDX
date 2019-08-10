@@ -33,8 +33,6 @@ public abstract class Act5StageBuilder extends GameplayStageBuilder {
         Explosion explosion = ExplosionsBuilder.INSTANCE.createBossExplosion();
         Burner burner = BurnerBuilder.INSTANCE.build(playersShip);
 
-        gameProgress.registerObserver(playersShip);
-        playersShip.notify(gameProgress);
         playersShip.setActor(Factories.getActorFactory().create(playersShip));
         playersShip.loadComplexGraphics(Textures.PLAYER_SHIP5_F.getTexture(), Textures.PLAYER_SHIP5_R.getTexture(),
                 Textures.PLAYER_SHIP5_L.getTexture());
@@ -43,21 +41,20 @@ public abstract class Act5StageBuilder extends GameplayStageBuilder {
         playersShip.addWeapon(greenLaser);
         playersShip.setEnergyPool(energyPool);
         playersShip.setHpPool(hpPool);
-        playersShip.setLevel(gameProgress.getLevel());
         playersShip.setMissilesLauncher(missilesLauncher);
         playersShip.setExplosion(explosion);
         playersShip.setBurner(burner);
     }
 
     @Override
-    public IWeapon createPrimaryWeapon() {
+    public IWeapon createPrimaryWeapon(final int armory) {
 
-        return WeaponsFactory.INSTANCE.createMassiveRedLaser(weaponController, missilesLauncher);
+        return WeaponsFactory.INSTANCE.createMassiveRedLaser(weaponController, missilesLauncher, armory);
     }
 
     @Override
-    protected IWeapon createSecondaryWeapon() {
+    protected IWeapon createSecondaryWeapon(final int armory) {
 
-        return WeaponsFactory.INSTANCE.createTripleGreenLaser(weaponController, missilesLauncher);
+        return WeaponsFactory.INSTANCE.createTripleGreenLaser(weaponController, missilesLauncher, armory);
     }
 }

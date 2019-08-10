@@ -1,10 +1,20 @@
 package spaceattack.game.weapons.rocketMissile;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.weapons.missiles.Missile;
 
 public class DoubleRocketMissile extends RocketMissile {
+
+    protected DoubleRocketMissile(final int armory) {
+
+        super(armory);
+
+        dmg = Consts.Weapons.DROCKET_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.DROCKET_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.DROCKET_COST_PER_ATTR * armory;
+    }
 
     @Override
     public boolean use() {

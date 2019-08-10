@@ -1,12 +1,13 @@
 package spaceattack.game.ships.enemy.boss;
 
-import spaceattack.consts.Consts;
+import spaceattack.consts.Consts.AttributesStarters;
 import spaceattack.consts.Sizes;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.ShooterType;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.ships.IBoss;
 import spaceattack.game.ships.enemy.BigEnemyBar;
 import spaceattack.game.ships.pools.HpPool;
@@ -33,7 +34,7 @@ public enum MinorBossShipBuilder {
 
     public IBoss buildActI(final GameplayStage stage) {
 
-        IBoss boss = new RequiredBossShip();
+        IBoss boss = new RequiredBossShip(AttributesStarters.MINOR_AI.get(stage.getCurrentMission()));
         boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
         boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
 
@@ -44,9 +45,10 @@ public enum MinorBossShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
 
-        IPool energyPool = createEnergyPool(1);
+        IPool energyPool = createEnergyPool(boss.getAttributes().get(Attribute.BATTERY));
 
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(targetedRedLaser);
@@ -56,14 +58,13 @@ public enum MinorBossShipBuilder {
         boss.addWeapon(targetedRedLaser);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
-        boss.setLevel(stage.getCurrentMission() * 2);
 
         return boss;
     }
 
     public IBoss buildActII(final GameplayStage stage) {
 
-        IBoss boss = new RequiredBossShip();
+        IBoss boss = new RequiredBossShip(AttributesStarters.MINOR_AII.get(stage.getCurrentMission()));
         boss.setDefaultMoverType(MoverType.CORRECTABLE_JUMPER);
         boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
 
@@ -74,10 +75,11 @@ public enum MinorBossShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon miner = MinerBuilder.INSTANCE.build(controller, launcher);
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
+        IWeapon miner = MinerBuilder.INSTANCE.build(controller, launcher, boss.getAttributes().get(Attribute.ARMORY));
 
-        IPool energyPool = createEnergyPool(1);
+        IPool energyPool = createEnergyPool(boss.getAttributes().get(Attribute.BATTERY));
 
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(miner);
@@ -88,14 +90,13 @@ public enum MinorBossShipBuilder {
         boss.addWeapon(miner);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
-        boss.setLevel(stage.getCurrentMission() * 2);
 
         return boss;
     }
 
     public IBoss buildActIII(final GameplayStage stage) {
 
-        IBoss boss = new RequiredBossShip();
+        IBoss boss = new RequiredBossShip(AttributesStarters.MINOR_AIII.get(stage.getCurrentMission()));
         boss.setDefaultMoverType(MoverType.DIRECT_CHASER);
         boss.setDefaultShooterType(ShooterType.INSTANT_SHOOTER);
 
@@ -106,10 +107,12 @@ public enum MinorBossShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon shieldEmiter = ShieldBuilder.INSTANCE.build(controller, launcher);
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
+        IWeapon shieldEmiter = ShieldBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
 
-        IPool energyPool = createEnergyPool(1.4f);
+        IPool energyPool = createEnergyPool(boss.getAttributes().get(Attribute.BATTERY));
 
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(shieldEmiter);
@@ -120,14 +123,13 @@ public enum MinorBossShipBuilder {
         boss.addWeapon(shieldEmiter);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
-        boss.setLevel(stage.getCurrentMission() * 2);
 
         return boss;
     }
 
     public IBoss buildActIV(final GameplayStage stage) {
 
-        IBoss boss = new RequiredBossShip();
+        IBoss boss = new RequiredBossShip(AttributesStarters.MINOR_AIV.get(stage.getCurrentMission()));
         boss.setDefaultMoverType(MoverType.CORRECTABLE_JUMPER);
         boss.setDefaultShooterType(ShooterType.NOTIFIED_SNIPER);
 
@@ -138,12 +140,14 @@ public enum MinorBossShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher);
-        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
+        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
 
         timeWaveEmitter.setNoEnergyCost();
 
-        IPool energyPool = createEnergyPool(1.4f);
+        IPool energyPool = createEnergyPool(boss.getAttributes().get(Attribute.BATTERY));
 
         controller.setPrimaryWeapon(shieldEmitter);
         controller.setSecondaryWeapon(timeWaveEmitter);
@@ -154,14 +158,13 @@ public enum MinorBossShipBuilder {
         boss.addWeapon(timeWaveEmitter);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
-        boss.setLevel(stage.getCurrentMission() * 2);
 
         return boss;
     }
 
     public IBoss buildActV(final GameplayStage stage) {
 
-        IBoss boss = new RequiredBossShip();
+        IBoss boss = new RequiredBossShip(AttributesStarters.MINOR_AV.get(stage.getCurrentMission()));
         boss.setDefaultMoverType(MoverType.CORNERS_CHASER);
         boss.setDefaultShooterType(ShooterType.INSTANT_PRIMARY_DIRECT_SHOOTER);
 
@@ -172,13 +175,15 @@ public enum MinorBossShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
-        IWeapon doubleRocket = DoubleRocketBuilder.INSTANCE.build(controller, launcher);
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
+        IWeapon doubleRocket = DoubleRocketBuilder.INSTANCE.build(controller, launcher,
+                boss.getAttributes().get(Attribute.ARMORY));
 
         timeWaveEmitter.setInterval(0.20f);
         doubleRocket.setInterval(0.33f);
 
-        IPool energyPool = createEnergyPool(1.4f);
+        IPool energyPool = createEnergyPool(boss.getAttributes().get(Attribute.BATTERY));
 
         controller.setPrimaryWeapon(timeWaveEmitter);
         controller.setSecondaryWeapon(doubleRocket);
@@ -189,7 +194,6 @@ public enum MinorBossShipBuilder {
         boss.addWeapon(timeWaveEmitter);
         boss.setWeaponController(controller);
         boss.setMissilesLauncher(launcher);
-        boss.setLevel(stage.getCurrentMission() * 2);
 
         return boss;
     }
@@ -200,11 +204,7 @@ public enum MinorBossShipBuilder {
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-        IPool hpPool = new HpPool(
-                Consts.Pools.MINOR_BOSS_HP_BASE_AMOUNT,
-                Consts.Pools.MINOR_BOSS_HP_INCREASE_PER_LEVEL,
-                Consts.Pools.MINOR_BOSS_HP_BASE_REGEN,
-                Consts.Pools.MINOR_BOSS_HP_REGEN_PER_LEVEL);
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setHpPool(hpPool);
@@ -216,13 +216,9 @@ public enum MinorBossShipBuilder {
         return boss;
     }
 
-    private IPool createEnergyPool(final float additionalStrength) {
+    private IPool createEnergyPool(final int armory) {
 
-        IPool energyPool = new Pool(
-                Consts.Pools.MINOR_BOSS_ENERGY_BASE_AMOUNT * additionalStrength,
-                Consts.Pools.MINOR_BOSS_ENERGY_INCREASE_PER_LEVEL * additionalStrength,
-                Consts.Pools.MINOR_BOSS_ENERGY_BASE_REGEN * additionalStrength,
-                Consts.Pools.MINOR_BOSS_ENERGY_REGEN_PER_LEVEL * additionalStrength);
+        IPool energyPool = new Pool(armory);
 
         return energyPool;
     }

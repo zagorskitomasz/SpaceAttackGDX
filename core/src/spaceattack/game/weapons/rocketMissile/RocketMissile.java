@@ -13,7 +13,12 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class RocketMissile extends AbstractWeapon {
 
-    private int level;
+    protected RocketMissile(final int armory) {
+
+        dmg = Consts.Weapons.ROCKET_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.ROCKET_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.ROCKET_COST_PER_ATTR * armory;
+    }
 
     @Override
     public float getWeaponsMovementFactor() {
@@ -28,14 +33,7 @@ public class RocketMissile extends AbstractWeapon {
     }
 
     @Override
-    public void setLevel(int level) {
-
-        this.level = level;
-        energyCost = Consts.Weapons.ROCKET_BASE_COST + (level - 1) * Consts.Weapons.ROCKET_COST_PER_LEVEL;
-    }
-
-    @Override
-    public void setUtils(IUtils utils) {
+    public void setUtils(final IUtils utils) {
 
         super.setUtils(utils);
         frameController.reset(Consts.Weapons.ROCKET_ATTACKS_PER_SECOND);
@@ -56,7 +54,7 @@ public class RocketMissile extends AbstractWeapon {
         missile.setPosition(controller.getSecondaryWeaponUsePlacement());
         missile.setRadius(Consts.Weapons.ROCKET_RADIUS);
         missile.setSound(Sounds.ROCKET_MISSILE);
-        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMissileExplosion(level));
+        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMissileExplosion(dmg));
         missile.setMissilesLauncher(launcher);
         missile.setPlayersAttack(controller.isPlayer());
 

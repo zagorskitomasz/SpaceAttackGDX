@@ -14,20 +14,20 @@ public class GdxLabel extends Label implements ILabel {
     private IGameActor gameActor;
     private boolean draw;
 
-    public GdxLabel(CharSequence text, LabelStyle style) {
+    public GdxLabel(final CharSequence text, final LabelStyle style) {
 
         super(text, style);
         setFontScale(Sizes.X_FACTOR, Sizes.Y_FACTOR);
     }
 
     @Override
-    public void setGameActor(IGameActor actor) {
+    public void setGameActor(final IGameActor actor) {
 
         gameActor = actor;
     }
 
     @Override
-    public void draw(IBatch batch, float alpha) {
+    public void draw(final IBatch batch, final float alpha) {
 
         batch.draw(this, alpha);
     }
@@ -45,7 +45,7 @@ public class GdxLabel extends Label implements ILabel {
     }
 
     @Override
-    public void draw(Batch batch, float alpha) {
+    public void draw(final Batch batch, final float alpha) {
 
         if (gameActor == null || draw) {
             super.draw(batch, alpha);
@@ -54,5 +54,13 @@ public class GdxLabel extends Label implements ILabel {
                 gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
             }
         }
+    }
+
+    @Override
+    public void update(final String text) {
+
+        setText(text);
+        pack();
+        setX((Sizes.GAME_WIDTH - getWidth()) * 0.5f);
     }
 }

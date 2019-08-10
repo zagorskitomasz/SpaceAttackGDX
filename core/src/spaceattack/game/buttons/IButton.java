@@ -36,4 +36,6 @@ public interface IButton extends IGameActor, IActor {
     int getGridPosition();
 
     void setText(String apply);
+
+    void addHoverListener(IListener listener);
 }
