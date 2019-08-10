@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
+import spaceattack.game.actors.IActorsContainer;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.buttons.IButton;
 import spaceattack.game.system.GameLoader;
@@ -119,6 +120,12 @@ public abstract class AbstractStage implements IGameStage {
     public void addActor(final IGameActor actor) {
 
         stage.addActor(actor);
+    }
+
+    @Override
+    public void addActorsContainer(final IActorsContainer container) {
+
+        container.getActors().forEach(actor -> stage.addActor(actor));
     }
 
     public GameProgress getProgressBackup() {

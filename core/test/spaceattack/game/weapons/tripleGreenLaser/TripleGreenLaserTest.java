@@ -44,25 +44,17 @@ public class TripleGreenLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        tripleGreenLaser = new TripleGreenLaser();
+        tripleGreenLaser = new TripleGreenLaser(10);
 
         tripleGreenLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
         tripleGreenLaser.setController(controller);
         tripleGreenLaser.setMissilesLauncher(launcher);
-        tripleGreenLaser.setLevel(1);
 
         doReturn(true).when(controller).takeEnergy(anyFloat());
         doReturn(false).when(controller).isPlayer();
         doReturn(ExtVectorFactory.INSTANCE.create(100, 100)).when(controller).getSecondaryWeaponUsePlacement();
         doReturn(new FakeActor()).doReturn(new FakeActor()).doReturn(new FakeActor()).when(factory)
                 .create(any(IGameActor.class));
-    }
-
-    @Test
-    public void energyCostIsDuplicated() {
-
-        tripleGreenLaser.setLevel(5);
-        assertEquals(64f, tripleGreenLaser.getEnergyCost(), 0f);
     }
 
     @Test

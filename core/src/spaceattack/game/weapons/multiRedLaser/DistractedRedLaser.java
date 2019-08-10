@@ -8,9 +8,13 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class DistractedRedLaser extends MultiShotRedLaser {
 
-    DistractedRedLaser() {
+    DistractedRedLaser(final int armory) {
 
-        super();
+        super(armory);
+
+        dmg = Consts.Weapons.DISTRACTED_RED_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.DISTRACTED_RED_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.DISTRACTED_RED_COST_PER_ATTR * armory;
     }
 
     @Override
@@ -37,13 +41,5 @@ public class DistractedRedLaser extends MultiShotRedLaser {
         launcher.launch(left);
         launcher.launch(right);
         launcher.launch(straight);
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        dmg = (Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL) * 0.75f;
-        speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;
-        energyCost = 0;
     }
 }

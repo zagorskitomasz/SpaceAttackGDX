@@ -9,20 +9,22 @@ public abstract class MultiShotRedLaser extends RedLaser {
 
     protected IVectorFactory vectors;
 
-    MultiShotRedLaser() {
+    MultiShotRedLaser(final int armory) {
 
-        super();
+        super(armory);
         vectors = Factories.getVectorFactory();
     }
 
     @Override
     public boolean use() {
 
-        if (!frameController.check())
+        if (!frameController.check()) {
             return false;
+        }
 
-        if (!controller.takeEnergy(energyCost))
+        if (!controller.takeEnergy(energyCost)) {
             return false;
+        }
 
         IVector centralPosition = controller.getPrimaryWeaponUsePlacement();
 

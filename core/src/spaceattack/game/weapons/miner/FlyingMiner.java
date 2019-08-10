@@ -15,6 +15,13 @@ public class FlyingMiner extends AbstractWeapon {
     private long mineExplosionDelay = Consts.Weapons.MINE_DELAY;
     private float distanceToShip = 0.3f;
 
+    public FlyingMiner(final int armory) {
+
+        dmg = Consts.Weapons.MINER_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.MINER_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.MINER_COST_PER_ATTR * armory;
+    }
+
     @Override
     public float getWeaponsMovementFactor() {
 
@@ -25,13 +32,6 @@ public class FlyingMiner extends AbstractWeapon {
     public float getCollisionRadius() {
 
         return Consts.Weapons.MINE_RADIUS;
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        this.level = level;
-        energyCost = Consts.Weapons.MINE_BASE_COST + (level - 1) * Consts.Weapons.MINE_COST_PER_LEVEL;
     }
 
     @Override

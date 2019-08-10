@@ -10,6 +10,13 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class TimeWaveEmitter extends AbstractWeapon {
 
+    public TimeWaveEmitter(final int armory) {
+
+        dmg = Consts.Weapons.WAVE_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.WAVE_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.WAVE_COST_PER_ATTR * armory;
+    }
+
     @Override
     public float getWeaponsMovementFactor() {
 
@@ -20,13 +27,6 @@ public class TimeWaveEmitter extends AbstractWeapon {
     public float getCollisionRadius() {
 
         return 0;
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        energyCost = Consts.Weapons.TIME_WAVE_BASE_COST + (level - 1) * Consts.Weapons.TIME_WAVE_COST_PER_LEVEL;
-        dmg = Consts.Weapons.TIME_WAVE_BASE_LENGTH + (level - 1) * Consts.Weapons.TIME_WAVE_LENGTH_PER_LEVEL;
     }
 
     @Override

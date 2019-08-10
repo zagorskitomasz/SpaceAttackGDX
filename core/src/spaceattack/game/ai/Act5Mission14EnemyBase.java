@@ -3,7 +3,7 @@ package spaceattack.game.ai;
 import java.util.HashMap;
 import java.util.Map;
 
-import spaceattack.consts.Consts;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.enemy.IEnemyShip;
 import spaceattack.game.ships.pools.HpPool;
@@ -54,14 +54,9 @@ public class Act5Mission14EnemyBase extends Act5EnemyBase {
         updateRadar();
 
         IEnemyShip chaser = super.buildSuperChaser(direction);
-        IPool hpPool = new HpPool(
-                Consts.Pools.MAJOR_BOSS_HP_BASE_AMOUNT,
-                Consts.Pools.MAJOR_BOSS_HP_INCREASE_PER_LEVEL,
-                Consts.Pools.MAJOR_BOSS_HP_BASE_REGEN,
-                Consts.Pools.MAJOR_BOSS_HP_REGEN_PER_LEVEL);
+        IPool hpPool = new HpPool(chaser.getAttributes().get(Attribute.SHIELDS));
 
         chaser.setHpPool(hpPool);
-        chaser.setLevel(stage.getCurrentMission() * 2);
 
         helpers.put(direction, chaser);
 

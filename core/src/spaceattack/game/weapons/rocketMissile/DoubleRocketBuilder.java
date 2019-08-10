@@ -8,14 +8,14 @@ import spaceattack.game.weapons.MissilesLauncher;
 public enum DoubleRocketBuilder {
     INSTANCE;
 
-    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        DoubleRocketMissile doubleRocketMissile = new DoubleRocketMissile();
+        DoubleRocketMissile doubleRocketMissile = new DoubleRocketMissile(armory);
 
         doubleRocketMissile.setUtils(Factories.getUtilsFactory().create());
         doubleRocketMissile.setController(weaponController);
         doubleRocketMissile.setMissilesLauncher(missilesLauncher);
-        doubleRocketMissile.setLevel(1);
 
         return doubleRocketMissile;
     }

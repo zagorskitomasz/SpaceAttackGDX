@@ -28,12 +28,8 @@ public class InputShipEngineTest {
     public void setUp() {
 
         ship = new FakeShip();
-        engine = new InputShipEngine(ship);
+        engine = new InputShipEngine(ship, 10);
         MockitoAnnotations.initMocks(this);
-
-        engine.setAcceleration(1);
-        engine.setMaxSpeed(10);
-        engine.setLevel(1);
     }
 
     @Test
@@ -58,8 +54,9 @@ public class InputShipEngineTest {
         ship.setY(400);
         doReturn(100f).when(accelerator).getVerticalAcceleration();
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 15; i++) {
             engine.fly();
+        }
 
         assertEquals(10, engine.currentSpeedVertical, 0);
     }
@@ -70,8 +67,9 @@ public class InputShipEngineTest {
         ship.setY(400);
         doReturn(50f).when(accelerator).getVerticalAcceleration();
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 15; i++) {
             engine.fly();
+        }
 
         assertEquals(5, engine.currentSpeedVertical, 0);
     }
@@ -169,8 +167,9 @@ public class InputShipEngineTest {
         ship.setX(400);
         doReturn(100f).when(accelerator).getHorizontalAcceleration();
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 15; i++) {
             engine.fly();
+        }
 
         assertEquals(10, engine.currentSpeedHorizontal, 0);
     }
@@ -181,8 +180,9 @@ public class InputShipEngineTest {
         ship.setX(400);
         doReturn(50f).when(accelerator).getHorizontalAcceleration();
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 15; i++) {
             engine.fly();
+        }
 
         assertEquals(5, engine.currentSpeedHorizontal, 0);
     }

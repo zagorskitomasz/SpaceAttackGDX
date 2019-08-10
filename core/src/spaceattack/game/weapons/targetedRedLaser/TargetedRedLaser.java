@@ -18,9 +18,11 @@ public class TargetedRedLaser extends Laser {
     private float gunMovX;
     private float gunMovY;
 
-    TargetedRedLaser() {
+    TargetedRedLaser(final int armory) {
 
-        // do nothing
+        dmg = Consts.Weapons.TRED_LASER_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.TRED_LASER_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.TRED_LASER_COST_PER_ATTR * armory;
     }
 
     @Override
@@ -28,14 +30,6 @@ public class TargetedRedLaser extends Laser {
 
         super.setUtils(utils);
         frameController.reset(Consts.Weapons.TARGETED_LASER_ATTACKS_PER_SECOND);
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        dmg = (Consts.Weapons.RED_LASER_BASE_DMG + (level - 1) * Consts.Weapons.RED_LASER_DMG_PER_LEVEL) * 0.75f;
-        speed = Consts.Weapons.RED_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.RED_LASER_SPEED_PER_LEVEL;
-        energyCost = 0;
     }
 
     @Override

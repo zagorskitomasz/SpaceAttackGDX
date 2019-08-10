@@ -9,17 +9,16 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class GreenLaser extends Laser {
 
+    protected GreenLaser(final int armory) {
+
+        dmg = Consts.Weapons.GREEN_LASER_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.GREEN_LASER_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.GREEN_LASER_COST_PER_ATTR * armory;
+    }
+
     protected GreenLaser() {
 
         // do nothing
-    }
-
-    @Override
-    public void setLevel(int level) {
-
-        dmg = Consts.Weapons.GREEN_LASER_BASE_DMG + (level - 1) * Consts.Weapons.GREEN_LASER_DMG_PER_LEVEL;
-        speed = Consts.Weapons.GREEN_LASER_BASE_SPEED + (level - 1) * Consts.Weapons.GREEN_LASER_SPEED_PER_LEVEL;
-        energyCost = Consts.Weapons.GREEN_LASER_BASE_COST + (level - 1) * Consts.Weapons.GREEN_LASER_COST_PER_LEVEL;
     }
 
     @Override

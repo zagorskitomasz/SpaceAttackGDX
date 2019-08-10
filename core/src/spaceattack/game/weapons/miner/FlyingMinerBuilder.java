@@ -8,26 +8,26 @@ import spaceattack.game.weapons.MissilesLauncher;
 public enum FlyingMinerBuilder {
     INSTANCE;
 
-    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        FlyingMiner miner = new FlyingMiner();
+        FlyingMiner miner = new FlyingMiner(armory);
 
         miner.setUtils(Factories.getUtilsFactory().create());
         miner.setController(weaponController);
         miner.setMissilesLauncher(missilesLauncher);
-        miner.setLevel(1);
 
         return miner;
     }
 
-    public IWeapon buildDelayed(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon buildDelayed(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        FlyingMiner miner = new FlyingMiner();
+        FlyingMiner miner = new FlyingMiner(armory);
 
         miner.setUtils(Factories.getUtilsFactory().create());
         miner.setController(weaponController);
         miner.setMissilesLauncher(missilesLauncher);
-        miner.setLevel(1);
         miner.increaseDelay();
 
         return miner;

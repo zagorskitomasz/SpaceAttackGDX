@@ -21,11 +21,6 @@ import spaceattack.game.system.notifiers.IObserver;
 
 public class PoolTest {
 
-    private static final float BASE_AMOUNT = 50;
-    private static final float INCREASE_PER_LEVEL = 20;
-    private static final float BASE_REGEN = 10 * Pool.UPDATES_PER_SECOND;
-    private static final float REGEN_PER_LEVEL = 5 * Pool.UPDATES_PER_SECOND;
-
     private Pool pool;
 
     @Mock
@@ -42,7 +37,7 @@ public class PoolTest {
 
         MockitoAnnotations.initMocks(this);
         Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-        pool = new Pool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
+        pool = new Pool(5);
     }
 
     @Test
@@ -50,15 +45,6 @@ public class PoolTest {
 
         assertEquals(50, pool.getAmount(), 0);
         assertEquals(50, pool.getMaxAmount(), 0);
-    }
-
-    @Test
-    public void increasingLevel() {
-
-        pool.setLevel(3);
-
-        assertEquals(90, pool.getAmount(), 0);
-        assertEquals(90, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -97,7 +83,7 @@ public class PoolTest {
         pool.take(15);
         pool.update();
 
-        assertEquals(45, pool.getAmount(), 0);
+        assertEquals(36, pool.getAmount(), 0);
         assertEquals(50, pool.getMaxAmount(), 0);
     }
 
@@ -108,7 +94,7 @@ public class PoolTest {
         pool.update();
         pool.update();
 
-        assertEquals(15, pool.getAmount(), 0);
+        assertEquals(6, pool.getAmount(), 0);
         assertEquals(50, pool.getMaxAmount(), 0);
     }
 
@@ -120,19 +106,8 @@ public class PoolTest {
         Thread.sleep(1000 / Pool.UPDATES_PER_SECOND + 10);
         pool.update();
 
-        assertEquals(25, pool.getAmount(), 0);
+        assertEquals(7, pool.getAmount(), 0);
         assertEquals(50, pool.getMaxAmount(), 0);
-    }
-
-    @Test
-    public void regenIsIncreasingEveryLevel() {
-
-        pool.setLevel(3);
-        pool.take(70);
-        pool.update();
-
-        assertEquals(40, pool.getAmount(), 0);
-        assertEquals(90, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -145,22 +120,13 @@ public class PoolTest {
     }
 
     @Test
-    public void observerIsNotifiedWithPoolPercentAfterLevelSet() {
-
-        pool.registerObserver(observer);
-        pool.setLevel(3);
-
-        verify(observer).notify(1f);
-    }
-
-    @Test
     public void observerIsNotifiedWithPoolPercentAfterUpdate() {
 
         pool.take(30);
         pool.registerObserver(observer);
         pool.update();
 
-        verify(observer).notify(0.6f);
+        verify(observer).notify(0.42f);
     }
 
     @Test

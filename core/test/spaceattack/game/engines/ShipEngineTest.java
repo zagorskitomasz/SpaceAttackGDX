@@ -29,12 +29,7 @@ public class ShipEngineTest {
         ship.setX(10);
         ship.setY(20);
 
-        engine = new DestinationShipEngine(ship, ExtUtilsFactory.INSTANCE.create());
-        engine.setBaseSpeed(2);
-        engine.setAcceleration(1);
-        engine.setBraking(1);
-        engine.setAgility(2);
-        engine.setLevel(1);
+        engine = new DestinationShipEngine(ship, ExtUtilsFactory.INSTANCE.create(), 10);
     }
 
     @Test
@@ -95,14 +90,14 @@ public class ShipEngineTest {
         engine.fly();
         engine.fly();
         engine.fly();
-        assertEquals(5, engine.getCurrentSpeed(), 0);
+        assertEquals(4, engine.getCurrentSpeed(), 0);
 
         engine.fly();
         engine.fly();
         engine.fly();
         engine.fly();
 
-        assertEquals(2, engine.getCurrentSpeed(), 0);
+        assertEquals(3, engine.getCurrentSpeed(), 0);
     }
 
     @Test
@@ -135,22 +130,14 @@ public class ShipEngineTest {
         engine.fly();
         engine.fly();
         engine.fly();
-        assertEquals(8, engine.getCurrentSpeed(), 0);
+        assertEquals(7, engine.getCurrentSpeed(), 0);
 
         engine.setDestination(ExtVectorFactory.INSTANCE.create(1, 21));
 
         engine.fly();
 
-        assertEquals(7, engine.getCurrentSpeed(), 0);
+        assertEquals(6, engine.getCurrentSpeed(), 0);
         assertEquals(ExtVectorFactory.INSTANCE.create(100, 20), engine.getDestination());
         assertEquals(ExtVectorFactory.INSTANCE.create(1, 21), engine.getNextDestination());
-    }
-
-    @Test
-    public void increasingLevel() {
-
-        engine.setLevel(3);
-
-        assertEquals(2.8f, engine.getCurrentSpeed(), 0.01);
     }
 }

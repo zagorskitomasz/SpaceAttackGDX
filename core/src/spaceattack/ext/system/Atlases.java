@@ -1,4 +1,4 @@
-package spaceattack.game.ext.system;
+package spaceattack.ext.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;

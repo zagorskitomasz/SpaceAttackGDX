@@ -14,6 +14,13 @@ public class Flamethrower extends AbstractWeapon {
 
     private Flame lastFlame;
 
+    public Flamethrower(final int armory) {
+
+        dmg = Consts.Weapons.FLAME_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.FLAME_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.FLAME_COST_PER_ATTR * armory;
+    }
+
     @Override
     public float getWeaponsMovementFactor() {
 
@@ -24,14 +31,6 @@ public class Flamethrower extends AbstractWeapon {
     public float getCollisionRadius() {
 
         return Consts.Weapons.SHIELD_RADIUS;
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        dmg = Consts.Weapons.FLAME_BASE_DMG + (level - 1) * Consts.Weapons.FLAME_DMG_PER_LEVEL;
-        energyCost = Consts.Weapons.FLAME_BASE_COST + (level - 1) * Consts.Weapons.FLAME_COST_PER_LEVEL;
-        speed = 0;
     }
 
     @Override

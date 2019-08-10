@@ -4,6 +4,7 @@ import spaceattack.consts.Consts;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
@@ -31,7 +32,8 @@ public enum FighterShipBuilder {
         ship.setTexture(Textures.FIGHTER1.getTexture());
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(redLaser);
         controller.setSecondaryWeapon(redLaser);
@@ -40,7 +42,6 @@ public enum FighterShipBuilder {
         ship.addWeapon(redLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -51,7 +52,8 @@ public enum FighterShipBuilder {
         ship.setTexture(Textures.FIGHTER2.getTexture());
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(redLaser);
         controller.setSecondaryWeapon(redLaser);
@@ -60,7 +62,6 @@ public enum FighterShipBuilder {
         ship.addWeapon(redLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -71,7 +72,8 @@ public enum FighterShipBuilder {
         ship.setTexture(Textures.FIGHTER3.getTexture());
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon doubleRedLaser = DoubleRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon doubleRedLaser = DoubleRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(doubleRedLaser);
         controller.setSecondaryWeapon(doubleRedLaser);
@@ -80,7 +82,6 @@ public enum FighterShipBuilder {
         ship.addWeapon(doubleRedLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -91,8 +92,10 @@ public enum FighterShipBuilder {
         ship.setTexture(Textures.FIGHTER4.getTexture());
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon doubleRedLaser = DoubleRedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon doubleRedLaser = DoubleRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(doubleRedLaser);
         controller.setSecondaryWeapon(tripleGreenLaser);
@@ -102,7 +105,6 @@ public enum FighterShipBuilder {
         ship.addWeapon(tripleGreenLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
@@ -113,8 +115,10 @@ public enum FighterShipBuilder {
         ship.setTexture(Textures.FIGHTER5.getTexture());
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon tripleGreenLaser = TripleGreenLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(tripleGreenLaser);
@@ -124,29 +128,20 @@ public enum FighterShipBuilder {
         ship.addWeapon(tripleGreenLaser);
         ship.setWeaponController(controller);
         ship.setMissilesLauncher(launcher);
-        ship.setLevel(stage.getCurrentMission() * 2);
 
         return ship;
     }
 
     private IEnemyShip build(final GameplayStage stage) {
 
-        IEnemyShip fighter = new BaseEnemyShip();
+        IEnemyShip fighter = new BaseEnemyShip(Consts.AttributesStarters.FIGHTER.get(stage.getCurrentMission()));
         IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(fighter);
         Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 
         Burner burner = BurnerBuilder.INSTANCE.build(fighter);
 
-        IPool energyPool = new Pool(
-                Consts.Pools.FIGHTER_ENERGY_BASE_AMOUNT,
-                Consts.Pools.FIGHTER_ENERGY_INCREASE_PER_LEVEL,
-                Consts.Pools.FIGHTER_ENERGY_BASE_REGEN,
-                Consts.Pools.FIGHTER_ENERGY_REGEN_PER_LEVEL);
-        IPool hpPool = new HpPool(
-                Consts.Pools.FIGHTER_HP_BASE_AMOUNT,
-                Consts.Pools.FIGHTER_HP_INCREASE_PER_LEVEL,
-                Consts.Pools.FIGHTER_HP_BASE_REGEN,
-                Consts.Pools.FIGHTER_HP_REGEN_PER_LEVEL);
+        IPool energyPool = new Pool(fighter.getAttributes().get(Attribute.BATTERY));
+        IPool hpPool = new HpPool(fighter.getAttributes().get(Attribute.SHIELDS));
 
         fighter.setActor(Factories.getActorFactory().create(fighter));
         fighter.setShipEngine(engine);

@@ -10,24 +10,19 @@ import spaceattack.game.factories.Factories;
 
 public class HpPoolTest {
 
-    private static final float BASE_AMOUNT = 50;
-    private static final float INCREASE_PER_LEVEL = 20;
-    private static final float BASE_REGEN = 10 * Pool.UPDATES_PER_SECOND;
-    private static final float REGEN_PER_LEVEL = 5 * Pool.UPDATES_PER_SECOND;
-
     private HpPool pool;
 
     @Before
     public void setUp() {
 
         Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
-        pool = new HpPool(BASE_AMOUNT, INCREASE_PER_LEVEL, BASE_REGEN, REGEN_PER_LEVEL);
+        pool = new HpPool(10);
     }
 
     @Test
     public void ifDrawnedToZeroWontRegen() {
 
-        pool.take(50);
+        pool.take(60);
         pool.update();
 
         assertEquals(0, pool.getAmount(), 0);
@@ -47,7 +42,7 @@ public class HpPoolTest {
         pool.take(30);
         pool.regen(20);
 
-        assertEquals(40f, pool.getAmount(), 0);
+        assertEquals(50f, pool.getAmount(), 0);
     }
 
     @Test
@@ -56,7 +51,7 @@ public class HpPoolTest {
         pool.take(30);
         pool.regen(40);
 
-        assertEquals(50f, pool.getAmount(), 0);
+        assertEquals(60f, pool.getAmount(), 0);
     }
 
     @Test
@@ -65,6 +60,6 @@ public class HpPoolTest {
         pool.setImmunityChecker(() -> true);
         pool.take(30);
 
-        assertEquals(50f, pool.getAmount(), 0);
+        assertEquals(60f, pool.getAmount(), 0);
     }
 }

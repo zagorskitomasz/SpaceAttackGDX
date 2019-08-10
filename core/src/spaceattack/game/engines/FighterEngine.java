@@ -1,21 +1,28 @@
 package spaceattack.game.engines;
 
+import spaceattack.consts.Sizes;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.IShip.Turn;
 import spaceattack.game.utils.IUtils;
 
 public class FighterEngine extends DestinationShipEngine {
 
-    public FighterEngine(IShip ship, IUtils utils) {
+    public FighterEngine(final IShip ship, final IUtils utils, final int engineAttr) {
 
-        super(ship, utils);
+        super(ship, utils, engineAttr);
+
+        baseSpeed = 0.2f * engineAttr * Sizes.RADIUS_FACTOR;
+        acceleration = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+        braking = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+        agility = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
     }
 
     @Override
     public Turn fly() {
 
-        if (destination != null)
+        if (destination != null) {
             destination.setY(ship.getY());
+        }
 
         Turn result = super.fly();
         ship.setY(ship.getY() - baseSpeed);

@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.consts.Consts.AttributesStarters;
 import spaceattack.ext.actor.ExtActorFactory;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.ext.vector.ExtVectorFactory;
@@ -88,6 +89,9 @@ public class Act5Mission14EnemyBaseTest {
         doReturn(hpPool).when(superChaserRight).getHpPool();
         doReturn(controller).when(boss).getWeaponController();
         doReturn(shieldEmitter).when(controller).getPrimaryWeapon();
+
+        doReturn(AttributesStarters.CHASER.get(1)).when(superChaserLeft).getAttributes();
+        doReturn(AttributesStarters.CHASER.get(1)).when(superChaserRight).getAttributes();
 
         base = new Act5Mission14EnemyBase(ExtUtilsFactory.INSTANCE.create());
         base.setActor(new FakeActor());

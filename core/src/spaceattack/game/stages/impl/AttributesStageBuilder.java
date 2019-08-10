@@ -5,6 +5,8 @@ import spaceattack.game.GameProgress;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.buttons.IButton;
 import spaceattack.game.buttons.MenuButtonsBuilder;
+import spaceattack.game.controlBar.ControlBar;
+import spaceattack.game.controlBar.ControlBarBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.rpg.Attribute;
 import spaceattack.game.stages.IGameStage;
@@ -37,10 +39,8 @@ public class AttributesStageBuilder implements IStageBuilder {
         StaticImage logo = StaticImageFactory.INSTANCE.create(Textures.LOGO.getTexture(), 0, Sizes.GAME_HEIGHT * 0.03f);
 
         ILabel infoLabel = utils.createBarLabel();
-        infoLabel.setText("Tap attribute name\nto show details");
-        infoLabel.pack();
+        infoLabel.update("Tap attribute name\nto show details");
         infoLabel.setY(Sizes.GAME_HEIGHT * 0.7f);
-        infoLabel.setX((Sizes.GAME_WIDTH - infoLabel.getWidth()) * 0.5f);
 
         ILabel freePointsLabel = utils.createBarLabel();
         freePointsLabel.setText("Free points: " + progress.getAttributes().getFreePoints());
@@ -48,45 +48,15 @@ public class AttributesStageBuilder implements IStageBuilder {
         freePointsLabel.setY(Sizes.GAME_HEIGHT * 0.17f);
         freePointsLabel.setX((Sizes.GAME_WIDTH - freePointsLabel.getWidth()) * 0.5f);
 
-        int buttonIndex = 0;
+        int lineIndex = 0;
         for (Attribute attribute : Attribute.values()) {
 
-            float attributeLineYPos = attributeLineYPos(buttonIndex);
+            ControlBar bar = ControlBarBuilder.INSTANCE.attributeBar(lineIndex, attribute, stage, infoLabel,
+                    freePointsLabel);
 
-            ILabel attributeLabel = utils.createMenuLabel(attribute.getName(),
-                    attributeLineYPos, 0xdaa520ff);
-            ILabel attributeValueLabel = utils.createMenuLabel(
-                    String.format("%03d", progress.getAttributes().get(attribute)),
-                    attributeLineYPos, 0xff0000ff);
-            IButton attributeDecreaser = MenuButtonsBuilder.INSTANCE.attributeDecreaserButton(stage, progress,
-                    attribute, attributeValueLabel::setText, freePointsLabel::setText, infoLabel, attributeLineYPos);
-            IButton attributeIncreaser = MenuButtonsBuilder.INSTANCE.attributeIncreaserButton(stage, progress,
-                    attribute, attributeValueLabel::setText, freePointsLabel::setText, infoLabel, attributeLineYPos);
+            stage.addActorsContainer(bar);
 
-            ILabel infoToucher = utils.createDetailerToucher(attributeLineYPos, attribute.getDetails(),
-                    infoLabel);
-
-            attributeDecreaser.setX(Sizes.GAME_WIDTH - Sizes.GAME_WIDTH * 0.04f - attributeDecreaser.getWidth());
-            attributeValueLabel.setX(Sizes.GAME_WIDTH - Sizes.GAME_WIDTH * 0.08f - attributeDecreaser.getWidth()
-                    - attributeValueLabel.getWidth());
-            attributeIncreaser.setX(Sizes.GAME_WIDTH - Sizes.GAME_WIDTH * 0.12f - attributeDecreaser.getWidth()
-                    - attributeValueLabel.getWidth() - attributeIncreaser.getWidth());
-            attributeLabel.setX(Sizes.GAME_WIDTH - Sizes.GAME_WIDTH * 0.16f - attributeDecreaser.getWidth()
-                    - attributeValueLabel.getWidth() - attributeIncreaser.getWidth() - attributeLabel.getWidth());
-
-            stage.addActor(new GameplayLabel(attributeLabel));
-            stage.addActor(new GameplayLabel(attributeValueLabel));
-            stage.addActor(new GameplayLabel(freePointsLabel));
-            stage.addActor(new GameplayLabel(infoToucher));
-            stage.addActor(attributeDecreaser);
-            stage.addActor(attributeIncreaser);
-
-            stage.addButtonsEnabledPredicate(attributeDecreaser,
-                    button -> progress.getAttributes().get(attribute) > Attribute.MIN_VALUE);
-            stage.addButtonsEnabledPredicate(attributeIncreaser,
-                    button -> progress.getAttributes().getFreePoints() > 0);
-
-            buttonIndex++;
+            lineIndex++;
         }
 
         IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToMainMenuButton(stage);
@@ -94,6 +64,7 @@ public class AttributesStageBuilder implements IStageBuilder {
         stage.addBackground(background);
         stage.addActorBeforeGUI(logo);
         stage.addActor(new GameplayLabel(infoLabel));
+        stage.addActor(new GameplayLabel(freePointsLabel));
 
         stage.addActor(backToMenuButton);
 

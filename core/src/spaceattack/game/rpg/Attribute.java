@@ -10,7 +10,8 @@ public enum Attribute implements Information {
     BATTERY("Battery", "Increases ship's energy"),
     ENGINE("Engine", "Increases ship's speed,\nacceleration and agility");
 
-    public static final int MIN_VALUE = 8;
+    public static final int MIN_VALUE = 10;
+    public static final int POINTS_PER_LEVEL = 5;
 
     private final String infoName;
     private final String details;

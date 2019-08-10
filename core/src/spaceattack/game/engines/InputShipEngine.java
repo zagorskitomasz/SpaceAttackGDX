@@ -9,25 +9,26 @@ import spaceattack.game.utils.vector.IVector;
 
 public class InputShipEngine extends AbstractShipEngine {
 
-    private float maxSpeed;
-    private float factorMaxSpeed;
+    private final float maxSpeed;
 
     private IAccelerator accelerator;
 
     float currentSpeedHorizontal;
     float currentSpeedVertical;
 
-    public InputShipEngine(IShip ship) {
+    public InputShipEngine(final IShip ship, final int engineAttr) {
 
         super(ship);
+
+        maxSpeed = 1 * engineAttr;
+
+        baseSpeed = 0.2f * engineAttr * Sizes.RADIUS_FACTOR;
+        acceleration = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+        braking = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+        agility = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
     }
 
-    public void setMaxSpeed(float maxSpeed) {
-
-        factorMaxSpeed = maxSpeed;
-    }
-
-    public void setAccelerator(IAccelerator accelerator) {
+    public void setAccelerator(final IAccelerator accelerator) {
 
         this.accelerator = accelerator;
     }
@@ -46,25 +47,31 @@ public class InputShipEngine extends AbstractShipEngine {
 
         float targetSpeed = calculateTargetSpeed(accelerator.getHorizontalAcceleration());
         if (targetSpeed > 0) {
-            if (isNearRightEdge())
+            if (isNearRightEdge()) {
                 slowDownRight();
-            else
+            }
+            else {
                 accelerateRight(targetSpeed);
+            }
 
         }
         else
             if (targetSpeed < 0) {
-                if (isNearLeftEdge())
+                if (isNearLeftEdge()) {
                     slowDownLeft();
-                else
+                }
+                else {
                     accelerateLeft(targetSpeed);
+                }
             }
             else {
-                if (currentSpeedHorizontal > 0)
+                if (currentSpeedHorizontal > 0) {
                     slowDownRight();
+                }
                 else
-                    if (currentSpeedHorizontal < 0)
+                    if (currentSpeedHorizontal < 0) {
                         slowDownLeft();
+                    }
             }
     }
 
@@ -88,12 +95,12 @@ public class InputShipEngine extends AbstractShipEngine {
         currentSpeedHorizontal = Math.min(currentSpeedHorizontal + acceleration, 0);
     }
 
-    private void accelerateRight(float targetSpeed) {
+    private void accelerateRight(final float targetSpeed) {
 
         currentSpeedHorizontal = Math.min(currentSpeedHorizontal + acceleration, targetSpeed);
     }
 
-    private void accelerateLeft(float targetSpeed) {
+    private void accelerateLeft(final float targetSpeed) {
 
         currentSpeedHorizontal = Math.max(currentSpeedHorizontal - acceleration, targetSpeed);
     }
@@ -102,29 +109,35 @@ public class InputShipEngine extends AbstractShipEngine {
 
         float targetSpeed = calculateTargetSpeed(accelerator.getVerticalAcceleration());
         if (targetSpeed > 0) {
-            if (isNearUpperEdge())
+            if (isNearUpperEdge()) {
                 slowDownForward();
-            else
+            }
+            else {
                 accelerateForward(targetSpeed);
+            }
 
         }
         else
             if (targetSpeed < 0) {
-                if (isNearLowerEdge())
+                if (isNearLowerEdge()) {
                     slowDownBackward();
-                else
+                }
+                else {
                     accelerateBackward(targetSpeed);
+                }
             }
             else {
-                if (currentSpeedVertical > 0)
+                if (currentSpeedVertical > 0) {
                     slowDownForward();
+                }
                 else
-                    if (currentSpeedVertical < 0)
+                    if (currentSpeedVertical < 0) {
                         slowDownBackward();
+                    }
             }
     }
 
-    private float calculateTargetSpeed(float acceleration) {
+    private float calculateTargetSpeed(final float acceleration) {
 
         return acceleration * maxSpeed / 100;
     }
@@ -149,23 +162,25 @@ public class InputShipEngine extends AbstractShipEngine {
         currentSpeedVertical = Math.min(currentSpeedVertical + acceleration, 0);
     }
 
-    private void accelerateForward(float targetSpeed) {
+    private void accelerateForward(final float targetSpeed) {
 
         currentSpeedVertical = Math.min(currentSpeedVertical + acceleration, targetSpeed);
     }
 
-    private void accelerateBackward(float targetSpeed) {
+    private void accelerateBackward(final float targetSpeed) {
 
         currentSpeedVertical = Math.max(currentSpeedVertical - acceleration, targetSpeed);
     }
 
     private Turn calculateTurn() {
 
-        if (currentSpeedHorizontal > Consts.Gameplay.SHIP_TURN_THRESHOLD)
+        if (currentSpeedHorizontal > Consts.Gameplay.SHIP_TURN_THRESHOLD) {
             return Turn.RIGHT;
+        }
 
-        if (currentSpeedHorizontal < -1 * Consts.Gameplay.SHIP_TURN_THRESHOLD)
+        if (currentSpeedHorizontal < -1 * Consts.Gameplay.SHIP_TURN_THRESHOLD) {
             return Turn.LEFT;
+        }
 
         return Turn.FRONT;
     }
@@ -176,7 +191,7 @@ public class InputShipEngine extends AbstractShipEngine {
         ship.setX(ship.getX() + currentSpeedHorizontal);
     }
 
-    private float brakingWay(float currentSpeed) {
+    private float brakingWay(final float currentSpeed) {
 
         float brakingWay = 0;
         float tempSpeed = currentSpeed;
@@ -195,14 +210,7 @@ public class InputShipEngine extends AbstractShipEngine {
     }
 
     @Override
-    public void setLevel(int level) {
-
-        super.setLevel(level);
-        maxSpeed = factorMaxSpeed * (0.8f + 0.2f * level);
-    }
-
-    @Override
-    public void setDestination(IVector destination) {
+    public void setDestination(final IVector destination) {
 
         // do nothing
     }

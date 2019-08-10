@@ -108,7 +108,7 @@ public class PlayerShipTest {
     @Test
     public void afterDmgHigherThanHpPoolIsToKill() {
 
-        IPool hpPool = new HpPool(50, 10, 5, 1);
+        IPool hpPool = new HpPool(10);
 
         ship.setHpPool(hpPool);
         ship.takeDmg(100);
@@ -124,17 +124,6 @@ public class PlayerShipTest {
         verify(engine).fly();
         verify(energyPool).update();
         verify(hpPool).update();
-    }
-
-    @Test
-    public void updatingLevelIsPropagatedToShipsComponents() {
-
-        ship.setLevel(5);
-
-        verify(engine).setLevel(5);
-        verify(energyPool).setLevel(5);
-        verify(hpPool).setLevel(5);
-        verify(weapon).setLevel(5);
     }
 
     @Test

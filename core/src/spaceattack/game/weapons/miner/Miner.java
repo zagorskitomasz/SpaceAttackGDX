@@ -14,6 +14,13 @@ public class Miner extends AbstractWeapon {
 
     private int level;
 
+    public Miner(final int armory) {
+
+        dmg = Consts.Weapons.MINER_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.MINER_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.MINER_COST_PER_ATTR * armory;
+    }
+
     @Override
     public float getWeaponsMovementFactor() {
 
@@ -27,14 +34,7 @@ public class Miner extends AbstractWeapon {
     }
 
     @Override
-    public void setLevel(int level) {
-
-        this.level = level;
-        energyCost = Consts.Weapons.MINE_BASE_COST + (level - 1) * Consts.Weapons.MINE_COST_PER_LEVEL;
-    }
-
-    @Override
-    public void setUtils(IUtils utils) {
+    public void setUtils(final IUtils utils) {
 
         super.setUtils(utils);
         frameController.reset(Consts.Weapons.MINE_ATTACKS_PER_SECOND);

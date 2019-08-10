@@ -3,6 +3,7 @@ package spaceattack.game.powerup;
 import spaceattack.consts.Consts;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.graphics.Textures;
@@ -13,6 +14,7 @@ import spaceattack.game.weapons.WeaponsFactory;
 public enum PowerUpBuilder implements IPowerUpBuilder {
     INSTANCE;
 
+    @Override
     public IPowerUp hp(final IPool hpPool) {
 
         PoolIncreaser increaser = new PoolIncreaser();
@@ -24,6 +26,7 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
         return increaser;
     }
 
+    @Override
     public IPowerUp energy(final IPool energyPool) {
 
         PoolIncreaser increaser = new PoolIncreaser();
@@ -35,11 +38,12 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
         return increaser;
     }
 
+    @Override
     public IPowerUp rocketMissileHolder(final IWeaponController controller, final ComplexFireButton button,
             final GameplayStage stage) {
 
-        IWeapon rocketMissile = WeaponsFactory.INSTANCE.createRocketMissile(controller, stage.getMissilesLauncher());
-        rocketMissile.setLevel(stage.getGameProgress().getLevel());
+        IWeapon rocketMissile = WeaponsFactory.INSTANCE.createRocketMissile(controller, stage.getMissilesLauncher(),
+                stage.getGameProgress().getAttributes().get(Attribute.ARMORY));
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
@@ -52,11 +56,12 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
         return holder;
     }
 
+    @Override
     public IPowerUp mineHolder(final IWeaponController controller, final ComplexFireButton button,
             final GameplayStage stage) {
 
-        IWeapon mine = WeaponsFactory.INSTANCE.createMine(controller, stage.getMissilesLauncher());
-        mine.setLevel(stage.getGameProgress().getLevel());
+        IWeapon mine = WeaponsFactory.INSTANCE.createMine(controller, stage.getMissilesLauncher(),
+                stage.getGameProgress().getAttributes().get(Attribute.ARMORY));
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
@@ -69,11 +74,12 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
         return holder;
     }
 
+    @Override
     public IPowerUp shieldHolder(final IWeaponController controller, final ComplexFireButton button,
             final GameplayStage stage) {
 
-        IWeapon shield = WeaponsFactory.INSTANCE.createShield(controller, stage.getMissilesLauncher());
-        shield.setLevel(stage.getGameProgress().getLevel());
+        IWeapon shield = WeaponsFactory.INSTANCE.createShield(controller, stage.getMissilesLauncher(),
+                stage.getGameProgress().getAttributes().get(Attribute.ARMORY));
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
@@ -86,11 +92,12 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
         return holder;
     }
 
+    @Override
     public IPowerUp waveHolder(final IWeaponController controller, final ComplexFireButton button,
             final GameplayStage stage) {
 
-        IWeapon wave = WeaponsFactory.INSTANCE.createTimeWave(controller, stage.getMissilesLauncher());
-        wave.setLevel(stage.getGameProgress().getLevel());
+        IWeapon wave = WeaponsFactory.INSTANCE.createTimeWave(controller, stage.getMissilesLauncher(),
+                stage.getGameProgress().getAttributes().get(Attribute.ARMORY));
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
@@ -103,11 +110,12 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
         return holder;
     }
 
+    @Override
     public IPowerUp flameHolder(final IWeaponController controller, final ComplexFireButton button,
             final GameplayStage stage) {
 
-        IWeapon flamethrower = WeaponsFactory.INSTANCE.createFlamethrower(controller, stage.getMissilesLauncher());
-        flamethrower.setLevel(stage.getGameProgress().getLevel());
+        IWeapon flamethrower = WeaponsFactory.INSTANCE.createFlamethrower(controller, stage.getMissilesLauncher(),
+                stage.getGameProgress().getAttributes().get(Attribute.ARMORY));
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);

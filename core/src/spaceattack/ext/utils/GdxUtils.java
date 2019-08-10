@@ -217,9 +217,7 @@ enum GdxUtils implements IGdxUtils {
         label.setY(yPos);
         label.setWidth(Sizes.GAME_WIDTH);
         label.addListener(event -> {
-            infoLabel.setText(details);
-            infoLabel.pack();
-            infoLabel.setX((Sizes.GAME_WIDTH - infoLabel.getWidth()) * 0.5f);
+            infoLabel.update(details);
             return true;
         });
 

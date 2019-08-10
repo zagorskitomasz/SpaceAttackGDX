@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BooleanSupplier;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.system.FrameController;
 
@@ -13,12 +14,7 @@ public class Pool extends AbstractPool {
 
     public static final Integer UPDATES_PER_SECOND = 10;
 
-    private final float baseAmount;
-    private final float increasePerLevel;
-    private final float baseRegen;
-    private final float regenPerLevel;
-
-    private float regenPerSecond;
+    protected float regenPerSecond;
 
     private boolean destroyed;
 
@@ -27,20 +23,16 @@ public class Pool extends AbstractPool {
 
     private final List<BooleanSupplier> infinityCheckers;
 
-    public Pool(final float baseAmount, final float increasePerLevel, final float baseRegen,
-            final float regenPerLevel) {
+    public Pool(final int shields) {
 
         super();
         infinityCheckers = new ArrayList<>();
         lock = new ReentrantLock();
         controller = new FrameController(Factories.getUtilsFactory().create(), UPDATES_PER_SECOND);
 
-        this.baseAmount = baseAmount;
-        this.increasePerLevel = increasePerLevel;
-        this.baseRegen = baseRegen;
-        this.regenPerLevel = regenPerLevel;
-
-        setLevel(1);
+        this.maxAmount = Consts.Pools.ENERGY_PER_ATTR * shields;
+        this.regenPerSecond = Consts.Pools.ENERGY_REGEN_PER_ATTR * shields;
+        amount = maxAmount;
     }
 
     @Override
@@ -74,28 +66,6 @@ public class Pool extends AbstractPool {
 
         infinityCheckers.removeIf(checker -> !checker.getAsBoolean());
         return !infinityCheckers.isEmpty();
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        try {
-            lock.lock();
-            doSetLevel(level);
-        }
-        finally {
-            lock.unlock();
-        }
-    }
-
-    void doSetLevel(final int level) {
-
-        maxAmount = baseAmount + (level - 1) * increasePerLevel;
-        regenPerSecond = baseRegen + (level - 1) * regenPerLevel;
-
-        amount = maxAmount;
-
-        notifyObservers();
     }
 
     @Override

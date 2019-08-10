@@ -8,14 +8,14 @@ import spaceattack.game.weapons.MissilesLauncher;
 public enum TimeWaveEmitterBuilder {
     INSTANCE;
 
-    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        TimeWaveEmitter waveEmitter = new TimeWaveEmitter();
+        TimeWaveEmitter waveEmitter = new TimeWaveEmitter(armory);
 
         waveEmitter.setUtils(Factories.getUtilsFactory().create());
         waveEmitter.setController(weaponController);
         waveEmitter.setMissilesLauncher(missilesLauncher);
-        waveEmitter.setLevel(1);
 
         return waveEmitter;
     }

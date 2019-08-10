@@ -44,12 +44,6 @@ public class ExperiencePool extends AbstractPool {
     }
 
     @Override
-    public void setLevel(final int level) {
-
-        // do nothing
-    }
-
-    @Override
     public void addTemporalInfinityChecker(final BooleanSupplier checker) {
 
         // do nothing

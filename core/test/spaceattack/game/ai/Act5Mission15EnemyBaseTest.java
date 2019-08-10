@@ -56,23 +56,23 @@ public class Act5Mission15EnemyBaseTest {
         base.setPowerUpBuilder(powerUpBuilder);
 
         spaceStationI = new FakeShip();
-        spaceStationI.setHpPool(new HpPool(100, 0, 0, 0));
+        spaceStationI.setHpPool(new HpPool(15));
         doReturn(spaceStationI).when(builder).createSpaceStationI(stage);
 
         helperI = new FakeShip();
-        helperI.setHpPool(new HpPool(100, 0, 0, 0));
+        helperI.setHpPool(new HpPool(15));
         doReturn(helperI).when(builder).createHelperI(stage);
 
         spaceStationII = new FakeShip();
-        spaceStationII.setHpPool(new HpPool(100, 0, 0, 0));
+        spaceStationII.setHpPool(new HpPool(15));
         doReturn(spaceStationII).when(builder).createSpaceStationII(stage);
 
         helperII = new FakeShip();
-        helperII.setHpPool(new HpPool(100, 0, 0, 0));
+        helperII.setHpPool(new HpPool(15));
         doReturn(helperII).when(builder).createHelperII(stage);
 
         spaceStationIII = new FakeShip();
-        spaceStationIII.setHpPool(new HpPool(100, 0, 0, 0));
+        spaceStationIII.setHpPool(new HpPool(15));
         doReturn(spaceStationIII).when(builder).createSpaceStationIII(stage);
     }
 
@@ -103,7 +103,7 @@ public class Act5Mission15EnemyBaseTest {
         base.act(0);
         spaceStationI.takeDmg(40);
 
-        assertEquals(50, spaceStationI.getHpPool().getAmount(), 0);
+        assertEquals(40, spaceStationI.getHpPool().getAmount(), 0);
     }
 
     @Test
@@ -160,7 +160,7 @@ public class Act5Mission15EnemyBaseTest {
         base.act(0);
         spaceStationII.takeDmg(10);
 
-        assertEquals(30, spaceStationII.getHpPool().getAmount(), 0);
+        assertEquals(20, spaceStationII.getHpPool().getAmount(), 0);
     }
 
     @Test

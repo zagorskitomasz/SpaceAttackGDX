@@ -5,6 +5,7 @@ import spaceattack.consts.Sizes;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Attribute;
 import spaceattack.game.ships.enemy.boss.SuperBaseEnemyShip;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
@@ -31,45 +32,50 @@ public enum TankShipBuilder {
 
     public IEnemyShip buildActI(final GameplayStage stage, final boolean required) {
 
-        IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+        IEnemyShip tank = required
+                ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
         buildShipActI(stage, tank);
-        tank.setLevel(stage.getCurrentMission() * 2);
 
         return tank;
     }
 
     public IEnemyShip buildActII(final GameplayStage stage, final boolean required) {
 
-        IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+        IEnemyShip tank = required
+                ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
         buildShipActII(stage, tank);
-        tank.setLevel(stage.getCurrentMission() * 2);
 
         return tank;
     }
 
     public IEnemyShip buildActIII(final GameplayStage stage, final boolean required) {
 
-        IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+        IEnemyShip tank = required
+                ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
         buildShipActIII(stage, tank);
-        tank.setLevel(stage.getCurrentMission() * 2);
 
         return tank;
     }
 
     public IEnemyShip buildActIV(final GameplayStage stage, final boolean required) {
 
-        IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+        IEnemyShip tank = required
+                ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
         buildShipActIV(stage, tank);
-        tank.setLevel(stage.getCurrentMission() * 2);
 
         return tank;
     }
 
     public IEnemyShip buildActV(final GameplayStage stage, final boolean required) {
 
-        IEnemyShip tank = required ? new SuperBaseEnemyShip() : new BaseEnemyShip();
+        IEnemyShip tank = required
+                ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
         buildShipActV(stage, tank);
-        tank.setLevel(stage.getCurrentMission() * 2);
 
         return tank;
     }
@@ -81,8 +87,10 @@ public enum TankShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon rocketLauncher = RocketMissileBuilder.INSTANCE.build(controller, launcher);
-        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon rocketLauncher = RocketMissileBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon redLaser = RedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(redLaser);
         controller.setSecondaryWeapon(rocketLauncher);
@@ -102,8 +110,10 @@ public enum TankShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon rocketLauncher = RocketMissileBuilder.INSTANCE.build(controller, launcher);
-        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon rocketLauncher = RocketMissileBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(rocketLauncher);
@@ -123,8 +133,10 @@ public enum TankShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon flyingMiner = FlyingMinerBuilder.INSTANCE.buildDelayed(controller, launcher);
-        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
+        IWeapon flyingMiner = FlyingMinerBuilder.INSTANCE.buildDelayed(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(flyingMiner);
@@ -144,8 +156,10 @@ public enum TankShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher);
-        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher);
+        IWeapon targetedRedLaser = TargetedRedLaserBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         controller.setPrimaryWeapon(targetedRedLaser);
         controller.setSecondaryWeapon(shieldEmitter);
@@ -165,8 +179,10 @@ public enum TankShipBuilder {
 
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
-        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher);
-        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher);
+        IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
+        IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher,
+                ship.getAttributes().get(Attribute.ARMORY));
 
         timeWaveEmitter.setInterval(0.33f);
         timeWaveEmitter.setNoEnergyCost();
@@ -185,21 +201,12 @@ public enum TankShipBuilder {
     private IEnemyShip buildShip(final GameplayStage stage, final IEnemyShip tank) {
 
         IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(tank);
-        engine.setBaseSpeed(1f * Sizes.RADIUS_FACTOR);
         Explosion explosion = ExplosionsBuilder.INSTANCE.createTankExplosion(stage);
 
         Burner burner = BurnerBuilder.INSTANCE.build(tank);
 
-        IPool energyPool = new Pool(
-                Consts.Pools.TANK_ENERGY_BASE_AMOUNT,
-                Consts.Pools.TANK_ENERGY_INCREASE_PER_LEVEL,
-                Consts.Pools.TANK_ENERGY_BASE_REGEN,
-                Consts.Pools.TANK_ENERGY_REGEN_PER_LEVEL);
-        IPool hpPool = new HpPool(
-                Consts.Pools.TANK_HP_BASE_AMOUNT,
-                Consts.Pools.TANK_HP_INCREASE_PER_LEVEL,
-                Consts.Pools.TANK_HP_BASE_REGEN,
-                Consts.Pools.TANK_HP_REGEN_PER_LEVEL);
+        IPool energyPool = new Pool(tank.getAttributes().get(Attribute.BATTERY));
+        IPool hpPool = new HpPool(tank.getAttributes().get(Attribute.SHIELDS));
 
         tank.setActor(Factories.getActorFactory().create(tank));
         tank.setShipEngine(engine);

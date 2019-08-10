@@ -12,8 +12,6 @@ public interface IPool extends INotifier<Float> {
 
     float getMaxAmount();
 
-    void setLevel(int level);
-
     void update();
 
     void destroy();

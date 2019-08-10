@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import spaceattack.consts.Consts;
 import spaceattack.ext.actor.ExtActorFactory;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.MoverAI;
@@ -62,7 +63,7 @@ public class BaseEnemyShipTest {
 
         MockitoAnnotations.initMocks(this);
 
-        fighter = new BaseEnemyShip();
+        fighter = new BaseEnemyShip(Consts.AttributesStarters.FIGHTER.get(1));
         fighter.setMover(mover);
         fighter.setShooter(shooter);
         fighter.setWeaponController(controller);

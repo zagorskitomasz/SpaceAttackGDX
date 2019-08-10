@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.BooleanSupplier;
 
-import spaceattack.game.GameProgress;
 import spaceattack.game.actors.DrawableActor;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.interfaces.Launchable;
@@ -127,28 +126,6 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
-    public void setLevel(final int level) {
-
-        if (engine != null) {
-            engine.setLevel(level);
-        }
-
-        if (energyPool != null) {
-            energyPool.setLevel(level);
-        }
-
-        if (hpPool != null) {
-            hpPool.setLevel(level);
-        }
-
-        if (weapons != null) {
-            for (IWeapon weapon : weapons) {
-                weapon.setLevel(level);
-            }
-        }
-    }
-
-    @Override
     public float getHeight() {
 
         return currentTexture != null ? currentTexture.getHeight() : 0;
@@ -214,12 +191,6 @@ public abstract class Ship extends DrawableActor implements IShip {
     public IPool getHpPool() {
 
         return hpPool;
-    }
-
-    @Override
-    public void notify(final GameProgress state) {
-
-        setLevel(state.getLevel());
     }
 
     @Override

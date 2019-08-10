@@ -16,6 +16,13 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     private Predicate<Float> activityChecker;
     private long duration;
 
+    public EnergyShieldEmiter(final int armory) {
+
+        dmg = Consts.Weapons.SHIELD_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.SHIELD_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.SHIELD_COST_PER_ATTR * armory;
+    }
+
     @Override
     public float getWeaponsMovementFactor() {
 
@@ -26,14 +33,6 @@ public class EnergyShieldEmiter extends AbstractWeapon {
     public float getCollisionRadius() {
 
         return Consts.Weapons.SHIELD_RADIUS;
-    }
-
-    @Override
-    public void setLevel(final int level) {
-
-        dmg = Consts.Weapons.SHIELD_BASE_DMG + (level - 1) * Consts.Weapons.SHIELD_DMG_PER_LEVEL;
-        energyCost = Consts.Weapons.SHIELD_BASE_COST + (level - 1) * Consts.Weapons.SHIELD_COST_PER_LEVEL;
-        speed = 0;
     }
 
     @Override

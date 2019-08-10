@@ -8,14 +8,14 @@ import spaceattack.game.weapons.MissilesLauncher;
 public enum MinerBuilder {
     INSTANCE;
 
-    public IWeapon build(IWeaponController weaponController, MissilesLauncher missilesLauncher) {
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        Miner miner = new Miner();
+        Miner miner = new Miner(armory);
 
         miner.setUtils(Factories.getUtilsFactory().create());
         miner.setController(weaponController);
         miner.setMissilesLauncher(missilesLauncher);
-        miner.setLevel(1);
 
         return miner;
     }

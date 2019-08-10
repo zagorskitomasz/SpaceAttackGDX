@@ -8,14 +8,14 @@ import spaceattack.game.weapons.MissilesLauncher;
 public enum ShieldBuilder {
     INSTANCE;
 
-    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher) {
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        EnergyShieldEmiter shieldEmiter = new EnergyShieldEmiter();
+        EnergyShieldEmiter shieldEmiter = new EnergyShieldEmiter(armory);
 
         shieldEmiter.setUtils(Factories.getUtilsFactory().create());
         shieldEmiter.setController(weaponController);
         shieldEmiter.setMissilesLauncher(missilesLauncher);
-        shieldEmiter.setLevel(1);
 
         return shieldEmiter;
     }

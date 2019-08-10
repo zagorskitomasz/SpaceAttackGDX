@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
+import spaceattack.game.actors.IActorsContainer;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.buttons.IButton;
 import spaceattack.game.input.IInputProcessor;
@@ -54,4 +55,6 @@ public interface IGameStage {
     void addButtonsTextFunction(IButton button, Function<IButton, String> predicate);
 
     void addBackground(StaticImage background);
+
+    void addActorsContainer(IActorsContainer container);
 }

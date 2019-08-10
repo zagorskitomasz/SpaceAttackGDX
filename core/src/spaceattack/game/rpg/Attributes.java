@@ -21,6 +21,15 @@ public class Attributes {
         lock = new ReentrantLock();
     }
 
+    public Attributes(final int armory, final int shields, final int battery, final int engine) {
+
+        this();
+        attributes.put(Attribute.ARMORY.name(), armory);
+        attributes.put(Attribute.SHIELDS.name(), shields);
+        attributes.put(Attribute.BATTERY.name(), battery);
+        attributes.put(Attribute.ENGINE.name(), engine);
+    }
+
     public int get(final Attribute attribute) {
 
         try {
@@ -93,5 +102,54 @@ public class Attributes {
     public void addFreePoints(final int additionalPoints) {
 
         freePoints += additionalPoints;
+    }
+
+    @Override
+    public int hashCode() {
+
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
+        result = prime * result + freePoints;
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Attributes other = (Attributes) obj;
+        if (attributes == null) {
+            if (other.attributes != null) {
+                return false;
+            }
+        }
+        else
+            if (!attributes.equals(other.attributes)) {
+                return false;
+            }
+        if (freePoints != other.freePoints) {
+            return false;
+        }
+        return true;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Attributes clone() {
+
+        Attributes newAttributes = new Attributes();
+        newAttributes.freePoints = this.freePoints;
+        newAttributes.attributes = (HashMap<String, Integer>) this.attributes.clone();
+
+        return newAttributes;
     }
 }

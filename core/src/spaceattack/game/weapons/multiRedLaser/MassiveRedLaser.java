@@ -1,5 +1,6 @@
 package spaceattack.game.weapons.multiRedLaser;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.utils.vector.IVector;
@@ -7,9 +8,13 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class MassiveRedLaser extends MultiShotRedLaser {
 
-    MassiveRedLaser() {
+    MassiveRedLaser(final int armory) {
 
-        super();
+        super(armory);
+
+        dmg = Consts.Weapons.MASSIVE_RED_DMG_PER_ATTR * armory;
+        speed = Consts.Weapons.MASSIVE_RED_SPEED_PER_ATTR * armory;
+        energyCost = Consts.Weapons.MASSIVE_RED_COST_PER_ATTR * armory;
     }
 
     @Override

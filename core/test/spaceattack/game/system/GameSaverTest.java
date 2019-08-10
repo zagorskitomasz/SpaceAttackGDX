@@ -52,7 +52,7 @@ public class GameSaverTest {
 
         saver.save(progress);
         verify(file).writeString(
-                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne,attributes:{}}}}",
+                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne}}}",
                 false);
     }
 
@@ -68,7 +68,7 @@ public class GameSaverTest {
 
         saver.save(progress);
         verify(file).writeString(
-                "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne,attributes:{}},3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo,attributes:{}}}}",
+                "{savedProgress:{2:{mission:16,level:40,experience:163900,playerName:PlayerOne},3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}",
                 false);
     }
 
@@ -87,7 +87,7 @@ public class GameSaverTest {
 
         saver.delete(2);
         verify(file).writeString(
-                "{savedProgress:{3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo,attributes:{}}}}",
+                "{savedProgress:{3:{mission:3,level:5,experience:999888777666,playerName:PlayerTwo}}}",
                 false);
     }
 
@@ -107,7 +107,7 @@ public class GameSaverTest {
 
         saver.save(progress);
         verify(file).writeString(
-                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne,attributes:{attributes:{BATTERY:9,ARMORY:10,ENGINE:8,SHIELDS:8},freePoints:2}}}}",
+                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne,attributes:{attributes:{BATTERY:11,ARMORY:12,ENGINE:10,SHIELDS:10},freePoints:2}}}}",
                 false);
     }
 }

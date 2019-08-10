@@ -9,14 +9,14 @@ import spaceattack.game.weapons.laser.Laser;
 public enum GreenLaserBuilder {
     INSTANCE;
 
-    public IWeapon build(IWeaponController weaponController, MissilesLauncher missilesLauncher) {
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
 
-        Laser greenLaser = new GreenLaser();
+        Laser greenLaser = new GreenLaser(armory);
 
         greenLaser.setUtils(Factories.getUtilsFactory().create());
         greenLaser.setController(weaponController);
         greenLaser.setMissilesLauncher(missilesLauncher);
-        greenLaser.setLevel(1);
 
         return greenLaser;
     }

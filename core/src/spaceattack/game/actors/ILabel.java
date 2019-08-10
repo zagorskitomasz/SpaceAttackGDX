@@ -17,4 +17,6 @@ public interface ILabel extends IActor {
     void enableDawing();
 
     void pack();
+
+    void update(String attributeDetails);
 }
