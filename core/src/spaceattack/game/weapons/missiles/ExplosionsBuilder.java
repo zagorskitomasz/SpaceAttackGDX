@@ -78,7 +78,7 @@ public enum ExplosionsBuilder {
         return explosion;
     }
 
-    public Launchable createMineExplosion(final int dmg) {
+    public Launchable createMineExplosion(final float dmg) {
 
         Explosion explosion = new Explosion();
 

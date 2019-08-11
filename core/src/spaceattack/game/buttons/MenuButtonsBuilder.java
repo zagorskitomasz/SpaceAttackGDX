@@ -67,9 +67,9 @@ public enum MenuButtonsBuilder {
         return button;
     }
 
-    public IButton weaponsMenuButton(final UIStage stage) {
+    public IButton weaponsMenuButton(final UIStage stage, final boolean isNewWeaponAvailable) {
 
-        IButton button = factory.create(UIStrings.WEAPONS_BTN);
+        IButton button = factory.create(UIStrings.WEAPONS_BTN + (isNewWeaponAvailable ? " [+]" : ""));
 
         button.setPosition(Sizes.GAME_WIDTH * 0.2f - Sizes.BUTTON_WIDTH * 0.15f, Sizes.GAME_HEIGHT * 0.18f);
         button.setSize(Sizes.BUTTON_WIDTH * 1.3f, Sizes.BUTTON_HEIGHT);

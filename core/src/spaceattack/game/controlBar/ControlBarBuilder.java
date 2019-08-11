@@ -1,8 +1,11 @@
 package spaceattack.game.controlBar;
 
+import java.util.List;
+
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.rpg.Attribute;
 import spaceattack.game.stages.UIStage;
+import spaceattack.game.weapons.SpecialWeapons;
 
 public enum ControlBarBuilder {
 
@@ -25,6 +28,20 @@ public enum ControlBarBuilder {
                 .withName(attribute.getName())
                 .withStage(stage)
                 .withValueSupplier(() -> stage.getGameProgress().getAttributes().get(attribute))
+                .build();
+    }
+
+    public WeaponBar weaponBar(final int lineIndex, final SpecialWeapons weapon, final UIStage stage,
+            final ILabel detailsLabel, final List<Runnable> updateActions) {
+
+        return WeaponBar.builder()
+                .withDetailsLabel(detailsLabel)
+                .withFirstLineYPos(0.6f)
+                .withIntervalYPos(0.1f)
+                .withLineIndex(lineIndex)
+                .withStage(stage)
+                .withUpdateActions(updateActions)
+                .withWeapon(weapon)
                 .build();
     }
 }

@@ -114,11 +114,17 @@ public enum Textures {
     SHIELD_POWER_UP("graphics/powerups/shieldPU.png"),
     WAVE_POWER_UP("graphics/powerups/wavePU.png"),
     FLAME_POWER_UP("graphics/powerups/flamePU.png"),
+    ROCKET_SELECTED("graphics/powerups/rocketSelected.png"),
+    MINE_SELECTED("graphics/powerups/mineSelected.png"),
+    SHIELD_SELECTED("graphics/powerups/shieldSelected.png"),
+    WAVE_SELECTED("graphics/powerups/waveSelected.png"),
+    FLAME_SELECTED("graphics/powerups/flameSelected.png"),
     ROCKET_ICON("graphics/powerups/rocketIcon.png"),
     MINE_ICON("graphics/powerups/mineIcon.png"),
     SHIELD_ICON("graphics/powerups/shieldIcon.png"),
     WAVE_ICON("graphics/powerups/waveIcon.png"),
-    FLAME_ICON("graphics/powerups/flameIcon.png");
+    FLAME_ICON("graphics/powerups/flameIcon.png"),
+    LOCKED_WEAPON("graphics/powerups/lockedPU.png");
     // @formatter:on
 
     private String path;

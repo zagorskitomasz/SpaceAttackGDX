@@ -2,25 +2,42 @@ package spaceattack.game.buttons;
 
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
+import spaceattack.game.batch.IBatch;
 import spaceattack.game.input.InputType;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
 
-public interface IImageButton extends IActor {
+public interface IImageButton extends IActor, IGameActor {
 
-    public void fire(InputType type);
+    @Override
+    default void setActor(final IActor actor) {
 
-    public boolean isPressed();
+        // do nothing
+    }
 
-    public IVector screenToStageCoordinates(IVector touch);
+    @Override
+    default void draw(final IBatch batch, final float alpha) {
 
-    public boolean isDisabled();
+        // do nothing
+    }
 
-    public void setEnabled(boolean b);
+    void fire(InputType type);
 
-    public void setDown(ITexture texture);
+    boolean isPressed();
 
-    public void setUp(ITexture texture);
+    IVector screenToStageCoordinates(IVector touch);
 
-    public void setGameActor(IGameActor gameActor);
+    boolean isDisabled();
+
+    void setEnabled(boolean b);
+
+    void setDown(ITexture texture);
+
+    void setUp(ITexture texture);
+
+    void setGameActor(IGameActor gameActor);
+
+    void setAction(Runnable action);
+
+    IGameActor getGameActor();
 }

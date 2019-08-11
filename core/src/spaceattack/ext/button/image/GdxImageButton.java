@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import spaceattack.ext.batch.BatchProxyHolder;
 import spaceattack.ext.texture.GdxTexture;
 import spaceattack.ext.vector.ExtVectorFactory;
+import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.buttons.IImageButton;
 import spaceattack.game.input.InputType;
@@ -22,20 +23,20 @@ public class GdxImageButton extends Button implements IImageButton {
 
     private IGameActor gameActor;
 
-    public GdxImageButton(Drawable drawableUp, Drawable drawableDown, Drawable drawableDisabled) {
+    public GdxImageButton(final Drawable drawableUp, final Drawable drawableDown, final Drawable drawableDisabled) {
 
         super(drawableUp, drawableDown);
         getStyle().disabled = drawableDisabled;
     }
 
     @Override
-    public void setGameActor(IGameActor gameActor) {
+    public void setGameActor(final IGameActor gameActor) {
 
         this.gameActor = gameActor;
     }
 
     @Override
-    public void fire(InputType type) {
+    public void fire(final InputType type) {
 
         InputEvent.Type gdxType = null;
 
@@ -55,7 +56,7 @@ public class GdxImageButton extends Button implements IImageButton {
     }
 
     @Override
-    public IVector screenToStageCoordinates(IVector touch) {
+    public IVector screenToStageCoordinates(final IVector touch) {
 
         Vector2 vector = new Vector2(touch.getX(), touch.getY());
         Vector2 result = getStage().screenToStageCoordinates(vector);
@@ -64,36 +65,58 @@ public class GdxImageButton extends Button implements IImageButton {
     }
 
     @Override
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(final boolean enabled) {
 
         setDisabled(!enabled);
         setTouchable(enabled ? Touchable.enabled : Touchable.disabled);
     }
 
     @Override
-    public void setDown(ITexture texture) {
+    public void setDown(final ITexture texture) {
 
         getStyle().down = createDrawable(texture);
     }
 
     @Override
-    public void setUp(ITexture texture) {
+    public void setUp(final ITexture texture) {
 
         getStyle().up = createDrawable(texture);
     }
 
-    private Drawable createDrawable(ITexture texture) {
+    private Drawable createDrawable(final ITexture texture) {
 
         TextureRegion region = new TextureRegion((GdxTexture) texture);
         return new TextureRegionDrawable(region);
     }
 
     @Override
-    public void draw(Batch batch, float alpha) {
+    public void draw(final Batch batch, final float alpha) {
 
         super.draw(batch, alpha);
 
-        if (gameActor != null)
+        if (gameActor != null) {
             gameActor.draw(BatchProxyHolder.INSTANCE.get(), alpha);
+        }
+    }
+
+    @Override
+    public void setAction(final Runnable action) {
+
+        addListener(event -> {
+            action.run();
+            return true;
+        });
+    }
+
+    @Override
+    public IGameActor getGameActor() {
+
+        return gameActor;
+    }
+
+    @Override
+    public IActor getActor() {
+
+        return this;
     }
 }
