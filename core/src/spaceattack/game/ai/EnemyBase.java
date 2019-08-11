@@ -25,6 +25,7 @@ import spaceattack.game.system.Acts;
 import spaceattack.game.system.FrameController;
 import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeaponController;
+import spaceattack.game.weapons.SpecialWeapons;
 
 public abstract class EnemyBase extends InvisibleActor {
 
@@ -395,8 +396,6 @@ public abstract class EnemyBase extends InvisibleActor {
         return powerUp;
     }
 
-    protected abstract IPowerUp chooseWeaponPowerUp();
-
     public enum Direction {
 
         LEFT(-1),
@@ -423,5 +422,15 @@ public abstract class EnemyBase extends InvisibleActor {
     protected ShooterAI createChaserShooter() {
 
         return ShooterType.DIRECT_SHOOTER.create();
+    }
+
+    private IPowerUp chooseWeaponPowerUp() {
+
+        if (stage.getGameProgress() == null) {
+            return null;
+        }
+
+        return SpecialWeapons.getByName(stage.getGameProgress().getSpecialWeapon()).builder.build(controller,
+                fireButton, stage);
     }
 }

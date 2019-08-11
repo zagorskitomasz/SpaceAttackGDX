@@ -11,7 +11,6 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class FlyingMiner extends AbstractWeapon {
 
-    private int level;
     private long mineExplosionDelay = Consts.Weapons.MINE_DELAY;
     private float distanceToShip = 0.3f;
 
@@ -49,14 +48,14 @@ public class FlyingMiner extends AbstractWeapon {
         missile.setActor(Factories.getActorFactory().create(missile));
         missile.setTexture(Textures.MINE.getTexture());
         missile.setDmg(0);
-        missile.setSpeed(Consts.Weapons.FLYING_MINE_SPEED * level / 6);
+        missile.setSpeed(speed);
         missile.setAcceleration(0);
         missile.setMovement(Factories.getVectorFactory().create(0, 0));
         missile.setPosition(calculateTargetedShotPosition(distanceToShip, 0, 0));
         missile.setTargetCoordsSupplier(controller::getTargetCoords);
         missile.setRadius(Consts.Weapons.MINE_RADIUS);
         missile.setSound(Sounds.MINE);
-        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(level));
+        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(dmg));
         missile.setMissilesLauncher(launcher);
         missile.setPlayersAttack(controller.isPlayer());
 

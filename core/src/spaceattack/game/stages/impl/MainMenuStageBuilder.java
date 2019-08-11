@@ -39,7 +39,7 @@ public class MainMenuStageBuilder implements IStageBuilder {
         IButton statsButton = MenuButtonsBuilder.INSTANCE.statsMenuButton(stage,
                 progress.getAttributes().getFreePoints());
         IButton skillsButton = MenuButtonsBuilder.INSTANCE.skillsMenuButton(stage, 0);
-        IButton weaponsButton = MenuButtonsBuilder.INSTANCE.weaponsMenuButton(stage);
+        IButton weaponsButton = MenuButtonsBuilder.INSTANCE.weaponsMenuButton(stage, progress.isNewWeaponAvailable());
         IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToPlayersMenuButton(stage);
 
         stage.addBackground(background);

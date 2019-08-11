@@ -64,9 +64,9 @@ public class GameLoaderTest {
 
         GameProgress progress = loader.load(SLOT_INDEX);
 
-        assertEquals(Integer.valueOf(16), progress.getMission());
-        assertEquals(Integer.valueOf(40), progress.getLevel());
-        assertEquals(Long.valueOf(163900), progress.getExperience());
+        assertEquals(16, progress.getMission());
+        assertEquals(40, progress.getLevel());
+        assertEquals(163900, progress.getExperience());
         assertEquals(PLAYER_NAME, progress.getPlayerName());
     }
 

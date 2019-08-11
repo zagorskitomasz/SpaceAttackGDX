@@ -12,8 +12,6 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class Miner extends AbstractWeapon {
 
-    private int level;
-
     public Miner(final int armory) {
 
         dmg = Consts.Weapons.MINER_DMG_PER_ATTR * armory;
@@ -54,7 +52,7 @@ public class Miner extends AbstractWeapon {
         missile.setPosition(controller.getSecondaryWeaponUsePlacement());
         missile.setRadius(Consts.Weapons.MINE_RADIUS);
         missile.setSound(Sounds.MINE);
-        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(level));
+        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(dmg));
         missile.setMissilesLauncher(launcher);
         missile.setPlayersAttack(controller.isPlayer());
 
