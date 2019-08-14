@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import spaceattack.ext.utils.ExtUtilsFactory;
 import spaceattack.game.GameProgress;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.utils.IUtils;
 
 public class GameSaverTest {
@@ -108,6 +109,27 @@ public class GameSaverTest {
         saver.save(progress);
         verify(file).writeString(
                 "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne,attributes:{attributes:{BATTERY:11,ARMORY:12,ENGINE:10,SHIELDS:10},freePoints:2}}}}",
+                false);
+    }
+
+    @Test
+    public void improvementsAreSaved() {
+
+        GameProgress progress = new GameProgress();
+        progress.setExperience(999888777666l);
+        progress.setLevel(5);
+        progress.setMission(3);
+        progress.setPlayerName("PlayerOne");
+        progress.setSlot(2);
+        progress.getImprovements().setFreePoints(5);
+        progress.getImprovements().increase(Improvement.ABSORBER);
+        progress.getImprovements().increase(Improvement.ABSORBER);
+        progress.getImprovements().increase(Improvement.ABSORBER);
+        progress.getImprovements().increase(Improvement.ADRENALINE);
+
+        saver.save(progress);
+        verify(file).writeString(
+                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne,improvements:{improvements:{SNIPER:0,FEAR:0,ABSORBER:3,RED_LASER_MASTERY:0,REGENERATION:0,GREEN_LASER_MASTERY:0,AMMO_COLLECTOR:0,SPRINTER:0,ADRENALINE:1,BERSERKER:0},freePoints:1}}}}",
                 false);
     }
 }
