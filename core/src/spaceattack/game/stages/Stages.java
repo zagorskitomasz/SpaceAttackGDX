@@ -2,6 +2,7 @@ package spaceattack.game.stages;
 
 import spaceattack.game.stages.impl.AttributesStageBuilder;
 import spaceattack.game.stages.impl.IStageBuilder;
+import spaceattack.game.stages.impl.ImprovementsStageBuilder;
 import spaceattack.game.stages.impl.MainMenuStageBuilder;
 import spaceattack.game.stages.impl.Mission10StageBuilder;
 import spaceattack.game.stages.impl.Mission11StageBuilder;
@@ -27,7 +28,7 @@ public enum Stages {
     PLAYERS_MENU(PlayerSelectionStageBuilder.class),
     MAIN_MENU(MainMenuStageBuilder.class),
     STATS(AttributesStageBuilder.class),
-    SKILLS(null),
+    SKILLS(ImprovementsStageBuilder.class),
     WEAPONS(WeaponsStageBuilder.class),
     MISSIONS(MissionsStageBuilder.class),
     MISSION_1(Mission1StageBuilder.class),

@@ -6,6 +6,7 @@ import java.util.List;
 import spaceattack.consts.Experience;
 import spaceattack.game.rpg.Attribute;
 import spaceattack.game.rpg.Attributes;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.rpg.Improvements;
 import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
@@ -137,6 +138,7 @@ public class GameProgress implements INotifier<GameProgress> {
         if (experience >= Experience.INSTANCE.expForLevel(level + 1)) {
             setLevel(level + 1);
             attributes.addFreePoints(Attribute.POINTS_PER_LEVEL);
+            improvements.addFreePoints(Improvement.POINTS_PER_LEVEL);
         }
     }
 

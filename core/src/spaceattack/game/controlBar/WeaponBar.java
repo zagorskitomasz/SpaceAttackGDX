@@ -57,7 +57,7 @@ public class WeaponBar implements IActorsContainer {
 
         button = weaponButton(stage, detailsLabel, lineYPos, updateActions);
 
-        ILabel infoToucher = utils.createDetailerToucher(lineYPos, detailsLabelText(), detailsLabel);
+        ILabel infoToucher = utils.createDetailerToucher(lineYPos, detailsLabelText(), detailsLabel, false);
 
         button.setX(Sizes.GAME_WIDTH - Sizes.GAME_WIDTH * 0.2f - button.getWidth());
         nameLabel.setX(Sizes.GAME_WIDTH - Sizes.GAME_WIDTH * 0.27f - button.getWidth() - nameLabel.getWidth());
