@@ -1,7 +1,6 @@
 package spaceattack.game.buttons;
 
 import spaceattack.consts.UIStrings;
-import spaceattack.game.GameProgress;
 import spaceattack.game.StageResult;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.stages.IGameStage;
@@ -35,7 +34,7 @@ public class DeletePlayerListener implements IListener {
             saver.delete(buttonIndex);
             StageResult stageResult = new StageResult();
             stageResult.setNextStage(Stages.PLAYERS_MENU);
-            stageResult.setGameProgress(new GameProgress());
+            stageResult.setGameProgress(null);
             stage.setResult(stageResult);
         }
     }
