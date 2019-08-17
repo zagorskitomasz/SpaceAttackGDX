@@ -12,7 +12,13 @@ public enum TripleGreenLaserBuilder {
     public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
             final int armory) {
 
-        Laser greenLaser = new TripleGreenLaser(armory);
+        return build(weaponController, missilesLauncher, armory, 0);
+    }
+
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory, final int mastery) {
+
+        Laser greenLaser = new TripleGreenLaser(armory, mastery);
 
         greenLaser.setUtils(Factories.getUtilsFactory().create());
         greenLaser.setController(weaponController);

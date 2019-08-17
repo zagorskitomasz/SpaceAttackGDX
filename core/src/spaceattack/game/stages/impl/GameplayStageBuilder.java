@@ -128,7 +128,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
         missilesLauncher = new MissilesLauncher(stage);
         primaryWeapon = createPrimaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY),
                 gameProgress.getImprovements().get(Improvement.RED_LASER_MASTERY));
-        greenLaser = createSecondaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY));
+        greenLaser = createSecondaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY),
+                gameProgress.getImprovements().get(Improvement.GREEN_LASER_MASTERY));
         primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
         secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
         enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
@@ -149,7 +150,15 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
         return WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher, armory, redLaserMastery);
     }
 
-    protected abstract IWeapon createSecondaryWeapon(final int armory);
+    protected final IWeapon createSecondaryWeapon(final int armory, final int greenLaserMastery) {
+
+        if (greenLaserMastery >= 5) {
+            return WeaponsFactory.INSTANCE.createTripleGreenLaser(weaponController, missilesLauncher, armory,
+                    greenLaserMastery);
+        }
+
+        return WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher, armory, greenLaserMastery);
+    }
 
     protected abstract EnemyBase createEnemyBase(IUtils utils);
 

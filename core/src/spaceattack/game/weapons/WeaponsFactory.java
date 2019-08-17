@@ -22,9 +22,9 @@ public enum WeaponsFactory {
 
     public IWeapon createGreenLaser(final PlayerWeaponController weaponController,
             final MissilesLauncher missilesLauncher,
-            final int armory) {
+            final int armory, final int mastery) {
 
-        return GreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
+        return GreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory, mastery);
     }
 
     public IWeapon createRocketMissile(final IWeaponController weaponController,
@@ -43,9 +43,9 @@ public enum WeaponsFactory {
 
     public IWeapon createTripleGreenLaser(final PlayerWeaponController weaponController,
             final MissilesLauncher missilesLauncher,
-            final int armory) {
+            final int armory, final int mastery) {
 
-        return TripleGreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
+        return TripleGreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory, mastery);
     }
 
     public IWeapon createMine(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,

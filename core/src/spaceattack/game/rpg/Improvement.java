@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 public enum Improvement implements Information {
 
     RED_LASER_MASTERY("Red laser mastery",
-            "Increases red laser damage\nlevel 4 - double shots\nlevel 8 - distracted shots", 1),
+            "Increases red laser damage\nLevel 4 - double shots\nLevel 8 - distracted shots", 1),
     REGENERATION("Regeneration", "You recover HP and energy faster", 1),
-    GREEN_LASER_MASTERY("Green laser mastery", "Increases green laser damage", 5),
+    GREEN_LASER_MASTERY("Green laser mastery", "Increases green laser damage\nLevel 5 - triple shots", 5),
     SNIPER("Sniper", "Increases all missiles speed", 5),
     AMMO_COLLECTOR("Ammo collector", "Increases special weapon's ammo", 10),
     SPRINTER("Sprinter", "Your ship is very fast,\nbut flying burns energy", 10),
