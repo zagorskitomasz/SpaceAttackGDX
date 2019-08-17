@@ -140,10 +140,11 @@ public class Consts {
     public static class Pools {
 
         public static final float HP_PER_ATTR = 6;
-        public static final float HP_REGEN_PER_ATTR = 1f;
+        public static final float HP_REGEN_PER_ATTR = 0.4f;
 
         public static final float ENERGY_PER_ATTR = 10;
-        public static final float ENERGY_REGEN_PER_ATTR = 2;
+        public static final float ENERGY_REGEN_PER_ATTR = 2f;
+        public static final float REGEN_MASTERY_FACTOR = 0.2f;
     }
 
     public static class Explosions {

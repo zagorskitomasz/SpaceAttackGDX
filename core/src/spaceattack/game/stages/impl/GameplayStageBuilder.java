@@ -177,8 +177,10 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
     private void initPools() {
 
         expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
-        energyPool = new Pool(gameProgress.getAttributes().get(Attribute.BATTERY));
-        hpPool = new HpPool(gameProgress.getAttributes().get(Attribute.SHIELDS));
+        energyPool = new Pool(gameProgress.getAttributes().get(Attribute.BATTERY),
+                gameProgress.getImprovements().get(Improvement.REGENERATION));
+        hpPool = new HpPool(gameProgress.getAttributes().get(Attribute.SHIELDS),
+                gameProgress.getImprovements().get(Improvement.REGENERATION));
         hpPool.setImmunityChecker(stage::isGameOver);
         // hpPool.addTemporalInfinityChecker(() -> true);
         // TODO immortal ship for test purposes;

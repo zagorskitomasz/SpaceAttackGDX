@@ -209,4 +209,16 @@ public class PoolTest {
 
         assertEquals(50, pool.getAmount(), 0);
     }
+
+    @Test
+    public void masteryIsImprovingRegen() {
+
+        pool = new Pool(5, 4);
+
+        pool.take(15);
+        pool.update();
+
+        assertEquals(36.8, pool.getAmount(), 0.01);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
 }

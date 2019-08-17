@@ -10,10 +10,16 @@ public class HpPool extends Pool {
 
     public HpPool(final int shields) {
 
-        super(shields);
+        this(shields, 0);
+    }
+
+    public HpPool(final int shields, final int mastery) {
+
+        super(shields, mastery);
 
         this.maxAmount = Consts.Pools.HP_PER_ATTR * shields;
-        this.regenPerSecond = Consts.Pools.HP_REGEN_PER_ATTR * shields;
+        this.regenPerSecond = Consts.Pools.HP_REGEN_PER_ATTR * shields
+                * (1 + Consts.Pools.REGEN_MASTERY_FACTOR * mastery);
         this.amount = maxAmount;
     }
 

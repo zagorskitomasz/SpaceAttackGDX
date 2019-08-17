@@ -65,7 +65,7 @@ public class HpEnergyBarTest {
         hpPool.update();
 
         assertEquals(60, bar.getMaxHp(), 0);
-        assertEquals(21, bar.getHp(), 0);
+        assertEquals(20.4, bar.getHp(), 0.1);
         assertEquals(0.35, bar.getHpPercent(), 0.01);
     }
 }
