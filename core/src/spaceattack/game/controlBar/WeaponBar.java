@@ -99,7 +99,7 @@ public class WeaponBar implements IActorsContainer {
 
     protected boolean isWeaponUnlocked() {
 
-        return progress.getMission() >= weapon.unlockedOnMission;
+        return progress.getMission() > weapon.unlockedOnMission;
     }
 
     public void updateSelection() {

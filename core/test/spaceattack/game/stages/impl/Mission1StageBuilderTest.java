@@ -33,7 +33,7 @@ public class Mission1StageBuilderTest {
     @Test
     public void simpleRedLaserIsPrimaryWeaponWithoutMastery() {
 
-        IWeapon weapon = builder.createPrimaryWeapon(10, 0);
+        IWeapon weapon = builder.createPrimaryWeapon(10, 0, 0);
 
         assertTrue(weapon instanceof RedLaser);
     }
@@ -41,7 +41,7 @@ public class Mission1StageBuilderTest {
     @Test
     public void simpleRedLaserIsPrimaryWeaponWithLowMastery() {
 
-        IWeapon weapon = builder.createPrimaryWeapon(10, 3);
+        IWeapon weapon = builder.createPrimaryWeapon(10, 3, 0);
 
         assertTrue(weapon instanceof RedLaser);
     }
@@ -49,7 +49,7 @@ public class Mission1StageBuilderTest {
     @Test
     public void doubleRedLaserIsPrimaryWeaponWithMediumMastery() {
 
-        IWeapon weapon = builder.createPrimaryWeapon(10, 6);
+        IWeapon weapon = builder.createPrimaryWeapon(10, 6, 0);
 
         assertTrue(weapon instanceof DoubleRedLaser);
     }
@@ -57,7 +57,7 @@ public class Mission1StageBuilderTest {
     @Test
     public void massiveRedLaserIsPrimaryWeaponWithHighMastery() {
 
-        IWeapon weapon = builder.createPrimaryWeapon(10, 9);
+        IWeapon weapon = builder.createPrimaryWeapon(10, 9, 0);
 
         assertTrue(weapon instanceof MassiveRedLaser);
     }

@@ -13,7 +13,7 @@ public class DistractedRedLaser extends MultiShotRedLaser {
         super(armory);
 
         dmg = Consts.Weapons.DISTRACTED_RED_DMG_PER_ATTR * armory;
-        speed = Consts.Weapons.DISTRACTED_RED_SPEED_PER_ATTR * armory;
+        speed = Consts.Weapons.DISTRACTED_RED_SPEED_PER_ATTR * (10 + armory);
         energyCost = Consts.Weapons.DISTRACTED_RED_COST_PER_ATTR * armory;
     }
 

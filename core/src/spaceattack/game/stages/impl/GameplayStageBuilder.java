@@ -127,37 +127,42 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
         weaponController = new PlayerWeaponController();
         missilesLauncher = new MissilesLauncher(stage);
         primaryWeapon = createPrimaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY),
-                gameProgress.getImprovements().get(Improvement.RED_LASER_MASTERY));
+                gameProgress.getImprovements().get(Improvement.RED_LASER_MASTERY),
+                gameProgress.getImprovements().get(Improvement.SNIPER));
         greenLaser = createSecondaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY),
-                gameProgress.getImprovements().get(Improvement.GREEN_LASER_MASTERY));
+                gameProgress.getImprovements().get(Improvement.GREEN_LASER_MASTERY),
+                gameProgress.getImprovements().get(Improvement.SNIPER));
         primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
         secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
         enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
     }
 
-    IWeapon createPrimaryWeapon(final int armory, final int redLaserMastery) {
+    IWeapon createPrimaryWeapon(final int armory, final int redLaserMastery, final int speedFactor) {
 
         if (redLaserMastery >= 8) {
             return WeaponsFactory.INSTANCE.createMassiveRedLaser(weaponController, missilesLauncher, armory,
-                    redLaserMastery);
+                    redLaserMastery, speedFactor);
         }
 
         if (redLaserMastery >= 4) {
             return WeaponsFactory.INSTANCE.createDoubleRedLaser(weaponController, missilesLauncher, armory,
-                    redLaserMastery);
+                    redLaserMastery, speedFactor);
         }
 
-        return WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher, armory, redLaserMastery);
+        return WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher, armory, redLaserMastery,
+                speedFactor);
     }
 
-    protected final IWeapon createSecondaryWeapon(final int armory, final int greenLaserMastery) {
+    protected final IWeapon createSecondaryWeapon(final int armory, final int greenLaserMastery,
+            final int speedFactor) {
 
         if (greenLaserMastery >= 5) {
             return WeaponsFactory.INSTANCE.createTripleGreenLaser(weaponController, missilesLauncher, armory,
-                    greenLaserMastery);
+                    greenLaserMastery, speedFactor);
         }
 
-        return WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher, armory, greenLaserMastery);
+        return WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher, armory, greenLaserMastery,
+                speedFactor);
     }
 
     protected abstract EnemyBase createEnemyBase(IUtils utils);

@@ -42,7 +42,7 @@ public class RedLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        redLaser = new RedLaser(5, 0);
+        redLaser = new RedLaser(5, 0, 0);
 
         redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
         redLaser.setController(controller);
@@ -81,7 +81,7 @@ public class RedLaserTest {
         Missile missile = redLaser.buildMissile();
 
         assertEquals(10, missile.getDmg(), 0);
-        assertEquals(10, missile.getSpeed(), 0);
+        assertEquals(15, missile.getSpeed(), 0);
         assertEquals(0, missile.getAcceleration(), 0);
     }
 
@@ -96,7 +96,7 @@ public class RedLaserTest {
     @Test
     public void masteryIsIncreasingDamane() {
 
-        redLaser = new RedLaser(5, 3);
+        redLaser = new RedLaser(5, 3, 0);
 
         redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
         redLaser.setController(controller);
@@ -105,5 +105,19 @@ public class RedLaserTest {
         Missile missile = redLaser.buildMissile();
 
         assertEquals(16, missile.getDmg(), 0);
+    }
+
+    @Test
+    public void sniperMasteryIsIncreasingSpeed() {
+
+        redLaser = new RedLaser(10, 0, 5);
+
+        redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
+        redLaser.setController(controller);
+        redLaser.setMissilesLauncher(launcher);
+
+        Missile missile = redLaser.buildMissile();
+
+        assertEquals(30, missile.getSpeed(), 0);
     }
 }

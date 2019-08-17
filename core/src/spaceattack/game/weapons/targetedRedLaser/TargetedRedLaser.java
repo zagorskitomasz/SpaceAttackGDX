@@ -21,7 +21,7 @@ public class TargetedRedLaser extends Laser {
     TargetedRedLaser(final int armory) {
 
         dmg = Consts.Weapons.TRED_LASER_DMG_PER_ATTR * armory;
-        speed = Consts.Weapons.TRED_LASER_SPEED_PER_ATTR * armory;
+        speed = Consts.Weapons.TRED_LASER_SPEED_PER_ATTR * (10 + armory);
         energyCost = Consts.Weapons.TRED_LASER_COST_PER_ATTR * armory;
     }
 

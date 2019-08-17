@@ -44,7 +44,7 @@ public class TripleGreenLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        tripleGreenLaser = new TripleGreenLaser(10, 0);
+        tripleGreenLaser = new TripleGreenLaser(10, 0, 0);
 
         tripleGreenLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
         tripleGreenLaser.setController(controller);

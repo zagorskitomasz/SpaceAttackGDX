@@ -9,10 +9,11 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class GreenLaser extends Laser {
 
-    protected GreenLaser(final int armory, final int mastery) {
+    protected GreenLaser(final int armory, final int mastery, final int speedFactor) {
 
         dmg = Consts.Weapons.GREEN_LASER_DMG_PER_ATTR * armory * (1 + Consts.Weapons.DAMAGE_MASTERY_FACTOR * mastery);
-        speed = Consts.Weapons.GREEN_LASER_SPEED_PER_ATTR * armory;
+        speed = Consts.Weapons.GREEN_LASER_SPEED_PER_ATTR * (10 + armory)
+                * (1 + Consts.Weapons.SPEED_FACTOR * speedFactor);
         energyCost = Consts.Weapons.GREEN_LASER_COST_PER_ATTR * armory;
     }
 

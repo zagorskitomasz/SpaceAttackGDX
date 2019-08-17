@@ -55,7 +55,11 @@ public class GdxMusic implements IMusic {
     @Override
     public void setVolume(float volume) {
 
-        music.setVolume(volume);
+        try {
+            music.setVolume(volume);
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
