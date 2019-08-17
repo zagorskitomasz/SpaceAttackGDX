@@ -44,7 +44,7 @@ public class DoubleRedLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        laser = new DoubleRedLaser(10);
+        laser = new DoubleRedLaser(10, 0);
 
         laser.setUtils(ExtUtilsFactory.INSTANCE.create());
         laser.setController(controller);

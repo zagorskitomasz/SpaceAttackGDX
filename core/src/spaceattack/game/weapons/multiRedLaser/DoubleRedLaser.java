@@ -7,11 +7,11 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class DoubleRedLaser extends MultiShotRedLaser {
 
-    DoubleRedLaser(final int armory) {
+    DoubleRedLaser(final int armory, final int mastery) {
 
         super(armory);
 
-        dmg = Consts.Weapons.DOUBLE_RED_DMG_PER_ATTR * armory;
+        dmg = Consts.Weapons.DOUBLE_RED_DMG_PER_ATTR * armory * (1 + Consts.Weapons.DAMAGE_MASTERY_FACTOR * mastery);
         speed = Consts.Weapons.DOUBLE_RED_SPEED_PER_ATTR * armory;
         energyCost = Consts.Weapons.DOUBLE_RED_COST_PER_ATTR * armory;
     }

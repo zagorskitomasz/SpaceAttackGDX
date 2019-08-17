@@ -9,9 +9,9 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class RedLaser extends Laser {
 
-    protected RedLaser(final int armory) {
+    protected RedLaser(final int armory, final int mastery) {
 
-        dmg = Consts.Weapons.RED_LASER_DMG_PER_ATTR * armory;
+        dmg = Consts.Weapons.RED_LASER_DMG_PER_ATTR * armory * (1 + Consts.Weapons.DAMAGE_MASTERY_FACTOR * mastery);
         speed = Consts.Weapons.RED_LASER_SPEED_PER_ATTR * armory;
         energyCost = Consts.Weapons.RED_LASER_COST_PER_ATTR * armory;
     }

@@ -10,14 +10,20 @@ public enum DoubleRedLaserBuilder {
     INSTANCE;
 
     public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
-            final int armory) {
+            final int armory, final int mastery) {
 
-        Laser redLaser = new DoubleRedLaser(armory);
+        Laser redLaser = new DoubleRedLaser(armory, mastery);
 
         redLaser.setUtils(Factories.getUtilsFactory().create());
         redLaser.setController(weaponController);
         redLaser.setMissilesLauncher(missilesLauncher);
 
         return redLaser;
+    }
+
+    public IWeapon build(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
+            final int armory) {
+
+        return build(weaponController, missilesLauncher, armory, 0);
     }
 }

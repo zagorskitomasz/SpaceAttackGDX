@@ -88,6 +88,8 @@ public class Consts {
         public static final long SLOW_MINE_DELAY = 7000;
         public static final long MINE_OVERHEAT_DELAY = 500;
         public static final float FLYING_MINE_SPEED = 3;
+
+        public static final float DAMAGE_MASTERY_FACTOR = 0.2f;
     }
 
     public static class Gameplay {

@@ -47,12 +47,6 @@ public abstract class Act5StageBuilder extends GameplayStageBuilder {
     }
 
     @Override
-    public IWeapon createPrimaryWeapon(final int armory) {
-
-        return WeaponsFactory.INSTANCE.createMassiveRedLaser(weaponController, missilesLauncher, armory);
-    }
-
-    @Override
     protected IWeapon createSecondaryWeapon(final int armory) {
 
         return WeaponsFactory.INSTANCE.createTripleGreenLaser(weaponController, missilesLauncher, armory);

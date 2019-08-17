@@ -42,7 +42,7 @@ public class RedLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        redLaser = new RedLaser(5);
+        redLaser = new RedLaser(5, 0);
 
         redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
         redLaser.setController(controller);
@@ -91,5 +91,19 @@ public class RedLaserTest {
         doReturn(false).when(controller).takeEnergy(anyFloat());
         redLaser.use();
         verify(launcher, times(0)).launch(any(Missile.class));
+    }
+
+    @Test
+    public void masteryIsIncreasingDamane() {
+
+        redLaser = new RedLaser(5, 3);
+
+        redLaser.setUtils(ExtUtilsFactory.INSTANCE.create());
+        redLaser.setController(controller);
+        redLaser.setMissilesLauncher(launcher);
+
+        Missile missile = redLaser.buildMissile();
+
+        assertEquals(16, missile.getDmg(), 0);
     }
 }

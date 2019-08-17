@@ -19,6 +19,7 @@ import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.MissionInputHandler;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.enemy.EnemyShipsFactory;
 import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.ships.pools.ExperiencePool;
@@ -37,6 +38,7 @@ import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
+import spaceattack.game.weapons.WeaponsFactory;
 
 public abstract class GameplayStageBuilder implements IStageBuilder {
 
@@ -124,14 +126,28 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
         processor = new MissionInputHandler();
         weaponController = new PlayerWeaponController();
         missilesLauncher = new MissilesLauncher(stage);
-        primaryWeapon = createPrimaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY));
+        primaryWeapon = createPrimaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY),
+                gameProgress.getImprovements().get(Improvement.RED_LASER_MASTERY));
         greenLaser = createSecondaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY));
         primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
         secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
         enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
     }
 
-    protected abstract IWeapon createPrimaryWeapon(final int armory);
+    IWeapon createPrimaryWeapon(final int armory, final int redLaserMastery) {
+
+        if (redLaserMastery >= 8) {
+            return WeaponsFactory.INSTANCE.createMassiveRedLaser(weaponController, missilesLauncher, armory,
+                    redLaserMastery);
+        }
+
+        if (redLaserMastery >= 4) {
+            return WeaponsFactory.INSTANCE.createDoubleRedLaser(weaponController, missilesLauncher, armory,
+                    redLaserMastery);
+        }
+
+        return WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher, armory, redLaserMastery);
+    }
 
     protected abstract IWeapon createSecondaryWeapon(final int armory);
 
