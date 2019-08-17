@@ -1,7 +1,10 @@
 package spaceattack.game.engines;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.doReturn;
+
+import java.util.function.Predicate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,13 +25,16 @@ public class InputShipEngineTest {
     @Mock
     private IAccelerator accelerator;
 
+    @Mock
+    private Predicate<Float> energyFunction;
+
     private IShip ship;
 
     @Before
     public void setUp() {
 
         ship = new FakeShip();
-        engine = new InputShipEngine(ship, 10);
+        engine = new InputShipEngine(ship, 10, null, 0);
         MockitoAnnotations.initMocks(this);
     }
 
@@ -260,5 +266,40 @@ public class InputShipEngineTest {
         doReturn(15f).when(accelerator).getHorizontalAcceleration();
 
         assertEquals(IShip.Turn.FRONT, engine.fly());
+    }
+
+    @Test
+    public void sprinterShipWillSpeedUpWhenEnoughEnergy() {
+
+        engine = new InputShipEngine(ship, 10, energyFunction, 8);
+        engine.setAccelerator(accelerator);
+
+        ship.setX(400);
+        ship.setY(400);
+        doReturn(100f).when(accelerator).getVerticalAcceleration();
+        doReturn(true).when(energyFunction).test(anyFloat());
+
+        engine.fly();
+        engine.fly();
+        engine.fly();
+
+        assertEquals(423.4, ship.getY(), 0.01);
+    }
+
+    @Test
+    public void sprinterShipWontSpeedUpWhenNotEnoughEnergy() {
+
+        engine = new InputShipEngine(ship, 10, energyFunction, 8);
+        engine.setAccelerator(accelerator);
+
+        ship.setY(400);
+        doReturn(100f).when(accelerator).getVerticalAcceleration();
+        doReturn(false).when(energyFunction).test(anyFloat());
+
+        engine.fly();
+        engine.fly();
+        engine.fly();
+
+        assertEquals(406, ship.getY(), 0.01);
     }
 }

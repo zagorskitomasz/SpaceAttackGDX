@@ -87,8 +87,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
 
         addSystemDependencies();
         addGameProgress();
-        initComponents();
         initPools();
+        initComponents();
         initAI();
         buildShip();
         configureInputProcessor();
@@ -121,8 +121,9 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
 
         playersShip = new PlayerShip();
         playersShip.setAttributes(gameProgress.getAttributes());
+        playersShip.setImprovements(gameProgress.getImprovements());
         accelerator = AcceleratorFactory.INSTANCE.create();
-        engine = ShipEngineBuilder.INSTANCE.createInputEngine(playersShip, accelerator);
+        engine = ShipEngineBuilder.INSTANCE.createInputEngine(playersShip, accelerator, energyPool::take);
         processor = new MissionInputHandler();
         weaponController = new PlayerWeaponController();
         missilesLauncher = new MissilesLauncher(stage);

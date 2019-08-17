@@ -91,6 +91,7 @@ public class Consts {
 
         public static final float DAMAGE_MASTERY_FACTOR = 0.2f;
         public static final float SPEED_FACTOR = 0.1f;
+        public static final int BASE_AMMO = 3;
     }
 
     public static class Gameplay {
@@ -146,6 +147,7 @@ public class Consts {
         public static final float ENERGY_PER_ATTR = 10;
         public static final float ENERGY_REGEN_PER_ATTR = 2f;
         public static final float REGEN_MASTERY_FACTOR = 0.2f;
+        public static final float SPEED_FACTOR = 0.2f;
     }
 
     public static class Explosions {

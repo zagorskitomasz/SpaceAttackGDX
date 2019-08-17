@@ -9,6 +9,7 @@ import spaceattack.game.actors.interfaces.PowerUpConsumer;
 import spaceattack.game.actors.interfaces.RequiredOnStage;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.rpg.Attributes;
+import spaceattack.game.rpg.Improvements;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.Ship;
 import spaceattack.game.system.graphics.ITexture;
@@ -17,6 +18,7 @@ public class PlayerShip extends Ship implements RequiredOnStage, PowerUpConsumer
 
     private Map<IShip.Turn, ITexture> textures;
     private Attributes attributes;
+    private Improvements improvements;
 
     @Override
     public void setActor(final IActor actor) {
@@ -60,5 +62,16 @@ public class PlayerShip extends Ship implements RequiredOnStage, PowerUpConsumer
     public void setAttributes(final Attributes attributes) {
 
         this.attributes = attributes;
+    }
+
+    @Override
+    public Improvements getImprovements() {
+
+        return improvements;
+    }
+
+    public void setImprovements(final Improvements improvements) {
+
+        this.improvements = improvements;
     }
 }

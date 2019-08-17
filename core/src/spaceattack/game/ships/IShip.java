@@ -10,6 +10,7 @@ import spaceattack.game.actors.interfaces.Ignitable;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.rpg.Attributes;
+import spaceattack.game.rpg.Improvements;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.utils.vector.IVector;
@@ -62,4 +63,9 @@ public interface IShip extends Ignitable, Freezable, IGameActor, RadarVisible, E
     void setTemporalImmortalityChecker(BooleanSupplier checker);
 
     Attributes getAttributes();
+
+    default Improvements getImprovements() {
+
+        return new Improvements();
+    }
 }
