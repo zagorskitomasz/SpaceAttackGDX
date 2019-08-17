@@ -44,6 +44,7 @@ public class ControlBar implements IActorsContainer {
         Runnable decreaseAction = builder.getDecreaseAction();
         Runnable increaseAction = builder.getIncreaseAction();
         int minValue = builder.getMinValue();
+        int maxValue = builder.getMaxValue();
 
         BooleanSupplier enablityPredicate = builder.getEnablityPredicate() != null ? builder.getEnablityPredicate()
                 : () -> true;
@@ -102,7 +103,8 @@ public class ControlBar implements IActorsContainer {
         stage.addButtonsEnabledPredicate(decreaserButton,
                 button -> enablityPredicate.getAsBoolean() && valueSupplier.get() > minValue);
         stage.addButtonsEnabledPredicate(increaserButton,
-                button -> enablityPredicate.getAsBoolean() && freePointsSupplier.get() > 0);
+                button -> enablityPredicate.getAsBoolean() && freePointsSupplier.get() > 0
+                        && valueSupplier.get() < maxValue);
     }
 
     private IButton actionButton(final UIStage stage, final String details,
@@ -158,6 +160,7 @@ public class ControlBar implements IActorsContainer {
         private Runnable decreaseAction;
         private Runnable increaseAction;
         private int minValue;
+        private int maxValue;
 
         private BooleanSupplier enablityPredicate;
         private boolean compactLine;
@@ -314,6 +317,17 @@ public class ControlBar implements IActorsContainer {
         public Builder withMinValue(final int minValue) {
 
             this.minValue = minValue;
+            return this;
+        }
+
+        public int getMaxValue() {
+
+            return maxValue;
+        }
+
+        public Builder withMaxValue(final int maxValue) {
+
+            this.maxValue = maxValue;
             return this;
         }
 

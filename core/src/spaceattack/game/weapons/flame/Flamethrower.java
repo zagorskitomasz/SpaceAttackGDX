@@ -72,7 +72,7 @@ public class Flamethrower extends AbstractWeapon {
         flame.setActor(Factories.getActorFactory().create(flame));
         flame.setAnimation(
                 controller.isPlayer() ? Animations.FLAME_P.getAnimation() : Animations.FLAME_E.getAnimation());
-        flame.setDmg(dmg);
+        flame.setDmg(dmg * controller.getDamageFactor());
         flame.setEnergyCost(getEnergyCost());
         flame.setPositionSupplier(() -> {
             IVector basePosition = controller.getShip().getPosition();
@@ -90,7 +90,7 @@ public class Flamethrower extends AbstractWeapon {
 
     float getDmg() {
 
-        return dmg;
+        return dmg * controller.getDamageFactor();
     }
 
     @Override

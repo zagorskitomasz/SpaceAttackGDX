@@ -41,7 +41,7 @@ public class TargetedRedLaser extends Laser {
 
         missile.setActor(Factories.getActorFactory().create(missile));
         missile.setTexture(texture.getTexture());
-        missile.setDmg(dmg);
+        missile.setDmg(dmg * controller.getDamageFactor());
         missile.setSpeed(speed);
         missile.setAcceleration(0);
         missile.setMovement(movement);

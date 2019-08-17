@@ -52,7 +52,7 @@ public class Miner extends AbstractWeapon {
         missile.setPosition(controller.getSecondaryWeaponUsePlacement());
         missile.setRadius(Consts.Weapons.MINE_RADIUS);
         missile.setSound(Sounds.MINE);
-        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(dmg));
+        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(dmg * controller.getDamageFactor()));
         missile.setMissilesLauncher(launcher);
         missile.setPlayersAttack(controller.isPlayer());
 
@@ -61,6 +61,6 @@ public class Miner extends AbstractWeapon {
 
     float getDmg() {
 
-        return dmg;
+        return dmg * controller.getDamageFactor();
     }
 }

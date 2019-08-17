@@ -15,6 +15,8 @@ import org.mockito.MockitoAnnotations;
 import spaceattack.ext.vector.ExtVectorFactory;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Improvement;
+import spaceattack.game.rpg.Improvements;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.utils.vector.IVectorFactory;
 
@@ -36,6 +38,8 @@ public class PlayerWeaponControllerTest {
 
     private IVectorFactory factory;
 
+    private Improvements imps;
+
     @Before
     public void setUp() {
 
@@ -47,6 +51,10 @@ public class PlayerWeaponControllerTest {
         controller = new PlayerWeaponController();
         controller.setShip(ship);
         controller.setPrimaryWeapon(primaryWeapon);
+
+        imps = new Improvements();
+        imps.addFreePoints(10);
+        doReturn(imps).when(ship).getImprovements();
     }
 
     @Test
@@ -98,5 +106,39 @@ public class PlayerWeaponControllerTest {
         doReturn(false).when(ship).takeEnergy(anyFloat());
 
         assertFalse(controller.isContinuousFireTriggered(100));
+    }
+
+    @Test
+    public void usingAdrenalineToMultiplyDamageOnLowHp() {
+
+        doReturn(true).when(ship).hpBelowHalf();
+        imps.increase(Improvement.ADRENALINE);
+        imps.increase(Improvement.ADRENALINE);
+
+        float factor = controller.getDamageFactor();
+
+        assertEquals(1.4f, factor, 0.1);
+    }
+
+    @Test
+    public void dontIncreaseAdrenalineDmgWhenHighHp() {
+
+        doReturn(false).when(ship).hpBelowHalf();
+        imps.increase(Improvement.ADRENALINE);
+        imps.increase(Improvement.ADRENALINE);
+
+        float factor = controller.getDamageFactor();
+
+        assertEquals(1f, factor, 0.1);
+    }
+
+    @Test
+    public void dontIncreaseLowHpDmgNoAdrenaline() {
+
+        doReturn(true).when(ship).hpBelowHalf();
+
+        float factor = controller.getDamageFactor();
+
+        assertEquals(1f, factor, 0.1);
     }
 }

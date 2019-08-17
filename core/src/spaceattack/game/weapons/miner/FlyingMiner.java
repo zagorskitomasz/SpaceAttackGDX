@@ -55,7 +55,7 @@ public class FlyingMiner extends AbstractWeapon {
         missile.setTargetCoordsSupplier(controller::getTargetCoords);
         missile.setRadius(Consts.Weapons.MINE_RADIUS);
         missile.setSound(Sounds.MINE);
-        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(dmg));
+        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(dmg * controller.getDamageFactor()));
         missile.setMissilesLauncher(launcher);
         missile.setPlayersAttack(controller.isPlayer());
 
@@ -64,7 +64,7 @@ public class FlyingMiner extends AbstractWeapon {
 
     float getDmg() {
 
-        return dmg;
+        return dmg * controller.getDamageFactor();
     }
 
     public void increaseDelay() {

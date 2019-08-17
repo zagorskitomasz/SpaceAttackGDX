@@ -19,6 +19,8 @@ import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Improvement;
+import spaceattack.game.rpg.Improvements;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
@@ -84,6 +86,10 @@ public class PlayerShipTest {
         ship.setExplosion(explosion);
         ship.setMissilesLauncher(launcher);
         ship.setBurner(burner);
+
+        Improvements imps = new Improvements();
+        imps.addFreePoints(10);
+        ship.setImprovements(imps);
     }
 
     @Test
@@ -166,5 +172,44 @@ public class PlayerShipTest {
         ship.act(0);
 
         verify(burner).burn(0);
+    }
+
+    @Test
+    public void additionalSpeedFactorFromAdrenalineWhenLowHp() {
+
+        doReturn(10f).when(hpPool).getAmount();
+        doReturn(30f).when(hpPool).getMaxAmount();
+
+        ship.getImprovements().increase(Improvement.ADRENALINE);
+        ship.getImprovements().increase(Improvement.ADRENALINE);
+
+        float factor = ship.getAdditionalSpeedFactor();
+
+        assertEquals(1.4f, factor, 0);
+    }
+
+    @Test
+    public void noAdditionalSpeedFactorFromAdrenalineWhenHighHp() {
+
+        doReturn(20f).when(hpPool).getAmount();
+        doReturn(30f).when(hpPool).getMaxAmount();
+
+        ship.getImprovements().increase(Improvement.ADRENALINE);
+        ship.getImprovements().increase(Improvement.ADRENALINE);
+
+        float factor = ship.getAdditionalSpeedFactor();
+
+        assertEquals(1f, factor, 0);
+    }
+
+    @Test
+    public void noAdditionalLowHpSpeedFactorWhenNoAdrenaline() {
+
+        doReturn(10f).when(hpPool).getAmount();
+        doReturn(30f).when(hpPool).getMaxAmount();
+
+        float factor = ship.getAdditionalSpeedFactor();
+
+        assertEquals(1f, factor, 0);
     }
 }

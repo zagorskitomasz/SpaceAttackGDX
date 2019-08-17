@@ -60,6 +60,7 @@ public enum ControlBarBuilder {
                 .withIntervalYPos(0.06f)
                 .withLineIndex(lineIndex)
                 .withMinValue(Improvement.MIN_VALUE)
+                .withMaxValue(Improvement.MAX_VALUE)
                 .withName(improvement.getName())
                 .withStage(stage)
                 .withEnablityPredicate(() -> stage.getGameProgress().getLevel() >= improvement.getLevelRequired())

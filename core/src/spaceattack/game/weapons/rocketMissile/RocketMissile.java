@@ -54,7 +54,7 @@ public class RocketMissile extends AbstractWeapon {
         missile.setPosition(controller.getSecondaryWeaponUsePlacement());
         missile.setRadius(Consts.Weapons.ROCKET_RADIUS);
         missile.setSound(Sounds.ROCKET_MISSILE);
-        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMissileExplosion(dmg));
+        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMissileExplosion(dmg * controller.getDamageFactor()));
         missile.setMissilesLauncher(launcher);
         missile.setPlayersAttack(controller.isPlayer());
 
@@ -63,6 +63,6 @@ public class RocketMissile extends AbstractWeapon {
 
     float getDmg() {
 
-        return dmg;
+        return dmg * controller.getDamageFactor();
     }
 }

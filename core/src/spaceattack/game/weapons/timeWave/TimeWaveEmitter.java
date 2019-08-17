@@ -45,7 +45,7 @@ public class TimeWaveEmitter extends AbstractWeapon {
         wave.setAnimation(Animations.TIME_WAVE.getAnimation());
         wave.setPositionSupplier(() -> controller.getShip().getPosition());
         wave.setSound(Sounds.TIME_WAVE);
-        wave.setDmg(dmg);
+        wave.setDmg(dmg * controller.getDamageFactor());
         wave.setPlayersAttack(controller.isPlayer());
 
         return wave;

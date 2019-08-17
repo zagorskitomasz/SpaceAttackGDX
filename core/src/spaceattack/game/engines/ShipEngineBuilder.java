@@ -24,7 +24,7 @@ public enum ShipEngineBuilder {
             final Predicate<Float> energySource) {
 
         InputShipEngine engine = new InputShipEngine(ship, ship.getAttributes().get(Attribute.ENGINE),
-                energySource, ship.getImprovements().get(Improvement.SPRINTER));
+                energySource, ship.getImprovements().get(Improvement.SPRINTER), ship::getAdditionalSpeedFactor);
         engine.setAccelerator(accelerator);
 
         return engine;

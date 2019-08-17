@@ -3,12 +3,14 @@ package spaceattack.game.ships.player;
 import java.util.HashMap;
 import java.util.Map;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.interfaces.PowerUpConsumer;
 import spaceattack.game.actors.interfaces.RequiredOnStage;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.rpg.Attributes;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.rpg.Improvements;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.Ship;
@@ -73,5 +75,16 @@ public class PlayerShip extends Ship implements RequiredOnStage, PowerUpConsumer
     public void setImprovements(final Improvements improvements) {
 
         this.improvements = improvements;
+    }
+
+    @Override
+    public float getAdditionalSpeedFactor() {
+
+        float factor = 1;
+
+        if (hpBelowHalf()) {
+            factor += improvements.get(Improvement.ADRENALINE) * Consts.Pools.SPEED_FACTOR;
+        }
+        return factor;
     }
 }

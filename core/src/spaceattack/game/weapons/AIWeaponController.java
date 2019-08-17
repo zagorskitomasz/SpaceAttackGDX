@@ -161,4 +161,10 @@ public class AIWeaponController extends AbstractWeaponController {
         }
         return null;
     }
+
+    @Override
+    public float getDamageFactor() {
+
+        return 1;
+    }
 }

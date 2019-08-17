@@ -16,7 +16,8 @@ public enum Improvement implements Information {
     ABSORBER("Absorber", "Transforms damage taken into energy", 15),
     FEAR("Fear", "Chance that hurt enemies\nwill escape", 20),
     BERSERKER("Berserker",
-            "You are slow, but each killed enemy\nstrongly increases your damage\nand speed for short time", 20);
+            "You are slow, but each killed enemy\nstrongly increases your damage\nregen and missiles speed for short time",
+            20);
 
     public static final int MIN_VALUE = 0;
     public static final int MAX_VALUE = 10;

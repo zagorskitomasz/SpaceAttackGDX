@@ -1,6 +1,7 @@
 package spaceattack.game.engines;
 
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
@@ -18,11 +19,12 @@ public class InputShipEngine extends AbstractShipEngine {
     float currentSpeedHorizontal;
     float currentSpeedVertical;
 
+    private final Supplier<Float> additionalSpeedFactor;
     private final Predicate<Float> energySource;
     private final int sprintFactor;
 
     public InputShipEngine(final IShip ship, final int engineAttr, final Predicate<Float> energySource,
-            final int sprintFactor) {
+            final int sprintFactor, final Supplier<Float> additionalSpeedFactor) {
 
         super(ship);
 
@@ -35,6 +37,7 @@ public class InputShipEngine extends AbstractShipEngine {
 
         this.energySource = energySource;
         this.sprintFactor = sprintFactor;
+        this.additionalSpeedFactor = additionalSpeedFactor;
     }
 
     public void setAccelerator(final IAccelerator accelerator) {
@@ -202,6 +205,7 @@ public class InputShipEngine extends AbstractShipEngine {
         if (!isNearEdge()) {
 
             speedUp();
+            useAdditionalFactor();
         }
 
         ship.setY(ship.getY() + currentSpeedVertical);
@@ -209,11 +213,6 @@ public class InputShipEngine extends AbstractShipEngine {
 
         currentSpeedVertical = oldSpeedVertical;
         currentSpeedHorizontal = oldSpeedHorizontal;
-    }
-
-    protected boolean isNearEdge() {
-
-        return isNearLowerEdge() || isNearUpperEdge() || isNearLeftEdge() || isNearRightEdge();
     }
 
     private void speedUp() {
@@ -232,6 +231,22 @@ public class InputShipEngine extends AbstractShipEngine {
 
         currentSpeedHorizontal *= factor * 1.5;
         currentSpeedVertical *= factor * 1.5;
+    }
+
+    protected boolean isNearEdge() {
+
+        return isNearLowerEdge() || isNearUpperEdge() || isNearLeftEdge() || isNearRightEdge();
+    }
+
+    private void useAdditionalFactor() {
+
+        if (additionalSpeedFactor == null) {
+            return;
+        }
+
+        float factor = additionalSpeedFactor.get();
+        currentSpeedHorizontal *= factor;
+        currentSpeedVertical *= factor;
     }
 
     private float brakingWay(final float currentSpeed) {

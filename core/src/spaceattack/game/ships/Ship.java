@@ -10,8 +10,10 @@ import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
+import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
@@ -36,6 +38,8 @@ public abstract class Ship extends DrawableActor implements IShip {
 
     private Burner burner;
     private Freezer freezer;
+
+    private final ITexture adrenalineEffect = Textures.ADRENALINE.getTexture();
 
     @Override
     public void setTexture(final ITexture texture) {
@@ -222,6 +226,12 @@ public abstract class Ship extends DrawableActor implements IShip {
     public void draw(final IBatch batch, final float alpha) {
 
         super.draw(batch, alpha);
+
+        if (adrenalined()) {
+            batch.draw(adrenalineEffect, getX() - adrenalineEffect.getWidth() / 2,
+                    getY() - adrenalineEffect.getHeight() / 2);
+        }
+
         if (burner != null) {
             burner.draw(batch);
         }
@@ -229,6 +239,11 @@ public abstract class Ship extends DrawableActor implements IShip {
         if (freezer != null) {
             freezer.draw(batch);
         }
+    }
+
+    private boolean adrenalined() {
+
+        return hpBelowHalf() && getImprovements() != null && getImprovements().get(Improvement.ADRENALINE) > 0;
     }
 
     @Override
@@ -265,5 +280,11 @@ public abstract class Ship extends DrawableActor implements IShip {
     public void unfreeze() {
 
         freezer = null;
+    }
+
+    @Override
+    public boolean hpBelowHalf() {
+
+        return getHpPool().getAmount() < getHpPool().getMaxAmount() / 2;
     }
 }

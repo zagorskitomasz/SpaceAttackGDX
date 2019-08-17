@@ -182,7 +182,7 @@ public class GameProgress implements INotifier<GameProgress> {
 
         if (currentMission + 1 > getMission()) {
             setMission(currentMission + 1);
-            if (mission % 3 == 0) {
+            if (mission + 1 % 3 == 0) {
                 newWeaponAvailable = true;
             }
         }

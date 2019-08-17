@@ -68,4 +68,11 @@ public interface IShip extends Ignitable, Freezable, IGameActor, RadarVisible, E
 
         return new Improvements();
     }
+
+    default float getAdditionalSpeedFactor() {
+
+        return 1f;
+    }
+
+    boolean hpBelowHalf();
 }
