@@ -5,6 +5,7 @@ import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
@@ -134,7 +135,8 @@ public enum FighterShipBuilder {
 
     private IEnemyShip build(final GameplayStage stage) {
 
-        IEnemyShip fighter = new BaseEnemyShip(Consts.AttributesStarters.FIGHTER.get(stage.getCurrentMission()));
+        IEnemyShip fighter = new BaseEnemyShip(Consts.AttributesStarters.FIGHTER.get(stage.getCurrentMission()),
+                stage.getGameProgress().getImprovements().get(Improvement.FEAR));
         IEngine engine = ShipEngineBuilder.INSTANCE.createFighterEngine(fighter);
         Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 

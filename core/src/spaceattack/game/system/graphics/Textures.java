@@ -97,6 +97,7 @@ public enum Textures {
     BOSS_HELPER_2("graphics/ships/boss/child2.png"),
 
     ADRENALINE("graphics/ships/effects/adrenaline.png"),
+    FEAR("graphics/ships/effects/fear.png"),
 
     // weapons
     RED_LASER_NS("graphics/weapons/laserNS.png"),

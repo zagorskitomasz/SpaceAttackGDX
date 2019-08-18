@@ -20,12 +20,17 @@ public class FighterEngine extends DestinationShipEngine {
     @Override
     public Turn fly() {
 
-        if (destination != null) {
+        if (!fixedDestination && destination != null) {
             destination.setY(ship.getY());
         }
 
         Turn result = super.fly();
-        ship.setY(ship.getY() - baseSpeed);
+        if (fixedDestination) {
+            ship.setY(ship.getY() > destination.getY() ? ship.getY() - baseSpeed : ship.getY() + baseSpeed);
+        }
+        else {
+            ship.setY(ship.getY() - baseSpeed);
+        }
         return result;
     }
 

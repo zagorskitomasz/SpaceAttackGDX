@@ -343,4 +343,10 @@ public class FakeShip implements IShip, IEnemyShip, IBoss {
 
         return getHpPool().getAmount() < getHpPool().getMaxAmount() / 2;
     }
+
+    @Override
+    public void forceDestination(final IVector destination) {
+
+        // do nothing
+    }
 }

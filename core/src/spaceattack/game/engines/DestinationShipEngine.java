@@ -17,6 +17,7 @@ public class DestinationShipEngine extends AbstractShipEngine {
     private IVector nextDestination;
 
     private boolean isTurning;
+    protected boolean fixedDestination = false;
 
     private final Lock lock;
 
@@ -37,6 +38,10 @@ public class DestinationShipEngine extends AbstractShipEngine {
 
         try {
             lock.lock();
+
+            if (fixedDestination) {
+                return;
+            }
 
             if (this.destination == null || isDestinationReached()) {
                 this.destination = destination;
@@ -209,5 +214,20 @@ public class DestinationShipEngine extends AbstractShipEngine {
     float getCurrentSpeed() {
 
         return currentSpeed;
+    }
+
+    @Override
+    public void forceDestination(final IVector destination) {
+
+        try {
+            lock.lock();
+            this.destination = destination;
+            isTurning = false;
+            nextDestination = null;
+            fixedDestination = true;
+        }
+        finally {
+            lock.unlock();
+        }
     }
 }

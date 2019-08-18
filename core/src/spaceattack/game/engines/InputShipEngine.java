@@ -272,4 +272,10 @@ public class InputShipEngine extends AbstractShipEngine {
 
         // do nothing
     }
+
+    @Override
+    public void forceDestination(final IVector destination) {
+
+        // do nothing
+    }
 }

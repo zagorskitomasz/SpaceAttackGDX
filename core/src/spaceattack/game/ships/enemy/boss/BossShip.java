@@ -10,7 +10,7 @@ public class BossShip extends BaseEnemyShip implements IBoss {
 
     public BossShip(final Attributes attributes) {
 
-        super(attributes);
+        super(attributes, 0);
     }
 
     private MoverType moverType;

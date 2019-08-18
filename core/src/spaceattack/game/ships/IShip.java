@@ -75,4 +75,6 @@ public interface IShip extends Ignitable, Freezable, IGameActor, RadarVisible, E
     }
 
     boolean hpBelowHalf();
+
+    void forceDestination(IVector destination);
 }

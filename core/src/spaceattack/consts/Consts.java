@@ -92,6 +92,8 @@ public class Consts {
         public static final float DAMAGE_MASTERY_FACTOR = 0.2f;
         public static final float SPEED_FACTOR = 0.1f;
         public static final int BASE_AMMO = 3;
+        public static final float FEAR_BASE = 0.2f;
+        public static final float FEAR_PER_IMP = 0.03f;
     }
 
     public static class Gameplay {

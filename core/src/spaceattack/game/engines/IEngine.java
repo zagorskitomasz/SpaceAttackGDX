@@ -7,6 +7,8 @@ public interface IEngine {
 
     void setDestination(IVector destination);
 
+    void forceDestination(IVector destination);
+
     Turn fly();
 
     boolean isDestinationReached();

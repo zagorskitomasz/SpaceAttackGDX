@@ -1,5 +1,6 @@
 package spaceattack.game.ships.enemy;
 
+import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.actors.IActor;
 import spaceattack.game.actors.interfaces.RadarVisible;
@@ -8,9 +9,12 @@ import spaceattack.game.ai.ShooterAI;
 import spaceattack.game.ai.movers.MoverType;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.batch.IBatch;
+import spaceattack.game.factories.Factories;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.rpg.Attributes;
 import spaceattack.game.ships.Ship;
+import spaceattack.game.system.graphics.ITexture;
+import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.missiles.Freezer;
 
@@ -25,10 +29,21 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
 
     private EnemyBar bar;
     private final Attributes attributes;
+    private float fearFactor;
+    private boolean feared;
+    private final ITexture fearEffect = Textures.FEAR.getTexture();
 
-    public BaseEnemyShip(final Attributes attributes) {
+    public BaseEnemyShip(final Attributes attributes, final float fear) {
 
         this.attributes = attributes;
+        initFear(fear);
+    }
+
+    protected void initFear(final float fear) {
+
+        if (fear > 0) {
+            fearFactor = Consts.Weapons.FEAR_BASE + Consts.Weapons.FEAR_PER_IMP * (fear - 1);
+        }
     }
 
     @Override
@@ -108,6 +123,11 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
 
         super.draw(batch, alpha);
 
+        if (feared) {
+            batch.draw(fearEffect, getX() - fearEffect.getWidth() / 2,
+                    getY() - fearEffect.getHeight() / 2);
+        }
+
         if (bar != null) {
             bar.draw(batch);
         }
@@ -156,5 +176,30 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     public Attributes getAttributes() {
 
         return attributes;
+    }
+
+    @Override
+    public void takeDmg(final float dmg) {
+
+        super.takeDmg(dmg);
+        fear();
+    }
+
+    private void fear() {
+
+        if (feared()) {
+            feared = true;
+            escape();
+        }
+    }
+
+    private boolean feared() {
+
+        return fearFactor > Math.random();
+    }
+
+    private void escape() {
+
+        forceDestination(Factories.getVectorFactory().create(getX(), Sizes.GAME_HEIGHT * 2));
     }
 }

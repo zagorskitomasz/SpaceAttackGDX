@@ -68,6 +68,14 @@ public abstract class Ship extends DrawableActor implements IShip {
     }
 
     @Override
+    public void forceDestination(final IVector destination) {
+
+        if (engine != null) {
+            engine.forceDestination(destination);
+        }
+    }
+
+    @Override
     public void setEnergyPool(final IPool pool) {
 
         energyPool = pool;

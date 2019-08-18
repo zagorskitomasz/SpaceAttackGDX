@@ -160,7 +160,7 @@ public class ControlBar implements IActorsContainer {
         private Runnable decreaseAction;
         private Runnable increaseAction;
         private int minValue;
-        private int maxValue;
+        private int maxValue = Integer.MAX_VALUE;
 
         private BooleanSupplier enablityPredicate;
         private boolean compactLine;

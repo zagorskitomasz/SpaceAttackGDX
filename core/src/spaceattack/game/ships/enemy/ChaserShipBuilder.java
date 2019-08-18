@@ -5,6 +5,7 @@ import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.ships.pools.Pool;
@@ -187,7 +188,8 @@ public enum ChaserShipBuilder {
 
     private IEnemyShip build(final GameplayStage stage) {
 
-        IEnemyShip chaser = new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()));
+        IEnemyShip chaser = new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()),
+                stage.getGameProgress().getImprovements().get(Improvement.FEAR));
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(chaser);
         Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 
