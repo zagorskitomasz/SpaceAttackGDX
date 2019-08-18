@@ -148,6 +148,8 @@ public class Consts {
         public static final float ENERGY_REGEN_PER_ATTR = 2f;
         public static final float REGEN_MASTERY_FACTOR = 0.2f;
         public static final float SPEED_FACTOR = 0.2f;
+        public static final float ABSORBING_BASE = 0.5f;
+        public static final float ABSORBING_FACTOR = 0.15f;
     }
 
     public static class Explosions {

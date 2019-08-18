@@ -2,6 +2,7 @@ package spaceattack.game.ships.pools;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import spaceattack.game.system.notifiers.IObserver;
 
@@ -11,6 +12,9 @@ public abstract class AbstractPool implements IPool {
 
     protected float maxAmount;
     protected float amount;
+
+    protected Consumer<Float> absorber;
+    protected float absorbingFactor;
 
     public AbstractPool() {
 
@@ -62,5 +66,12 @@ public abstract class AbstractPool implements IPool {
     public void regen(final float amount) {
 
         this.amount = Math.min(this.amount + amount, maxAmount);
+    }
+
+    @Override
+    public void setAbsorber(final Consumer<Float> absorber, final float factor) {
+
+        this.absorber = absorber;
+        this.absorbingFactor = factor;
     }
 }

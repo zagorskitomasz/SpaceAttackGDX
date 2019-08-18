@@ -24,6 +24,7 @@ import spaceattack.game.rpg.Improvements;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
+import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
@@ -65,6 +66,7 @@ public class PlayerShipTest {
     @Before
     public void setUp() {
 
+        Textures.loadForTest();
         Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
         MockitoAnnotations.initMocks(this);
 

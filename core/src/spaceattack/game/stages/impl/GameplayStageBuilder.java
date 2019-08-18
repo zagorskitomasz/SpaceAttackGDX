@@ -194,8 +194,12 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
         expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
         energyPool = new Pool(gameProgress.getAttributes().get(Attribute.BATTERY),
                 gameProgress.getImprovements().get(Improvement.REGENERATION));
+
         hpPool = new HpPool(gameProgress.getAttributes().get(Attribute.SHIELDS),
                 gameProgress.getImprovements().get(Improvement.REGENERATION));
+
+        setAbsorber();
+
         hpPool.setImmunityChecker(stage::isGameOver);
         // hpPool.addTemporalInfinityChecker(() -> true);
         // TODO immortal ship for test purposes;
@@ -205,6 +209,19 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
         hpEnergyBar = BarBuilder.INSTANCE.hpEnergyBar(hpPool, energyPool);
 
         stage.setExpPool(expPool);
+    }
+
+    private void setAbsorber() {
+
+        if (gameProgress.getImprovements().get(Improvement.ABSORBER) > 0) {
+            hpPool.setAbsorber(energyPool::regen, calcAbsorbing());
+        }
+    }
+
+    private float calcAbsorbing() {
+
+        return Consts.Pools.ABSORBING_BASE
+                + gameProgress.getImprovements().get(Improvement.ABSORBER) * Consts.Pools.ABSORBING_FACTOR;
     }
 
     private void initAI() {

@@ -49,6 +49,7 @@ public class RedLaserTest {
         redLaser.setMissilesLauncher(launcher);
 
         doReturn(true).when(controller).takeEnergy(anyFloat());
+        doReturn(1f).when(controller).getDamageFactor();
     }
 
     @Test

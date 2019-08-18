@@ -58,6 +58,7 @@ public class Pool extends AbstractPool {
         if (isInfinity()) {
             return true;
         }
+        absorb(amountTaken);
         if (amountTaken <= amount) {
             amount -= amountTaken;
             notifyObservers();
@@ -65,6 +66,13 @@ public class Pool extends AbstractPool {
             return true;
         }
         return false;
+    }
+
+    protected void absorb(final float amountTaken) {
+
+        if (absorber != null) {
+            absorber.accept(amountTaken * absorbingFactor);
+        }
     }
 
     @Override

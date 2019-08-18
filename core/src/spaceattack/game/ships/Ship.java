@@ -285,6 +285,6 @@ public abstract class Ship extends DrawableActor implements IShip {
     @Override
     public boolean hpBelowHalf() {
 
-        return getHpPool().getAmount() < getHpPool().getMaxAmount() / 2;
+        return getHpPool() != null && getHpPool().getAmount() < getHpPool().getMaxAmount() / 2;
     }
 }

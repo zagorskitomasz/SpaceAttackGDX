@@ -38,7 +38,7 @@ public class HpPool extends Pool {
         if (isInfinity()) {
             return true;
         }
-
+        absorb(amountTaken);
         boolean result;
 
         if (amountTaken < amount) {
