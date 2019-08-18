@@ -52,6 +52,7 @@ public abstract class EnemyBase extends InvisibleActor {
 
     protected IBoss boss;
     protected boolean isBossOnField;
+    private Runnable berserkGainer;
 
     public EnemyBase(final IUtils utils) {
 
@@ -156,6 +157,7 @@ public abstract class EnemyBase extends InvisibleActor {
         fighter.setMover(mover);
         fighter.setShooter(shooter);
         fighter.setPowerUp(powerUp);
+        fighter.setDestroyAction(berserkGainer);
 
         stage.addActorBeforeGUI(fighter);
     }
@@ -177,6 +179,7 @@ public abstract class EnemyBase extends InvisibleActor {
         chaser.setMover(mover);
         chaser.setShooter(shooter);
         chaser.setPowerUp(powerUp);
+        chaser.setDestroyAction(berserkGainer);
 
         stage.addActorBeforeGUI(chaser);
     }
@@ -208,6 +211,8 @@ public abstract class EnemyBase extends InvisibleActor {
         chaser.setMover(mover);
         chaser.setShooter(shooter);
         chaser.getHpPool().addTemporalInfinityChecker(() -> boss != null && !boss.isToKill());
+        chaser.setDestroyAction(berserkGainer);
+
         return chaser;
     }
 
@@ -232,6 +237,7 @@ public abstract class EnemyBase extends InvisibleActor {
         tank.setMover(mover);
         tank.setShooter(shooter);
         tank.setPowerUp(powerUp);
+        tank.setDestroyAction(berserkGainer);
 
         stage.addActorBeforeGUI(tank);
     }
@@ -253,6 +259,7 @@ public abstract class EnemyBase extends InvisibleActor {
         boss.setPlayerShip(radar.getPlayerShip());
         boss.setMover(mover);
         boss.setShooter(shooter);
+        boss.setDestroyAction(berserkGainer);
 
         stage.addActorBeforeGUI(boss);
     }
@@ -432,5 +439,11 @@ public abstract class EnemyBase extends InvisibleActor {
 
         return SpecialWeapons.getByName(stage.getGameProgress().getSpecialWeapon()).builder.build(controller,
                 fireButton, stage);
+    }
+
+    public EnemyBase setBerserkGainer(final Runnable berserkGainer) {
+
+        this.berserkGainer = berserkGainer;
+        return this;
     }
 }

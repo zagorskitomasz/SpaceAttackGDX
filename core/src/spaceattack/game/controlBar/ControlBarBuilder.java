@@ -4,6 +4,7 @@ import java.util.List;
 
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.stages.UIStage;
 import spaceattack.game.weapons.SpecialWeapons;
 
@@ -42,6 +43,30 @@ public enum ControlBarBuilder {
                 .withStage(stage)
                 .withUpdateActions(updateActions)
                 .withWeapon(weapon)
+                .build();
+    }
+
+    public ControlBar improvementBar(final int lineIndex, final Improvement improvement, final UIStage stage,
+            final ILabel detailsLabel, final ILabel freePointsLabel) {
+
+        return ControlBar.builder()
+                .withDecreaseAction(() -> stage.getGameProgress().getImprovements().decrease(improvement))
+                .withDetails(improvement.getDetails())
+                .withDetailsLabel(detailsLabel)
+                .withFirstLineYPos(0.76f)
+                .withFreePointsConsumer(freePointsLabel::setText)
+                .withFreePointsSupplier(() -> stage.getGameProgress().getImprovements().getFreePoints())
+                .withIncreaseAction(() -> stage.getGameProgress().getImprovements().increase(improvement))
+                .withIntervalYPos(0.06f)
+                .withLineIndex(lineIndex)
+                .withMinValue(Improvement.MIN_VALUE)
+                .withMaxValue(Improvement.MAX_VALUE)
+                .withName(improvement.getName())
+                .withStage(stage)
+                .withEnablityPredicate(() -> stage.getGameProgress().getLevel() >= improvement.getLevelRequired())
+                .withCompactLine(true)
+                .withLevelRequired(improvement.getLevelRequired())
+                .withValueSupplier(() -> stage.getGameProgress().getImprovements().get(improvement))
                 .build();
     }
 }

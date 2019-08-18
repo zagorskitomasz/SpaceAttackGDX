@@ -14,13 +14,14 @@ public class TripleGreenLaser extends GreenLaser {
 
     private final IVectorFactory vectors;
 
-    TripleGreenLaser(final int armory) {
+    TripleGreenLaser(final int armory, final int mastery, final int speedFactor) {
 
         super();
         vectors = Factories.getVectorFactory();
 
-        dmg = Consts.Weapons.TRIPLE_GREEN_DMG_PER_ATTR * armory;
-        speed = Consts.Weapons.TRIPLE_GREEN_SPEED_PER_ATTR * armory;
+        dmg = Consts.Weapons.TRIPLE_GREEN_DMG_PER_ATTR * armory * (1 + Consts.Weapons.DAMAGE_MASTERY_FACTOR * mastery);
+        speed = Consts.Weapons.TRIPLE_GREEN_SPEED_PER_ATTR * (10 + armory)
+                * (1 + Consts.Weapons.SPEED_FACTOR * speedFactor);
         energyCost = Consts.Weapons.TRIPLE_GREEN_COST_PER_ATTR * armory;
     }
 
@@ -72,8 +73,8 @@ public class TripleGreenLaser extends GreenLaser {
 
         missile.setActor(Factories.getActorFactory().create(missile));
         missile.setTexture(Textures.TURBO_LASER.getTexture());
-        missile.setDmg(dmg);
-        missile.setSpeed(speed);
+        missile.setDmg(dmg * controller.getDamageFactor());
+        missile.setSpeed(speed * controller.getMissilesSpeedFactor());
         missile.setAcceleration(0);
         missile.setMovement(controller.getWeaponMovement());
         missile.setPosition(controller.getSecondaryWeaponUsePlacement());

@@ -2,6 +2,7 @@ package spaceattack.game.controlBar;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -43,25 +44,46 @@ public class ControlBar implements IActorsContainer {
         Runnable decreaseAction = builder.getDecreaseAction();
         Runnable increaseAction = builder.getIncreaseAction();
         int minValue = builder.getMinValue();
+        int maxValue = builder.getMaxValue();
+
+        BooleanSupplier enablityPredicate = builder.getEnablityPredicate() != null ? builder.getEnablityPredicate()
+                : () -> true;
+
+        int levelRequired = builder.getLevelRequired();
+        details = enablityPredicate.getAsBoolean() ? details : "Will be unlocked at level " + levelRequired;
+
+        boolean compactLine = builder.isCompactLine();
 
         IUtils utils = Factories.getUtilsFactory().create();
 
         float lineYPos = lineYPos(lineIndex, firstLineYPos, intervalYPos);
 
-        ILabel nameLabel = utils.createMenuLabel(name, lineYPos, 0xdaa520ff);
-        ILabel valueLabel = utils.createMenuLabel(formatValue(() -> 0), lineYPos, 0xff0000ff);
+        ILabel nameLabel;
+        ILabel valueLabel;
+        if (compactLine) {
+            nameLabel = utils.createSmallMenuLabel(name, lineYPos,
+                    enablityPredicate.getAsBoolean() ? 0xff00ffff : 0x808080);
+            valueLabel = utils.createSmallMenuLabel(formatValue(() -> 0), lineYPos,
+                    enablityPredicate.getAsBoolean() ? 0xff0000ff : 0x808080);
+        }
+        else {
+            nameLabel = utils.createMenuLabel(name, lineYPos, enablityPredicate.getAsBoolean() ? 0xdaa520ff : 0x808080);
+            valueLabel = utils.createMenuLabel(formatValue(() -> 0), lineYPos,
+                    enablityPredicate.getAsBoolean() ? 0xff0000ff : 0x808080);
+        }
+
         float valueLabelWidth = valueLabel.getWidth();
         valueLabel.setText(formatValue(valueSupplier));
 
         IButton decreaserButton = actionButton(stage, details, decreaseAction,
                 freePointsSupplier, valueSupplier, valueLabel::setText, freePointsConsumer, detailsLabel, lineYPos,
-                "-");
+                "-", compactLine ? 0.8f : 1);
 
         IButton increaserButton = actionButton(stage, details, increaseAction,
                 freePointsSupplier, valueSupplier, valueLabel::setText, freePointsConsumer, detailsLabel, lineYPos,
-                "+");
+                "+", compactLine ? 0.8f : 1);
 
-        ILabel infoToucher = utils.createDetailerToucher(lineYPos, details, detailsLabel);
+        ILabel infoToucher = utils.createDetailerToucher(lineYPos, details, detailsLabel, compactLine);
 
         increaserButton.setX(Sizes.GAME_WIDTH - Sizes.GAME_WIDTH * 0.04f - increaserButton.getWidth());
         valueLabel.setX(Sizes.GAME_WIDTH - Sizes.GAME_WIDTH * 0.08f - increaserButton.getWidth()
@@ -79,21 +101,22 @@ public class ControlBar implements IActorsContainer {
         components.add(increaserButton);
 
         stage.addButtonsEnabledPredicate(decreaserButton,
-                button -> valueSupplier.get() > minValue);
+                button -> enablityPredicate.getAsBoolean() && valueSupplier.get() > minValue);
         stage.addButtonsEnabledPredicate(increaserButton,
-                button -> freePointsSupplier.get() > 0);
+                button -> enablityPredicate.getAsBoolean() && freePointsSupplier.get() > 0
+                        && valueSupplier.get() < maxValue);
     }
 
     private IButton actionButton(final UIStage stage, final String details,
             final Runnable action, final Supplier<Integer> freePointsSupplier,
             final Supplier<Integer> valueSupplier,
             final Consumer<String> valueConsumer, final Consumer<String> freePointsConsumer,
-            final ILabel detailsLabel, final float yPos, final String text) {
+            final ILabel detailsLabel, final float yPos, final String text, final float sizeFactor) {
 
         IButton button = Factories.getTextButtonFactory().create(text);
 
-        button.setPosition(0f, yPos);
-        button.setSize(Sizes.SQUARE_BUTTON_SIZE, Sizes.SQUARE_BUTTON_SIZE);
+        button.setPosition(0f, yPos - 10 * Sizes.Y_FACTOR);
+        button.setSize(Sizes.SQUARE_BUTTON_SIZE * sizeFactor, Sizes.SQUARE_BUTTON_SIZE * sizeFactor);
         button.addHoverListener(() -> detailsLabel.update(details));
 
         button.addListener(() -> {
@@ -137,10 +160,26 @@ public class ControlBar implements IActorsContainer {
         private Runnable decreaseAction;
         private Runnable increaseAction;
         private int minValue;
+        private int maxValue = Integer.MAX_VALUE;
+
+        private BooleanSupplier enablityPredicate;
+        private boolean compactLine;
+        private int levelRequired;
 
         public UIStage getStage() {
 
             return stage;
+        }
+
+        public int getLevelRequired() {
+
+            return levelRequired;
+        }
+
+        public Builder withLevelRequired(final int levelRequired) {
+
+            this.levelRequired = levelRequired;
+            return this;
         }
 
         public Builder withStage(final UIStage stage) {
@@ -278,6 +317,39 @@ public class ControlBar implements IActorsContainer {
         public Builder withMinValue(final int minValue) {
 
             this.minValue = minValue;
+            return this;
+        }
+
+        public int getMaxValue() {
+
+            return maxValue;
+        }
+
+        public Builder withMaxValue(final int maxValue) {
+
+            this.maxValue = maxValue;
+            return this;
+        }
+
+        public BooleanSupplier getEnablityPredicate() {
+
+            return enablityPredicate;
+        }
+
+        public Builder withEnablityPredicate(final BooleanSupplier enablityPredicate) {
+
+            this.enablityPredicate = enablityPredicate;
+            return this;
+        }
+
+        public boolean isCompactLine() {
+
+            return compactLine;
+        }
+
+        public Builder withCompactLine(final boolean compactLine) {
+
+            this.compactLine = compactLine;
             return this;
         }
 

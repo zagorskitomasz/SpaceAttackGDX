@@ -1,9 +1,11 @@
 package spaceattack.game.weapons;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.actors.interfaces.RadarVisible;
 import spaceattack.game.ai.shooters.PossibleAttacks;
 import spaceattack.game.buttons.weapon.IFireButton;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.utils.vector.IVector;
 
 public class PlayerWeaponController extends AbstractWeaponController {
@@ -71,5 +73,31 @@ public class PlayerWeaponController extends AbstractWeaponController {
     public boolean isContinuousFireTriggered(final float energyCost) {
 
         return secondaryFireButton.isPressed() && super.isContinuousFireTriggered(energyCost);
+    }
+
+    @Override
+    public float getDamageFactor() {
+
+        float factor = 1;
+
+        if (ship.hpBelowHalf()) {
+            factor += ship.getImprovements().get(Improvement.ADRENALINE) * Consts.Weapons.DAMAGE_MASTERY_FACTOR;
+        }
+        if (ship.getBerserkerLevel() > 0) {
+            factor += ship.getBerserkerLevel() * ship.getImprovements().get(Improvement.BERSERKER) * 0.5f
+                    * Consts.Weapons.DAMAGE_MASTERY_FACTOR;
+        }
+        return factor;
+    }
+
+    @Override
+    public float getMissilesSpeedFactor() {
+
+        float factor = 1;
+
+        if (ship.getBerserkerLevel() > 0) {
+            factor += 1 + (ship.getBerserkerLevel() - 1) * ship.getImprovements().get(Improvement.BERSERKER) * 0.1f;
+        }
+        return factor;
     }
 }

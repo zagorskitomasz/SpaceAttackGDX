@@ -8,6 +8,6 @@ public class SuperBaseEnemyShip extends BaseEnemyShip implements RequiredOnStage
 
     public SuperBaseEnemyShip(final Attributes attributes) {
 
-        super(attributes);
+        super(attributes, 0);
     }
 }

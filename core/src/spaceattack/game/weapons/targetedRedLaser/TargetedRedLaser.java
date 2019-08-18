@@ -21,7 +21,7 @@ public class TargetedRedLaser extends Laser {
     TargetedRedLaser(final int armory) {
 
         dmg = Consts.Weapons.TRED_LASER_DMG_PER_ATTR * armory;
-        speed = Consts.Weapons.TRED_LASER_SPEED_PER_ATTR * armory;
+        speed = Consts.Weapons.TRED_LASER_SPEED_PER_ATTR * (10 + armory);
         energyCost = Consts.Weapons.TRED_LASER_COST_PER_ATTR * armory;
     }
 
@@ -41,7 +41,7 @@ public class TargetedRedLaser extends Laser {
 
         missile.setActor(Factories.getActorFactory().create(missile));
         missile.setTexture(texture.getTexture());
-        missile.setDmg(dmg);
+        missile.setDmg(dmg * controller.getDamageFactor());
         missile.setSpeed(speed);
         missile.setAcceleration(0);
         missile.setMovement(movement);

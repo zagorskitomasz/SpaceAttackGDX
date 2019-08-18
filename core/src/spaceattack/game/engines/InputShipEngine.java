@@ -1,5 +1,8 @@
 package spaceattack.game.engines;
 
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
 import spaceattack.consts.Consts;
 import spaceattack.consts.Sizes;
 import spaceattack.game.buttons.IAccelerator;
@@ -16,7 +19,12 @@ public class InputShipEngine extends AbstractShipEngine {
     float currentSpeedHorizontal;
     float currentSpeedVertical;
 
-    public InputShipEngine(final IShip ship, final int engineAttr) {
+    private final Supplier<Float> additionalSpeedFactor;
+    private final Predicate<Float> energySource;
+    private final int sprintFactor;
+
+    public InputShipEngine(final IShip ship, final int engineAttr, final Predicate<Float> energySource,
+            final int sprintFactor, final Supplier<Float> additionalSpeedFactor) {
 
         super(ship);
 
@@ -26,6 +34,10 @@ public class InputShipEngine extends AbstractShipEngine {
         acceleration = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
         braking = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
         agility = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+
+        this.energySource = energySource;
+        this.sprintFactor = sprintFactor;
+        this.additionalSpeedFactor = additionalSpeedFactor;
     }
 
     public void setAccelerator(final IAccelerator accelerator) {
@@ -187,8 +199,60 @@ public class InputShipEngine extends AbstractShipEngine {
 
     private void move() {
 
+        float oldSpeedVertical = currentSpeedVertical;
+        float oldSpeedHorizontal = currentSpeedHorizontal;
+
+        boolean horizontal = !isNearLeftEdge() && !isNearRightEdge();
+        boolean vertical = !isNearLowerEdge() && !isNearUpperEdge();
+
+        speedUp(horizontal, vertical);
+        useAdditionalFactor(horizontal, vertical);
+
         ship.setY(ship.getY() + currentSpeedVertical);
         ship.setX(ship.getX() + currentSpeedHorizontal);
+
+        currentSpeedVertical = oldSpeedVertical;
+        currentSpeedHorizontal = oldSpeedHorizontal;
+    }
+
+    private void speedUp(final boolean horizontal, final boolean vertical) {
+
+        if (energySource == null || sprintFactor <= 0) {
+            return;
+        }
+        float factor = 1 + Consts.Pools.SPEED_FACTOR * sprintFactor;
+        float energyRequired = (Math.abs(currentSpeedHorizontal) + Math.abs(currentSpeedVertical))
+                * Consts.Pools.SPEED_FACTOR
+                * sprintFactor / 2;
+
+        if (!energySource.test(energyRequired)) {
+            return;
+        }
+        if (horizontal) {
+            currentSpeedHorizontal *= factor * 1.5;
+        }
+        if (vertical) {
+            currentSpeedVertical *= factor * 1.5;
+        }
+    }
+
+    private void useAdditionalFactor(final boolean horizontal, final boolean vertical) {
+
+        if (additionalSpeedFactor == null) {
+            return;
+        }
+
+        Float factor = additionalSpeedFactor.get();
+        if (factor == null) {
+            return;
+        }
+
+        if (horizontal) {
+            currentSpeedHorizontal *= factor;
+        }
+        if (vertical) {
+            currentSpeedVertical *= factor;
+        }
     }
 
     private float brakingWay(final float currentSpeed) {
@@ -211,6 +275,12 @@ public class InputShipEngine extends AbstractShipEngine {
 
     @Override
     public void setDestination(final IVector destination) {
+
+        // do nothing
+    }
+
+    @Override
+    public void forceDestination(final IVector destination) {
 
         // do nothing
     }

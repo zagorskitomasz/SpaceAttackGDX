@@ -19,6 +19,7 @@ import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.input.MissionInputHandler;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.enemy.EnemyShipsFactory;
 import spaceattack.game.ships.player.PlayerShip;
 import spaceattack.game.ships.pools.ExperiencePool;
@@ -37,6 +38,7 @@ import spaceattack.game.utils.IUtils;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.PlayerWeaponController;
+import spaceattack.game.weapons.WeaponsFactory;
 
 public abstract class GameplayStageBuilder implements IStageBuilder {
 
@@ -85,8 +87,8 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
 
         addSystemDependencies();
         addGameProgress();
-        initComponents();
         initPools();
+        initComponents();
         initAI();
         buildShip();
         configureInputProcessor();
@@ -119,21 +121,50 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
 
         playersShip = new PlayerShip();
         playersShip.setAttributes(gameProgress.getAttributes());
+        playersShip.setImprovements(gameProgress.getImprovements());
         accelerator = AcceleratorFactory.INSTANCE.create();
-        engine = ShipEngineBuilder.INSTANCE.createInputEngine(playersShip, accelerator);
+        engine = ShipEngineBuilder.INSTANCE.createInputEngine(playersShip, accelerator, energyPool::take);
         processor = new MissionInputHandler();
         weaponController = new PlayerWeaponController();
         missilesLauncher = new MissilesLauncher(stage);
-        primaryWeapon = createPrimaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY));
-        greenLaser = createSecondaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY));
+        primaryWeapon = createPrimaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY),
+                gameProgress.getImprovements().get(Improvement.RED_LASER_MASTERY),
+                gameProgress.getImprovements().get(Improvement.SNIPER));
+        greenLaser = createSecondaryWeapon(gameProgress.getAttributes().get(Attribute.ARMORY),
+                gameProgress.getImprovements().get(Improvement.GREEN_LASER_MASTERY),
+                gameProgress.getImprovements().get(Improvement.SNIPER));
         primaryFireButton = FireButtonsBuilder.INSTANCE.primary(primaryWeapon);
         secondaryFireButton = FireButtonsBuilder.INSTANCE.secondary(weaponController, greenLaser);
         enemyBase = createEnemyBase(Factories.getUtilsFactory().create());
     }
 
-    protected abstract IWeapon createPrimaryWeapon(final int armory);
+    IWeapon createPrimaryWeapon(final int armory, final int redLaserMastery, final int speedFactor) {
 
-    protected abstract IWeapon createSecondaryWeapon(final int armory);
+        if (redLaserMastery >= 8) {
+            return WeaponsFactory.INSTANCE.createMassiveRedLaser(weaponController, missilesLauncher, armory,
+                    redLaserMastery, speedFactor);
+        }
+
+        if (redLaserMastery >= 4) {
+            return WeaponsFactory.INSTANCE.createDoubleRedLaser(weaponController, missilesLauncher, armory,
+                    redLaserMastery, speedFactor);
+        }
+
+        return WeaponsFactory.INSTANCE.createRedLaser(weaponController, missilesLauncher, armory, redLaserMastery,
+                speedFactor);
+    }
+
+    protected final IWeapon createSecondaryWeapon(final int armory, final int greenLaserMastery,
+            final int speedFactor) {
+
+        if (greenLaserMastery >= 5) {
+            return WeaponsFactory.INSTANCE.createTripleGreenLaser(weaponController, missilesLauncher, armory,
+                    greenLaserMastery, speedFactor);
+        }
+
+        return WeaponsFactory.INSTANCE.createGreenLaser(weaponController, missilesLauncher, armory, greenLaserMastery,
+                speedFactor);
+    }
 
     protected abstract EnemyBase createEnemyBase(IUtils utils);
 
@@ -161,8 +192,14 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
     private void initPools() {
 
         expPool = new ExperiencePool(gameProgress, stage.getProgressBackup());
-        energyPool = new Pool(gameProgress.getAttributes().get(Attribute.BATTERY));
-        hpPool = new HpPool(gameProgress.getAttributes().get(Attribute.SHIELDS));
+        energyPool = new Pool(gameProgress.getAttributes().get(Attribute.BATTERY),
+                gameProgress.getImprovements().get(Improvement.REGENERATION));
+
+        hpPool = new HpPool(gameProgress.getAttributes().get(Attribute.SHIELDS),
+                gameProgress.getImprovements().get(Improvement.REGENERATION));
+
+        setAbsorber();
+
         hpPool.setImmunityChecker(stage::isGameOver);
         // hpPool.addTemporalInfinityChecker(() -> true);
         // TODO immortal ship for test purposes;
@@ -172,6 +209,19 @@ public abstract class GameplayStageBuilder implements IStageBuilder {
         hpEnergyBar = BarBuilder.INSTANCE.hpEnergyBar(hpPool, energyPool);
 
         stage.setExpPool(expPool);
+    }
+
+    private void setAbsorber() {
+
+        if (gameProgress.getImprovements().get(Improvement.ABSORBER) > 0) {
+            hpPool.setAbsorber(energyPool::regen, calcAbsorbing());
+        }
+    }
+
+    private float calcAbsorbing() {
+
+        return Consts.Pools.ABSORBING_BASE
+                + gameProgress.getImprovements().get(Improvement.ABSORBER) * Consts.Pools.ABSORBING_FACTOR;
     }
 
     private void initAI() {

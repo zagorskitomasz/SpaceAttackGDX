@@ -4,6 +4,7 @@ import spaceattack.consts.Consts;
 import spaceattack.game.buttons.weapon.ComplexFireButton;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.stages.impl.GameplayStage;
 import spaceattack.game.system.graphics.Textures;
@@ -47,13 +48,21 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
-        holder.setAmmo(stage.getAct() != null ? stage.getAct().getPowerUpAmmo() : 0);
+        holder.setAmmo(getAmmo(stage));
         holder.setTexture(Textures.ROCKET_POWER_UP);
         holder.setActor(Factories.getActorFactory().create(holder));
         holder.setWeapon(rocketMissile);
         holder.setWeaponIcon(Textures.ROCKET_ICON.getTexture());
 
         return holder;
+    }
+
+    private int getAmmo(final GameplayStage stage) {
+
+        if (stage == null) {
+            return 0;
+        }
+        return Consts.Weapons.BASE_AMMO + stage.getGameProgress().getImprovements().get(Improvement.AMMO_COLLECTOR);
     }
 
     @Override
@@ -65,7 +74,7 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
-        holder.setAmmo(stage.getAct().getPowerUpAmmo());
+        holder.setAmmo(getAmmo(stage));
         holder.setTexture(Textures.MINE_POWER_UP);
         holder.setActor(Factories.getActorFactory().create(holder));
         holder.setWeapon(mine);
@@ -83,7 +92,7 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
-        holder.setAmmo(stage.getAct().getPowerUpAmmo());
+        holder.setAmmo(getAmmo(stage));
         holder.setTexture(Textures.SHIELD_POWER_UP);
         holder.setActor(Factories.getActorFactory().create(holder));
         holder.setWeapon(shield);
@@ -101,7 +110,7 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
-        holder.setAmmo(stage.getAct().getPowerUpAmmo());
+        holder.setAmmo(getAmmo(stage));
         holder.setTexture(Textures.WAVE_POWER_UP);
         holder.setActor(Factories.getActorFactory().create(holder));
         holder.setWeapon(wave);
@@ -119,7 +128,7 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);
-        holder.setAmmo(stage.getAct().getPowerUpAmmo());
+        holder.setAmmo(getAmmo(stage));
         holder.setTexture(Textures.FLAME_POWER_UP);
         holder.setActor(Factories.getActorFactory().create(holder));
         holder.setWeapon(flamethrower);

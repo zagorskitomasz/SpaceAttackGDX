@@ -44,7 +44,7 @@ public class MassiveRedLaserTest {
         Factories.setVectorFactory(ExtVectorFactory.INSTANCE);
         Factories.setActorFactory(factory);
 
-        laser = new MassiveRedLaser(10);
+        laser = new MassiveRedLaser(10, 0, 0);
 
         laser.setUtils(ExtUtilsFactory.INSTANCE.create());
         laser.setController(controller);

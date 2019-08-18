@@ -15,16 +15,16 @@ public enum WeaponsFactory {
     INSTANCE;
 
     public IWeapon createRedLaser(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
-            final int armory) {
+            final int armory, final int mastery, final int speedUp) {
 
-        return RedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
+        return RedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory, mastery, speedUp);
     }
 
     public IWeapon createGreenLaser(final PlayerWeaponController weaponController,
             final MissilesLauncher missilesLauncher,
-            final int armory) {
+            final int armory, final int mastery, final int speedUp) {
 
-        return GreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
+        return GreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory, mastery, speedUp);
     }
 
     public IWeapon createRocketMissile(final IWeaponController weaponController,
@@ -36,16 +36,16 @@ public enum WeaponsFactory {
 
     public IWeapon createDoubleRedLaser(final PlayerWeaponController weaponController,
             final MissilesLauncher missilesLauncher,
-            final int armory) {
+            final int armory, final int mastery, final int speedUp) {
 
-        return DoubleRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
+        return DoubleRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory, mastery, speedUp);
     }
 
     public IWeapon createTripleGreenLaser(final PlayerWeaponController weaponController,
             final MissilesLauncher missilesLauncher,
-            final int armory) {
+            final int armory, final int mastery, final int speedUp) {
 
-        return TripleGreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
+        return TripleGreenLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory, mastery, speedUp);
     }
 
     public IWeapon createMine(final IWeaponController weaponController, final MissilesLauncher missilesLauncher,
@@ -75,8 +75,8 @@ public enum WeaponsFactory {
 
     public IWeapon createMassiveRedLaser(final PlayerWeaponController weaponController,
             final MissilesLauncher missilesLauncher,
-            final int armory) {
+            final int armory, final int mastery, final int speedUp) {
 
-        return MassiveRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory);
+        return MassiveRedLaserBuilder.INSTANCE.build(weaponController, missilesLauncher, armory, mastery, speedUp);
     }
 }

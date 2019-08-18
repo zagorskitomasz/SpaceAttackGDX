@@ -6,6 +6,8 @@ import java.util.List;
 import spaceattack.consts.Experience;
 import spaceattack.game.rpg.Attribute;
 import spaceattack.game.rpg.Attributes;
+import spaceattack.game.rpg.Improvement;
+import spaceattack.game.rpg.Improvements;
 import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
 import spaceattack.game.weapons.SpecialWeapons;
@@ -17,6 +19,7 @@ public class GameProgress implements INotifier<GameProgress> {
     private long experience;
     private String playerName;
     private Attributes attributes;
+    private Improvements improvements;
     private String specialWeapon;
     private boolean newWeaponAvailable;
 
@@ -31,6 +34,7 @@ public class GameProgress implements INotifier<GameProgress> {
         newWeaponAvailable = true;
         specialWeapon = SpecialWeapons.ROCKETS.name();
         attributes = new Attributes();
+        improvements = new Improvements();
 
         observers = new LinkedList<>();
     }
@@ -117,6 +121,16 @@ public class GameProgress implements INotifier<GameProgress> {
         this.attributes = attributes;
     }
 
+    public Improvements getImprovements() {
+
+        return improvements;
+    }
+
+    public void setImprovements(final Improvements improvements) {
+
+        this.improvements = improvements;
+    }
+
     public void addExperience(final long amount) {
 
         experience += amount;
@@ -124,6 +138,7 @@ public class GameProgress implements INotifier<GameProgress> {
         if (experience >= Experience.INSTANCE.expForLevel(level + 1)) {
             setLevel(level + 1);
             attributes.addFreePoints(Attribute.POINTS_PER_LEVEL);
+            improvements.addFreePoints(Improvement.POINTS_PER_LEVEL);
         }
     }
 
@@ -158,6 +173,7 @@ public class GameProgress implements INotifier<GameProgress> {
         newProgress.specialWeapon = this.specialWeapon;
         newProgress.newWeaponAvailable = this.newWeaponAvailable;
         newProgress.attributes = this.attributes.clone();
+        newProgress.improvements = this.improvements.clone();
 
         return newProgress;
     }
@@ -166,7 +182,7 @@ public class GameProgress implements INotifier<GameProgress> {
 
         if (currentMission + 1 > getMission()) {
             setMission(currentMission + 1);
-            if (mission % 3 == 0) {
+            if (mission + 1 % 3 == 0) {
                 newWeaponAvailable = true;
             }
         }
@@ -179,6 +195,7 @@ public class GameProgress implements INotifier<GameProgress> {
         int result = 1;
         result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
         result = prime * result + (int) (experience ^ (experience >>> 32));
+        result = prime * result + ((improvements == null) ? 0 : improvements.hashCode());
         result = prime * result + level;
         result = prime * result + mission;
         result = prime * result + (newWeaponAvailable ? 1231 : 1237);
@@ -212,6 +229,15 @@ public class GameProgress implements INotifier<GameProgress> {
         if (experience != other.experience) {
             return false;
         }
+        if (improvements == null) {
+            if (other.improvements != null) {
+                return false;
+            }
+        }
+        else
+            if (!improvements.equals(other.improvements)) {
+                return false;
+            }
         if (level != other.level) {
             return false;
         }

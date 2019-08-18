@@ -208,9 +208,10 @@ enum GdxUtils implements IGdxUtils {
     }
 
     @Override
-    public ILabel createDetailerToucher(final float yPos, final String details, final ILabel infoLabel) {
+    public ILabel createDetailerToucher(final float yPos, final String details, final ILabel infoLabel,
+            final boolean isCompact) {
 
-        BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.TIME_LABELS_FONT));
+        BitmapFont font = new BitmapFont(Gdx.files.internal(isCompact ? Paths.GAMEPLAY_FONT : Paths.TIME_LABELS_FONT));
         Label.LabelStyle style = new Label.LabelStyle(font, new Color(0xdaa520ff));
         GdxLabel label = new GdxLabel(" ", style);
         label.setX(0);
@@ -220,6 +221,18 @@ enum GdxUtils implements IGdxUtils {
             infoLabel.update(details);
             return true;
         });
+
+        return label;
+    }
+
+    @Override
+    public ILabel createSmallMenuLabel(final String text, final float yPos, final int color) {
+
+        BitmapFont font = new BitmapFont(Gdx.files.internal(Paths.GAMEPLAY_FONT));
+        Label.LabelStyle style = new Label.LabelStyle(font, new Color(color));
+        GdxLabel label = new GdxLabel(text, style);
+        label.setX(Sizes.GAME_WIDTH * 0.5f - label.getWidth() * 0.5f);
+        label.setY(yPos);
 
         return label;
     }

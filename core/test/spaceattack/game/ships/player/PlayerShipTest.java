@@ -19,9 +19,12 @@ import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Improvement;
+import spaceattack.game.rpg.Improvements;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
+import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
 import spaceattack.game.weapons.missiles.Burner;
@@ -63,6 +66,7 @@ public class PlayerShipTest {
     @Before
     public void setUp() {
 
+        Textures.loadForTest();
         Factories.setUtilsFactory(ExtUtilsFactory.INSTANCE);
         MockitoAnnotations.initMocks(this);
 
@@ -84,6 +88,10 @@ public class PlayerShipTest {
         ship.setExplosion(explosion);
         ship.setMissilesLauncher(launcher);
         ship.setBurner(burner);
+
+        Improvements imps = new Improvements();
+        imps.addFreePoints(10);
+        ship.setImprovements(imps);
     }
 
     @Test
@@ -166,5 +174,89 @@ public class PlayerShipTest {
         ship.act(0);
 
         verify(burner).burn(0);
+    }
+
+    @Test
+    public void additionalSpeedFactorFromAdrenalineWhenLowHp() {
+
+        doReturn(10f).when(hpPool).getAmount();
+        doReturn(30f).when(hpPool).getMaxAmount();
+
+        ship.getImprovements().increase(Improvement.ADRENALINE);
+        ship.getImprovements().increase(Improvement.ADRENALINE);
+
+        float factor = ship.getAdditionalSpeedFactor();
+
+        assertEquals(1.4f, factor, 0);
+    }
+
+    @Test
+    public void noAdditionalSpeedFactorFromAdrenalineWhenHighHp() {
+
+        doReturn(20f).when(hpPool).getAmount();
+        doReturn(30f).when(hpPool).getMaxAmount();
+
+        ship.getImprovements().increase(Improvement.ADRENALINE);
+        ship.getImprovements().increase(Improvement.ADRENALINE);
+
+        float factor = ship.getAdditionalSpeedFactor();
+
+        assertEquals(1f, factor, 0);
+    }
+
+    @Test
+    public void noAdditionalLowHpSpeedFactorWhenNoAdrenaline() {
+
+        doReturn(10f).when(hpPool).getAmount();
+        doReturn(30f).when(hpPool).getMaxAmount();
+
+        float factor = ship.getAdditionalSpeedFactor();
+
+        assertEquals(1f, factor, 0);
+    }
+
+    @Test
+    public void gainingBerserkLevel() {
+
+        ship.getImprovements().increase(Improvement.BERSERKER);
+        ship.gainBerserk();
+        assertEquals(1, ship.getBerserkerLevel());
+    }
+
+    @Test
+    public void berserkLevelIsLimited() {
+
+        ship.getImprovements().increase(Improvement.BERSERKER);
+        ship.gainBerserk();
+        ship.gainBerserk();
+        ship.gainBerserk();
+        ship.gainBerserk();
+        ship.gainBerserk();
+
+        assertEquals(3, ship.getBerserkerLevel());
+    }
+
+    @Test
+    public void actingWithIntervalCancelsBerserk() throws InterruptedException {
+
+        ship.gainBerserk();
+        ship.gainBerserk();
+
+        Thread.sleep(2200);
+        ship.act(0);
+
+        assertEquals(0, ship.getBerserkerLevel());
+    }
+
+    @Test
+    public void berserkIncreasesSpeedFactor() {
+
+        ship.getImprovements().increase(Improvement.BERSERKER);
+        ship.gainBerserk();
+        ship.gainBerserk();
+
+        float factor = ship.getAdditionalSpeedFactor();
+
+        assertEquals(1.8f, factor, 0);
     }
 }

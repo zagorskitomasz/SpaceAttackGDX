@@ -1,11 +1,14 @@
 package spaceattack.game.engines;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.Mockito.doReturn;
+
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -16,20 +19,27 @@ import spaceattack.game.ships.IShip;
 
 public class InputShipEngineTest {
 
-    @InjectMocks
     private InputShipEngine engine;
 
     @Mock
     private IAccelerator accelerator;
+
+    @Mock
+    private Predicate<Float> energyFunction;
+
+    @Mock
+    private Supplier<Float> additionalMultiplier;
 
     private IShip ship;
 
     @Before
     public void setUp() {
 
-        ship = new FakeShip();
-        engine = new InputShipEngine(ship, 10);
         MockitoAnnotations.initMocks(this);
+
+        ship = new FakeShip();
+        engine = new InputShipEngine(ship, 10, null, 0, additionalMultiplier);
+        engine.setAccelerator(accelerator);
     }
 
     @Test
@@ -260,5 +270,56 @@ public class InputShipEngineTest {
         doReturn(15f).when(accelerator).getHorizontalAcceleration();
 
         assertEquals(IShip.Turn.FRONT, engine.fly());
+    }
+
+    @Test
+    public void sprinterShipWillSpeedUpWhenEnoughEnergy() {
+
+        engine = new InputShipEngine(ship, 10, energyFunction, 8, null);
+        engine.setAccelerator(accelerator);
+
+        ship.setX(400);
+        ship.setY(400);
+        doReturn(100f).when(accelerator).getVerticalAcceleration();
+        doReturn(true).when(energyFunction).test(anyFloat());
+
+        engine.fly();
+        engine.fly();
+        engine.fly();
+
+        assertEquals(423.4, ship.getY(), 0.01);
+    }
+
+    @Test
+    public void sprinterShipWontSpeedUpWhenNotEnoughEnergy() {
+
+        engine = new InputShipEngine(ship, 10, energyFunction, 8, null);
+        engine.setAccelerator(accelerator);
+
+        ship.setY(400);
+        doReturn(100f).when(accelerator).getVerticalAcceleration();
+        doReturn(false).when(energyFunction).test(anyFloat());
+
+        engine.fly();
+        engine.fly();
+        engine.fly();
+
+        assertEquals(406, ship.getY(), 0.01);
+    }
+
+    @Test
+    public void engineUsesAdditionalMultiplier() {
+
+        doReturn(3f).when(additionalMultiplier).get();
+
+        ship.setX(400);
+        ship.setY(400);
+        doReturn(100f).when(accelerator).getVerticalAcceleration();
+
+        engine.fly();
+        engine.fly();
+        engine.fly();
+
+        assertEquals(418, ship.getY(), 0.01);
     }
 }

@@ -48,13 +48,13 @@ public class RocketMissile extends AbstractWeapon {
         missile.setTexture(controller.isPlayer() ? Textures.ROCKET_MISSILE_P.getTexture()
                 : Textures.ROCKET_MISSILE_E.getTexture());
         missile.setDmg(0);
-        missile.setSpeed(2 * Sizes.Y_FACTOR);
+        missile.setSpeed(2 * Sizes.Y_FACTOR * controller.getMissilesSpeedFactor());
         missile.setAcceleration(0.2f * Sizes.Y_FACTOR);
         missile.setMovement(controller.getWeaponMovement());
         missile.setPosition(controller.getSecondaryWeaponUsePlacement());
         missile.setRadius(Consts.Weapons.ROCKET_RADIUS);
         missile.setSound(Sounds.ROCKET_MISSILE);
-        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMissileExplosion(dmg));
+        missile.setExplosion(ExplosionsBuilder.INSTANCE.createMissileExplosion(dmg * controller.getDamageFactor()));
         missile.setMissilesLauncher(launcher);
         missile.setPlayersAttack(controller.isPlayer());
 
@@ -63,6 +63,6 @@ public class RocketMissile extends AbstractWeapon {
 
     float getDmg() {
 
-        return dmg;
+        return dmg * controller.getDamageFactor();
     }
 }

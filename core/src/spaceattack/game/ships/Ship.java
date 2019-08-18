@@ -10,8 +10,10 @@ import spaceattack.game.actors.interfaces.Launchable;
 import spaceattack.game.batch.IBatch;
 import spaceattack.game.engines.IEngine;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.pools.IPool;
 import spaceattack.game.system.graphics.ITexture;
+import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.utils.vector.IVector;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.MissilesLauncher;
@@ -37,6 +39,14 @@ public abstract class Ship extends DrawableActor implements IShip {
     private Burner burner;
     private Freezer freezer;
 
+    private final ITexture adrenalineEffect = Textures.ADRENALINE.getTexture();
+
+    private final ITexture zerk1Effect = Textures.ZERK1.getTexture();
+    private final ITexture zerk2Effect = Textures.ZERK2.getTexture();
+    private final ITexture zerk3Effect = Textures.ZERK3.getTexture();
+
+    private Runnable berserkGainer;
+
     @Override
     public void setTexture(final ITexture texture) {
 
@@ -60,6 +70,14 @@ public abstract class Ship extends DrawableActor implements IShip {
 
         if (engine != null) {
             engine.setDestination(destination);
+        }
+    }
+
+    @Override
+    public void forceDestination(final IVector destination) {
+
+        if (engine != null) {
+            engine.forceDestination(destination);
         }
     }
 
@@ -164,6 +182,9 @@ public abstract class Ship extends DrawableActor implements IShip {
         if (!isToKill) {
             isToKill = true;
             if (!isOutOfScreen()) {
+                if (berserkGainer != null) {
+                    berserkGainer.run();
+                }
                 explode();
             }
         }
@@ -222,6 +243,10 @@ public abstract class Ship extends DrawableActor implements IShip {
     public void draw(final IBatch batch, final float alpha) {
 
         super.draw(batch, alpha);
+
+        drawZerk(batch);
+        drawAdrenaline(batch);
+
         if (burner != null) {
             burner.draw(batch);
         }
@@ -229,6 +254,39 @@ public abstract class Ship extends DrawableActor implements IShip {
         if (freezer != null) {
             freezer.draw(batch);
         }
+    }
+
+    private void drawAdrenaline(final IBatch batch) {
+
+        if (adrenalined()) {
+            drawTexture(batch, adrenalineEffect);
+        }
+    }
+
+    private void drawZerk(final IBatch batch) {
+
+        switch (getBerserkerLevel()) {
+        case 1:
+            drawTexture(batch, zerk1Effect);
+            break;
+        case 2:
+            drawTexture(batch, zerk2Effect);
+            break;
+        case 3:
+            drawTexture(batch, zerk3Effect);
+            break;
+        }
+    }
+
+    protected void drawTexture(final IBatch batch, final ITexture texture) {
+
+        batch.draw(texture, getX() - texture.getWidth() / 2,
+                getY() - texture.getHeight() / 2);
+    }
+
+    private boolean adrenalined() {
+
+        return hpBelowHalf() && getImprovements() != null && getImprovements().get(Improvement.ADRENALINE) > 0;
     }
 
     @Override
@@ -265,5 +323,17 @@ public abstract class Ship extends DrawableActor implements IShip {
     public void unfreeze() {
 
         freezer = null;
+    }
+
+    @Override
+    public boolean hpBelowHalf() {
+
+        return getHpPool() != null && getHpPool().getAmount() < getHpPool().getMaxAmount() / 2;
+    }
+
+    @Override
+    public void setDestroyAction(final Runnable berserkGainer) {
+
+        this.berserkGainer = berserkGainer;
     }
 }

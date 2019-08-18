@@ -140,4 +140,17 @@ public class ShipEngineTest {
         assertEquals(ExtVectorFactory.INSTANCE.create(100, 20), engine.getDestination());
         assertEquals(ExtVectorFactory.INSTANCE.create(1, 21), engine.getNextDestination());
     }
+
+    @Test
+    public void forcingDestination() {
+
+        engine.setDestination(ExtVectorFactory.INSTANCE.create(30, 30));
+        engine.forceDestination(ExtVectorFactory.INSTANCE.create(100, 100));
+        engine.setDestination(ExtVectorFactory.INSTANCE.create(40, 40));
+
+        assertEquals(100, engine.getDestination().getX(), 0);
+        assertEquals(100, engine.getDestination().getY(), 0);
+
+        assertNull(engine.getNextDestination());
+    }
 }

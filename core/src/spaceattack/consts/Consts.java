@@ -27,35 +27,35 @@ public class Consts {
         public static final float TIME_WAVE_ATTACKS_PER_SECOND = 0.33f;
 
         public static final float RED_LASER_DMG_PER_ATTR = 2;
-        public static final float RED_LASER_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float RED_LASER_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float RED_LASER_COST_PER_ATTR = 2;
 
         public static final float TRED_LASER_DMG_PER_ATTR = 2;
-        public static final float TRED_LASER_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float TRED_LASER_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float TRED_LASER_COST_PER_ATTR = 0;
 
         public static final float DISTRACTED_RED_DMG_PER_ATTR = 2;
-        public static final float DISTRACTED_RED_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float DISTRACTED_RED_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float DISTRACTED_RED_COST_PER_ATTR = 2;
 
         public static final float MASSIVE_RED_DMG_PER_ATTR = 2;
-        public static final float MASSIVE_RED_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float MASSIVE_RED_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float MASSIVE_RED_COST_PER_ATTR = 2;
 
         public static final float DOUBLE_RED_DMG_PER_ATTR = 2;
-        public static final float DOUBLE_RED_SPEED_PER_ATTR = 2 * Sizes.Y_FACTOR;
+        public static final float DOUBLE_RED_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float DOUBLE_RED_COST_PER_ATTR = 2;
 
         public static final float GREEN_LASER_DMG_PER_ATTR = 4;
-        public static final float GREEN_LASER_SPEED_PER_ATTR = 1.7f * Sizes.Y_FACTOR;
+        public static final float GREEN_LASER_SPEED_PER_ATTR = 0.7f * Sizes.Y_FACTOR;
         public static final float GREEN_LASER_COST_PER_ATTR = 3;
 
         public static final float TRIPLE_GREEN_DMG_PER_ATTR = 4;
-        public static final float TRIPLE_GREEN_SPEED_PER_ATTR = 1.7f * Sizes.Y_FACTOR;
+        public static final float TRIPLE_GREEN_SPEED_PER_ATTR = 0.7f * Sizes.Y_FACTOR;
         public static final float TRIPLE_GREEN_COST_PER_ATTR = 3;
 
         public static final float ROCKET_DMG_PER_ATTR = 4;
-        public static final float ROCKET_SPEED_PER_ATTR = 0;
+        public static final float ROCKET_SPEED_PER_ATTR = 0f;
         public static final float ROCKET_COST_PER_ATTR = 3;
 
         public static final float DROCKET_DMG_PER_ATTR = 4;
@@ -88,6 +88,12 @@ public class Consts {
         public static final long SLOW_MINE_DELAY = 7000;
         public static final long MINE_OVERHEAT_DELAY = 500;
         public static final float FLYING_MINE_SPEED = 3;
+
+        public static final float DAMAGE_MASTERY_FACTOR = 0.2f;
+        public static final float SPEED_FACTOR = 0.1f;
+        public static final int BASE_AMMO = 3;
+        public static final float FEAR_BASE = 0.2f;
+        public static final float FEAR_PER_IMP = 0.03f;
     }
 
     public static class Gameplay {
@@ -138,10 +144,14 @@ public class Consts {
     public static class Pools {
 
         public static final float HP_PER_ATTR = 6;
-        public static final float HP_REGEN_PER_ATTR = 1f;
+        public static final float HP_REGEN_PER_ATTR = 0.4f;
 
         public static final float ENERGY_PER_ATTR = 10;
-        public static final float ENERGY_REGEN_PER_ATTR = 2;
+        public static final float ENERGY_REGEN_PER_ATTR = 2f;
+        public static final float REGEN_MASTERY_FACTOR = 0.2f;
+        public static final float SPEED_FACTOR = 0.2f;
+        public static final float ABSORBING_BASE = 0.5f;
+        public static final float ABSORBING_FACTOR = 0.15f;
     }
 
     public static class Explosions {

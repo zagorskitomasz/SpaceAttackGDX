@@ -8,12 +8,13 @@ import spaceattack.game.weapons.missiles.Missile;
 
 public class MassiveRedLaser extends MultiShotRedLaser {
 
-    MassiveRedLaser(final int armory) {
+    MassiveRedLaser(final int armory, final int mastery, final int speedFactor) {
 
         super(armory);
 
-        dmg = Consts.Weapons.MASSIVE_RED_DMG_PER_ATTR * armory;
-        speed = Consts.Weapons.MASSIVE_RED_SPEED_PER_ATTR * armory;
+        dmg = Consts.Weapons.MASSIVE_RED_DMG_PER_ATTR * armory * (1 + Consts.Weapons.DAMAGE_MASTERY_FACTOR * mastery);
+        speed = Consts.Weapons.MASSIVE_RED_SPEED_PER_ATTR * (10 + armory)
+                * (1 + Consts.Weapons.SPEED_FACTOR * speedFactor);
         energyCost = Consts.Weapons.MASSIVE_RED_COST_PER_ATTR * armory;
     }
 

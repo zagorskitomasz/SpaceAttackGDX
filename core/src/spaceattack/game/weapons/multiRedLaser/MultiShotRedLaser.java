@@ -11,7 +11,7 @@ public abstract class MultiShotRedLaser extends RedLaser {
 
     MultiShotRedLaser(final int armory) {
 
-        super(armory);
+        super(armory, 0, 0);
         vectors = Factories.getVectorFactory();
     }
 

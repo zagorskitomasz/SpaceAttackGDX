@@ -5,7 +5,10 @@ import spaceattack.game.GameProgress;
 import spaceattack.game.actors.ILabel;
 import spaceattack.game.buttons.IButton;
 import spaceattack.game.buttons.MenuButtonsBuilder;
+import spaceattack.game.controlBar.ControlBar;
+import spaceattack.game.controlBar.ControlBarBuilder;
 import spaceattack.game.factories.Factories;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.stages.IGameStage;
 import spaceattack.game.system.GameLoaderFactory;
 import spaceattack.game.system.GameSaverFactory;
@@ -14,11 +17,14 @@ import spaceattack.game.system.graphics.StaticImageFactory;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.system.sound.MusicPlayer;
 import spaceattack.game.utils.GameplayLabel;
+import spaceattack.game.utils.IUtils;
 
-public class MainMenuStageBuilder implements IStageBuilder {
+public class ImprovementsStageBuilder implements IStageBuilder {
 
     @Override
     public IGameStage build(final GameProgress progress) {
+
+        IUtils utils = Factories.getUtilsFactory().create();
 
         MainMenuStage stage = new MainMenuStage();
 
@@ -30,26 +36,34 @@ public class MainMenuStageBuilder implements IStageBuilder {
         Factories.getUtilsFactory().create().setInputProcessor(stage.getStage());
 
         StaticImage background = StaticImageFactory.INSTANCE.create(Textures.MENU_BACKGROUND.getTexture(), 0, 0);
-        StaticImage logo = StaticImageFactory.INSTANCE.create(Textures.LOGO.getTexture(), 0, Sizes.GAME_HEIGHT * 0.03f);
 
-        ILabel playerLabel = Factories.getUtilsFactory().create().createMenuLabel(progress.getPlayerName(),
-                Sizes.GAME_HEIGHT * 0.68f, 0x00ff00ff);
+        ILabel infoLabel = utils.createBarLabel();
+        infoLabel.update("Tap improvement name\nto show details");
+        infoLabel.setY(Sizes.GAME_HEIGHT * 0.85f);
 
-        IButton missionsButton = MenuButtonsBuilder.INSTANCE.missionsMenuButton(stage);
-        IButton statsButton = MenuButtonsBuilder.INSTANCE.statsMenuButton(stage,
-                progress.getAttributes().getFreePoints());
-        IButton skillsButton = MenuButtonsBuilder.INSTANCE.skillsMenuButton(stage,
-                progress.getImprovements().getFreePoints());
-        IButton weaponsButton = MenuButtonsBuilder.INSTANCE.weaponsMenuButton(stage, progress.isNewWeaponAvailable());
-        IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToPlayersMenuButton(stage);
+        ILabel freePointsLabel = utils.createBarLabel();
+        freePointsLabel.setText("Free points: " + progress.getImprovements().getFreePoints());
+        freePointsLabel.pack();
+        freePointsLabel.setY(Sizes.GAME_HEIGHT * 0.15f);
+        freePointsLabel.setX((Sizes.GAME_WIDTH - freePointsLabel.getWidth()) * 0.5f);
+
+        int lineIndex = 0;
+        for (Improvement improvement : Improvement.values()) {
+
+            ControlBar bar = ControlBarBuilder.INSTANCE.improvementBar(lineIndex, improvement, stage, infoLabel,
+                    freePointsLabel);
+
+            stage.addActorsContainer(bar);
+
+            lineIndex++;
+        }
+
+        IButton backToMenuButton = MenuButtonsBuilder.INSTANCE.backToMainMenuButton(stage);
 
         stage.addBackground(background);
-        stage.addActorBeforeGUI(logo);
-        stage.addActor(new GameplayLabel(playerLabel));
-        stage.addActor(missionsButton);
-        stage.addActor(statsButton);
-        stage.addActor(skillsButton);
-        stage.addActor(weaponsButton);
+        stage.addActor(new GameplayLabel(infoLabel));
+        stage.addActor(new GameplayLabel(freePointsLabel));
+
         stage.addActor(backToMenuButton);
 
         stage.updateControls();

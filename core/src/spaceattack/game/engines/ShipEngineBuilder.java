@@ -1,8 +1,11 @@
 package spaceattack.game.engines;
 
+import java.util.function.Predicate;
+
 import spaceattack.game.buttons.IAccelerator;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.IShip;
 import spaceattack.game.ships.enemy.IEnemyShip;
 
@@ -17,9 +20,11 @@ public enum ShipEngineBuilder {
         return engine;
     }
 
-    public IEngine createInputEngine(final IShip ship, final IAccelerator accelerator) {
+    public IEngine createInputEngine(final IShip ship, final IAccelerator accelerator,
+            final Predicate<Float> energySource) {
 
-        InputShipEngine engine = new InputShipEngine(ship, ship.getAttributes().get(Attribute.ENGINE));
+        InputShipEngine engine = new InputShipEngine(ship, ship.getAttributes().get(Attribute.ENGINE),
+                energySource, ship.getImprovements().get(Improvement.SPRINTER), ship::getAdditionalSpeedFactor);
         engine.setAccelerator(accelerator);
 
         return engine;

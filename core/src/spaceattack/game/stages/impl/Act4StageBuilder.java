@@ -6,8 +6,6 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.system.Acts;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.utils.IUtils;
-import spaceattack.game.weapons.IWeapon;
-import spaceattack.game.weapons.WeaponsFactory;
 import spaceattack.game.weapons.missiles.Burner;
 import spaceattack.game.weapons.missiles.BurnerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
@@ -24,7 +22,7 @@ public abstract class Act4StageBuilder extends GameplayStageBuilder {
     @Override
     protected EnemyBase createEnemyBase(final IUtils utils) {
 
-        return new Act4EnemyBase(utils);
+        return new Act4EnemyBase(utils).setBerserkGainer(playersShip::gainBerserk);
     }
 
     @Override
@@ -44,17 +42,5 @@ public abstract class Act4StageBuilder extends GameplayStageBuilder {
         playersShip.setMissilesLauncher(missilesLauncher);
         playersShip.setExplosion(explosion);
         playersShip.setBurner(burner);
-    }
-
-    @Override
-    public IWeapon createPrimaryWeapon(final int armory) {
-
-        return WeaponsFactory.INSTANCE.createDoubleRedLaser(weaponController, missilesLauncher, armory);
-    }
-
-    @Override
-    protected IWeapon createSecondaryWeapon(final int armory) {
-
-        return WeaponsFactory.INSTANCE.createTripleGreenLaser(weaponController, missilesLauncher, armory);
     }
 }

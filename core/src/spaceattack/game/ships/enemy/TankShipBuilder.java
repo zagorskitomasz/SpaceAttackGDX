@@ -6,6 +6,7 @@ import spaceattack.game.engines.IEngine;
 import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.rpg.Attribute;
+import spaceattack.game.rpg.Improvement;
 import spaceattack.game.ships.enemy.boss.SuperBaseEnemyShip;
 import spaceattack.game.ships.pools.HpPool;
 import spaceattack.game.ships.pools.IPool;
@@ -34,7 +35,8 @@ public enum TankShipBuilder {
 
         IEnemyShip tank = required
                 ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
-                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR));
         buildShipActI(stage, tank);
 
         return tank;
@@ -44,7 +46,8 @@ public enum TankShipBuilder {
 
         IEnemyShip tank = required
                 ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
-                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR));
         buildShipActII(stage, tank);
 
         return tank;
@@ -54,7 +57,8 @@ public enum TankShipBuilder {
 
         IEnemyShip tank = required
                 ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
-                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR));
         buildShipActIII(stage, tank);
 
         return tank;
@@ -64,7 +68,8 @@ public enum TankShipBuilder {
 
         IEnemyShip tank = required
                 ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
-                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR));
         buildShipActIV(stage, tank);
 
         return tank;
@@ -74,7 +79,8 @@ public enum TankShipBuilder {
 
         IEnemyShip tank = required
                 ? new SuperBaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()))
-                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()));
+                : new BaseEnemyShip(Consts.AttributesStarters.TANK.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR));
         buildShipActV(stage, tank);
 
         return tank;

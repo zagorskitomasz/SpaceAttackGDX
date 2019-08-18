@@ -47,9 +47,11 @@ public interface IUtils {
 
     ILabel createMenuLabel(String text, float yPos, int color);
 
+    ILabel createSmallMenuLabel(String text, float yPos, int color);
+
     IVector getTouch();
 
     void infoDialog(String caption, String info, IStage stage);
 
-    ILabel createDetailerToucher(float yPos, String details, ILabel infoLabel);
+    ILabel createDetailerToucher(float yPos, String details, ILabel infoLabel, boolean isCompact);
 }

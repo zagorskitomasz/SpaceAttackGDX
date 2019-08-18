@@ -67,7 +67,7 @@ public class EnergyShieldEmiter extends AbstractWeapon {
 
         shield.setActor(Factories.getActorFactory().create(shield));
         shield.setAnimation(Animations.SHIELD.getAnimation());
-        shield.setDmg(dmg);
+        shield.setDmg(dmg * controller.getDamageFactor());
         shield.setEnergyCost(getEnergyCost());
         shield.setPositionSupplier(() -> controller.getShip().getPosition());
         if (duration > 0) {
@@ -91,7 +91,7 @@ public class EnergyShieldEmiter extends AbstractWeapon {
 
     float getDmg() {
 
-        return dmg;
+        return dmg * controller.getDamageFactor();
     }
 
     @Override

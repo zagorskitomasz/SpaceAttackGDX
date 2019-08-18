@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +32,9 @@ public class PoolTest {
 
     @Mock
     private IObserver<Float> observer;
+
+    @Mock
+    private Consumer<Float> absorber;
 
     @Before
     public void setUp() {
@@ -208,5 +212,27 @@ public class PoolTest {
         pool.take(12);
 
         assertEquals(50, pool.getAmount(), 0);
+    }
+
+    @Test
+    public void masteryIsImprovingRegen() {
+
+        pool = new Pool(5, 4);
+
+        pool.take(15);
+        pool.update();
+
+        assertEquals(36.8, pool.getAmount(), 0.01);
+        assertEquals(50, pool.getMaxAmount(), 0);
+    }
+
+    @Test
+    public void usingAbsorber() {
+
+        pool.setAbsorber(absorber, 3);
+
+        pool.take(3);
+
+        verify(absorber).accept(9f);
     }
 }

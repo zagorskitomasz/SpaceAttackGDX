@@ -52,4 +52,8 @@ public interface IWeaponController {
     IWeapon getSecondaryWeapon();
 
     void addPassiveWeapon(IWeapon weapon);
+
+    float getDamageFactor();
+
+    float getMissilesSpeedFactor();
 }

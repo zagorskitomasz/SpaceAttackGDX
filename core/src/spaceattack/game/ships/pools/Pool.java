@@ -25,13 +25,19 @@ public class Pool extends AbstractPool {
 
     public Pool(final int shields) {
 
+        this(shields, 0);
+    }
+
+    public Pool(final int shields, final int mastery) {
+
         super();
         infinityCheckers = new ArrayList<>();
         lock = new ReentrantLock();
         controller = new FrameController(Factories.getUtilsFactory().create(), UPDATES_PER_SECOND);
 
         this.maxAmount = Consts.Pools.ENERGY_PER_ATTR * shields;
-        this.regenPerSecond = Consts.Pools.ENERGY_REGEN_PER_ATTR * shields;
+        this.regenPerSecond = Consts.Pools.ENERGY_REGEN_PER_ATTR * shields
+                * (1 + Consts.Pools.REGEN_MASTERY_FACTOR * mastery);
         amount = maxAmount;
     }
 
@@ -52,6 +58,7 @@ public class Pool extends AbstractPool {
         if (isInfinity()) {
             return true;
         }
+        absorb(amountTaken);
         if (amountTaken <= amount) {
             amount -= amountTaken;
             notifyObservers();
@@ -59,6 +66,13 @@ public class Pool extends AbstractPool {
             return true;
         }
         return false;
+    }
+
+    protected void absorb(final float amountTaken) {
+
+        if (absorber != null) {
+            absorber.accept(amountTaken * absorbingFactor);
+        }
     }
 
     @Override
