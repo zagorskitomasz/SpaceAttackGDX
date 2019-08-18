@@ -41,6 +41,12 @@ public abstract class Ship extends DrawableActor implements IShip {
 
     private final ITexture adrenalineEffect = Textures.ADRENALINE.getTexture();
 
+    private final ITexture zerk1Effect = Textures.ZERK1.getTexture();
+    private final ITexture zerk2Effect = Textures.ZERK2.getTexture();
+    private final ITexture zerk3Effect = Textures.ZERK3.getTexture();
+
+    private Runnable berserkGainer;
+
     @Override
     public void setTexture(final ITexture texture) {
 
@@ -176,6 +182,9 @@ public abstract class Ship extends DrawableActor implements IShip {
         if (!isToKill) {
             isToKill = true;
             if (!isOutOfScreen()) {
+                if (berserkGainer != null) {
+                    berserkGainer.run();
+                }
                 explode();
             }
         }
@@ -235,10 +244,8 @@ public abstract class Ship extends DrawableActor implements IShip {
 
         super.draw(batch, alpha);
 
-        if (adrenalined()) {
-            batch.draw(adrenalineEffect, getX() - adrenalineEffect.getWidth() / 2,
-                    getY() - adrenalineEffect.getHeight() / 2);
-        }
+        drawZerk(batch);
+        drawAdrenaline(batch);
 
         if (burner != null) {
             burner.draw(batch);
@@ -247,6 +254,34 @@ public abstract class Ship extends DrawableActor implements IShip {
         if (freezer != null) {
             freezer.draw(batch);
         }
+    }
+
+    private void drawAdrenaline(final IBatch batch) {
+
+        if (adrenalined()) {
+            drawTexture(batch, adrenalineEffect);
+        }
+    }
+
+    private void drawZerk(final IBatch batch) {
+
+        switch (getBerserkerLevel()) {
+        case 1:
+            drawTexture(batch, zerk1Effect);
+            break;
+        case 2:
+            drawTexture(batch, zerk2Effect);
+            break;
+        case 3:
+            drawTexture(batch, zerk3Effect);
+            break;
+        }
+    }
+
+    protected void drawTexture(final IBatch batch, final ITexture texture) {
+
+        batch.draw(texture, getX() - texture.getWidth() / 2,
+                getY() - texture.getHeight() / 2);
     }
 
     private boolean adrenalined() {
@@ -294,5 +329,11 @@ public abstract class Ship extends DrawableActor implements IShip {
     public boolean hpBelowHalf() {
 
         return getHpPool() != null && getHpPool().getAmount() < getHpPool().getMaxAmount() / 2;
+    }
+
+    @Override
+    public void setDestroyAction(final Runnable berserkGainer) {
+
+        this.berserkGainer = berserkGainer;
     }
 }

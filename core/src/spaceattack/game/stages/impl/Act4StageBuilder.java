@@ -22,7 +22,7 @@ public abstract class Act4StageBuilder extends GameplayStageBuilder {
     @Override
     protected EnemyBase createEnemyBase(final IUtils utils) {
 
-        return new Act4EnemyBase(utils);
+        return new Act4EnemyBase(utils).setBerserkGainer(playersShip::gainBerserk);
     }
 
     @Override

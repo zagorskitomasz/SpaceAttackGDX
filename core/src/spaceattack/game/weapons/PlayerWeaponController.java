@@ -83,6 +83,21 @@ public class PlayerWeaponController extends AbstractWeaponController {
         if (ship.hpBelowHalf()) {
             factor += ship.getImprovements().get(Improvement.ADRENALINE) * Consts.Weapons.DAMAGE_MASTERY_FACTOR;
         }
+        if (ship.getBerserkerLevel() > 0) {
+            factor += ship.getBerserkerLevel() * ship.getImprovements().get(Improvement.BERSERKER) * 0.5f
+                    * Consts.Weapons.DAMAGE_MASTERY_FACTOR;
+        }
+        return factor;
+    }
+
+    @Override
+    public float getMissilesSpeedFactor() {
+
+        float factor = 1;
+
+        if (ship.getBerserkerLevel() > 0) {
+            factor += 1 + (ship.getBerserkerLevel() - 1) * ship.getImprovements().get(Improvement.BERSERKER) * 0.1f;
+        }
         return factor;
     }
 }

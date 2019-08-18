@@ -202,11 +202,11 @@ public class InputShipEngine extends AbstractShipEngine {
         float oldSpeedVertical = currentSpeedVertical;
         float oldSpeedHorizontal = currentSpeedHorizontal;
 
-        if (!isNearEdge()) {
+        boolean horizontal = !isNearLeftEdge() && !isNearRightEdge();
+        boolean vertical = !isNearLowerEdge() && !isNearUpperEdge();
 
-            speedUp();
-            useAdditionalFactor();
-        }
+        speedUp(horizontal, vertical);
+        useAdditionalFactor(horizontal, vertical);
 
         ship.setY(ship.getY() + currentSpeedVertical);
         ship.setX(ship.getX() + currentSpeedHorizontal);
@@ -215,7 +215,7 @@ public class InputShipEngine extends AbstractShipEngine {
         currentSpeedHorizontal = oldSpeedHorizontal;
     }
 
-    private void speedUp() {
+    private void speedUp(final boolean horizontal, final boolean vertical) {
 
         if (energySource == null || sprintFactor <= 0) {
             return;
@@ -228,25 +228,31 @@ public class InputShipEngine extends AbstractShipEngine {
         if (!energySource.test(energyRequired)) {
             return;
         }
-
-        currentSpeedHorizontal *= factor * 1.5;
-        currentSpeedVertical *= factor * 1.5;
+        if (horizontal) {
+            currentSpeedHorizontal *= factor * 1.5;
+        }
+        if (vertical) {
+            currentSpeedVertical *= factor * 1.5;
+        }
     }
 
-    protected boolean isNearEdge() {
-
-        return isNearLowerEdge() || isNearUpperEdge() || isNearLeftEdge() || isNearRightEdge();
-    }
-
-    private void useAdditionalFactor() {
+    private void useAdditionalFactor(final boolean horizontal, final boolean vertical) {
 
         if (additionalSpeedFactor == null) {
             return;
         }
 
-        float factor = additionalSpeedFactor.get();
-        currentSpeedHorizontal *= factor;
-        currentSpeedVertical *= factor;
+        Float factor = additionalSpeedFactor.get();
+        if (factor == null) {
+            return;
+        }
+
+        if (horizontal) {
+            currentSpeedHorizontal *= factor;
+        }
+        if (vertical) {
+            currentSpeedVertical *= factor;
+        }
     }
 
     private float brakingWay(final float currentSpeed) {

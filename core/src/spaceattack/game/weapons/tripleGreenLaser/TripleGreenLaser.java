@@ -74,7 +74,7 @@ public class TripleGreenLaser extends GreenLaser {
         missile.setActor(Factories.getActorFactory().create(missile));
         missile.setTexture(Textures.TURBO_LASER.getTexture());
         missile.setDmg(dmg * controller.getDamageFactor());
-        missile.setSpeed(speed);
+        missile.setSpeed(speed * controller.getMissilesSpeedFactor());
         missile.setAcceleration(0);
         missile.setMovement(controller.getWeaponMovement());
         missile.setPosition(controller.getSecondaryWeaponUsePlacement());

@@ -50,6 +50,7 @@ public class RedLaserTest {
 
         doReturn(true).when(controller).takeEnergy(anyFloat());
         doReturn(1f).when(controller).getDamageFactor();
+        doReturn(1f).when(controller).getMissilesSpeedFactor();
     }
 
     @Test

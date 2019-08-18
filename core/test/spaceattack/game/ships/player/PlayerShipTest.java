@@ -214,4 +214,49 @@ public class PlayerShipTest {
 
         assertEquals(1f, factor, 0);
     }
+
+    @Test
+    public void gainingBerserkLevel() {
+
+        ship.getImprovements().increase(Improvement.BERSERKER);
+        ship.gainBerserk();
+        assertEquals(1, ship.getBerserkerLevel());
+    }
+
+    @Test
+    public void berserkLevelIsLimited() {
+
+        ship.getImprovements().increase(Improvement.BERSERKER);
+        ship.gainBerserk();
+        ship.gainBerserk();
+        ship.gainBerserk();
+        ship.gainBerserk();
+        ship.gainBerserk();
+
+        assertEquals(3, ship.getBerserkerLevel());
+    }
+
+    @Test
+    public void actingWithIntervalCancelsBerserk() throws InterruptedException {
+
+        ship.gainBerserk();
+        ship.gainBerserk();
+
+        Thread.sleep(2200);
+        ship.act(0);
+
+        assertEquals(0, ship.getBerserkerLevel());
+    }
+
+    @Test
+    public void berserkIncreasesSpeedFactor() {
+
+        ship.getImprovements().increase(Improvement.BERSERKER);
+        ship.gainBerserk();
+        ship.gainBerserk();
+
+        float factor = ship.getAdditionalSpeedFactor();
+
+        assertEquals(1.8f, factor, 0);
+    }
 }

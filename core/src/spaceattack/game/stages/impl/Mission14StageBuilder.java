@@ -20,7 +20,7 @@ public class Mission14StageBuilder extends Act5StageBuilder {
     @Override
     protected EnemyBase createEnemyBase(final IUtils utils) {
 
-        return new Act5Mission14EnemyBase(utils);
+        return new Act5Mission14EnemyBase(utils).setBerserkGainer(playersShip::gainBerserk);
     }
 
     @Override

@@ -77,4 +77,14 @@ public interface IShip extends Ignitable, Freezable, IGameActor, RadarVisible, E
     boolean hpBelowHalf();
 
     void forceDestination(IVector destination);
+
+    default int getBerserkerLevel() {
+
+        return 0;
+    }
+
+    default void setDestroyAction(final Runnable berserkGainer) {
+
+        // do nothing
+    }
 }

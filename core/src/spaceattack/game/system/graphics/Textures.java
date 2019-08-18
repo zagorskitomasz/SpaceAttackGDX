@@ -98,6 +98,9 @@ public enum Textures {
 
     ADRENALINE("graphics/ships/effects/adrenaline.png"),
     FEAR("graphics/ships/effects/fear.png"),
+    ZERK1("graphics/ships/effects/zerk1.png"),
+    ZERK2("graphics/ships/effects/zerk2.png"),
+    ZERK3("graphics/ships/effects/zerk3.png"),
 
     // weapons
     RED_LASER_NS("graphics/weapons/laserNS.png"),
