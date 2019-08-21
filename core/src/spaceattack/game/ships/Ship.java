@@ -31,7 +31,7 @@ public abstract class Ship extends DrawableActor implements IShip {
     private IPool hpPool;
 
     private boolean isToKill;
-    private boolean exploded;
+    protected boolean exploded;
 
     protected MissilesLauncher launcher;
     private Launchable explosion;
@@ -158,7 +158,7 @@ public abstract class Ship extends DrawableActor implements IShip {
     @Override
     public void takeDmg(final float dmg) {
 
-        if (!hpPool.take(dmg)) {
+        if (hpPool != null && !hpPool.take(dmg)) {
             setToKill();
             energyPool.destroy();
         }
@@ -199,7 +199,7 @@ public abstract class Ship extends DrawableActor implements IShip {
     @Override
     public boolean takeEnergy(final float energyCost) {
 
-        return energyPool.take(energyCost);
+        return energyPool != null ? energyPool.take(energyCost) : true;
     }
 
     @Override
@@ -292,7 +292,9 @@ public abstract class Ship extends DrawableActor implements IShip {
     @Override
     public void ignite(final float burningDPS, final long fireDuration) {
 
-        burner.ignite(burningDPS, fireDuration);
+        if (burner != null) {
+            burner.ignite(burningDPS, fireDuration);
+        }
     }
 
     @Override

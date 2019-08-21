@@ -203,6 +203,8 @@ public class Consts {
         public static final Starter SPACE_STATION = new Starter(10, 50, 10, 5, 2, 5, 2, 1);
         public static final Starter STATION_HELPER_I = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
         public static final Starter STATION_HELPER_II = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+
+        public static final Starter INTRO_STATION = new Starter(10, 50, 10, 1, 2, 5, 2, -0.3f);
     }
 
     public static class Starter {

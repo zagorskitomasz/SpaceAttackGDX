@@ -20,6 +20,14 @@ public enum ShipEngineBuilder {
         return engine;
     }
 
+    public IEngine createSlowDestinationEngine(final IShip ship) {
+
+        IEngine engine = new DestinationShipEngine(ship, Factories.getUtilsFactory().create(),
+                ship.getAttributes().get(Attribute.ENGINE), true);
+
+        return engine;
+    }
+
     public IEngine createInputEngine(final IShip ship, final IAccelerator accelerator,
             final Predicate<Float> energySource) {
 
