@@ -17,6 +17,7 @@ import spaceattack.game.engines.ShipEngineBuilder;
 import spaceattack.game.factories.Factories;
 import spaceattack.game.ships.intro.Destroyer;
 import spaceattack.game.ships.intro.Earth;
+import spaceattack.game.ships.intro.EscapingPlayer;
 import spaceattack.game.stages.IGameStage;
 import spaceattack.game.stages.IntroStage;
 import spaceattack.game.system.FrameController;
@@ -59,18 +60,29 @@ public class IntroStageBuilder implements IStageBuilder {
 
         MissilesLauncher launcher = new MissilesLauncher(stage);
 
-        Earth earth = buildEarth(launcher, utils);
+        EscapingPlayer player = buildPlayer();
+        Earth earth = buildEarth(launcher, utils, player);
         IGameActor destroyer = buildDestroyer(launcher, earth);
-//        IGameActor player = new EscapingPlayer();
 
         stage.addBackground(background);
         stage.addActor(earth);
         stage.addActor(destroyer);
-//        stage.addActor(player);
+        stage.addActor(player);
 
         MusicPlayer.INSTANCE.playMenu();
 
         return stage;
+    }
+
+    protected EscapingPlayer buildPlayer() {
+
+        EscapingPlayer player = new EscapingPlayer();
+
+        player.setActor(Factories.getActorFactory().create(player));
+        player.setX(Sizes.GAME_WIDTH * 0.5f);
+        player.setY(Sizes.GAME_HEIGHT * 0.4f);
+
+        return player;
     }
 
     protected Destroyer buildDestroyer(final MissilesLauncher launcher, final Earth earth) {
@@ -111,7 +123,7 @@ public class IntroStageBuilder implements IStageBuilder {
         return destroyer;
     }
 
-    protected Earth buildEarth(final MissilesLauncher launcher, final IUtils utils) {
+    protected Earth buildEarth(final MissilesLauncher launcher, final IUtils utils, final EscapingPlayer player) {
 
         Earth earth = new Earth(new FrameController(utils, 1));
 
@@ -125,9 +137,10 @@ public class IntroStageBuilder implements IStageBuilder {
         earth.setActor(Factories.getActorFactory().create(earth));
         earth.setExplosions(explosions);
         earth.setMissilesLauncher(launcher);
+        earth.setPlayer(player);
 
         earth.setX(Sizes.GAME_WIDTH * 0.5f);
-        earth.setY(Sizes.GAME_HEIGHT * 0.3f);
+        earth.setY(Sizes.GAME_HEIGHT * 0.4f);
 
         return earth;
     }

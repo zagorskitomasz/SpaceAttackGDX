@@ -17,6 +17,7 @@ public class Earth extends Ship {
     private boolean burned;
     private final FrameController explodingChecker;
     private List<Explosion> explosions;
+    private EscapingPlayer player;
 
     public Earth(final FrameController explodingChecker) {
 
@@ -76,5 +77,12 @@ public class Earth extends Ship {
 
         explosions.get(4).getActor().setPosition(actor.getX(), actor.getY() + burnedTexture.getHeight() * 0.3f);
         launcher.launch(explosions.get(4));
+
+        player.escape();
+    }
+
+    public void setPlayer(final EscapingPlayer player) {
+
+        this.player = player;
     }
 }

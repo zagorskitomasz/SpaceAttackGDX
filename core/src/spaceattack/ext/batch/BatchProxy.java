@@ -14,32 +14,32 @@ import spaceattack.game.utils.Rect;
 class BatchProxy implements IBatch {
 
     private Batch realBatch;
-    private ShapeRenderer renderer;
+    private final ShapeRenderer renderer;
 
     public BatchProxy() {
 
         renderer = new ShapeRenderer();
     }
 
-    public void set(Batch batch) {
+    public void set(final Batch batch) {
 
         realBatch = batch;
     }
 
     @Override
-    public void draw(ITexture texture, float drawingX, float drawingY) {
+    public void draw(final ITexture texture, final float drawingX, final float drawingY) {
 
         realBatch.draw(((IRegionHolder) texture).getTextureRegion(), drawingX, drawingY);
     }
 
     @Override
-    public void draw(ILabel label, float alpha) {
+    public void draw(final ILabel label, final float alpha) {
 
         ((GdxLabel) label).draw(realBatch, alpha);
     }
 
     @Override
-    public void rect(Rect... rects) {
+    public void rect(final Rect... rects) {
 
         realBatch.end();
         renderer.setProjectionMatrix(realBatch.getProjectionMatrix());
@@ -54,13 +54,22 @@ class BatchProxy implements IBatch {
     }
 
     @Override
-    public void draw(ITexture texture, float x, float y, float width, float height) {
+    public void draw(final ITexture texture, final float x, final float y, final float width, final float height) {
 
         realBatch.draw(((IRegionHolder) texture).getTextureRegion(), x, y, width, height);
     }
 
-    private void setColor(float r, float g, float b, int alpha) {
+    private void setColor(final float r, final float g, final float b, final int alpha) {
 
         renderer.setColor(r, g, b, alpha);
+    }
+
+    @Override
+    public void draw(final ITexture texture, final float x, final float y, final float originX, final float originY,
+            final float width, final float height,
+            final float scaleX, final float scaleY, final float rotation) {
+
+        realBatch.draw(((IRegionHolder) texture).getTextureRegion(), x, y, originX, originY, width, height, scaleX,
+                scaleY, rotation);
     }
 }

@@ -6,11 +6,14 @@ import spaceattack.game.utils.Rect;
 
 public interface IBatch {
 
-    public void draw(ITexture texture, float drawingX, float drawingY);
+    void draw(ITexture texture, float drawingX, float drawingY);
 
-    public void draw(ILabel label, float alpha);
+    void draw(ILabel label, float alpha);
 
-    public void rect(Rect... rects);
+    void rect(Rect... rects);
 
-    public void draw(ITexture texture, float x, float y, float width, float height);
+    void draw(ITexture texture, float x, float y, float width, float height);
+
+    void draw(ITexture texture, float drawingX, float drawingY, float d, float e, float width, float height,
+            float scale, float scale2, float angle);
 }
