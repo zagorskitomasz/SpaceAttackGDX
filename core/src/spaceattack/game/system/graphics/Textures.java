@@ -15,6 +15,7 @@ public enum Textures {
     ACT_5_LOGO("graphics/actLogo5.png"),
 
     // backgrounds
+    INTRO_BG("graphics/introBg.jpg"),
     MENU_BACKGROUND("graphics/menuBackground.jpg"),
     M1_BACKGROUND("graphics/m1Background.jpg"),
     M2_BACKGROUND("graphics/m2Background.jpg"),
@@ -101,6 +102,9 @@ public enum Textures {
     ZERK1("graphics/ships/effects/zerk1.png"),
     ZERK2("graphics/ships/effects/zerk2.png"),
     ZERK3("graphics/ships/effects/zerk3.png"),
+
+    EARTH_BF("graphics/ships/earth/earthBf.png"),
+    EARTH_AF("graphics/ships/earth/earthAf.png"),
 
     // weapons
     RED_LASER_NS("graphics/weapons/laserNS.png"),

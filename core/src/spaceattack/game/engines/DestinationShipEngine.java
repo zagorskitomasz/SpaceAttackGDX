@@ -21,6 +21,18 @@ public class DestinationShipEngine extends AbstractShipEngine {
 
     private final Lock lock;
 
+    DestinationShipEngine(final IShip ship, final IUtils utils, final int engineAttr, final boolean slow) {
+
+        super(ship);
+        this.utils = utils;
+        lock = new ReentrantLock();
+
+        baseSpeed = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+        acceleration = 0;
+        braking = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+        agility = 0.1f * engineAttr * Sizes.RADIUS_FACTOR;
+    }
+
     DestinationShipEngine(final IShip ship, final IUtils utils, final int engineAttr) {
 
         super(ship);

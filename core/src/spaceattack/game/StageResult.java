@@ -9,7 +9,7 @@ public class StageResult {
 
     public StageResult() {
 
-        nextStage = Stages.PLAYERS_MENU;
+        nextStage = Stages.INTRO;
     }
 
     public Stages getNextStage() {
