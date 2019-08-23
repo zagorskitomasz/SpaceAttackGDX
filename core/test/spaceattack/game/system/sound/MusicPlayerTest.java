@@ -19,6 +19,9 @@ public class MusicPlayerTest {
     private IMusicFactory factory;
 
     @Mock
+    private IMusic introMusic;
+
+    @Mock
     private IMusic menuMusic;
 
     @Mock
@@ -31,12 +34,12 @@ public class MusicPlayerTest {
 
         MockitoAnnotations.initMocks(this);
 
+        doReturn(introMusic).when(factory).create(IntroMusic.INTRO.getPath());
         doReturn(menuMusic).when(factory).create(MenuMusic.MENU.getPath());
         doReturn(actMusic).when(factory).create(Act1Music.SONG_1.getPath());
         doReturn(actMusic).when(factory).create(Act1Music.SONG_2.getPath());
         doReturn(actMusic).when(factory).create(Act1Music.SONG_3.getPath());
         doReturn(actMusic).when(factory).create(Act1Music.SONG_4.getPath());
-        doReturn(actMusic).when(factory).create(Act1Music.SONG_5.getPath());
         doReturn(actMusic).when(factory).create(Act2Music.SONG_1.getPath());
         doReturn(actMusic).when(factory).create(Act2Music.SONG_2.getPath());
         doReturn(actMusic).when(factory).create(Act2Music.SONG_3.getPath());

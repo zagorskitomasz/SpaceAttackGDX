@@ -8,11 +8,13 @@ import spaceattack.game.system.Acts;
 public enum MusicPlayer {
     INSTANCE;
 
+    private PlayableMusic introMusic;
     private PlayableMusic menuMusic;
     private Map<Acts, PlayableMusic> actMusic;
 
     private MusicPlayer() {
 
+        introMusic = new PlayableMusic(IntroMusic.values(), null, this::updateIntroMusic);
         menuMusic = new PlayableMusic(MenuMusic.values(), null, this::updateMenuMusic);
 
         actMusic = new HashMap<>();
@@ -21,6 +23,11 @@ public enum MusicPlayer {
         actMusic.put(Acts.III, new PlayableMusic(Acts.III, Act3Music.values(), null, this::updateActMusic));
         actMusic.put(Acts.IV, new PlayableMusic(Acts.IV, Act4Music.values(), null, this::updateActMusic));
         actMusic.put(Acts.V, new PlayableMusic(Acts.V, Act5Music.values(), null, this::updateActMusic));
+    }
+
+    public void updateIntroMusic(final PlayableMusic song) {
+
+        introMusic = song;
     }
 
     public void updateMenuMusic(final PlayableMusic song) {
@@ -33,6 +40,18 @@ public enum MusicPlayer {
         actMusic.put(act, song);
     }
 
+    public void playIntro() {
+
+        if (introMusic.isPlaying()) {
+            return;
+        }
+
+        actMusic.values().forEach(music -> music.fadeOut());
+        introMusic.fadeOut();
+        menuMusic.fadeOut();
+        introMusic.fadeIn();
+    }
+
     public void playMenu() {
 
         if (menuMusic.isPlaying()) {
@@ -40,6 +59,7 @@ public enum MusicPlayer {
         }
 
         actMusic.values().forEach(music -> music.fadeOut());
+        introMusic.fadeOut();
         menuMusic.fadeOut();
         menuMusic.fadeIn();
     }
@@ -51,6 +71,7 @@ public enum MusicPlayer {
         }
 
         actMusic.values().forEach(music -> music.fadeOut());
+        introMusic.fadeOut();
         menuMusic.fadeOut();
         actMusic.get(act).fadeIn();
     }

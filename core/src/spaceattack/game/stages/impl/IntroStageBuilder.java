@@ -69,7 +69,7 @@ public class IntroStageBuilder implements IStageBuilder {
         stage.addActor(destroyer);
         stage.addActor(player);
 
-        MusicPlayer.INSTANCE.playMenu();
+        MusicPlayer.INSTANCE.playIntro();
 
         return stage;
     }
