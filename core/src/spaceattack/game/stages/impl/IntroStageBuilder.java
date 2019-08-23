@@ -34,9 +34,9 @@ import spaceattack.game.weapons.AIWeaponController;
 import spaceattack.game.weapons.IWeapon;
 import spaceattack.game.weapons.IWeaponController;
 import spaceattack.game.weapons.MissilesLauncher;
-import spaceattack.game.weapons.flame.FlamethrowerBuilder;
 import spaceattack.game.weapons.missiles.Explosion;
 import spaceattack.game.weapons.missiles.ExplosionsBuilder;
+import spaceattack.game.weapons.shield.ShieldBuilder;
 
 public class IntroStageBuilder implements IStageBuilder {
 
@@ -60,7 +60,7 @@ public class IntroStageBuilder implements IStageBuilder {
 
         MissilesLauncher launcher = new MissilesLauncher(stage);
 
-        EscapingPlayer player = buildPlayer();
+        EscapingPlayer player = buildPlayer(stage);
         Earth earth = buildEarth(launcher, utils, player);
         IGameActor destroyer = buildDestroyer(launcher, earth);
 
@@ -74,13 +74,15 @@ public class IntroStageBuilder implements IStageBuilder {
         return stage;
     }
 
-    protected EscapingPlayer buildPlayer() {
+    protected EscapingPlayer buildPlayer(final IntroStage stage) {
 
-        EscapingPlayer player = new EscapingPlayer();
+        EscapingPlayer player = new EscapingPlayer(stage::finalizeStage);
 
         player.setActor(Factories.getActorFactory().create(player));
         player.setX(Sizes.GAME_WIDTH * 0.5f);
         player.setY(Sizes.GAME_HEIGHT * 0.4f);
+        player.setShipEngine(ShipEngineBuilder.INSTANCE.createDestinationEngine(player));
+        player.setDestination(player.getPosition());
 
         return player;
     }
@@ -109,10 +111,10 @@ public class IntroStageBuilder implements IStageBuilder {
         destroyer.setMissilesLauncher(launcher);
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(destroyer);
 
-        IWeapon thrower = FlamethrowerBuilder.INSTANCE.build(controller, launcher, 1);
-        thrower.setNoEnergyCost();
-        controller.addPassiveWeapon(thrower);
-        destroyer.addWeapon(thrower);
+        IWeapon emitter = ShieldBuilder.INSTANCE.build(controller, launcher, 1);
+        emitter.setNoEnergyCost();
+        controller.addPassiveWeapon(emitter);
+        destroyer.addWeapon(emitter);
 
         destroyer.setShipEngine(engine);
         engine.setDestination(

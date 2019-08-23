@@ -28,7 +28,7 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     private IWeaponController controller;
 
     private EnemyBar bar;
-    private final Attributes attributes;
+    protected final Attributes attributes;
     private float fearFactor;
     private boolean feared;
     private final ITexture fearEffect = Textures.FEAR.getTexture();
@@ -50,7 +50,9 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
     public void act(final float delta) {
 
         super.act(delta);
-        mover.updateDirection();
+        if (mover != null) {
+            mover.updateDirection();
+        }
         performAttack();
         disappearIfNeeded();
     }

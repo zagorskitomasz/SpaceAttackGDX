@@ -199,7 +199,7 @@ public abstract class Ship extends DrawableActor implements IShip {
     @Override
     public boolean takeEnergy(final float energyCost) {
 
-        return energyPool != null ? energyPool.take(energyCost) : true;
+        return energyPool != null ? energyPool.take(energyCost) : energyCost == 0;
     }
 
     @Override
@@ -306,7 +306,9 @@ public abstract class Ship extends DrawableActor implements IShip {
     @Override
     public void setTemporalImmortalityChecker(final BooleanSupplier checker) {
 
-        hpPool.addTemporalInfinityChecker(checker);
+        if (hpPool != null) {
+            hpPool.addTemporalInfinityChecker(checker);
+        }
     }
 
     @Override
