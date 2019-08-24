@@ -54,15 +54,15 @@ public class Consts {
         public static final float TRIPLE_GREEN_SPEED_PER_ATTR = 0.7f * Sizes.Y_FACTOR;
         public static final float TRIPLE_GREEN_COST_PER_ATTR = 3;
 
-        public static final float ROCKET_DMG_PER_ATTR = 4;
+        public static final float ROCKET_DMG_PER_ATTR = 3;
         public static final float ROCKET_SPEED_PER_ATTR = 0f;
         public static final float ROCKET_COST_PER_ATTR = 3;
 
-        public static final float DROCKET_DMG_PER_ATTR = 4;
+        public static final float DROCKET_DMG_PER_ATTR = 2;
         public static final float DROCKET_SPEED_PER_ATTR = 0;
         public static final float DROCKET_COST_PER_ATTR = 3;
 
-        public static final float MINER_DMG_PER_ATTR = 12;
+        public static final float MINER_DMG_PER_ATTR = 8;
         public static final float MINER_SPEED_PER_ATTR = 0;
         public static final float MINER_COST_PER_ATTR = 3;
 
@@ -143,10 +143,10 @@ public class Consts {
 
     public static class Pools {
 
-        public static final float HP_PER_ATTR = 12;
+        public static final float HP_PER_ATTR = 9;
         public static final float HP_REGEN_PER_ATTR = 0.4f;
 
-        public static final float ENERGY_PER_ATTR = 15;
+        public static final float ENERGY_PER_ATTR = 12;
         public static final float ENERGY_REGEN_PER_ATTR = 2f;
         public static final float REGEN_MASTERY_FACTOR = 0.2f;
         public static final float SPEED_FACTOR = 0.2f;
@@ -156,12 +156,12 @@ public class Consts {
 
     public static class Explosions {
 
-        public static final float FIGHTER_EX_DMG = 20;
+        public static final float FIGHTER_EX_DMG = 10;
         public static final float FIGHTER_EX_FIRE_BASE_DMG = 10;
         public static final float FIGHTER_EX_FIRE_DMG_PER_STRENGTH = 2;
         public static final float FIGHTER_EX_RADIUS = 75;
 
-        public static final float TANK_EX_DMG = 40;
+        public static final float TANK_EX_DMG = 20;
         public static final float TANK_EX_FIRE_BASE_DMG = 20;
         public static final float TANK_EX_FIRE_DMG_PER_STRENGTH = 4;
         public static final float TANK_EX_RADIUS = 125;
@@ -170,12 +170,7 @@ public class Consts {
         public static final float BOSS_EX_FIRE_BASE_DMG = 0;
         public static final float BOSS_EX_RADIUS = 0;
 
-        public static final float MISSILE_EX_DMG = 2;
-        public static final float MISSILE_EX_FIRE_DMG = 0.5f;
         public static final float MISSILE_EX_RADIUS = 100;
-
-        public static final float MINE_EX_DMG = 3;
-        public static final float MINE_EX_FIRE_DMG = 0.5f;
         public static final float MINE_EX_RADIUS = 125;
 
         public static final long FIRE_BASE_DURATION = 4000;
@@ -184,9 +179,9 @@ public class Consts {
 
     public static class AttributesStarters {
 
-        public static final Starter FIGHTER = new Starter(3, 7, 5, 5, 1, 1.5f, 1, 1);
-        public static final Starter CHASER = new Starter(5, 3, 5, 7, 1, 1, 1, 1.5f);
-        public static final Starter TANK = new Starter(5, 7, 5, 3, 1, 2f, 1, 0.5f);
+        public static final Starter FIGHTER = new Starter(3, 4, 5, 5, 1, 1.5f, 1, 1);
+        public static final Starter CHASER = new Starter(5, 2, 5, 7, 1, 1, 1, 1.5f);
+        public static final Starter TANK = new Starter(5, 6, 5, 3, 1, 2f, 1, 0.5f);
 
         public static final Starter MINOR_AI = new Starter(10, 30, 10, 5, 2, 8, 2, 1);
         public static final Starter MINOR_AII = new Starter(10, 30, 10, 5, 2, 8, 2, 1);

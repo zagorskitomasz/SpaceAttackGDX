@@ -50,8 +50,8 @@ public enum ExplosionsBuilder {
 
         explosion.setActor(Factories.getActorFactory().create(explosion));
         explosion.setAnimation(Animations.MISSILE_EX.getAnimation());
-        explosion.setDmg(Consts.Explosions.MISSILE_EX_DMG * dmg);
-        explosion.setFireDmg(Consts.Explosions.MISSILE_EX_FIRE_DMG * dmg);
+        explosion.setDmg(dmg);
+        explosion.setFireDmg(0.25f * dmg);
         explosion.setFireDuration(
                 Consts.Explosions.FIRE_BASE_DURATION + Math.round(dmg) * Consts.Explosions.FIRE_DURATION_PER_DMG);
         explosion.setRadius(Consts.Explosions.MISSILE_EX_RADIUS);
@@ -84,9 +84,8 @@ public enum ExplosionsBuilder {
 
         explosion.setActor(Factories.getActorFactory().create(explosion));
         explosion.setAnimation(Animations.MISSILE_EX.getAnimation());
-        explosion.setDmg(Consts.Explosions.MINE_EX_DMG * dmg);
-        explosion.setFireDmg(
-                Consts.Explosions.MINE_EX_FIRE_DMG * dmg);
+        explosion.setDmg(dmg);
+        explosion.setFireDmg(0.25f * dmg);
         explosion.setFireDuration(
                 Consts.Explosions.FIRE_BASE_DURATION + Math.round(dmg) * Consts.Explosions.FIRE_DURATION_PER_DMG);
         explosion.setRadius(Consts.Explosions.MINE_EX_RADIUS);
