@@ -18,39 +18,39 @@ public class Consts {
 
     public static class Weapons {
 
-        public static final float LASER_ATTACKS_PER_SECOND = 4;
+        public static final float LASER_ATTACKS_PER_SECOND = 3;
         public static final float TARGETED_LASER_ATTACKS_PER_SECOND = 3.2f;
         public static final float ROCKET_ATTACKS_PER_SECOND = 1;
         public static final float MINE_ATTACKS_PER_SECOND = 1;
         public static final float SLOW_MINE_ATTACKS_PER_SECOND = 0.5f;
-        public static final float SHIELD_ATTACKS_PER_SECOND = 5;
-        public static final float TIME_WAVE_ATTACKS_PER_SECOND = 0.33f;
+        public static final float SHIELD_ATTACKS_PER_SECOND = 3;
+        public static final float TIME_WAVE_ATTACKS_PER_SECOND = 1f;
 
-        public static final float RED_LASER_DMG_PER_ATTR = 2;
+        public static final float RED_LASER_DMG_PER_ATTR = 1;
         public static final float RED_LASER_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float RED_LASER_COST_PER_ATTR = 2;
 
-        public static final float TRED_LASER_DMG_PER_ATTR = 2;
+        public static final float TRED_LASER_DMG_PER_ATTR = 0.7f;
         public static final float TRED_LASER_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float TRED_LASER_COST_PER_ATTR = 0;
 
-        public static final float DISTRACTED_RED_DMG_PER_ATTR = 2;
+        public static final float DISTRACTED_RED_DMG_PER_ATTR = 0.7f;
         public static final float DISTRACTED_RED_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float DISTRACTED_RED_COST_PER_ATTR = 2;
 
-        public static final float MASSIVE_RED_DMG_PER_ATTR = 2;
+        public static final float MASSIVE_RED_DMG_PER_ATTR = 0.7f;
         public static final float MASSIVE_RED_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float MASSIVE_RED_COST_PER_ATTR = 2;
 
-        public static final float DOUBLE_RED_DMG_PER_ATTR = 2;
+        public static final float DOUBLE_RED_DMG_PER_ATTR = 0.7f;
         public static final float DOUBLE_RED_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float DOUBLE_RED_COST_PER_ATTR = 2;
 
-        public static final float GREEN_LASER_DMG_PER_ATTR = 4;
+        public static final float GREEN_LASER_DMG_PER_ATTR = 2;
         public static final float GREEN_LASER_SPEED_PER_ATTR = 0.7f * Sizes.Y_FACTOR;
         public static final float GREEN_LASER_COST_PER_ATTR = 3;
 
-        public static final float TRIPLE_GREEN_DMG_PER_ATTR = 4;
+        public static final float TRIPLE_GREEN_DMG_PER_ATTR = 1.4f;
         public static final float TRIPLE_GREEN_SPEED_PER_ATTR = 0.7f * Sizes.Y_FACTOR;
         public static final float TRIPLE_GREEN_COST_PER_ATTR = 3;
 
@@ -62,22 +62,22 @@ public class Consts {
         public static final float DROCKET_SPEED_PER_ATTR = 0;
         public static final float DROCKET_COST_PER_ATTR = 3;
 
-        public static final float MINER_DMG_PER_ATTR = 4;
+        public static final float MINER_DMG_PER_ATTR = 12;
         public static final float MINER_SPEED_PER_ATTR = 0;
         public static final float MINER_COST_PER_ATTR = 3;
 
         public static final float SHIELD_DMG_PER_ATTR = 4;
         public static final float SHIELD_SPEED_PER_ATTR = 0;
-        public static final float SHIELD_COST_PER_ATTR = 3;
+        public static final float SHIELD_COST_PER_ATTR = 5;
 
-        public static final float FLAME_DMG_PER_ATTR = 4;
+        public static final float FLAME_DMG_PER_ATTR = 16;
         public static final float FLAME_SPEED_PER_ATTR = 0;
-        public static final float FLAME_COST_PER_ATTR = 3;
+        public static final float FLAME_COST_PER_ATTR = 5;
         public static final long FLAME_DURATION = 5000;
 
-        public static final float WAVE_DMG_PER_ATTR = 4;
+        public static final float WAVE_DMG_PER_ATTR = 20;
         public static final float WAVE_SPEED_PER_ATTR = 0;
-        public static final float WAVE_COST_PER_ATTR = 3;
+        public static final float WAVE_COST_PER_ATTR = 5;
 
         public static final float LASER_RADIUS = 8;
         public static final float ROCKET_RADIUS = 10;
@@ -143,10 +143,10 @@ public class Consts {
 
     public static class Pools {
 
-        public static final float HP_PER_ATTR = 6;
+        public static final float HP_PER_ATTR = 12;
         public static final float HP_REGEN_PER_ATTR = 0.4f;
 
-        public static final float ENERGY_PER_ATTR = 10;
+        public static final float ENERGY_PER_ATTR = 15;
         public static final float ENERGY_REGEN_PER_ATTR = 2f;
         public static final float REGEN_MASTERY_FACTOR = 0.2f;
         public static final float SPEED_FACTOR = 0.2f;
@@ -174,7 +174,7 @@ public class Consts {
         public static final float MISSILE_EX_FIRE_DMG = 0.5f;
         public static final float MISSILE_EX_RADIUS = 100;
 
-        public static final float MINE_EX_DMG = 2;
+        public static final float MINE_EX_DMG = 3;
         public static final float MINE_EX_FIRE_DMG = 0.5f;
         public static final float MINE_EX_RADIUS = 125;
 
@@ -186,23 +186,23 @@ public class Consts {
 
         public static final Starter FIGHTER = new Starter(3, 7, 5, 5, 1, 1.5f, 1, 1);
         public static final Starter CHASER = new Starter(5, 3, 5, 7, 1, 1, 1, 1.5f);
-        public static final Starter TANK = new Starter(5, 7, 5, 3, 1, 1.5f, 1, 0.5f);
+        public static final Starter TANK = new Starter(5, 7, 5, 3, 1, 2f, 1, 0.5f);
 
-        public static final Starter MINOR_AI = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter MINOR_AII = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter MINOR_AIII = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter MINOR_AIV = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter MINOR_AV = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MINOR_AI = new Starter(10, 30, 10, 5, 2, 8, 2, 1);
+        public static final Starter MINOR_AII = new Starter(10, 30, 10, 5, 2, 8, 2, 1);
+        public static final Starter MINOR_AIII = new Starter(10, 30, 10, 5, 2, 8, 2, 1);
+        public static final Starter MINOR_AIV = new Starter(10, 40, 10, 5, 2, 8, 2, 1);
+        public static final Starter MINOR_AV = new Starter(10, 40, 10, 5, 2, 8, 2, 1);
 
-        public static final Starter MAJOR_AI = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter MAJOR_AII = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter MAJOR_AIII = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter MAJOR_AIV = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter MAJOR_AV = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter MAJOR_AI = new Starter(10, 50, 10, 5, 2, 10, 2, 1);
+        public static final Starter MAJOR_AII = new Starter(10, 50, 10, 5, 2, 10, 2, 1);
+        public static final Starter MAJOR_AIII = new Starter(10, 50, 10, 5, 2, 10, 2, 1);
+        public static final Starter MAJOR_AIV = new Starter(10, 50, 10, 5, 2, 10, 2, 1);
+        public static final Starter MAJOR_AV = new Starter(10, 50, 10, 5, 2, 10, 2, 1);
 
-        public static final Starter SPACE_STATION = new Starter(10, 50, 10, 5, 2, 5, 2, 1);
-        public static final Starter STATION_HELPER_I = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
-        public static final Starter STATION_HELPER_II = new Starter(10, 10, 10, 5, 2, 2, 2, 1);
+        public static final Starter SPACE_STATION = new Starter(10, 50, 10, 5, 2, 15, 2, 1);
+        public static final Starter STATION_HELPER_I = new Starter(10, 10, 10, 5, 2, 10, 2, 1);
+        public static final Starter STATION_HELPER_II = new Starter(10, 10, 10, 5, 2, 10, 2, 1);
 
         public static final Starter INTRO_STATION = new Starter(10, 50, 10, 1, 2, 5, 2, -0.3f);
     }

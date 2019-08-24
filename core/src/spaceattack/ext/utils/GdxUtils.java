@@ -155,7 +155,7 @@ enum GdxUtils implements IGdxUtils {
     @Override
     public void exit() {
 
-        Gdx.app.exit();
+        System.exit(0);
     }
 
     @Override
@@ -235,5 +235,11 @@ enum GdxUtils implements IGdxUtils {
         label.setY(yPos);
 
         return label;
+    }
+
+    @Override
+    public void init() {
+
+        Gdx.input.setCatchBackKey(true);
     }
 }

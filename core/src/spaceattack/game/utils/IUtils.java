@@ -54,4 +54,6 @@ public interface IUtils {
     void infoDialog(String caption, String info, IStage stage);
 
     ILabel createDetailerToucher(float yPos, String details, ILabel infoLabel, boolean isCompact);
+
+    void init();
 }

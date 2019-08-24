@@ -44,8 +44,14 @@ public class ImprovementsStageBuilder implements IStageBuilder {
         ILabel freePointsLabel = utils.createBarLabel();
         freePointsLabel.setText("Free points: " + progress.getImprovements().getFreePoints());
         freePointsLabel.pack();
-        freePointsLabel.setY(Sizes.GAME_HEIGHT * 0.15f);
+        freePointsLabel.setY(Sizes.GAME_HEIGHT * 0.17f);
         freePointsLabel.setX((Sizes.GAME_WIDTH - freePointsLabel.getWidth()) * 0.5f);
+
+        ILabel levelLabel = Factories.getUtilsFactory().create().createBarLabel();
+        levelLabel.setText("Ship level: " + progress.getLevel());
+        levelLabel.pack();
+        levelLabel.setY(Sizes.GAME_HEIGHT * 0.13f);
+        levelLabel.setX((Sizes.GAME_WIDTH - levelLabel.getWidth()) * 0.5f);
 
         int lineIndex = 0;
         for (Improvement improvement : Improvement.values()) {
@@ -63,6 +69,7 @@ public class ImprovementsStageBuilder implements IStageBuilder {
         stage.addBackground(background);
         stage.addActor(new GameplayLabel(infoLabel));
         stage.addActor(new GameplayLabel(freePointsLabel));
+        stage.addActor(new GameplayLabel(levelLabel));
 
         stage.addActor(backToMenuButton);
 

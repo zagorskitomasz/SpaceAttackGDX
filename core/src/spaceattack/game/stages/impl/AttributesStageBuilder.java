@@ -45,8 +45,14 @@ public class AttributesStageBuilder implements IStageBuilder {
         ILabel freePointsLabel = utils.createBarLabel();
         freePointsLabel.setText("Free points: " + progress.getAttributes().getFreePoints());
         freePointsLabel.pack();
-        freePointsLabel.setY(Sizes.GAME_HEIGHT * 0.17f);
+        freePointsLabel.setY(Sizes.GAME_HEIGHT * 0.18f);
         freePointsLabel.setX((Sizes.GAME_WIDTH - freePointsLabel.getWidth()) * 0.5f);
+
+        ILabel levelLabel = Factories.getUtilsFactory().create().createBarLabel();
+        levelLabel.setText("Ship level: " + progress.getLevel());
+        levelLabel.pack();
+        levelLabel.setY(Sizes.GAME_HEIGHT * 0.14f);
+        levelLabel.setX((Sizes.GAME_WIDTH - levelLabel.getWidth()) * 0.5f);
 
         int lineIndex = 0;
         for (Attribute attribute : Attribute.values()) {
@@ -65,6 +71,7 @@ public class AttributesStageBuilder implements IStageBuilder {
         stage.addActorBeforeGUI(logo);
         stage.addActor(new GameplayLabel(infoLabel));
         stage.addActor(new GameplayLabel(freePointsLabel));
+        stage.addActor(new GameplayLabel(levelLabel));
 
         stage.addActor(backToMenuButton);
 

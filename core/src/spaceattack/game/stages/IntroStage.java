@@ -3,7 +3,6 @@ package spaceattack.game.stages;
 import spaceattack.game.StageResult;
 import spaceattack.game.input.IInputProcessor;
 import spaceattack.game.stages.impl.GameplayStage;
-import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.utils.IUtils;
 
 public class IntroStage extends GameplayStage {
@@ -38,7 +37,6 @@ public class IntroStage extends GameplayStage {
     @Override
     public void finalizeStage() {
 
-        Sounds.stopAll();
         StageResult result = new StageResult();
         result.setNextStage(Stages.PLAYERS_MENU);
         result.setGameProgress(null);
