@@ -1,5 +1,7 @@
 package spaceattack.game.weapons;
 
+import spaceattack.game.utils.vector.IVector;
+
 public interface IWeapon {
 
     boolean use();
@@ -18,4 +20,6 @@ public interface IWeapon {
     void setNoEnergyCost();
 
     void setInterval(float checksPerSecond);
+
+    IVector calculateTargetedShotPosition(float distanceFromShip, float gunMovX, float gunMovY);
 }

@@ -141,7 +141,7 @@ public enum MinorBossShipBuilder {
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
         IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher,
-                boss.getAttributes().get(Attribute.ARMORY));
+                boss.getAttributes().get(Attribute.ARMORY) * 3);
         IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher,
                 boss.getAttributes().get(Attribute.ARMORY));
 

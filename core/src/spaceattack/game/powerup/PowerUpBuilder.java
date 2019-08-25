@@ -106,7 +106,7 @@ public enum PowerUpBuilder implements IPowerUpBuilder {
             final GameplayStage stage) {
 
         IWeapon wave = WeaponsFactory.INSTANCE.createTimeWave(controller, stage.getMissilesLauncher(),
-                stage.getGameProgress().getAttributes().get(Attribute.ARMORY));
+                stage.getGameProgress().getAttributes().get(Attribute.ARMORY) * 2);
 
         WeaponHolder holder = new WeaponHolder();
         holder.setFireButton(button);

@@ -73,7 +73,8 @@ public abstract class AbstractWeapon implements IWeapon {
         return energyCost;
     }
 
-    protected IVector calculateTargetedShotPosition(final float distanceFromShip, final float gunMovX,
+    @Override
+    public IVector calculateTargetedShotPosition(final float distanceFromShip, final float gunMovX,
             final float gunMovY) {
 
         IVector shipCoords = controller.getPrimaryWeaponUsePlacement();

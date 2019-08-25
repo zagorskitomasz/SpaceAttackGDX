@@ -49,7 +49,7 @@ public class Miner extends AbstractWeapon {
         missile.setSpeed(0);
         missile.setAcceleration(0);
         missile.setMovement(controller.getWeaponMovement());
-        missile.setPosition(controller.getSecondaryWeaponUsePlacement());
+        missile.setPosition(calculateTargetedShotPosition(controller.getShipsWidth() * 2, 1, 1));
         missile.setRadius(Consts.Weapons.MINE_RADIUS);
         missile.setSound(Sounds.MINE);
         missile.setExplosion(ExplosionsBuilder.INSTANCE.createMineExplosion(dmg * controller.getDamageFactor()));
