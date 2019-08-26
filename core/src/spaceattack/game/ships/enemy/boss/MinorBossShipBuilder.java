@@ -204,7 +204,7 @@ public enum MinorBossShipBuilder {
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.2f);
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setHpPool(hpPool);

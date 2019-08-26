@@ -82,7 +82,7 @@ public class RedLaserTest {
 
         Missile missile = redLaser.buildMissile();
 
-        assertEquals(10, missile.getDmg(), 0);
+        assertEquals(5, missile.getDmg(), 0);
         assertEquals(15, missile.getSpeed(), 0);
         assertEquals(0, missile.getAcceleration(), 0);
     }
@@ -106,7 +106,7 @@ public class RedLaserTest {
 
         Missile missile = redLaser.buildMissile();
 
-        assertEquals(16, missile.getDmg(), 0);
+        assertEquals(8, missile.getDmg(), 0);
     }
 
     @Test

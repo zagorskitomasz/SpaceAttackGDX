@@ -22,7 +22,7 @@ public class HpPoolTest {
     @Test
     public void ifDrawnedToZeroWontRegen() {
 
-        pool.take(60);
+        pool.take(90);
         pool.update();
 
         assertEquals(0, pool.getAmount(), 0);
@@ -31,7 +31,7 @@ public class HpPoolTest {
     @Test
     public void ifDrawnedBelowZeroAmountIsZero() {
 
-        pool.take(100);
+        pool.take(150);
 
         assertEquals(0, pool.getAmount(), 0);
     }
@@ -42,7 +42,7 @@ public class HpPoolTest {
         pool.take(30);
         pool.regen(20);
 
-        assertEquals(50f, pool.getAmount(), 0);
+        assertEquals(80f, pool.getAmount(), 0);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class HpPoolTest {
         pool.take(30);
         pool.regen(40);
 
-        assertEquals(60f, pool.getAmount(), 0);
+        assertEquals(90f, pool.getAmount(), 0);
     }
 
     @Test
@@ -60,6 +60,6 @@ public class HpPoolTest {
         pool.setImmunityChecker(() -> true);
         pool.take(30);
 
-        assertEquals(60f, pool.getAmount(), 0);
+        assertEquals(90f, pool.getAmount(), 0);
     }
 }

@@ -77,7 +77,7 @@ public class Consts {
 
         public static final float WAVE_DMG_PER_ATTR = 35;
         public static final float WAVE_SPEED_PER_ATTR = 0;
-        public static final float WAVE_COST_PER_ATTR = 5;
+        public static final float WAVE_COST_PER_ATTR = 3;
 
         public static final float LASER_RADIUS = 8;
         public static final float ROCKET_RADIUS = 10;

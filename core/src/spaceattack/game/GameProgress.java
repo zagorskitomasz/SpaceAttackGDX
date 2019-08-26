@@ -135,7 +135,7 @@ public class GameProgress implements INotifier<GameProgress> {
 
         experience += amount;
 
-        if (experience >= Experience.INSTANCE.expForLevel(level + 1)) {
+        while (experience >= Experience.INSTANCE.expForLevel(level + 1)) {
             setLevel(level + 1);
             attributes.addFreePoints(Attribute.POINTS_PER_LEVEL);
             improvements.addFreePoints(Improvement.POINTS_PER_LEVEL);
@@ -182,7 +182,7 @@ public class GameProgress implements INotifier<GameProgress> {
 
         if (currentMission + 1 > getMission()) {
             setMission(currentMission + 1);
-            if ((mission + 1) % 3 == 0) {
+            if ((mission - 1) % 3 == 0) {
                 newWeaponAvailable = true;
             }
         }

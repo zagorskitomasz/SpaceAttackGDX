@@ -61,7 +61,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0f);
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
@@ -123,7 +123,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.3f);
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
@@ -187,7 +187,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.3f);
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
