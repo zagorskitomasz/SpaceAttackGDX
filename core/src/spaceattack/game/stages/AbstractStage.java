@@ -14,6 +14,7 @@ import spaceattack.game.buttons.IButton;
 import spaceattack.game.system.GameLoader;
 import spaceattack.game.system.GameSaver;
 import spaceattack.game.system.graphics.StaticImage;
+import spaceattack.game.system.sound.Sounds;
 
 public abstract class AbstractStage implements IGameStage {
 
@@ -69,6 +70,7 @@ public abstract class AbstractStage implements IGameStage {
     public void setResult(final StageResult result) {
 
         this.result = result;
+        Sounds.stopAll();
 
         if (result.getGameProgress() != null
                 && !(result.getGameProgress().equals(progressBackup) && gameLoader.fileExists())) {

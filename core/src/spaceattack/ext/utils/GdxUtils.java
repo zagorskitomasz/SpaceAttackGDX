@@ -93,13 +93,12 @@ enum GdxUtils implements IGdxUtils {
     }
 
     @Override
-    public IVector getTouch() {
+    public IVector getTouch(final int pointer) {
 
-        if (!Gdx.input.isTouched()) {
+        if (!Gdx.input.isTouched(pointer)) {
             return null;
         }
-
-        return Factories.getVectorFactory().create(Gdx.input.getX(), Gdx.input.getY());
+        return Factories.getVectorFactory().create(Gdx.input.getX(pointer), Gdx.input.getY(pointer));
     }
 
     @Override
@@ -155,7 +154,7 @@ enum GdxUtils implements IGdxUtils {
     @Override
     public void exit() {
 
-        Gdx.app.exit();
+        System.exit(0);
     }
 
     @Override
@@ -235,5 +234,11 @@ enum GdxUtils implements IGdxUtils {
         label.setY(yPos);
 
         return label;
+    }
+
+    @Override
+    public void init() {
+
+        Gdx.input.setCatchBackKey(true);
     }
 }

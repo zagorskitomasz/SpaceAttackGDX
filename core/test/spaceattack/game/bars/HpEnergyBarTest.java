@@ -53,9 +53,9 @@ public class HpEnergyBarTest {
         energyPool.take(40);
         energyPool.update();
 
-        assertEquals(100, bar.getMaxEnergy(), 0);
-        assertEquals(62, bar.getEnergy(), 0);
-        assertEquals(0.62, bar.getEnergyPercent(), 0.01);
+        assertEquals(120, bar.getMaxEnergy(), 0);
+        assertEquals(82, bar.getEnergy(), 0);
+        assertEquals(0.68, bar.getEnergyPercent(), 0.01);
     }
 
     @Test
@@ -64,8 +64,8 @@ public class HpEnergyBarTest {
         hpPool.take(40);
         hpPool.update();
 
-        assertEquals(60, bar.getMaxHp(), 0);
-        assertEquals(20.4, bar.getHp(), 0.1);
-        assertEquals(0.35, bar.getHpPercent(), 0.01);
+        assertEquals(90, bar.getMaxHp(), 0);
+        assertEquals(50.4, bar.getHp(), 0.1);
+        assertEquals(0.56, bar.getHpPercent(), 0.01);
     }
 }

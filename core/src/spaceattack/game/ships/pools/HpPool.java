@@ -8,18 +8,28 @@ public class HpPool extends Pool {
 
     private Supplier<Boolean> immunityChecker;
 
+    public HpPool(final int shields, final float regenFactor) {
+
+        this(shields, regenFactor, 0);
+    }
+
     public HpPool(final int shields) {
 
-        this(shields, 0);
+        this(shields, 1, 0);
     }
 
     public HpPool(final int shields, final int mastery) {
+
+        this(shields, 1, mastery);
+    }
+
+    public HpPool(final int shields, final float regenFactor, final int mastery) {
 
         super(shields, mastery);
 
         this.maxAmount = Consts.Pools.HP_PER_ATTR * shields;
         this.regenPerSecond = Consts.Pools.HP_REGEN_PER_ATTR * shields
-                * (1 + Consts.Pools.REGEN_MASTERY_FACTOR * mastery);
+                * (1 + Consts.Pools.REGEN_MASTERY_FACTOR * mastery) * regenFactor;
         this.amount = maxAmount;
     }
 

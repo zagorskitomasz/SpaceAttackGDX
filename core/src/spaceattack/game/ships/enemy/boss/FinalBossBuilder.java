@@ -61,7 +61,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0f);
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
@@ -123,7 +123,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.3f);
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
@@ -187,7 +187,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IPool energyPool = new Pool(boss.getAttributes().get(Attribute.BATTERY));
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.3f);
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setEnergyPool(energyPool);
@@ -233,7 +233,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         boss.addWeapon(miner);
 
         IWeapon timeWave = TimeWaveEmitterBuilder.INSTANCE.build(boss.getWeaponController(),
-                stage.getMissilesLauncher(), boss.getAttributes().get(Attribute.ARMORY));
+                stage.getMissilesLauncher(), (int) (boss.getAttributes().get(Attribute.ARMORY) * 0.5f));
         timeWave.setInterval(0.14f);
         boss.getWeaponController().setSecondaryWeapon(timeWave);
         boss.addWeapon(timeWave);

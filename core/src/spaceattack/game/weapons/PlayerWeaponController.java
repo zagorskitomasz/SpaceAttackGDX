@@ -96,7 +96,7 @@ public class PlayerWeaponController extends AbstractWeaponController {
         float factor = 1;
 
         if (ship.getBerserkerLevel() > 0) {
-            factor += 1 + (ship.getBerserkerLevel() - 1) * ship.getImprovements().get(Improvement.BERSERKER) * 0.1f;
+            factor += 1 + (ship.getBerserkerLevel() - 1) * ship.getImprovements().get(Improvement.BERSERKER) * 0.05f;
         }
         return factor;
     }

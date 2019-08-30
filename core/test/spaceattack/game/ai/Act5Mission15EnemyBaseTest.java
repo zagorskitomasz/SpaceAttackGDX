@@ -103,7 +103,7 @@ public class Act5Mission15EnemyBaseTest {
         base.act(0);
         spaceStationI.takeDmg(40);
 
-        assertEquals(40, spaceStationI.getHpPool().getAmount(), 0);
+        assertEquals(85, spaceStationI.getHpPool().getAmount(), 0);
     }
 
     @Test
@@ -133,13 +133,13 @@ public class Act5Mission15EnemyBaseTest {
     public void spaceStationIIisSendHomeWhenHpBelowGivenPercent() {
 
         base.act(0);
-        spaceStationI.takeDmg(50);
+        spaceStationI.takeDmg(100);
         base.act(0);
         base.act(0);
         helperI.setToKill();
         base.act(0);
         base.act(0);
-        spaceStationII.takeDmg(70);
+        spaceStationII.takeDmg(150);
         base.act(0);
 
         assertEquals(360, spaceStationII.getX(), 0);
@@ -160,20 +160,20 @@ public class Act5Mission15EnemyBaseTest {
         base.act(0);
         spaceStationII.takeDmg(10);
 
-        assertEquals(20, spaceStationII.getHpPool().getAmount(), 0);
+        assertEquals(55, spaceStationII.getHpPool().getAmount(), 0);
     }
 
     @Test
     public void afterKillingStationIIHeplerIIisInvoked() {
 
         base.act(0);
-        spaceStationI.takeDmg(50);
+        spaceStationI.takeDmg(100);
         base.act(0);
         base.act(0);
         helperI.setToKill();
         base.act(0);
         base.act(0);
-        spaceStationII.takeDmg(70);
+        spaceStationII.takeDmg(150);
         base.act(0);
         base.act(0);
         verify(builder).createHelperII(stage);
@@ -183,13 +183,13 @@ public class Act5Mission15EnemyBaseTest {
     public void afterKillingHeplerIIStationIIIisInvoked() {
 
         base.act(0);
-        spaceStationI.takeDmg(50);
+        spaceStationI.takeDmg(100);
         base.act(0);
         base.act(0);
         helperI.setToKill();
         base.act(0);
         base.act(0);
-        spaceStationII.takeDmg(70);
+        spaceStationII.takeDmg(150);
         base.act(0);
         base.act(0);
         helperII.setToKill();
@@ -214,7 +214,7 @@ public class Act5Mission15EnemyBaseTest {
         helperII.setToKill();
         base.act(0);
         base.act(0);
-        spaceStationIII.takeDmg(110);
+        spaceStationIII.takeDmg(220);
 
         assertTrue(spaceStationIII.getHpPool().getAmount() <= 0);
     }

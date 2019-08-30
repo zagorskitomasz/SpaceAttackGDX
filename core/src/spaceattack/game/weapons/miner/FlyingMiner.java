@@ -17,7 +17,7 @@ public class FlyingMiner extends AbstractWeapon {
     public FlyingMiner(final int armory) {
 
         dmg = Consts.Weapons.MINER_DMG_PER_ATTR * armory;
-        speed = Consts.Weapons.MINER_SPEED_PER_ATTR * armory;
+        speed = Consts.Weapons.FLYING_MINE_SPEED;
         energyCost = Consts.Weapons.MINER_COST_PER_ATTR * armory;
     }
 

@@ -31,7 +31,10 @@ public enum ChaserShipBuilder {
 
     public IEnemyShip buildActI(final GameplayStage stage) {
 
-        IEnemyShip ship = build(stage);
+        IEnemyShip ship = build(stage,
+                new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR)),
+                false);
         ship.setTexture(Textures.CHASER1.getTexture());
 
         IWeaponController controller = new AIWeaponController();
@@ -54,7 +57,10 @@ public enum ChaserShipBuilder {
 
     public IEnemyShip buildActII(final GameplayStage stage) {
 
-        IEnemyShip ship = build(stage);
+        IEnemyShip ship = build(stage,
+                new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR)),
+                false);
         ship.setTexture(Textures.CHASER2.getTexture());
 
         IWeaponController controller = new AIWeaponController();
@@ -77,7 +83,10 @@ public enum ChaserShipBuilder {
 
     public IEnemyShip buildActIII(final GameplayStage stage) {
 
-        IEnemyShip ship = build(stage);
+        IEnemyShip ship = build(stage,
+                new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR)),
+                false);
         ship.setTexture(Textures.CHASER3.getTexture());
 
         IWeaponController controller = new AIWeaponController();
@@ -100,7 +109,10 @@ public enum ChaserShipBuilder {
 
     public IEnemyShip buildActIV(final GameplayStage stage) {
 
-        IEnemyShip ship = build(stage);
+        IEnemyShip ship = build(stage,
+                new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR)),
+                false);
         ship.setTexture(Textures.CHASER4.getTexture());
 
         IWeaponController controller = new AIWeaponController();
@@ -123,7 +135,10 @@ public enum ChaserShipBuilder {
 
     public IEnemyShip buildActV(final GameplayStage stage) {
 
-        IEnemyShip ship = build(stage);
+        IEnemyShip ship = build(stage,
+                new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()),
+                        stage.getGameProgress().getImprovements().get(Improvement.FEAR)),
+                false);
         ship.setTexture(Textures.CHASER5.getTexture());
 
         IWeaponController controller = new AIWeaponController();
@@ -148,7 +163,8 @@ public enum ChaserShipBuilder {
 
     public IEnemyShip buildSuperActIV(final GameplayStage stage) {
 
-        IEnemyShip ship = build(stage);
+        IEnemyShip ship = build(stage,
+                new BaseEnemyShip(Consts.AttributesStarters.SUPER_CHASER.get(stage.getCurrentMission()), 0), true);
         ship.setTexture(Textures.CHASER4.getTexture());
 
         IWeaponController controller = new AIWeaponController();
@@ -168,7 +184,8 @@ public enum ChaserShipBuilder {
 
     public IEnemyShip buildSuperActV(final GameplayStage stage) {
 
-        IEnemyShip ship = build(stage);
+        IEnemyShip ship = build(stage,
+                new BaseEnemyShip(Consts.AttributesStarters.SUPER_CHASER.get(stage.getCurrentMission()), 0), true);
         ship.setTexture(Textures.CHASER5.getTexture());
 
         IWeaponController controller = new AIWeaponController();
@@ -186,26 +203,24 @@ public enum ChaserShipBuilder {
         return ship;
     }
 
-    private IEnemyShip build(final GameplayStage stage) {
+    private IEnemyShip build(final GameplayStage stage, final IEnemyShip ship, final boolean isSuper) {
 
-        IEnemyShip chaser = new BaseEnemyShip(Consts.AttributesStarters.CHASER.get(stage.getCurrentMission()),
-                stage.getGameProgress().getImprovements().get(Improvement.FEAR));
-        IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(chaser);
+        IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(ship);
         Explosion explosion = ExplosionsBuilder.INSTANCE.createFighterExplosion(stage);
 
-        Burner burner = BurnerBuilder.INSTANCE.build(chaser);
+        Burner burner = BurnerBuilder.INSTANCE.build(ship);
 
-        IPool energyPool = new Pool(chaser.getAttributes().get(Attribute.BATTERY));
-        IPool hpPool = new HpPool(chaser.getAttributes().get(Attribute.SHIELDS));
+        IPool energyPool = new Pool(ship.getAttributes().get(Attribute.BATTERY));
+        IPool hpPool = new HpPool(ship.getAttributes().get(Attribute.SHIELDS), (isSuper ? 0.2f : 1));
 
-        chaser.setActor(Factories.getActorFactory().create(chaser));
-        chaser.setShipEngine(engine);
-        chaser.setEnergyPool(energyPool);
-        chaser.setHpPool(hpPool);
-        chaser.setExplosion(explosion);
-        chaser.setBar(new EnemyBar(chaser));
-        chaser.setBurner(burner);
+        ship.setActor(Factories.getActorFactory().create(ship));
+        ship.setShipEngine(engine);
+        ship.setEnergyPool(energyPool);
+        ship.setHpPool(hpPool);
+        ship.setExplosion(explosion);
+        ship.setBar(new EnemyBar(ship));
+        ship.setBurner(burner);
 
-        return chaser;
+        return ship;
     }
 }

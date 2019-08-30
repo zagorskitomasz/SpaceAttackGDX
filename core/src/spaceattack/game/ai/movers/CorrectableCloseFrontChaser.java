@@ -18,6 +18,6 @@ public class CorrectableCloseFrontChaser extends CorrectableFrontChaser {
     @Override
     protected float getDistance() {
 
-        return Consts.AI.FRONT_CHASER_DISTANCE * 0.75f;
+        return Consts.AI.FRONT_CHASER_DISTANCE;
     }
 }

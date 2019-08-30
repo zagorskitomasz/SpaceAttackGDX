@@ -19,7 +19,6 @@ import spaceattack.game.stages.Stages;
 import spaceattack.game.system.Acts;
 import spaceattack.game.system.notifiers.INotifier;
 import spaceattack.game.system.notifiers.IObserver;
-import spaceattack.game.system.sound.Sounds;
 import spaceattack.game.weapons.MissilesLauncher;
 
 public class GameplayStage extends AbstractStage implements IObserver<GameProgress>, INotifier<GameplayStage> {
@@ -154,8 +153,6 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
     public void finalizeStage() {
 
-        Sounds.stopAll();
-
         StageResult result = new StageResult();
         result.setNextStage(chooseStage());
 
@@ -171,11 +168,32 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
     private Stages chooseStage() {
 
-        if (getGameProgress() != null && getGameProgress().getAttributes() != null
-                && getGameProgress().getAttributes().getFreePoints() > 0) {
+        if (won && newStuffAvailable()) {
             return Stages.MAIN_MENU;
         }
         return Stages.MISSIONS;
+    }
+
+    protected boolean newStuffAvailable() {
+
+        return freeAttributesAvailable() || freeImprovementsAvailable() || newWeaponAvailable();
+    }
+
+    private boolean newWeaponAvailable() {
+
+        return getGameProgress() != null && getGameProgress().isNewWeaponAvailable();
+    }
+
+    private boolean freeImprovementsAvailable() {
+
+        return getGameProgress() != null && getGameProgress().getImprovements() != null
+                && getGameProgress().getImprovements().getFreePoints() > 0;
+    }
+
+    protected boolean freeAttributesAvailable() {
+
+        return getGameProgress() != null && getGameProgress().getAttributes() != null
+                && getGameProgress().getAttributes().getFreePoints() > 0;
     }
 
     boolean isGameOver() {

@@ -49,7 +49,7 @@ public class SpaceAttackGDX extends ApplicationAdapter {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(final int width, final int height) {
 
         game.resize(width, height);
     }

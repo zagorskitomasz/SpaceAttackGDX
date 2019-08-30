@@ -51,7 +51,7 @@ public enum MajorBossShipBuilder {
                 boss.getAttributes().get(Attribute.ARMORY));
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.2f);
         boss.setHpPool(hpPool);
 
         controller.setPrimaryWeapon(targetedRedLaser);
@@ -81,7 +81,7 @@ public enum MajorBossShipBuilder {
                 boss.getAttributes().get(Attribute.ARMORY));
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.2f);
         boss.setHpPool(hpPool);
 
         controller.setPrimaryWeapon(distractedRedLaser);
@@ -111,7 +111,7 @@ public enum MajorBossShipBuilder {
                 boss.getAttributes().get(Attribute.ARMORY));
         IEngine engine = ShipEngineBuilder.INSTANCE.createFastDestinationEngine(boss);
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.2f);
         boss.setHpPool(hpPool);
 
         controller.setPrimaryWeapon(rocketMissile);
@@ -136,13 +136,13 @@ public enum MajorBossShipBuilder {
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
         IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher,
-                boss.getAttributes().get(Attribute.ARMORY));
+                (int) (boss.getAttributes().get(Attribute.ARMORY) * 1.5));
         IWeapon flamethrower = FlamethrowerBuilder.INSTANCE.build(controller, launcher,
                 boss.getAttributes().get(Attribute.ARMORY));
         flamethrower.setInterval(0.2f);
         IEngine engine = ShipEngineBuilder.INSTANCE.createFastDestinationEngine(boss);
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.2f);
         boss.setHpPool(hpPool);
 
         controller.setPrimaryWeapon(timeWaveEmitter);
@@ -173,7 +173,7 @@ public enum MajorBossShipBuilder {
         IWeapon shield = ShieldBuilder.INSTANCE.build(controller, launcher, boss.getAttributes().get(Attribute.ARMORY));
         IEngine engine = ShipEngineBuilder.INSTANCE.createDestinationEngine(boss);
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.2f);
         boss.setHpPool(hpPool);
 
         controller.setSecondaryWeapon(miner);

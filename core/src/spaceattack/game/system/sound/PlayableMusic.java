@@ -11,7 +11,7 @@ import spaceattack.game.system.Acts;
 
 class PlayableMusic {
 
-    private static final int MAX_VOLUME = 70;
+    private static final int MAX_VOLUME = 85;
 
     private final IMusic music;
     private final AtomicBoolean isFadingOut;

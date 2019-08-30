@@ -141,7 +141,7 @@ public enum MinorBossShipBuilder {
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
         IWeapon shieldEmitter = ShieldBuilder.INSTANCE.build(controller, launcher,
-                boss.getAttributes().get(Attribute.ARMORY));
+                boss.getAttributes().get(Attribute.ARMORY) * 3);
         IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher,
                 boss.getAttributes().get(Attribute.ARMORY));
 
@@ -204,7 +204,7 @@ public enum MinorBossShipBuilder {
 
         Burner burner = BurnerBuilder.INSTANCE.build(boss);
 
-        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS));
+        IPool hpPool = new HpPool(boss.getAttributes().get(Attribute.SHIELDS), 0.2f);
 
         boss.setActor(Factories.getActorFactory().create(boss));
         boss.setHpPool(hpPool);

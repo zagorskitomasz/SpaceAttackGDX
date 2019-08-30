@@ -47,8 +47,8 @@ public class PoolTest {
     @Test
     public void defaultValues() {
 
-        assertEquals(50, pool.getAmount(), 0);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(60, pool.getAmount(), 0);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -56,8 +56,8 @@ public class PoolTest {
 
         pool.take(15);
 
-        assertEquals(35, pool.getAmount(), 0);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(45, pool.getAmount(), 0);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -77,8 +77,8 @@ public class PoolTest {
 
         pool.take(65);
 
-        assertEquals(50, pool.getAmount(), 0);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(60, pool.getAmount(), 0);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -87,8 +87,8 @@ public class PoolTest {
         pool.take(15);
         pool.update();
 
-        assertEquals(36, pool.getAmount(), 0);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(46, pool.getAmount(), 0);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -98,8 +98,8 @@ public class PoolTest {
         pool.update();
         pool.update();
 
-        assertEquals(6, pool.getAmount(), 0);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(16, pool.getAmount(), 0);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -110,8 +110,8 @@ public class PoolTest {
         Thread.sleep(1000 / Pool.UPDATES_PER_SECOND + 10);
         pool.update();
 
-        assertEquals(7, pool.getAmount(), 0);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(17, pool.getAmount(), 0);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class PoolTest {
         pool.registerObserver(observer);
         pool.take(10);
 
-        verify(observer).notify(0.8f);
+        verify(observer).notify(0.8333333f);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class PoolTest {
         pool.registerObserver(observer);
         pool.update();
 
-        verify(observer).notify(0.42f);
+        verify(observer).notify(0.51666665f);
     }
 
     @Test
@@ -148,8 +148,8 @@ public class PoolTest {
 
         pool.update();
 
-        assertEquals(50, pool.getAmount(), 0);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(60, pool.getAmount(), 0);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -159,7 +159,7 @@ public class PoolTest {
         pool.update();
 
         assertEquals(0, pool.getAmount(), 0);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test
@@ -170,7 +170,7 @@ public class PoolTest {
 
         pool.take(15);
 
-        assertEquals(50, pool.getAmount(), 0);
+        assertEquals(60, pool.getAmount(), 0);
     }
 
     @Test
@@ -182,7 +182,7 @@ public class PoolTest {
         pool.take(15);
         pool.take(12);
 
-        assertEquals(38, pool.getAmount(), 0);
+        assertEquals(48, pool.getAmount(), 0);
     }
 
     @Test
@@ -195,7 +195,7 @@ public class PoolTest {
         pool.take(12);
         pool.take(12);
 
-        assertEquals(26, pool.getAmount(), 0);
+        assertEquals(36, pool.getAmount(), 0);
     }
 
     @Test
@@ -211,7 +211,7 @@ public class PoolTest {
 
         pool.take(12);
 
-        assertEquals(50, pool.getAmount(), 0);
+        assertEquals(60, pool.getAmount(), 0);
     }
 
     @Test
@@ -222,8 +222,8 @@ public class PoolTest {
         pool.take(15);
         pool.update();
 
-        assertEquals(36.8, pool.getAmount(), 0.01);
-        assertEquals(50, pool.getMaxAmount(), 0);
+        assertEquals(46.8, pool.getAmount(), 0.01);
+        assertEquals(60, pool.getMaxAmount(), 0);
     }
 
     @Test

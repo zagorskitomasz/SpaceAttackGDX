@@ -53,7 +53,7 @@ public class AcceleratorTest {
     @Test
     public void whenNotTouchedVerticalAccIsZero() {
 
-        doReturn(null).when(processor).getTouch();
+        doReturn(null).when(processor).getTouch(0);
 
         accelerator.act(0);
         assertEquals(0, accelerator.getVerticalAcceleration(), 0);
@@ -62,7 +62,7 @@ public class AcceleratorTest {
     @Test
     public void whenTouchOutOfButtonVerticalAccIsZero() {
 
-        doReturn(vector).when(processor).getTouch();
+        doReturn(vector).when(processor).getTouch(0);
         doReturn(factory.create(200, 200)).when(button).screenToStageCoordinates(nullable(IVector.class));
 
         accelerator.act(0);
@@ -72,7 +72,7 @@ public class AcceleratorTest {
     @Test
     public void whenTouchedVerticalAccIsPercentOfUpperButtonPart() {
 
-        doReturn(vector).when(processor).getTouch();
+        doReturn(vector).when(processor).getTouch(0);
         doReturn(factory.create(50, 70)).when(button).screenToStageCoordinates(nullable(IVector.class));
 
         accelerator.act(0);
@@ -82,7 +82,7 @@ public class AcceleratorTest {
     @Test
     public void whenTouchedVerticalBrakeIsPercentOfLowerButtonPart() {
 
-        doReturn(vector).when(processor).getTouch();
+        doReturn(vector).when(processor).getTouch(0);
         doReturn(factory.create(50, 35)).when(button).screenToStageCoordinates(nullable(IVector.class));
 
         accelerator.act(0);
@@ -92,7 +92,7 @@ public class AcceleratorTest {
     @Test
     public void onButtonTouchItIsRemembered() {
 
-        doReturn(vector).when(processor).getTouch();
+        doReturn(vector).when(processor).getTouch(0);
         doReturn(factory.create(50, 70)).when(button).screenToStageCoordinates(nullable(IVector.class));
 
         accelerator.act(0);
@@ -102,7 +102,7 @@ public class AcceleratorTest {
     @Test
     public void ifNoTouchButtonIsReleased() {
 
-        doReturn(null).when(processor).getTouch();
+        doReturn(null).when(processor).getTouch(0);
 
         accelerator.act(0);
         verify(button).release();
@@ -111,7 +111,7 @@ public class AcceleratorTest {
     @Test
     public void touchedLeftPartOfButton() {
 
-        doReturn(vector).when(processor).getTouch();
+        doReturn(vector).when(processor).getTouch(0);
         doReturn(factory.create(25, 70)).when(button).screenToStageCoordinates(nullable(IVector.class));
 
         accelerator.act(0);
@@ -121,7 +121,7 @@ public class AcceleratorTest {
     @Test
     public void keepingOutOfButton() {
 
-        doReturn(vector).when(processor).getTouch();
+        doReturn(vector).when(processor).getTouch(0);
         doReturn(factory.create(140, 50)).when(button).screenToStageCoordinates(nullable(IVector.class));
         doReturn(true).when(button).wasNotReleased();
 
@@ -132,7 +132,7 @@ public class AcceleratorTest {
     @Test
     public void cornerIsNormalized() {
 
-        doReturn(vector).when(processor).getTouch();
+        doReturn(vector).when(processor).getTouch(0);
         doReturn(factory.create(0, 0)).when(button).screenToStageCoordinates(nullable(IVector.class));
 
         accelerator.act(0);
@@ -142,7 +142,7 @@ public class AcceleratorTest {
     @Test
     public void randomLongVectorsAreNormalized() {
 
-        doReturn(vector).when(processor).getTouch();
+        doReturn(vector).when(processor).getTouch(0);
         doReturn(factory.create(95, 85)).when(button).screenToStageCoordinates(nullable(IVector.class));
 
         accelerator.act(0);

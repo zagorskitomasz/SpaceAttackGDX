@@ -77,7 +77,7 @@ public class MusicPlayerTest {
         Thread.sleep(2000);
 
         verify(menuMusic).play();
-        verify(menuMusic, times(71)).setVolume(anyFloat());
+        verify(menuMusic, times(86)).setVolume(anyFloat());
         doReturn(true).when(menuMusic).isPlaying();
 
         player.playAct(Acts.I);

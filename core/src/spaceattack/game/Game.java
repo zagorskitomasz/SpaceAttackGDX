@@ -42,6 +42,7 @@ class Game implements IGame {
     @Override
     public void create() {
 
+        extUtils.init();
         loadMedia();
         StageResult defaultResult = prepareInitialResult();
         stage = stageBuilder.getStage(defaultResult);

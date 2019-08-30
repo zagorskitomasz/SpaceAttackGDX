@@ -42,6 +42,20 @@ public class GameProgressTest {
     }
 
     @Test
+    public void addingExperienceOverTwoBreakpointsIsIncreasingTwoLevels() {
+
+        progress.addExperience(Experience.INSTANCE.expForLevel(3) + 1);
+        assertEquals(3, progress.getLevel());
+    }
+
+    @Test
+    public void addingExperienceOverMultipleBreakpointsIsIncreasingMultipleLevels() {
+
+        progress.addExperience(Experience.INSTANCE.expForLevel(5) + 1);
+        assertEquals(5, progress.getLevel());
+    }
+
+    @Test
     public void equalObjectsHasSameProperties() {
 
         progress.setExperience(100l);
@@ -76,7 +90,7 @@ public class GameProgressTest {
         progress.setMission(2);
         progress.missionCompleted(3);
 
-        assertEquals(4, (int) progress.getMission());
+        assertEquals(4, progress.getMission());
     }
 
     @Test
@@ -85,6 +99,6 @@ public class GameProgressTest {
         progress.setMission(4);
         progress.missionCompleted(3);
 
-        assertEquals(4, (int) progress.getMission());
+        assertEquals(4, progress.getMission());
     }
 }

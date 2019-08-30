@@ -33,7 +33,13 @@ public class MainMenuStageBuilder implements IStageBuilder {
         StaticImage logo = StaticImageFactory.INSTANCE.create(Textures.LOGO.getTexture(), 0, Sizes.GAME_HEIGHT * 0.03f);
 
         ILabel playerLabel = Factories.getUtilsFactory().create().createMenuLabel(progress.getPlayerName(),
-                Sizes.GAME_HEIGHT * 0.68f, 0x00ff00ff);
+                Sizes.GAME_HEIGHT * 0.71f, 0x00ff00ff);
+
+        ILabel levelLabel = Factories.getUtilsFactory().create().createBarLabel();
+        levelLabel.setText("Ship level: " + progress.getLevel());
+        levelLabel.pack();
+        levelLabel.setY(Sizes.GAME_HEIGHT * 0.66f);
+        levelLabel.setX((Sizes.GAME_WIDTH - levelLabel.getWidth()) * 0.5f);
 
         IButton missionsButton = MenuButtonsBuilder.INSTANCE.missionsMenuButton(stage);
         IButton statsButton = MenuButtonsBuilder.INSTANCE.statsMenuButton(stage,
@@ -46,6 +52,7 @@ public class MainMenuStageBuilder implements IStageBuilder {
         stage.addBackground(background);
         stage.addActorBeforeGUI(logo);
         stage.addActor(new GameplayLabel(playerLabel));
+        stage.addActor(new GameplayLabel(levelLabel));
         stage.addActor(missionsButton);
         stage.addActor(statsButton);
         stage.addActor(skillsButton);

@@ -202,20 +202,42 @@ public class InputShipEngine extends AbstractShipEngine {
         float oldSpeedVertical = currentSpeedVertical;
         float oldSpeedHorizontal = currentSpeedHorizontal;
 
-        boolean horizontal = !isNearLeftEdge() && !isNearRightEdge();
-        boolean vertical = !isNearLowerEdge() && !isNearUpperEdge();
+        speedUp();
+        useAdditionalFactor();
 
-        speedUp(horizontal, vertical);
-        useAdditionalFactor(horizontal, vertical);
+        float newYPos = ship.getY() + currentSpeedVertical;
+        float newXPos = ship.getX() + currentSpeedHorizontal;
 
-        ship.setY(ship.getY() + currentSpeedVertical);
-        ship.setX(ship.getX() + currentSpeedHorizontal);
+        if (newYPos > Sizes.GAME_HEIGHT - Sizes.UPPER_MARGIN) {
+            ship.setY(Sizes.GAME_HEIGHT - Sizes.UPPER_MARGIN);
+            currentSpeedVertical = 0;
+        }
+        else
+            if (newYPos < Sizes.DOWN_MARGIN) {
+                ship.setY(Sizes.DOWN_MARGIN);
+                currentSpeedVertical = 0;
+            }
+            else {
+                ship.setY(ship.getY() + currentSpeedVertical);
+                currentSpeedVertical = oldSpeedVertical;
+            }
 
-        currentSpeedVertical = oldSpeedVertical;
-        currentSpeedHorizontal = oldSpeedHorizontal;
+        if (newXPos > Sizes.GAME_WIDTH - Sizes.SIDE_MARGIN) {
+            ship.setX(Sizes.GAME_WIDTH - Sizes.SIDE_MARGIN);
+            currentSpeedHorizontal = 0;
+        }
+        else
+            if (newXPos < Sizes.SIDE_MARGIN) {
+                ship.setX(Sizes.SIDE_MARGIN);
+                currentSpeedHorizontal = 0;
+            }
+            else {
+                ship.setX(ship.getX() + currentSpeedHorizontal);
+                currentSpeedHorizontal = oldSpeedHorizontal;
+            }
     }
 
-    private void speedUp(final boolean horizontal, final boolean vertical) {
+    private void speedUp() {
 
         if (energySource == null || sprintFactor <= 0) {
             return;
@@ -228,15 +250,11 @@ public class InputShipEngine extends AbstractShipEngine {
         if (!energySource.test(energyRequired)) {
             return;
         }
-        if (horizontal) {
-            currentSpeedHorizontal *= factor * 1.5;
-        }
-        if (vertical) {
-            currentSpeedVertical *= factor * 1.5;
-        }
+        currentSpeedHorizontal *= factor * 1.5;
+        currentSpeedVertical *= factor * 1.5;
     }
 
-    private void useAdditionalFactor(final boolean horizontal, final boolean vertical) {
+    private void useAdditionalFactor() {
 
         if (additionalSpeedFactor == null) {
             return;
@@ -247,12 +265,8 @@ public class InputShipEngine extends AbstractShipEngine {
             return;
         }
 
-        if (horizontal) {
-            currentSpeedHorizontal *= factor;
-        }
-        if (vertical) {
-            currentSpeedVertical *= factor;
-        }
+        currentSpeedHorizontal *= factor;
+        currentSpeedVertical *= factor;
     }
 
     private float brakingWay(final float currentSpeed) {
