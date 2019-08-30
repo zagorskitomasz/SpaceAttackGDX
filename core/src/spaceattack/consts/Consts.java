@@ -23,8 +23,8 @@ public class Consts {
         public static final float ROCKET_ATTACKS_PER_SECOND = 1;
         public static final float MINE_ATTACKS_PER_SECOND = 1;
         public static final float SLOW_MINE_ATTACKS_PER_SECOND = 0.5f;
-        public static final float SHIELD_ATTACKS_PER_SECOND = 3;
-        public static final float TIME_WAVE_ATTACKS_PER_SECOND = 1f;
+        public static final float SHIELD_ATTACKS_PER_SECOND = 1;
+        public static final float TIME_WAVE_ATTACKS_PER_SECOND = 0.5f;
 
         public static final float RED_LASER_DMG_PER_ATTR = 1;
         public static final float RED_LASER_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
@@ -38,7 +38,7 @@ public class Consts {
         public static final float DISTRACTED_RED_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float DISTRACTED_RED_COST_PER_ATTR = 2;
 
-        public static final float MASSIVE_RED_DMG_PER_ATTR = 0.7f;
+        public static final float MASSIVE_RED_DMG_PER_ATTR = 0.5f;
         public static final float MASSIVE_RED_SPEED_PER_ATTR = 1 * Sizes.Y_FACTOR;
         public static final float MASSIVE_RED_COST_PER_ATTR = 2;
 
@@ -179,23 +179,24 @@ public class Consts {
 
     public static class AttributesStarters {
 
-        public static final Starter FIGHTER = new Starter(3, 4, 5, 5, 1.5f, 2f, 1.2f, 1);
-        public static final Starter CHASER = new Starter(5, 2, 5, 7, 1.2f, 1.7f, 1, 1.5f);
-        public static final Starter TANK = new Starter(5, 6, 5, 3, 1.4f, 3f, 1, 0.5f);
+        public static final Starter FIGHTER = new Starter(3, 4, 5, 5, 2f, 3f, 1.2f, 1);
+        public static final Starter CHASER = new Starter(5, 2, 5, 7, 1.2f, 2.2f, 1, 1.5f);
+        public static final Starter SUPER_CHASER = new Starter(10, 50, 5, 7, 2f, 20, 1, 1.5f);
+        public static final Starter TANK = new Starter(5, 6, 5, 3, 1.7f, 4.5f, 1, 0.5f);
 
         public static final Starter MINOR_AI = new Starter(10, 25, 10, 5, 2, 8, 5, 1);
         public static final Starter MINOR_AII = new Starter(10, 30, 15, 5, 2, 10, 5, 1);
-        public static final Starter MINOR_AIII = new Starter(10, 50, 20, 5, 2, 10, 5, 1);
-        public static final Starter MINOR_AIV = new Starter(10, 50, 25, 5, 2, 15, 5, 1);
-        public static final Starter MINOR_AV = new Starter(10, 50, 30, 5, 2, 15, 5, 1);
+        public static final Starter MINOR_AIII = new Starter(10, 50, 15, 5, 2, 10, 5, 1);
+        public static final Starter MINOR_AIV = new Starter(10, 60, 25, 5, 2, 15, 5, 1);
+        public static final Starter MINOR_AV = new Starter(20, 90, 30, 5, 8, 22, 5, 1);
 
-        public static final Starter MAJOR_AI = new Starter(10, 25, 25, 5, 2, 7, 5, 1);
+        public static final Starter MAJOR_AI = new Starter(10, 35, 25, 5, 2, 10, 5, 1);
         public static final Starter MAJOR_AII = new Starter(10, 50, 30, 5, 2, 10, 5, 1);
-        public static final Starter MAJOR_AIII = new Starter(10, 70, 35, 5, 2, 15, 5, 1);
-        public static final Starter MAJOR_AIV = new Starter(10, 70, 40, 5, 2, 20, 5, 1);
-        public static final Starter MAJOR_AV = new Starter(10, 70, 45, 5, 2, 20, 5, 1);
+        public static final Starter MAJOR_AIII = new Starter(20, 90, 35, 5, 4, 20, 5, 1);
+        public static final Starter MAJOR_AIV = new Starter(10, 90, 40, 5, 1.5f, 20, 5, 1);
+        public static final Starter MAJOR_AV = new Starter(10, 100, 45, 5, 3, 20, 5, 1);
 
-        public static final Starter SPACE_STATION = new Starter(10, 500, 50, 5, 5, 150, 10, 1);
+        public static final Starter SPACE_STATION = new Starter(10, 300, 50, 5, 4.5f, 90, 10, 1);
         public static final Starter STATION_HELPER_I = new Starter(10, 150, 50, 5, 5, 50, 10, 1);
         public static final Starter STATION_HELPER_II = new Starter(10, 150, 50, 5, 5, 50, 10, 1);
 

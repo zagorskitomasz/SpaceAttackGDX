@@ -49,7 +49,7 @@ public interface IUtils {
 
     ILabel createSmallMenuLabel(String text, float yPos, int color);
 
-    IVector getTouch();
+    IVector getTouch(int pointer);
 
     void infoDialog(String caption, String info, IStage stage);
 

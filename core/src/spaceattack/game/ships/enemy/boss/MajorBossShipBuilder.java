@@ -136,7 +136,7 @@ public enum MajorBossShipBuilder {
         MissilesLauncher launcher = stage.getMissilesLauncher();
         IWeaponController controller = new AIWeaponController();
         IWeapon timeWaveEmitter = TimeWaveEmitterBuilder.INSTANCE.build(controller, launcher,
-                boss.getAttributes().get(Attribute.ARMORY));
+                (int) (boss.getAttributes().get(Attribute.ARMORY) * 1.5));
         IWeapon flamethrower = FlamethrowerBuilder.INSTANCE.build(controller, launcher,
                 boss.getAttributes().get(Attribute.ARMORY));
         flamethrower.setInterval(0.2f);

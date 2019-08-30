@@ -13,6 +13,7 @@ import spaceattack.game.factories.Factories;
 import spaceattack.game.powerup.IPowerUp;
 import spaceattack.game.rpg.Attributes;
 import spaceattack.game.ships.Ship;
+import spaceattack.game.system.FrameController;
 import spaceattack.game.system.graphics.ITexture;
 import spaceattack.game.system.graphics.Textures;
 import spaceattack.game.weapons.IWeaponController;
@@ -29,13 +30,16 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
 
     private EnemyBar bar;
     protected final Attributes attributes;
+
     private float fearFactor;
     private boolean feared;
     private final ITexture fearEffect = Textures.FEAR.getTexture();
+    private final FrameController fearChecksController;
 
     public BaseEnemyShip(final Attributes attributes, final float fear) {
 
         this.attributes = attributes;
+        fearChecksController = new FrameController(Factories.getUtilsFactory().create(), 1.5f);
         initFear(fear);
     }
 
@@ -189,7 +193,7 @@ public class BaseEnemyShip extends Ship implements IEnemyShip {
 
     private void fear() {
 
-        if (feared()) {
+        if (fearChecksController.check() && feared()) {
             feared = true;
             escape();
         }

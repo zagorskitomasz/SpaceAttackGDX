@@ -26,7 +26,7 @@ public class IntroStage extends GameplayStage {
 
         super.act(delta);
 
-        if (utils.getTouch() != null) {
+        if (utils.getTouch(0) != null) {
             touched++;
             if (touched > 10) {
                 finalizeStage();

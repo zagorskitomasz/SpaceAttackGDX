@@ -11,12 +11,13 @@ import spaceattack.game.utils.vector.IVectorFactory;
 
 public class Accelerator implements IGameActor, IAccelerator {
 
-    private IVectorFactory factory;
+    private final IVectorFactory factory;
     private IProgressButton button;
     private IGameplayInput processor;
     private float acceleratorYPercent;
     private float acceleratorXPercent;
     private IVector center;
+    private int currentPointer;
 
     public Accelerator() {
 
@@ -29,37 +30,39 @@ public class Accelerator implements IGameActor, IAccelerator {
         return button;
     }
 
-    public void setProgressButton(IProgressButton progressButton) {
+    public void setProgressButton(final IProgressButton progressButton) {
 
         button = progressButton;
         center = factory.create(0, 0);
     }
 
-    public void setInputProcessor(IGameplayInput processor) {
+    public void setInputProcessor(final IGameplayInput processor) {
 
         this.processor = processor;
     }
 
     @Override
-    public void act(float delta) {
+    public void act(final float delta) {
 
-        IVector touch = processor.getTouch();
-        if (touch == null) {
+        boolean isCurrentPointerStillTouched = false;
+        for (int pointer = 0; pointer < 20; pointer++) {
+            IVector touch = processor.getTouch(pointer);
+            if ((currentPointer == pointer || currentPointer < 0) && touch != null) {
+                isCurrentPointerStillTouched = true;
+                IVector screenTouch = button.screenToStageCoordinates(touch);
+                if (isButtonPressed(screenTouch) || button.wasNotReleased()) {
+                    acceleratorYPercent = ((screenTouch.getY() - button.getY()) * 100 / button.getHeight()) * 2 - 100;
+                    acceleratorXPercent = ((screenTouch.getX() - button.getX()) * 100 / button.getWidth()) * 2 - 100;
+                    normalize();
+                    currentPointer = pointer;
+                }
+            }
+        }
+        if (!isCurrentPointerStillTouched) {
             acceleratorYPercent = 0;
             acceleratorXPercent = 0;
             button.release();
-        }
-        else {
-            IVector screenTouch = button.screenToStageCoordinates(touch);
-            if (isButtonPressed(screenTouch) || button.wasNotReleased()) {
-                acceleratorYPercent = ((screenTouch.getY() - button.getY()) * 100 / button.getHeight()) * 2 - 100;
-                acceleratorXPercent = ((screenTouch.getX() - button.getX()) * 100 / button.getWidth()) * 2 - 100;
-                normalize();
-            }
-            else {
-                acceleratorYPercent = 0;
-                acceleratorXPercent = 0;
-            }
+            currentPointer = -1;
         }
         float buttonX = (acceleratorXPercent * button.getWidth()) / 200 + button.getX() + button.getWidth() / 2;
         float buttonY = (acceleratorYPercent * button.getHeight()) / 200 + button.getY() + button.getHeight() / 2;
@@ -77,13 +80,14 @@ public class Accelerator implements IGameActor, IAccelerator {
         }
     }
 
-    private boolean isButtonPressed(IVector screenTouch) {
+    private boolean isButtonPressed(final IVector screenTouch) {
 
         boolean touched = screenTouch.getX() >= button.getX() && screenTouch.getX() <= button.getX() + button.getWidth()
                 && screenTouch.getY() >= button.getY() && screenTouch.getY() <= button.getY() + button.getHeight();
 
-        if (touched)
+        if (touched) {
             button.keep();
+        }
 
         return touched;
     }
@@ -101,13 +105,13 @@ public class Accelerator implements IGameActor, IAccelerator {
     }
 
     @Override
-    public void setActor(IActor actor) {
+    public void setActor(final IActor actor) {
 
         // do nothing
     }
 
     @Override
-    public void draw(IBatch batch, float alpha) {
+    public void draw(final IBatch batch, final float alpha) {
 
         // do nothing
     }

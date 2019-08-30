@@ -11,7 +11,7 @@ import spaceattack.game.utils.vector.IVector;
 
 public class MissionInputHandler implements IGameplayInput {
 
-    private Set<IFireButton> buttons;
+    private final Set<IFireButton> buttons;
     private IUtils utils;
 
     public MissionInputHandler() {
@@ -20,28 +20,29 @@ public class MissionInputHandler implements IGameplayInput {
     }
 
     @Override
-    public void setUtils(IUtils utils) {
+    public void setUtils(final IUtils utils) {
 
         this.utils = utils;
     }
 
     @Override
-    public void registerShip(IShip ship) {
+    public void registerShip(final IShip ship) {
 
         IPool pool = ship.getEnergyPool();
 
-        for (IFireButton button : buttons)
+        for (IFireButton button : buttons) {
             button.setEnergyPool(pool);
+        }
     }
 
     @Override
-    public void registerFireButton(IFireButton button) {
+    public void registerFireButton(final IFireButton button) {
 
         buttons.add(button);
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(final int screenX, final int screenY, final int pointer, final int button) {
 
         for (IFireButton fireButton : buttons) {
             fireButton.touchDown(screenX, screenY);
@@ -51,18 +52,19 @@ public class MissionInputHandler implements IGameplayInput {
     }
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    public boolean touchUp(final int screenX, final int screenY, final int pointer, final int button) {
 
         for (IFireButton fireButton : buttons) {
-            if (fireButton.touchUp(screenX, screenY))
+            if (fireButton.touchUp(screenX, screenY)) {
                 return true;
+            }
         }
         return true;
     }
 
     @Override
-    public IVector getTouch() {
+    public IVector getTouch(final int pointer) {
 
-        return utils.getTouch();
+        return utils.getTouch(pointer);
     }
 }

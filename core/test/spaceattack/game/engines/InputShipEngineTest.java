@@ -111,7 +111,7 @@ public class InputShipEngineTest {
     public void slowDownNearUpperEdgeOfScreen() {
 
         engine.currentSpeedVertical = 10;
-        ship.setY(Sizes.GAME_HEIGHT - 20);
+        ship.setY(Sizes.GAME_HEIGHT - 80);
         doReturn(100f).when(accelerator).getVerticalAcceleration();
 
         engine.fly();
@@ -135,7 +135,7 @@ public class InputShipEngineTest {
     public void slowDownWhenFlyingForwardButNoAcceleratorInput() {
 
         engine.currentSpeedVertical = 10;
-        ship.setY(40);
+        ship.setY(480);
         doReturn(0f).when(accelerator).getVerticalAcceleration();
 
         engine.fly();
@@ -147,7 +147,7 @@ public class InputShipEngineTest {
     public void slowDownWhenFlyingBackwardButNoAcceleratorInput() {
 
         engine.currentSpeedVertical = -10;
-        ship.setY(40);
+        ship.setY(480);
         doReturn(0f).when(accelerator).getVerticalAcceleration();
 
         engine.fly();
@@ -213,7 +213,7 @@ public class InputShipEngineTest {
     public void slowDownNearRightEdgeOfScreen() {
 
         engine.currentSpeedHorizontal = 10;
-        ship.setX(Sizes.GAME_WIDTH - 20);
+        ship.setX(Sizes.GAME_WIDTH - 80);
         doReturn(100f).when(accelerator).getHorizontalAcceleration();
 
         engine.fly();

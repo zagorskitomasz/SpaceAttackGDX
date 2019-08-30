@@ -168,11 +168,32 @@ public class GameplayStage extends AbstractStage implements IObserver<GameProgre
 
     private Stages chooseStage() {
 
-        if (getGameProgress() != null && getGameProgress().getAttributes() != null
-                && getGameProgress().getAttributes().getFreePoints() > 0) {
+        if (won && newStuffAvailable()) {
             return Stages.MAIN_MENU;
         }
         return Stages.MISSIONS;
+    }
+
+    protected boolean newStuffAvailable() {
+
+        return freeAttributesAvailable() || freeImprovementsAvailable() || newWeaponAvailable();
+    }
+
+    private boolean newWeaponAvailable() {
+
+        return getGameProgress() != null && getGameProgress().isNewWeaponAvailable();
+    }
+
+    private boolean freeImprovementsAvailable() {
+
+        return getGameProgress() != null && getGameProgress().getImprovements() != null
+                && getGameProgress().getImprovements().getFreePoints() > 0;
+    }
+
+    protected boolean freeAttributesAvailable() {
+
+        return getGameProgress() != null && getGameProgress().getAttributes() != null
+                && getGameProgress().getAttributes().getFreePoints() > 0;
     }
 
     boolean isGameOver() {

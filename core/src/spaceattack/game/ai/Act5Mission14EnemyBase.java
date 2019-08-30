@@ -54,7 +54,7 @@ public class Act5Mission14EnemyBase extends Act5EnemyBase {
         updateRadar();
 
         IEnemyShip chaser = super.buildSuperChaser(direction);
-        IPool hpPool = new HpPool(chaser.getAttributes().get(Attribute.SHIELDS) * 10);
+        IPool hpPool = new HpPool(chaser.getAttributes().get(Attribute.SHIELDS), 0.2f);
 
         chaser.setHpPool(hpPool);
 
