@@ -3,7 +3,7 @@ package spaceattack.game.system.sound;
 public enum MenuMusic implements Song {
     MENU("music/menu.mp3");
 
-    MenuMusic(String path) {
+    MenuMusic(final String path) {
 
         this.path = path;
     }

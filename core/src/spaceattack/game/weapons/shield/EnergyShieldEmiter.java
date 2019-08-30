@@ -69,6 +69,7 @@ public class EnergyShieldEmiter extends AbstractWeapon {
         shield.setAnimation(Animations.SHIELD.getAnimation());
         shield.setDmg(dmg * controller.getDamageFactor());
         shield.setEnergyCost(getEnergyCost());
+        shield.setPosition(controller.getShip().getPosition());
         shield.setPositionSupplier(() -> controller.getShip().getPosition());
         if (duration > 0) {
             long launched = utils.millis();
