@@ -45,6 +45,7 @@ public class CreatePlayerListenerTest {
 
         GameProgress progress = new GameProgress();
         progress.setPlayerName("Test");
+        progress.setSlot(2);
         StageResult expected = new StageResult();
         expected.setNextStage(Stages.MAIN_MENU);
         expected.setGameProgress(progress);

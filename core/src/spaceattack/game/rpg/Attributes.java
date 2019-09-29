@@ -15,8 +15,10 @@ public class Attributes {
 
         attributes = new HashMap<>();
 
-        Attribute.stream() //
-                .forEach(attrib -> attributes.put(attrib.name(), Attribute.MIN_VALUE));
+        attributes.put(Attribute.ARMORY.name(), Attribute.MIN_VALUE + 5);
+        attributes.put(Attribute.SHIELDS.name(), Attribute.MIN_VALUE);
+        attributes.put(Attribute.BATTERY.name(), Attribute.MIN_VALUE + 5);
+        attributes.put(Attribute.ENGINE.name(), Attribute.MIN_VALUE);
 
         lock = new ReentrantLock();
     }

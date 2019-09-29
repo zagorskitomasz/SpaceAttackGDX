@@ -172,7 +172,7 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
         boss.getWeaponController().setPrimaryWeapon(miner);
         boss.addWeapon(miner);
 
-        boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.33f);
+        boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.36f);
 
         return boss;
     }
@@ -225,20 +225,13 @@ public enum FinalBossBuilder implements IFinalBossShipBuilder {
 
         IBoss boss = buildBasicSpaceStation(stage, true);
 
-        FlyingMiner miner = (FlyingMiner) FlyingMinerBuilder.INSTANCE.build(boss.getWeaponController(),
-                stage.getMissilesLauncher(), boss.getAttributes().get(Attribute.ARMORY));
-        miner.setInterval(0.33f);
-        miner.setDistanceToShip(-0.2f);
-        boss.getWeaponController().setPrimaryWeapon(miner);
-        boss.addWeapon(miner);
-
         IWeapon timeWave = TimeWaveEmitterBuilder.INSTANCE.build(boss.getWeaponController(),
                 stage.getMissilesLauncher(), (int) (boss.getAttributes().get(Attribute.ARMORY) * 0.5f));
         timeWave.setInterval(0.14f);
-        boss.getWeaponController().setSecondaryWeapon(timeWave);
+        boss.getWeaponController().setPrimaryWeapon(timeWave);
         boss.addWeapon(timeWave);
 
-        boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.67f);
+        boss.getHpPool().take(boss.getHpPool().getMaxAmount() * 0.4f);
 
         return boss;
     }

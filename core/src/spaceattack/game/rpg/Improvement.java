@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 public enum Improvement implements Information {
 
     RED_LASER_MASTERY("Red laser mastery",
-            "Increases red laser damage\nLevel 4 - double shots\nLevel 8 - distracted shots", 1),
+            "Increases red laser damage\nLevel 4 - double shots\nLevel 8 - multiple shots", 1),
     REGENERATION("Regeneration", "You recover HP and energy faster", 1),
     GREEN_LASER_MASTERY("Green laser mastery", "Increases green laser damage\nLevel 5 - triple shots", 5),
     SNIPER("Sniper", "Increases laser missiles speed", 5),
@@ -16,7 +16,7 @@ public enum Improvement implements Information {
     ABSORBER("Absorber", "Transforms damage taken into energy", 15),
     FEAR("Fear", "Chance that hurt enemies\nwill escape", 20),
     BERSERKER("Berserker",
-            "You are slow, but each killed enemy\nstrongly increases your damage\nregen and missiles speed for short time",
+            "You are slow, but each killed enemy\nstrongly increases your damage,\nregen and missiles speed for short time",
             20);
 
     public static final int MIN_VALUE = 0;

@@ -94,6 +94,7 @@ public class Consts {
         public static final int BASE_AMMO = 3;
         public static final float FEAR_BASE = 0.2f;
         public static final float FEAR_PER_IMP = 0.03f;
+        public static final float MAX_MISSILE_MOVEMENT = Sizes.GAME_HEIGHT / 12;
     }
 
     public static class Gameplay {
@@ -179,10 +180,10 @@ public class Consts {
 
     public static class AttributesStarters {
 
-        public static final Starter FIGHTER = new Starter(3, 4, 5, 5, 2f, 3f, 1.2f, 1);
-        public static final Starter CHASER = new Starter(5, 2, 5, 7, 1.2f, 2.2f, 1, 1.5f);
+        public static final Starter FIGHTER = new Starter(3, 4, 5, 5, 2f, 4f, 1.2f, 1);
+        public static final Starter CHASER = new Starter(5, 2, 5, 7, 1.2f, 3f, 1, 1.5f);
         public static final Starter SUPER_CHASER = new Starter(10, 50, 5, 7, 2f, 20, 1, 1.5f);
-        public static final Starter TANK = new Starter(5, 6, 5, 3, 1.7f, 4.5f, 1, 0.5f);
+        public static final Starter TANK = new Starter(5, 6, 5, 3, 1.7f, 6f, 1, 0.5f);
 
         public static final Starter MINOR_AI = new Starter(10, 25, 10, 5, 2, 8, 5, 1);
         public static final Starter MINOR_AII = new Starter(10, 30, 15, 5, 2, 10, 5, 1);
@@ -197,8 +198,8 @@ public class Consts {
         public static final Starter MAJOR_AV = new Starter(10, 100, 45, 5, 3, 20, 5, 1);
 
         public static final Starter SPACE_STATION = new Starter(10, 300, 50, 5, 4.5f, 90, 10, 1);
-        public static final Starter STATION_HELPER_I = new Starter(10, 150, 50, 5, 5, 50, 10, 1);
-        public static final Starter STATION_HELPER_II = new Starter(10, 150, 50, 5, 5, 50, 10, 1);
+        public static final Starter STATION_HELPER_I = new Starter(8, 150, 50, 5, 4, 50, 10, 1);
+        public static final Starter STATION_HELPER_II = new Starter(8, 150, 50, 5, 4, 50, 10, 1);
 
         public static final Starter INTRO_STATION = new Starter(10, 50, 10, 1, 2, 5, 2, -0.3f);
     }

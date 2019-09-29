@@ -5,10 +5,10 @@ import java.util.stream.Stream;
 
 public enum Attribute implements Information {
 
-    ARMORY("Armory", "Increases damage of all ship weapons"),
-    SHIELDS("Shields", "Increases hit points"),
-    BATTERY("Battery", "Increases ship's energy"),
-    ENGINE("Engine", "Increases ship's speed,\nacceleration and agility");
+    ARMORY("Armory", "Your shots are deadlier"),
+    SHIELDS("Shields", "You are harder to kill"),
+    BATTERY("Battery", "You can shoot more often"),
+    ENGINE("Engine", "You are faster");
 
     public static final int MIN_VALUE = 15;
     public static final int POINTS_PER_LEVEL = 5;
