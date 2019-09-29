@@ -349,4 +349,10 @@ public class FakeShip implements IShip, IEnemyShip, IBoss {
 
         // do nothing
     }
+
+    @Override
+    public int getEnergyPercent() {
+
+        return 100;
+    }
 }

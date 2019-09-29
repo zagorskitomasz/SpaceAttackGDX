@@ -172,8 +172,10 @@ public class GameProgress implements INotifier<GameProgress> {
         newProgress.playerName = this.playerName;
         newProgress.specialWeapon = this.specialWeapon;
         newProgress.newWeaponAvailable = this.newWeaponAvailable;
+        newProgress.slot = this.slot;
         newProgress.attributes = this.attributes.clone();
         newProgress.improvements = this.improvements.clone();
+        observers.forEach(progressConsumer -> newProgress.observers.add(progressConsumer));
 
         return newProgress;
     }
@@ -200,6 +202,7 @@ public class GameProgress implements INotifier<GameProgress> {
         result = prime * result + mission;
         result = prime * result + (newWeaponAvailable ? 1231 : 1237);
         result = prime * result + ((playerName == null) ? 0 : playerName.hashCode());
+        result = prime * result + slot;
         result = prime * result + ((specialWeapon == null) ? 0 : specialWeapon.hashCode());
         return result;
     }
@@ -256,6 +259,9 @@ public class GameProgress implements INotifier<GameProgress> {
             if (!playerName.equals(other.playerName)) {
                 return false;
             }
+        if (slot != other.slot) {
+            return false;
+        }
         if (specialWeapon == null) {
             if (other.specialWeapon != null) {
                 return false;

@@ -2,6 +2,7 @@ package spaceattack.game.weapons.missiles;
 
 import java.util.List;
 
+import spaceattack.consts.Consts;
 import spaceattack.game.actors.IGameActor;
 import spaceattack.game.actors.interfaces.Freezable;
 import spaceattack.game.actors.interfaces.Vulnerable;
@@ -57,10 +58,20 @@ public class Missile extends AbstractMissile implements Freezable {
 
     protected void move() {
 
-        getActor().setX(getActor().getX() + movement.getX() * speed);
-        getActor().setY(getActor().getY() + movement.getY() * speed);
+        getActor().setX(getActor().getX() + limit(movement.getX() * speed));
+        getActor().setY(getActor().getY() + limit(movement.getY() * speed));
 
         speed += acceleration;
+    }
+
+    private float limit(final float movement) {
+
+        if (movement > 0) {
+            return Math.min(movement, Consts.Weapons.MAX_MISSILE_MOVEMENT);
+        }
+        else {
+            return Math.max(movement, Consts.Weapons.MAX_MISSILE_MOVEMENT * -1);
+        }
     }
 
     private void collision(final Vulnerable vulnerable) {

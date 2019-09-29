@@ -21,8 +21,8 @@ public class AttributesTest {
     @Test
     public void initialValuesAreMinValues() {
 
-        assertEquals(Attribute.MIN_VALUE, attributes.get(Attribute.ARMORY));
-        assertEquals(Attribute.MIN_VALUE, attributes.get(Attribute.BATTERY));
+        assertEquals(Attribute.MIN_VALUE + 5, attributes.get(Attribute.ARMORY));
+        assertEquals(Attribute.MIN_VALUE + 5, attributes.get(Attribute.BATTERY));
         assertEquals(Attribute.MIN_VALUE, attributes.get(Attribute.ENGINE));
         assertEquals(Attribute.MIN_VALUE, attributes.get(Attribute.SHIELDS));
     }

@@ -108,7 +108,7 @@ public class GameSaverTest {
 
         saver.save(progress);
         verify(file).writeString(
-                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne,attributes:{attributes:{BATTERY:16,ARMORY:17,ENGINE:15,SHIELDS:15},freePoints:2}}}}",
+                "{savedProgress:{2:{mission:3,level:5,experience:999888777666,playerName:PlayerOne,attributes:{attributes:{BATTERY:21,ARMORY:22,ENGINE:15,SHIELDS:15},freePoints:2}}}}",
                 false);
     }
 

@@ -11,14 +11,16 @@ import spaceattack.game.system.Acts;
 
 class PlayableMusic {
 
-    private static final int MAX_VOLUME = 85;
+    private static final int MAX_VOLUME = 100;
 
     private final IMusic music;
     private final AtomicBoolean isFadingOut;
+    private final AtomicBoolean isFadingIn;
 
     public PlayableMusic(final Song[] playlist, final Song nowPlaying, final Consumer<PlayableMusic> updater) {
 
         isFadingOut = new AtomicBoolean(false);
+        isFadingIn = new AtomicBoolean(false);
         Song song = chooseCurrentSong(playlist, nowPlaying);
 
         music = Factories.getMusicFactory().create(song.getPath());
@@ -40,6 +42,7 @@ class PlayableMusic {
             final BiConsumer<Acts, PlayableMusic> updater) {
 
         isFadingOut = new AtomicBoolean(false);
+        isFadingIn = new AtomicBoolean(false);
         Song song = chooseCurrentSong(playlist, nowPlaying);
 
         music = Factories.getMusicFactory().create(song.getPath());
@@ -88,18 +91,12 @@ class PlayableMusic {
     public void fadeIn() {
 
         new Thread(() -> {
-            if (isFadingOut.get()) {
-                try {
-                    Thread.sleep(2000);
-                }
-                catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+            isFadingOut.set(false);
+            isFadingIn.set(true);
             music.setVolume(0);
             music.play();
 
-            for (float i = 1; i <= MAX_VOLUME; i++) {
+            for (float i = 1; i <= MAX_VOLUME && isFadingIn.get(); i++) {
                 music.setVolume(i / 100);
                 try {
                     Thread.sleep(20);
@@ -108,6 +105,7 @@ class PlayableMusic {
                     e.printStackTrace();
                 }
             }
+            isFadingIn.set(false);
         }).start();
     }
 
@@ -119,7 +117,8 @@ class PlayableMusic {
 
         new Thread(() -> {
             isFadingOut.set(true);
-            for (float i = MAX_VOLUME; i >= 0; i--) {
+            isFadingIn.set(false);
+            for (float i = MAX_VOLUME; i >= 0 && isFadingOut.get(); i--) {
                 music.setVolume(i / 100);
                 try {
                     Thread.sleep(20);
@@ -128,9 +127,10 @@ class PlayableMusic {
                     e.printStackTrace();
                 }
             }
+            if (isFadingOut.get()) {
+                music.pause();
+            }
             isFadingOut.set(false);
-            music.pause();
-
         }).start();
     }
 

@@ -340,4 +340,10 @@ public abstract class Ship extends DrawableActor implements IShip {
 
         this.berserkGainer = berserkGainer;
     }
+
+    @Override
+    public int getEnergyPercent() {
+
+        return (int) (energyPool == null ? 0 : energyPool.getAmount() * 100 / energyPool.getMaxAmount());
+    }
 }
